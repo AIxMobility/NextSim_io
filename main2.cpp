@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string>
 
+#include "headers/InputLink.hpp"
+
 using namespace std;
 
 enum SuccessEnum
@@ -51,17 +53,17 @@ SuccessEnum loadXML()
 
                         if (strncmp(e2->Attribute("type"), "intersection", 2) == 0)
                         {
-                            cout << "Got INTERSECTION node with id:" << " " << e2->Attribute("id") << endl;
+                            //cout << "Got INTERSECTION node with id:" << " " << e2->Attribute("id") << endl;
                         }
 
                         else if (strncmp(e2->Attribute("type"), "normal", 2) == 0)
                         {
-                            cout << "Got NORMAL node with id:" << " " << e2->Attribute("id") << endl;
+                            //cout << "Got NORMAL node with id:" << " " << e2->Attribute("id") << endl;
                         }
 
                         else if (strncmp(e2->Attribute("type"), "terminal", 2) == 0)
                         {
-                            cout << "Got TERMINAL node with id:" << " " << e2->Attribute("id") << endl;
+                            //cout << "Got TERMINAL node with id:" << " " << e2->Attribute("id") << endl;
                         }
                     }
                 }
@@ -72,7 +74,10 @@ SuccessEnum loadXML()
 
                     for (TiXmlElement *e2 = e->FirstChildElement(); e2 != NULL; e2 = e2->NextSiblingElement())
                     {
-                        cout << "LINk with id:" << " " << e2->Attribute("id") << endl;
+                        //cout << "LINk with id:" << " " << e2->Attribute("id") << endl;
+                        cout << atoi(e2->Attribute("id")) << endl;
+                        InputLink demoLink( atoi(e2->Attribute("id")), atoi(e2->Attribute("num_lane")), atoi(e2->Attribute("num_sect")));
+
                     }
                     //cout << "Got link:" << e->Attribute("id") << endl;
                     //cout << "   " << "type:" << e->Attribute("type") << endl;
@@ -89,8 +94,8 @@ SuccessEnum loadXML()
 
             for (TiXmlElement *e = elem->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
             {
-                cout << e->Attribute("type") << " veh with id: " << e->Attribute("id") << endl;
-                
+                //cout << e->Attribute("type") << " veh with id: " << e->Attribute("id") << endl;
+
             }
         }
 
