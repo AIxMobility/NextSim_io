@@ -4,6 +4,7 @@
 #include <string>
 
 #include "headers/InputLink.hpp"
+#include "headers/LinkArr.hpp"
 
 using namespace std;
 
@@ -77,7 +78,9 @@ SuccessEnum loadXML()
                         //cout << "LINk with id:" << " " << e2->Attribute("id") << endl;
                         cout << atoi(e2->Attribute("id")) << endl;
                         InputLink demoLink( atoi(e2->Attribute("id")), atoi(e2->Attribute("num_lane")), atoi(e2->Attribute("num_sect")));
+                        //cout << demoLink.getId() << endl;
 
+                        // Problem --> same class name generation in loop --> output variable is for the first class created **
                     }
                     //cout << "Got link:" << e->Attribute("id") << endl;
                     //cout << "   " << "type:" << e->Attribute("type") << endl;
