@@ -8,12 +8,16 @@
 class LinkArr
 {
 private:
-    InputLink *Links;
+    std::vector<InputLink> Links;
 
 public:
     LinkArr();
 
-    
+    //
+    void showArr();
+    void putLink(InputLink ele);
+
+
 };
 
 #endif

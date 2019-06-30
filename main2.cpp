@@ -73,19 +73,23 @@ SuccessEnum loadXML()
                 {
                     cout << "Got links" << endl;
 
+                    LinkArr links;
+
                     for (TiXmlElement *e2 = e->FirstChildElement(); e2 != NULL; e2 = e2->NextSiblingElement())
                     {
                         //cout << "LINk with id:" << " " << e2->Attribute("id") << endl;
-                        cout << atoi(e2->Attribute("id")) << endl;
+                        //cout << atoi(e2->Attribute("id")) << endl;
                         InputLink demoLink( atoi(e2->Attribute("id")), atoi(e2->Attribute("num_lane")), atoi(e2->Attribute("num_sect")));
                         //cout << demoLink.getId() << endl;
+                        //** this prints a single class object instance
+
+                        links.putLink(demoLink);
+                        //** this also prints a single class object instance
 
                         // Problem --> same class name generation in loop --> output variable is for the first class created **
                     }
-                    //cout << "Got link:" << e->Attribute("id") << endl;
-                    //cout << "   " << "type:" << e->Attribute("type") << endl;
-                    //cout << "   " << "num_lane:" << e->Attribute("num_lane") << endl;
-                    //cout << "   " << "num_sect:" << e->Attribute("num_sect") << endl;
+                    
+                    links.showArr();
                 }
 
             }
