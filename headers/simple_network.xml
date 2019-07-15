@@ -280,7 +280,7 @@
 
         <!--Individual Link Specification -->
         <links>
-            <link id="0" type="straight" num_lane="3" num_sect="2" max_spd="" min_spd="" length="200">
+            <link id="0" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
                 <lane id="0">
                 </lane>
                 <lane id="1">
@@ -289,7 +289,7 @@
                 </lane>
             </link>
 
-            <link id="1" type="straight" num_lane="3" num_sect="2" max_spd="" min_spd="" length="200">
+            <link id="1" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
                 <lane id="0">
                 </lane>
                 <lane id="1">
@@ -298,7 +298,7 @@
                 </lane>
             </link>
 
-            <link id="2" type="straight" num_lane="3" num_sect="2" max_spd="" min_spd="" length="200">
+            <link id="2" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
                 <lane id="0">
                 </lane>
                 <lane id="1">
@@ -307,7 +307,7 @@
                 </lane>
             </link>
 
-            <link id="3" type="straight" num_lane="3" num_sect="2" max_spd="" min_spd="" length="200">
+            <link id="3" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
                 <lane id="0">
                 </lane>
                 <lane id="1">
@@ -316,7 +316,7 @@
                 </lane>
             </link>
 
-            <link id="4" type="straight" num_lane="3" num_sect="2" max_spd="" min_spd="" length="200">
+            <link id="4" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
                 <lane id="0">
                 </lane>
                 <lane id="1">
@@ -325,7 +325,7 @@
                 </lane>
             </link>
 
-            <link id="5" type="straight" num_lane="3" num_sect="2" max_spd="" min_spd="" length="200">
+            <link id="5" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
                 <lane id="0">
                 </lane>
                 <lane id="1">
@@ -334,7 +334,7 @@
                 </lane>
             </link>
 
-            <link id="6" type="straight" num_lane="3" num_sect="2" max_spd="" min_spd="" length="200">
+            <link id="6" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
                 <lane id="0">
                 </lane>
                 <lane id="1">
@@ -343,7 +343,7 @@
                 </lane>
             </link>
 
-            <link id="7" type="straight" num_lane="3" num_sect="2" max_spd="" min_spd="" length="200">
+            <link id="7" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
                 <lane id="0">
                 </lane>
                 <lane id="1">
@@ -352,7 +352,7 @@
                 </lane>
             </link>
 
-            <link id="8" type="straight" num_lane="3" num_sect="2" max_spd="" min_spd="" length="200">
+            <link id="8" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
                 <lane id="0">
                 </lane>
                 <lane id="1">
@@ -361,7 +361,7 @@
                 </lane>
             </link>
 
-            <link id="9" type="straight" num_lane="3" num_sect="2" max_spd="" min_spd="" length="200">
+            <link id="9" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
                 <lane id="0">
                 </lane>
                 <lane id="1">
@@ -370,7 +370,7 @@
                 </lane>
             </link>
 
-            <link id="10" type="straight" num_lane="3" num_sect="2" max_spd="" min_spd="" length="200">
+            <link id="10" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
                 <lane id="0">
                 </lane>
                 <lane id="1">
@@ -379,7 +379,7 @@
                 </lane>
             </link>
 
-            <link id="11" type="straight" num_lane="3" num_sect="2" max_spd="" min_spd="" length="200">
+            <link id="11" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
                 <lane id="0">
                 </lane>
                 <lane id="1">
@@ -388,7 +388,7 @@
                 </lane>
             </link>
 
-            <link id="12" type="straight" num_lane="3" num_sect="2" max_spd="" min_spd="" length="200">
+            <link id="12" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
                 <lane id="0">
                 </lane>
                 <lane id="1">
@@ -397,7 +397,7 @@
                 </lane>
             </link>
 
-            <link id="13" type="straight" num_lane="3" num_sect="2" max_spd="" min_spd="" length="200">
+            <link id="13" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
                 <lane id="0">
                 </lane>
                 <lane id="1">
@@ -406,7 +406,7 @@
                 </lane>
             </link>
 
-            <link id="14" type="straight" num_lane="3" num_sect="2" max_spd="" min_spd="" length="200">
+            <link id="14" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
                 <lane id="0">
                 </lane>
                 <lane id="1">
@@ -415,7 +415,7 @@
                 </lane>
             </link>
 
-            <link id="15" type="straight" num_lane="3" num_sect="2" max_spd="" min_spd="" length="200">
+            <link id="15" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
                 <lane id="0">
                 </lane>
                 <lane id="1">
@@ -434,32 +434,32 @@
     <agents>
 
         <!--Normal Type Vehicles -->
-        <veh id="0" type="normal" gen_node="3" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
-        <veh id="1" type="normal" gen_node="3" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
-        <veh id="2" type="normal" gen_node="3" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
-        <veh id="3" type="normal" gen_node="3" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
-        <veh id="4" type="normal" gen_node="3" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
-        <veh id="5" type="normal" gen_node="8" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
-        <veh id="6" type="normal" gen_node="8" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
-        <veh id="7" type="normal" gen_node="8" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
+        <veh id="0" type="normal" link_seq="3" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
+        <veh id="1" type="normal" link_seq="3" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
+        <veh id="2" type="normal" link_seq="3" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
+        <veh id="3" type="normal" link_seq="3" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
+        <veh id="4" type="normal" link_seq="3" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
+        <veh id="5" type="normal" link_seq="8" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
+        <veh id="6" type="normal" link_seq="8" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
+        <veh id="7" type="normal" link_seq="8" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
 
 
-        <veh id="8" type="normal" gen_node="8" node_seq="8 1 0 3"/>
-        <veh id="9" type="normal" gen_node="8" node_seq="8 1 0 3"/>
-        <veh id="10" type="normal" gen_node="3" node_seq="3 0 1 8"/>
-        <veh id="11" type="normal" gen_node="3" node_seq="3 0 1 8"/>
-        <veh id="12" type="normal" gen_node="3" node_seq="3 0 1 8"/>
-        <veh id="13" type="normal" gen_node="3" node_seq="3 0 1 8"/>
-        <veh id="14" type="normal" gen_node="3" node_seq="3 0 1 8"/>
-        <veh id="15" type="normal" gen_node="3" node_seq="3 0 1 8"/>
-        <veh id="16" type="normal" gen_node="3" node_seq="3 0 1 8"/>
-        <veh id="17" type="normal" gen_node="8" node_seq="8 1 0 3"/>
-        <veh id="18" type="normal" gen_node="8" node_seq="8 1 0 3"/>
-        <veh id="19" type="normal" gen_node="8" node_seq="8 1 0 3"/>
-        <veh id="20" type="normal" gen_node="8" node_seq="8 1 0 3"/>
-        <veh id="21" type="normal" gen_node="3" node_seq="3 0 1 8"/>
-        <veh id="22" type="normal" gen_node="3" node_seq="3 0 1 8"/>
-        <veh id="23" type="normal" gen_node="3" node_seq="3 0 1 8"/>
+        <veh id="8" type="normal" link_seq="8" node_seq="8 1 0 3"/>
+        <veh id="9" type="normal" link_seq="8" node_seq="8 1 0 3"/>
+        <veh id="10" type="normal" link_seq="3" node_seq="3 0 1 8"/>
+        <veh id="11" type="normal" link_seq="3" node_seq="3 0 1 8"/>
+        <veh id="12" type="normal" link_seq="3" node_seq="3 0 1 8"/>
+        <veh id="13" type="normal" link_seq="3" node_seq="3 0 1 8"/>
+        <veh id="14" type="normal" link_seq="3" node_seq="3 0 1 8"/>
+        <veh id="15" type="normal" link_seq="3" node_seq="3 0 1 8"/>
+        <veh id="16" type="normal" link_seq="3" node_seq="3 0 1 8"/>
+        <veh id="17" type="normal" link_seq="8" node_seq="8 1 0 3"/>
+        <veh id="18" type="normal" link_seq="8" node_seq="8 1 0 3"/>
+        <veh id="19" type="normal" link_seq="8" node_seq="8 1 0 3"/>
+        <veh id="20" type="normal" link_seq="8" node_seq="8 1 0 3"/>
+        <veh id="21" type="normal" link_seq="3" node_seq="3 0 1 8"/>
+        <veh id="22" type="normal" link_seq="3" node_seq="3 0 1 8"/>
+        <veh id="23" type="normal" link_seq="3" node_seq="3 0 1 8"/>
 
     </agents>
 
