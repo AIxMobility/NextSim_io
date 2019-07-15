@@ -1,7 +1,6 @@
 #ifndef LINKARR_H
 #define LINKARR_H
 
-#pragma once
 #include <vector>
 #include "InputLink.hpp"
 
@@ -12,10 +11,11 @@ private:
 
 public:
     LinkArr();
-
-    //
+    
     void showArr();
-    void putLink(InputLink ele);
+
+    //access functions
+    std::vector<InputLink> getLinks() { return Links; }
 
 
 };

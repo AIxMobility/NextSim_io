@@ -1,0 +1,21 @@
+#pragma once
+#include <vector>
+#include <string>
+#include <iostream>
+
+class port
+{
+private:
+    int linkId;
+    int direction;
+    int type;
+
+public:
+    port(int id, int dir, int type);
+
+    //access functions
+    int getLinkId() { return linkId; }
+    int getDir() { return direction; }
+    int getType() { return type; }
+
+};
