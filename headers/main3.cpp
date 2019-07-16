@@ -4,8 +4,10 @@
 #include <string>
 
 #include "InputLink.hpp"
+#include "InputVeh.hpp"
 #include "LinkArr.hpp"
 #include "NodeArr.hpp"
+#include "VehArr.hpp"
 
 #include "intersection/port.hpp"
 #include "intersection/connection.hpp"
@@ -25,6 +27,8 @@ int main(int argc, char* argv[])
 
 	NodeArr holy_nodes;
 
+	VehArr holy_vehicles;
+
 
 	// Intersections Header Test
 
@@ -37,6 +41,11 @@ int main(int argc, char* argv[])
 	cout << "Threshold 2" << endl;
 
 	//holy_nodes.showArr();
+
+	cout << "Threshold 3" << endl;
+
+	holy_vehicles.showArr();
+	// WORKS
 
 
 	//Example: accessing the nodes attributes --> got to check the type first

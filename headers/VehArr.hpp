@@ -19,9 +19,7 @@ public:
     std::vector<InputVeh> getVeh() { return Vehicles; }
 
 
-}
-
-
+};
 
 
 #endif
