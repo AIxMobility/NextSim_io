@@ -434,32 +434,32 @@
     <agents>
 
         <!--Normal Type Vehicles -->
-        <veh id="0" type="normal" link_seq="3" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
-        <veh id="1" type="normal" link_seq="3" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
-        <veh id="2" type="normal" link_seq="3" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
-        <veh id="3" type="normal" link_seq="3" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
-        <veh id="4" type="normal" link_seq="3" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
-        <veh id="5" type="normal" link_seq="8" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
-        <veh id="6" type="normal" link_seq="8" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
-        <veh id="7" type="normal" link_seq="8" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
+        <veh id="0" type="normal" link_seq="1 7 15 13" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
+        <veh id="1" type="normal" link_seq="1 7 15 13" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
+        <veh id="2" type="normal" link_seq="1 7 15 13" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
+        <veh id="3" type="normal" link_seq="1 7 15 13" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
+        <veh id="4" type="normal" link_seq="1 7 15 13" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
+        <veh id="5" type="normal" link_seq="12 14 6 0" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
+        <veh id="6" type="normal" link_seq="12 14 6 0" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
+        <veh id="7" type="normal" link_seq="12 14 6 0" node_seq="3 0 1 8" reaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110"/>
 
 
-        <veh id="8" type="normal" link_seq="8" node_seq="8 1 0 3"/>
-        <veh id="9" type="normal" link_seq="8" node_seq="8 1 0 3"/>
-        <veh id="10" type="normal" link_seq="3" node_seq="3 0 1 8"/>
-        <veh id="11" type="normal" link_seq="3" node_seq="3 0 1 8"/>
-        <veh id="12" type="normal" link_seq="3" node_seq="3 0 1 8"/>
-        <veh id="13" type="normal" link_seq="3" node_seq="3 0 1 8"/>
-        <veh id="14" type="normal" link_seq="3" node_seq="3 0 1 8"/>
-        <veh id="15" type="normal" link_seq="3" node_seq="3 0 1 8"/>
-        <veh id="16" type="normal" link_seq="3" node_seq="3 0 1 8"/>
-        <veh id="17" type="normal" link_seq="8" node_seq="8 1 0 3"/>
-        <veh id="18" type="normal" link_seq="8" node_seq="8 1 0 3"/>
-        <veh id="19" type="normal" link_seq="8" node_seq="8 1 0 3"/>
-        <veh id="20" type="normal" link_seq="8" node_seq="8 1 0 3"/>
-        <veh id="21" type="normal" link_seq="3" node_seq="3 0 1 8"/>
-        <veh id="22" type="normal" link_seq="3" node_seq="3 0 1 8"/>
-        <veh id="23" type="normal" link_seq="3" node_seq="3 0 1 8"/>
+        <veh id="8" type="normal" link_seq="12 14 6 0" node_seq="8 1 0 3"/>
+        <veh id="9" type="normal" link_seq="12 14 6 0" node_seq="8 1 0 3"/>
+        <veh id="10" type="normal" link_seq="1 7 15 13" node_seq="3 0 1 8"/>
+        <veh id="11" type="normal" link_seq="1 7 15 13" node_seq="3 0 1 8"/>
+        <veh id="12" type="normal" link_seq="1 7 15 13" node_seq="3 0 1 8"/>
+        <veh id="13" type="normal" link_seq="1 7 15 13" node_seq="3 0 1 8"/>
+        <veh id="14" type="normal" link_seq="1 7 15 13" node_seq="3 0 1 8"/>
+        <veh id="15" type="normal" link_seq="1 7 15 13" node_seq="3 0 1 8"/>
+        <veh id="16" type="normal" link_seq="1 7 15 13" node_seq="3 0 1 8"/>
+        <veh id="17" type="normal" link_seq="12 14 6 0" node_seq="8 1 0 3"/>
+        <veh id="18" type="normal" link_seq="12 14 6 0" node_seq="8 1 0 3"/>
+        <veh id="19" type="normal" link_seq="12 14 6 0" node_seq="8 1 0 3"/>
+        <veh id="20" type="normal" link_seq="12 14 6 0" node_seq="8 1 0 3"/>
+        <veh id="21" type="normal" link_seq="1 7 15 13" node_seq="3 0 1 8"/>
+        <veh id="22" type="normal" link_seq="1 7 15 13" node_seq="3 0 1 8"/>
+        <veh id="23" type="normal" link_seq="1 7 15 13" node_seq="3 0 1 8"/>
 
     </agents>
 
