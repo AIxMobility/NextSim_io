@@ -98,3 +98,51 @@ void InputLink::setWidth(int val)
         width[i] = val;
     }
 }
+
+// FREE FUNCTIONS
+
+void InputLink::freeFFspeed()
+{
+    for ( int i=0; i < numSect; i++)
+    {
+        delete[] freeFlowSpeed[i];
+    }
+    delete[] freeFlowSpeed;
+}
+
+void InputLink::freeQmax()
+{
+    for (int i = 0; i < numSect; i++)
+    {
+        delete[] Qmax[i];
+    }
+    delete[] Qmax;
+}
+
+void InputLink::freeWaveSpeed()
+{
+    for (int i = 0; i < numSect; i++)
+    {
+        delete[] waveSpeed[i];
+    }
+    delete[] waveSpeed;
+}
+
+void InputLink::freeMaxVehicle()
+{
+    for (int i = 0; i < numSect; i++)
+    {
+        delete[] maxVehicle[i];
+    }
+    delete[] maxVehicle;
+}
+
+void InputLink::freeLength()
+{
+    delete[] length;
+}
+
+void InputLink::freeWidth()
+{
+    delete[] width;
+}

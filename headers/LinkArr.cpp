@@ -53,6 +53,15 @@ LinkArr::LinkArr()
                         demoLink.setMaxVehicle(atoi(e2->Attribute("maxVeh")));
 
                         Links.push_back(demoLink);
+
+                        demoLink.freeFFspeed();
+                        demoLink.freeQmax();
+                        demoLink.freeWaveSpeed();
+                        demoLink.freeMaxVehicle();
+
+                        demoLink.freeLength();
+                        demoLink.freeWidth();
+                        //perhaps need to free pointers here 
                         
                     }
                 }

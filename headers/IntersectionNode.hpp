@@ -49,5 +49,7 @@ public:
     std::vector<connection> getConnections() { return connectionTable; }
     std::vector<intersectionPhase> getPhaseTable() { return phaseTable; }
 
-
+    void freeConnectedLinks() { std::vector<port>().swap(connectedLinks); }
+    void freeConnectedTable() { std::vector<connection>().swap(connectionTable); }
+    void freePhaseTable() { std::vector<intersectionPhase>().swap(phaseTable); }
 };

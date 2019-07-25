@@ -48,6 +48,15 @@ public:
     void setLength(int val);
     void setWidth(int val);
 
+    //Free 2d arrays
+    void freeFFspeed();
+    void freeQmax();
+    void freeWaveSpeed();
+    void freeMaxVehicle();
+
+    void freeLength();
+    void freeWidth();
+
     //Need to make helper functions for Designating cell-by-cell values
 };
 

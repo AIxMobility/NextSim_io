@@ -94,6 +94,10 @@ NodeArr::NodeArr()
                                 }
                             }
                             Nodes.push_back(single_node);
+                            
+                            single_node.freeConnectedLinks();
+                            single_node.freeConnectedTable();
+                            single_node.freePhaseTable();
                         }
                     }
                 }
