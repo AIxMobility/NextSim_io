@@ -17,5 +17,9 @@ public:
     int getLinkId() { return linkId; }
     int getDir() { return direction; }
     int getType() { return type; }
+    /*
+        link coming in: 1
+        link going out: -1
+     */
 
 };

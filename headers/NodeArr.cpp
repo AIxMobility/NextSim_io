@@ -82,7 +82,7 @@ NodeArr::NodeArr()
                                         if (val2 == "connection")
                                         {
                                             single_phase.pushConnectionRef( atoi(e4->Attribute("id_ref")) );
-                                            single_phase.pushPriority( atoi(e4->Attribute("priority")) );
+                                            single_phase.pushPriority( atof(e4->Attribute("priority")) );
                                         }
                                     }
                                     single_node.pushPhase(single_phase);
