@@ -14,7 +14,7 @@ private:
     float priority;
 
 public:
-    connection(int id, int fromLink, int fromLane, int toLink, int toLane, int priority);
+    connection(int id, int fromLink, int fromLane, int toLink, int toLane, float priority);
 
     //access functions
     int getConnId() { return connectionId; }

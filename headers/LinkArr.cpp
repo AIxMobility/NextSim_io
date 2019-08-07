@@ -44,23 +44,15 @@ LinkArr::LinkArr()
                         std::cout << demoLink.getId() << std::endl;
 
                         //set the Link 2d, 1d values here.
-                        demoLink.setLength(atoi(e2->Attribute("length")));
-                        demoLink.setWidth(atoi(e2->Attribute("width")));
+                        demoLink.setLength(atof(e2->Attribute("length")));
+                        demoLink.setWidth(atof(e2->Attribute("width")));
 
-                        demoLink.setFFspeed(atoi(e2->Attribute("ffspeed")));
-                        demoLink.setQmax(atoi(e2->Attribute("qmax")));
-                        demoLink.setWaveSpeed(atoi(e2->Attribute("waveSpd")));
-                        demoLink.setMaxVehicle(atoi(e2->Attribute("maxVeh")));
+                        demoLink.setFreeFlowSpeed(atof(e2->Attribute("ffspeed")));
+                        demoLink.setQmax(atof(e2->Attribute("qmax")));
+                        demoLink.setWaveSpeed(atof(e2->Attribute("waveSpd")));
+                        demoLink.setMaxVehicle(atof(e2->Attribute("maxVeh")));
 
                         Links.push_back(demoLink);
-
-                        demoLink.freeFFspeed();
-                        demoLink.freeQmax();
-                        demoLink.freeWaveSpeed();
-                        demoLink.freeMaxVehicle();
-
-                        demoLink.freeLength();
-                        demoLink.freeWidth();
                         //perhaps need to free pointers here 
                         
                     }
@@ -89,21 +81,21 @@ void LinkArr::showArr()
 
         // PRINT CELL INFORMATION
         std::cout << "FFSpeed Values" << std::endl;
-        for (int j = 0; j < Links[i].getNumSect(); j++)
+        for (int j = 0; j < Links[i].getNumLane(); j++)
         {
             
-            for (int k = 0; k < Links[i].getNumLane(); k++)
+            for (int k = 0; k < Links[i].getNumSect(); k++)
             {
-                std::cout << Links[i].getFFSpeed()[j][k] << " ";
+                std::cout << Links[i].getFreeFlowSpeed()[j][k] << " ";
             }
             std::cout << std::endl;
         }
 
         std::cout << "Qmax Values" << std::endl;
-        for (int j = 0; j < Links[i].getNumSect(); j++)
+        for (int j = 0; j < Links[i].getNumLane(); j++)
         {
 
-            for (int k = 0; k < Links[i].getNumLane(); k++)
+            for (int k = 0; k < Links[i].getNumSect(); k++)
             {
                 std::cout << Links[i].getQmax()[j][k] << " ";
             }
@@ -111,10 +103,10 @@ void LinkArr::showArr()
         }
 
         std::cout << "WaveSpeed Values" << std::endl;
-        for (int j = 0; j < Links[i].getNumSect(); j++)
+        for (int j = 0; j < Links[i].getNumLane(); j++)
         {
 
-            for (int k = 0; k < Links[i].getNumLane(); k++)
+            for (int k = 0; k < Links[i].getNumSect(); k++)
             {
                 std::cout << Links[i].getWaveSpeed()[j][k] << " ";
             }
@@ -122,10 +114,10 @@ void LinkArr::showArr()
         }
 
         std::cout << "MaxVehicle Values" << std::endl;
-        for (int j = 0; j < Links[i].getNumSect(); j++)
+        for (int j = 0; j < Links[i].getNumLane(); j++)
         {
 
-            for (int k = 0; k < Links[i].getNumLane(); k++)
+            for (int k = 0; k < Links[i].getNumSect(); k++)
             {
                 std::cout << Links[i].getMaxVehicle()[j][k] << " ";
             }

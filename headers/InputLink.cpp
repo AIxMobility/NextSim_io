@@ -9,73 +9,62 @@
 InputLink::InputLink(int id, int lane, int sect) :
 id(id), numLane(lane), numSect(sect)
 {
-    freeFlowSpeed = new int* [sect];
-    Qmax = new int* [sect];
-    waveSpeed = new int* [sect];
-    maxVehicle = new int* [sect];
+    freeFlowSpeed.resize(numLane);
+    Qmax.resize(numLane);
+    waveSpeed.resize(numLane);
+    maxVehicle.resize(numLane);
 
-    for (int i=0; i < sect; i++)
+    for (int i = 0; i < numLane; ++i) 
     {
-        freeFlowSpeed[i] = new int [lane];
-        Qmax[i] = new int [lane];
-        waveSpeed[i] = new int [lane];
-        maxVehicle[i] = new int [lane]; 
+        freeFlowSpeed[i].resize(numSect);
+        Qmax[i].resize(numSect);
+        waveSpeed[i].resize(numSect);
+        maxVehicle[i].resize(numSect);
+    };
 
-        memset(freeFlowSpeed[i], -1, lane*sizeof(int));
-        memset(Qmax[i], -1, lane*sizeof(int));
-        memset(waveSpeed[i], -1, lane * sizeof(int));
-        memset(maxVehicle[i], -1, lane * sizeof(int));
-    }
-
-    width = new int [lane];
-    length = new int [sect];
-
-    memset(width, -1, sizeof(int));
-    memset(length, -1, sizeof(int));
-    
     //fill(freeFlowSpeed.begin(), freeFlowSpeed.end(), vector<int>(sect, lane));
     
 }
 
 // Cell variables
-void InputLink::setFFspeed(int val)
+void InputLink::setFreeFlowSpeed(float val)
 {
-    for (int i = 0; i < numSect; i++)
+    for (int i = 0; i < numLane; i++)
     {
-        for (int j = 0; j < numLane; j++)
+        for (int j = 0; j < numSect; j++)
         {
             freeFlowSpeed[i][j] = val;
         }
     }
 }
 
-void InputLink::setQmax(int val)
+void InputLink::setQmax(float val)
 {
-    for (int i = 0; i < numSect; i++)
+    for (int i = 0; i < numLane; i++)
     {
-        for (int j = 0; j < numLane; j++)
+        for (int j = 0; j < numSect; j++)
         {
             Qmax[i][j] = val;
         }
     }
 }
 
-void InputLink::setWaveSpeed(int val)
+void InputLink::setWaveSpeed(float val)
 {
-    for (int i = 0; i < numSect; i++)
+    for (int i = 0; i < numLane; i++)
     {
-        for (int j = 0; j < numLane; j++)
+        for (int j = 0; j < numSect; j++)
         {
             waveSpeed[i][j] = val;
         }
     }
 }
 
-void InputLink::setMaxVehicle(int val)
+void InputLink::setMaxVehicle(float val)
 {
-    for (int i = 0; i < numSect; i++)
+    for (int i = 0; i < numLane; i++)
     {
-        for (int j = 0; j < numLane; j++)
+        for (int j = 0; j < numSect; j++)
         {
             maxVehicle[i][j] = val;
         }
@@ -83,7 +72,7 @@ void InputLink::setMaxVehicle(int val)
 }
 
 //Array set in the order of ID
-void InputLink::setLength(int val)
+void InputLink::setLength(float val)
 {
     for (int i = 0; i < numSect; i++)
     {
@@ -91,7 +80,7 @@ void InputLink::setLength(int val)
     }
 }
 
-void InputLink::setWidth(int val)
+void InputLink::setWidth(float val)
 {
     for (int i = 0; i < numLane; i++)
     {
@@ -99,50 +88,8 @@ void InputLink::setWidth(int val)
     }
 }
 
+
+
+
 // FREE FUNCTIONS
 
-void InputLink::freeFFspeed()
-{
-    for ( int i=0; i < numSect; i++)
-    {
-        delete[] freeFlowSpeed[i];
-    }
-    delete[] freeFlowSpeed;
-}
-
-void InputLink::freeQmax()
-{
-    for (int i = 0; i < numSect; i++)
-    {
-        delete[] Qmax[i];
-    }
-    delete[] Qmax;
-}
-
-void InputLink::freeWaveSpeed()
-{
-    for (int i = 0; i < numSect; i++)
-    {
-        delete[] waveSpeed[i];
-    }
-    delete[] waveSpeed;
-}
-
-void InputLink::freeMaxVehicle()
-{
-    for (int i = 0; i < numSect; i++)
-    {
-        delete[] maxVehicle[i];
-    }
-    delete[] maxVehicle;
-}
-
-void InputLink::freeLength()
-{
-    delete[] length;
-}
-
-void InputLink::freeWidth()
-{
-    delete[] width;
-}

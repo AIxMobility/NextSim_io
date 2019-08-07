@@ -14,13 +14,21 @@ private:
     //int startPosition;
     //int endPosition;
     
-    int **freeFlowSpeed; // per cell 
-    int **Qmax;          // per cell 
-    int **waveSpeed;     // per cell 
-    int **maxVehicle;    // per cell 
+    //int **freeFlowSpeed; 
+    //int **Qmax;          
+    //int **waveSpeed;     
+    //int **maxVehicle;
 
-    int *width;
-    int *length;
+    std::vector<std::vector<float> > freeFlowSpeed;
+    std::vector<std::vector<float> > Qmax;
+    std::vector<std::vector<float> > waveSpeed;
+    std::vector<std::vector<float> > maxVehicle;
+
+    //int *width;
+    //int *length;
+
+    std::vector<float> width;
+    std::vector<float> length;
 
 public:
     //Constructor
@@ -31,31 +39,23 @@ public:
     int getNumLane() { return numLane; }
     int getNumSect() { return numSect; }
 
-    int ** getFFSpeed() { return freeFlowSpeed; }
-    int ** getQmax() { return Qmax; }
-    int ** getWaveSpeed() { return waveSpeed; }
-    int ** getMaxVehicle() { return maxVehicle; }
-    int * getWidth() { return width; }
-    int * getLength() { return length; }
-
+    std::vector<std::vector<float> > getFreeFlowSpeed() { return freeFlowSpeed; } // float
+    std::vector<std::vector<float> > getQmax() { return Qmax; }              // float
+    std::vector<std::vector<float> > getWaveSpeed() { return waveSpeed; }     // float
+    std::vector<std::vector<float> > getMaxVehicle() { return maxVehicle; }    // int
+    std::vector<float> getWidth() { return width; }                       // float
+    std::vector<float> getLength() { return length; }                     // float
 
     //Setting the Variables
-    void setFFspeed(int val);
-    void setQmax(int val);
-    void setWaveSpeed(int val);
-    void setMaxVehicle(int val);
+    void setFreeFlowSpeed(float val);
+    void setQmax(float val);
+    void setWaveSpeed(float val);
+    void setMaxVehicle(float val);
 
-    void setLength(int val);
-    void setWidth(int val);
+    void setLength(float val);
+    void setWidth(float val);
 
-    //Free 2d arrays
-    void freeFFspeed();
-    void freeQmax();
-    void freeWaveSpeed();
-    void freeMaxVehicle();
-
-    void freeLength();
-    void freeWidth();
+    //Free 2d Vectors
 
     //Need to make helper functions for Designating cell-by-cell values
 };

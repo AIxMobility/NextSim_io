@@ -13,8 +13,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/app.dir/tinyxml.cpp.o"
   "CMakeFiles/app.dir/tinyxmlerror.cpp.o"
   "CMakeFiles/app.dir/tinyxmlparser.cpp.o"
-  "bin/app"
-  "bin/app.pdb"
+  "lib/libapp.dylib"
+  "lib/libapp.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
