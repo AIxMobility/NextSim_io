@@ -8,7 +8,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/app.dir/intersection/connection.cpp.o"
   "CMakeFiles/app.dir/intersection/intersectionPhase.cpp.o"
   "CMakeFiles/app.dir/intersection/port.cpp.o"
-  "CMakeFiles/app.dir/main3.cpp.o"
   "CMakeFiles/app.dir/tinystr.cpp.o"
   "CMakeFiles/app.dir/tinyxml.cpp.o"
   "CMakeFiles/app.dir/tinyxmlerror.cpp.o"

@@ -49,19 +49,6 @@ CMakeFiles/app.dir/intersection/intersectionPhase.cpp.o: ../intersection/interse
 CMakeFiles/app.dir/intersection/port.cpp.o: ../intersection/port.cpp
 CMakeFiles/app.dir/intersection/port.cpp.o: ../intersection/port.hpp
 
-CMakeFiles/app.dir/main3.cpp.o: ../InputLink.hpp
-CMakeFiles/app.dir/main3.cpp.o: ../InputVeh.hpp
-CMakeFiles/app.dir/main3.cpp.o: ../IntersectionNode.hpp
-CMakeFiles/app.dir/main3.cpp.o: ../LinkArr.hpp
-CMakeFiles/app.dir/main3.cpp.o: ../NodeArr.hpp
-CMakeFiles/app.dir/main3.cpp.o: ../VehArr.hpp
-CMakeFiles/app.dir/main3.cpp.o: ../intersection/connection.hpp
-CMakeFiles/app.dir/main3.cpp.o: ../intersection/intersectionPhase.hpp
-CMakeFiles/app.dir/main3.cpp.o: ../intersection/port.hpp
-CMakeFiles/app.dir/main3.cpp.o: ../main3.cpp
-CMakeFiles/app.dir/main3.cpp.o: ../tinystr.h
-CMakeFiles/app.dir/main3.cpp.o: ../tinyxml.h
-
 CMakeFiles/app.dir/tinystr.cpp.o: ../tinystr.cpp
 CMakeFiles/app.dir/tinystr.cpp.o: ../tinystr.h
 

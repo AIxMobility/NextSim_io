@@ -13,7 +13,6 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/jeong7331/Desktop/quick_tinyxml/headers/intersection/connection.cpp" "/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles/app.dir/intersection/connection.cpp.o"
   "/Users/jeong7331/Desktop/quick_tinyxml/headers/intersection/intersectionPhase.cpp" "/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles/app.dir/intersection/intersectionPhase.cpp.o"
   "/Users/jeong7331/Desktop/quick_tinyxml/headers/intersection/port.cpp" "/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles/app.dir/intersection/port.cpp.o"
-  "/Users/jeong7331/Desktop/quick_tinyxml/headers/main3.cpp" "/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles/app.dir/main3.cpp.o"
   "/Users/jeong7331/Desktop/quick_tinyxml/headers/tinystr.cpp" "/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles/app.dir/tinystr.cpp.o"
   "/Users/jeong7331/Desktop/quick_tinyxml/headers/tinyxml.cpp" "/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles/app.dir/tinyxml.cpp.o"
   "/Users/jeong7331/Desktop/quick_tinyxml/headers/tinyxmlerror.cpp" "/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles/app.dir/tinyxmlerror.cpp.o"

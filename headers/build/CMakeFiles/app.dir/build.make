@@ -57,22 +57,9 @@ include CMakeFiles/app.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/app.dir/flags.make
 
-CMakeFiles/app.dir/main3.cpp.o: CMakeFiles/app.dir/flags.make
-CMakeFiles/app.dir/main3.cpp.o: ../main3.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/app.dir/main3.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/app.dir/main3.cpp.o -c /Users/jeong7331/Desktop/quick_tinyxml/headers/main3.cpp
-
-CMakeFiles/app.dir/main3.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/app.dir/main3.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/jeong7331/Desktop/quick_tinyxml/headers/main3.cpp > CMakeFiles/app.dir/main3.cpp.i
-
-CMakeFiles/app.dir/main3.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/app.dir/main3.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/jeong7331/Desktop/quick_tinyxml/headers/main3.cpp -o CMakeFiles/app.dir/main3.cpp.s
-
 CMakeFiles/app.dir/intersection/connection.cpp.o: CMakeFiles/app.dir/flags.make
 CMakeFiles/app.dir/intersection/connection.cpp.o: ../intersection/connection.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/app.dir/intersection/connection.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/app.dir/intersection/connection.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/app.dir/intersection/connection.cpp.o -c /Users/jeong7331/Desktop/quick_tinyxml/headers/intersection/connection.cpp
 
 CMakeFiles/app.dir/intersection/connection.cpp.i: cmake_force
@@ -85,7 +72,7 @@ CMakeFiles/app.dir/intersection/connection.cpp.s: cmake_force
 
 CMakeFiles/app.dir/intersection/intersectionPhase.cpp.o: CMakeFiles/app.dir/flags.make
 CMakeFiles/app.dir/intersection/intersectionPhase.cpp.o: ../intersection/intersectionPhase.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/app.dir/intersection/intersectionPhase.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/app.dir/intersection/intersectionPhase.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/app.dir/intersection/intersectionPhase.cpp.o -c /Users/jeong7331/Desktop/quick_tinyxml/headers/intersection/intersectionPhase.cpp
 
 CMakeFiles/app.dir/intersection/intersectionPhase.cpp.i: cmake_force
@@ -98,7 +85,7 @@ CMakeFiles/app.dir/intersection/intersectionPhase.cpp.s: cmake_force
 
 CMakeFiles/app.dir/intersection/port.cpp.o: CMakeFiles/app.dir/flags.make
 CMakeFiles/app.dir/intersection/port.cpp.o: ../intersection/port.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/app.dir/intersection/port.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/app.dir/intersection/port.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/app.dir/intersection/port.cpp.o -c /Users/jeong7331/Desktop/quick_tinyxml/headers/intersection/port.cpp
 
 CMakeFiles/app.dir/intersection/port.cpp.i: cmake_force
@@ -111,7 +98,7 @@ CMakeFiles/app.dir/intersection/port.cpp.s: cmake_force
 
 CMakeFiles/app.dir/InputLink.cpp.o: CMakeFiles/app.dir/flags.make
 CMakeFiles/app.dir/InputLink.cpp.o: ../InputLink.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/app.dir/InputLink.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/app.dir/InputLink.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/app.dir/InputLink.cpp.o -c /Users/jeong7331/Desktop/quick_tinyxml/headers/InputLink.cpp
 
 CMakeFiles/app.dir/InputLink.cpp.i: cmake_force
@@ -124,7 +111,7 @@ CMakeFiles/app.dir/InputLink.cpp.s: cmake_force
 
 CMakeFiles/app.dir/InputVeh.cpp.o: CMakeFiles/app.dir/flags.make
 CMakeFiles/app.dir/InputVeh.cpp.o: ../InputVeh.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/app.dir/InputVeh.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/app.dir/InputVeh.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/app.dir/InputVeh.cpp.o -c /Users/jeong7331/Desktop/quick_tinyxml/headers/InputVeh.cpp
 
 CMakeFiles/app.dir/InputVeh.cpp.i: cmake_force
@@ -137,7 +124,7 @@ CMakeFiles/app.dir/InputVeh.cpp.s: cmake_force
 
 CMakeFiles/app.dir/IntersectionNode.cpp.o: CMakeFiles/app.dir/flags.make
 CMakeFiles/app.dir/IntersectionNode.cpp.o: ../IntersectionNode.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/app.dir/IntersectionNode.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/app.dir/IntersectionNode.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/app.dir/IntersectionNode.cpp.o -c /Users/jeong7331/Desktop/quick_tinyxml/headers/IntersectionNode.cpp
 
 CMakeFiles/app.dir/IntersectionNode.cpp.i: cmake_force
@@ -150,7 +137,7 @@ CMakeFiles/app.dir/IntersectionNode.cpp.s: cmake_force
 
 CMakeFiles/app.dir/LinkArr.cpp.o: CMakeFiles/app.dir/flags.make
 CMakeFiles/app.dir/LinkArr.cpp.o: ../LinkArr.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/app.dir/LinkArr.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/app.dir/LinkArr.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/app.dir/LinkArr.cpp.o -c /Users/jeong7331/Desktop/quick_tinyxml/headers/LinkArr.cpp
 
 CMakeFiles/app.dir/LinkArr.cpp.i: cmake_force
@@ -163,7 +150,7 @@ CMakeFiles/app.dir/LinkArr.cpp.s: cmake_force
 
 CMakeFiles/app.dir/NodeArr.cpp.o: CMakeFiles/app.dir/flags.make
 CMakeFiles/app.dir/NodeArr.cpp.o: ../NodeArr.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/app.dir/NodeArr.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/app.dir/NodeArr.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/app.dir/NodeArr.cpp.o -c /Users/jeong7331/Desktop/quick_tinyxml/headers/NodeArr.cpp
 
 CMakeFiles/app.dir/NodeArr.cpp.i: cmake_force
@@ -176,7 +163,7 @@ CMakeFiles/app.dir/NodeArr.cpp.s: cmake_force
 
 CMakeFiles/app.dir/tinystr.cpp.o: CMakeFiles/app.dir/flags.make
 CMakeFiles/app.dir/tinystr.cpp.o: ../tinystr.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/app.dir/tinystr.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/app.dir/tinystr.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/app.dir/tinystr.cpp.o -c /Users/jeong7331/Desktop/quick_tinyxml/headers/tinystr.cpp
 
 CMakeFiles/app.dir/tinystr.cpp.i: cmake_force
@@ -189,7 +176,7 @@ CMakeFiles/app.dir/tinystr.cpp.s: cmake_force
 
 CMakeFiles/app.dir/tinyxml.cpp.o: CMakeFiles/app.dir/flags.make
 CMakeFiles/app.dir/tinyxml.cpp.o: ../tinyxml.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/app.dir/tinyxml.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/app.dir/tinyxml.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/app.dir/tinyxml.cpp.o -c /Users/jeong7331/Desktop/quick_tinyxml/headers/tinyxml.cpp
 
 CMakeFiles/app.dir/tinyxml.cpp.i: cmake_force
@@ -202,7 +189,7 @@ CMakeFiles/app.dir/tinyxml.cpp.s: cmake_force
 
 CMakeFiles/app.dir/tinyxmlerror.cpp.o: CMakeFiles/app.dir/flags.make
 CMakeFiles/app.dir/tinyxmlerror.cpp.o: ../tinyxmlerror.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/app.dir/tinyxmlerror.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/app.dir/tinyxmlerror.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/app.dir/tinyxmlerror.cpp.o -c /Users/jeong7331/Desktop/quick_tinyxml/headers/tinyxmlerror.cpp
 
 CMakeFiles/app.dir/tinyxmlerror.cpp.i: cmake_force
@@ -215,7 +202,7 @@ CMakeFiles/app.dir/tinyxmlerror.cpp.s: cmake_force
 
 CMakeFiles/app.dir/tinyxmlparser.cpp.o: CMakeFiles/app.dir/flags.make
 CMakeFiles/app.dir/tinyxmlparser.cpp.o: ../tinyxmlparser.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/app.dir/tinyxmlparser.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/app.dir/tinyxmlparser.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/app.dir/tinyxmlparser.cpp.o -c /Users/jeong7331/Desktop/quick_tinyxml/headers/tinyxmlparser.cpp
 
 CMakeFiles/app.dir/tinyxmlparser.cpp.i: cmake_force
@@ -228,7 +215,7 @@ CMakeFiles/app.dir/tinyxmlparser.cpp.s: cmake_force
 
 CMakeFiles/app.dir/VehArr.cpp.o: CMakeFiles/app.dir/flags.make
 CMakeFiles/app.dir/VehArr.cpp.o: ../VehArr.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/app.dir/VehArr.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/app.dir/VehArr.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/app.dir/VehArr.cpp.o -c /Users/jeong7331/Desktop/quick_tinyxml/headers/VehArr.cpp
 
 CMakeFiles/app.dir/VehArr.cpp.i: cmake_force
@@ -241,7 +228,6 @@ CMakeFiles/app.dir/VehArr.cpp.s: cmake_force
 
 # Object files for target app
 app_OBJECTS = \
-"CMakeFiles/app.dir/main3.cpp.o" \
 "CMakeFiles/app.dir/intersection/connection.cpp.o" \
 "CMakeFiles/app.dir/intersection/intersectionPhase.cpp.o" \
 "CMakeFiles/app.dir/intersection/port.cpp.o" \
@@ -259,7 +245,6 @@ app_OBJECTS = \
 # External object files for target app
 app_EXTERNAL_OBJECTS =
 
-lib/libapp.dylib: CMakeFiles/app.dir/main3.cpp.o
 lib/libapp.dylib: CMakeFiles/app.dir/intersection/connection.cpp.o
 lib/libapp.dylib: CMakeFiles/app.dir/intersection/intersectionPhase.cpp.o
 lib/libapp.dylib: CMakeFiles/app.dir/intersection/port.cpp.o
@@ -275,7 +260,7 @@ lib/libapp.dylib: CMakeFiles/app.dir/tinyxmlparser.cpp.o
 lib/libapp.dylib: CMakeFiles/app.dir/VehArr.cpp.o
 lib/libapp.dylib: CMakeFiles/app.dir/build.make
 lib/libapp.dylib: CMakeFiles/app.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX shared library lib/libapp.dylib"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX shared library lib/libapp.dylib"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/app.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -366,33 +366,6 @@ intersection/port.cpp.s:
 	$(MAKE) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/intersection/port.cpp.s
 .PHONY : intersection/port.cpp.s
 
-main3.o: main3.cpp.o
-
-.PHONY : main3.o
-
-# target to build an object file
-main3.cpp.o:
-	$(MAKE) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/main3.cpp.o
-.PHONY : main3.cpp.o
-
-main3.i: main3.cpp.i
-
-.PHONY : main3.i
-
-# target to preprocess a source file
-main3.cpp.i:
-	$(MAKE) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/main3.cpp.i
-.PHONY : main3.cpp.i
-
-main3.s: main3.cpp.s
-
-.PHONY : main3.s
-
-# target to generate assembly for a file
-main3.cpp.s:
-	$(MAKE) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/main3.cpp.s
-.PHONY : main3.cpp.s
-
 tinystr.o: tinystr.cpp.o
 
 .PHONY : tinystr.o
@@ -537,9 +510,6 @@ help:
 	@echo "... intersection/port.o"
 	@echo "... intersection/port.i"
 	@echo "... intersection/port.s"
-	@echo "... main3.o"
-	@echo "... main3.i"
-	@echo "... main3.s"
 	@echo "... tinystr.o"
 	@echo "... tinystr.i"
 	@echo "... tinystr.s"

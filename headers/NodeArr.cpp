@@ -99,6 +99,60 @@ NodeArr::NodeArr()
                             single_node.freeConnectedTable();
                             single_node.freePhaseTable();
                         }
+
+                        else if (att1 == "normal")
+                        {
+                            //create single IntersectionNode instance here
+                            IntersectionNode single_node(1, atoi(e2->Attribute("id")), -1, atoi(e2->Attribute("num_port")));
+
+                            for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL; e3 = e3->NextSiblingElement())
+                            {
+                                std::string val1 = e3->Value();
+                                //port should be the same for normal 
+                                if (val1 == "port")
+                                {
+                                    //create port instance + pushLink to IntersectionNode
+                                    int temp = -1;
+                                    std::string att2 = e3->Attribute("type");
+                                    if (att2 == "in")
+                                    {
+                                        temp = 1;
+                                    }
+                                    port single_link(atoi(e3->Attribute("link_id")), atoi(e3->Attribute("direction")), temp);
+                                    single_node.pushLink(single_link);
+                                }
+                            }
+                            Nodes.push_back(single_node);
+
+                            single_node.freeConnectedLinks();
+                        }
+
+                        else if (att1 == "terminal")
+                        {
+                            //create single IntersectionNode instance here
+                            IntersectionNode single_node(2, atoi(e2->Attribute("id")), -1, atoi(e2->Attribute("num_port")));
+
+                            for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL; e3 = e3->NextSiblingElement())
+                            {
+                                std::string val1 = e3->Value();
+                                //port should be the same for normal
+                                if (val1 == "port")
+                                {
+                                    //create port instance + pushLink to IntersectionNode
+                                    int temp = -1;
+                                    std::string att2 = e3->Attribute("type");
+                                    if (att2 == "in")
+                                    {
+                                        temp = 1;
+                                    }
+                                    port single_link(atoi(e3->Attribute("link_id")), atoi(e3->Attribute("direction")), temp);
+                                    single_node.pushLink(single_link);
+                                }
+                            }
+                            Nodes.push_back(single_node);
+
+                            single_node.freeConnectedLinks();
+                        }
                     }
                 }
             }

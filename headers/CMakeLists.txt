@@ -13,7 +13,7 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 # The following folder will be included
 include_directories("${PROJECT_SOURCE_DIR}")
 
-add_library(app SHARED main3.cpp ./intersection/connection.cpp ./intersection/intersectionPhase.cpp ./intersection/port.cpp InputLink.cpp InputVeh.cpp IntersectionNode.cpp 
+add_library(app SHARED ./intersection/connection.cpp ./intersection/intersectionPhase.cpp ./intersection/port.cpp InputLink.cpp InputVeh.cpp IntersectionNode.cpp 
 LinkArr.cpp NodeArr.cpp tinystr.cpp tinyxml.cpp tinyxmlerror.cpp tinyxmlparser.cpp VehArr.cpp)
 #add_executable(intersectionPhase ${PROJECT_SOURCE_DIR}/intersection/intersectionPhase.cpp)
 #add_executable(port ${PROJECT_SOURCE_DIR}/intersection/port.cpp)
