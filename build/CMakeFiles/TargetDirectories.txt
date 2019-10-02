@@ -1,0 +1,14 @@
+/Users/jeong7331/Desktop/Gookto_io/build/CMakeFiles/install/local.dir
+/Users/jeong7331/Desktop/Gookto_io/build/CMakeFiles/install/strip.dir
+/Users/jeong7331/Desktop/Gookto_io/build/CMakeFiles/install.dir
+/Users/jeong7331/Desktop/Gookto_io/build/CMakeFiles/list_install_components.dir
+/Users/jeong7331/Desktop/Gookto_io/build/CMakeFiles/rebuild_cache.dir
+/Users/jeong7331/Desktop/Gookto_io/build/CMakeFiles/edit_cache.dir
+/Users/jeong7331/Desktop/Gookto_io/build/CMakeFiles/app.dir
+/Users/jeong7331/Desktop/Gookto_io/build/sources/gookto_io/CMakeFiles/install/local.dir
+/Users/jeong7331/Desktop/Gookto_io/build/sources/gookto_io/CMakeFiles/install/strip.dir
+/Users/jeong7331/Desktop/Gookto_io/build/sources/gookto_io/CMakeFiles/install.dir
+/Users/jeong7331/Desktop/Gookto_io/build/sources/gookto_io/CMakeFiles/Gookto_io.dir
+/Users/jeong7331/Desktop/Gookto_io/build/sources/gookto_io/CMakeFiles/list_install_components.dir
+/Users/jeong7331/Desktop/Gookto_io/build/sources/gookto_io/CMakeFiles/rebuild_cache.dir
+/Users/jeong7331/Desktop/Gookto_io/build/sources/gookto_io/CMakeFiles/edit_cache.dir

@@ -1,3 +1,0 @@
-/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles/rebuild_cache.dir
-/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles/edit_cache.dir
-/Users/jeong7331/Desktop/quick_tinyxml/headers/build/CMakeFiles/app.dir

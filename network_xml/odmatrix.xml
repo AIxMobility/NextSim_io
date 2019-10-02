@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<!-- Applicable between all terminal nodes -->
+<!-- Nodes 6 7 8 9 10 11 12 13 -->
+
+<!-- Saved to ODArr -->
+
+<ODMatrix>
+    <origin id_ref="6">
+        <destination id_ref="7" flow="50">
+        <destination id_ref="8" flow="50">
+        <destination id_ref="9" flow="50">
+        <destination id_ref="10" flow="50">
+        <destination id_ref="11" flow="50">
+        <destination id_ref="12" flow="50">
+        <destination id_ref="13" flow="50">
+    </origin>
+
+    <origin id_ref="7">
+        <destination id_ref="6" flow="50">
+        <destination id_ref="8" flow="50">
+        <destination id_ref="9" flow="50">
+        <destination id_ref="10" flow="50">
+        <destination id_ref="11" flow="50">
+        <destination id_ref="12" flow="50">
+        <destination id_ref="13" flow="50">
+    </origin>
+
+    <origin id_ref="8">
+        <destination id_ref="7" flow="50">
+        <destination id_ref="6" flow="50">
+        <destination id_ref="9" flow="50">
+        <destination id_ref="10" flow="50">
+        <destination id_ref="11" flow="50">
+        <destination id_ref="12" flow="50">
+        <destination id_ref="13" flow="50">
+    </origin>
+
+    <origin id_ref="9">
+        <destination id_ref="7" flow="50">
+        <destination id_ref="8" flow="50">
+        <destination id_ref="6" flow="50">
+        <destination id_ref="10" flow="50">
+        <destination id_ref="11" flow="50">
+        <destination id_ref="12" flow="50">
+        <destination id_ref="13" flow="50">
+    </origin>
+
+    <origin id_ref="10">
+        <destination id_ref="7" flow="50">
+        <destination id_ref="8" flow="50">
+        <destination id_ref="9" flow="50">
+        <destination id_ref="6" flow="50">
+        <destination id_ref="11" flow="50">
+        <destination id_ref="12" flow="50">
+        <destination id_ref="13" flow="50">
+    </origin>
+
+    <origin id_ref="11">
+        <destination id_ref="7" flow="50">
+        <destination id_ref="8" flow="50">
+        <destination id_ref="9" flow="50">
+        <destination id_ref="10" flow="50">
+        <destination id_ref="6" flow="50">
+        <destination id_ref="12" flow="50">
+        <destination id_ref="13" flow="50">
+    </origin>
+
+    <origin id_ref="12">
+        <destination id_ref="7" flow="50">
+        <destination id_ref="8" flow="50">
+        <destination id_ref="9" flow="50">
+        <destination id_ref="10" flow="50">
+        <destination id_ref="11" flow="50">
+        <destination id_ref="6" flow="50">
+        <destination id_ref="13" flow="50">
+    </origin>
+
+    <origin id_ref="13">
+        <destination id_ref="7" flow="50">
+        <destination id_ref="8" flow="50">
+        <destination id_ref="9" flow="50">
+        <destination id_ref="10" flow="50">
+        <destination id_ref="11" flow="50">
+        <destination id_ref="12" flow="50">
+        <destination id_ref="6" flow="50">
+    </origin>
+
+
+</ODMatrix>

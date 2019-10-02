@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+
+<!-- Saved to PaxArr -->
+
+
+<passengers>
+    <!--NV Passengers == NV vehicles trait -->
+    <nv_pax>
+        <pax id="0" link_seq="1 2 21 23 26" node_seq="6 0 3 5 2 10" dpt_time="1">
+        </pax>
+        <pax id="1" link_seq="4 2 18" node_seq="7 0 3 12" dpt_time="1">
+        </pax>
+        <pax id="2" link_seq="17 21 23 9 11" node_seq="13 3 5 2 1 8" dpt_time="1">
+        </pax>
+        <pax id="3" link_seq="1 7 15 13" node_seq="6 0 1 9" dpt_time="1" eaction_time="1.2" jamgap="1.8" max_acc="3.4" max_dec="-2.7" vehlength="5.5" vfree="110">
+        </pax>
+    </nv_pax>
+
+    <!--Public Transport Passengers -->
+    <pub_pax>
+        <pax id="4" link_seq="14 6 2 21 23 26" bus_id_seq="0" station_seq="2 6" station_est_arr_time="2 5">
+        </pax>
+        <pax id="5" link_seq="2 21 23 26" bus_id_seq="0" station_seq="3 6" station_est_arr_time="3 5">
+        </pax>
+        <pax id="6" link_seq="23 26" bus_id_seq="0" station_seq="5 6" station_est_arr_time="4 5">
+        </pax>
+        <pax id="7" link_seq="14 6 2 21 23 26" bus_id_seq="1" station_seq="2 6" station_est_arr_time="3 6">
+        </pax>
+        <pax id="8" link_seq="2 21 23 26" bus_id_seq="1" station_seq="3 6" station_est_arr_time="4 6">
+        </pax>
+        <pax id="9" link_seq="23 26" bus_id_seq="1" station_seq="5 6" station_est_arr_time="5 6">
+        </pax>
+        <pax id="10" link_seq="14 6 2 21 23 26" bus_id_seq="2" station_seq="2 6" station_est_arr_time="4 7">
+        </pax>
+        <pax id="11" link_seq="2 21 23 26" bus_id_seq="2" station_seq="3 6" station_est_arr_time="5 7">
+        </pax>
+        <pax id="12" link_seq="23 26" bus_id_seq="2" station_seq="5 6" station_est_arr_time="6 7">
+        </pax>
+    </pub_pax>
+
+</passengers>

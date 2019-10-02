@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+
+<!-- Saved to VehArr -->
+
+<agents>
+    <!--small AV -->
+    <small_av>
+        <veh id="0" type="1" dpt_time="1" link_seq="12 14 6 2 21 23 26" node_seq="9 1 4 0 3 5 2 10" pax_list="0 1 2" pax_origin="2 3 5" pax_dest="6 6 6">
+        </veh>
+        <veh id="1" type="1" dpt_time="2"  link_seq="12 14 6 2 21 23 26" node_seq="9 1 4 0 3 5 2 10" pax_list="3 4 5" pax_origin="2 3 5" pax_dest="6 6 6">
+        </veh>
+        <veh id="2" type="1" dpt_time="3"  link_seq="12 14 6 2 21 23 26" node_seq="9 1 4 0 3 5 2 10" pax_list="6 7 8" pax_origin="2 3 5" pax_dest="6 6 6">
+        </veh>
+    </small_av>
+
+    <!--bus AV -->
+    <bus_av>
+        <veh id="3" type="2" link_seq="12 14 6 0" node_seq="9 1 4 0 6" dpt_time="1" station_seq="2 1">
+        </veh>
+        <veh id="4" type="2" link_seq="12 14 6 0" node_seq="9 1 4 0 6" dpt_time="2" station_seq="2 1">
+        </veh>
+        <veh id="5" type="2" link_seq="12 14 6 0" node_seq="9 1 4 0 6" dpt_time="3" station_seq="2 1">
+        </veh>
+        <veh id="6" type="2" link_seq="12 14 6 0" node_seq="9 1 4 0 6" dpt_time="4" station_seq="2 1">
+        </veh>
+        <veh id="7" type="2" link_seq="12 14 6 0" node_seq="9 1 4 0 6" dpt_time="5" station_seq="2 1">
+        </veh>
+
+    </bus_av>
+
+</agents>
