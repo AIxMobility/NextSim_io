@@ -22,7 +22,7 @@ private:
     std::vector<std::vector<float> > freeFlowSpeed;
     std::vector<std::vector<float> > Qmax;
     std::vector<std::vector<float> > waveSpeed;
-    std::vector<std::vector<int> > maxVehicle;
+    std::vector<std::vector<size_t> > maxVehicle;
 
     //int *width;
     //int *length;
@@ -51,7 +51,7 @@ public:
     std::vector<std::vector<float> > getFreeFlowSpeed() { return freeFlowSpeed; }
     std::vector<std::vector<float> > getQmax() { return Qmax; }              
     std::vector<std::vector<float> > getWaveSpeed() { return waveSpeed; }     
-    std::vector<std::vector<int> > getMaxVehicle() { return maxVehicle; }    
+    std::vector<std::vector<size_t> > getMaxVehicle() { return maxVehicle; }    
     float getWidth() { return width; }                       
     float getLength() { return length; }                     
 

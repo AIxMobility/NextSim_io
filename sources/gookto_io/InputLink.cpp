@@ -67,7 +67,8 @@ void InputLink::setMaxVehicle(int val)
     {
         for (int j = 0; j < numSect; j++)
         {
-            maxVehicle[i][j] = val;
+            size_t new_val = val;
+            maxVehicle[i][j] = new_val;
         }
     }
 }

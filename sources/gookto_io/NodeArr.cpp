@@ -62,7 +62,7 @@ NodeArr::NodeArr()
 
                         else if (val1 == "connection")
                         {
-                            connection single_connection(atoi(e3->Attribute("id")), atoi(e3->Attribute("from_link")), atoi(e3->Attribute("from_lane")),atoi(e3->Attribute("to_link")), atoi(e3->Attribute("to_lane")), 0);
+                            connection single_connection(atoi(e3->Attribute("id")), atoi(e3->Attribute("from_link")), atoi(e3->Attribute("from_lane")),atoi(e3->Attribute("to_link")), atoi(e3->Attribute("to_lane")), 1);
                             single_node.pushConnection(single_connection);
                         }
 
