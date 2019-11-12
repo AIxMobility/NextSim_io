@@ -239,6 +239,32 @@ CMakeFiles/app.dir/sources/gookto_io/ParamArr.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/app.dir/sources/gookto_io/ParamArr.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/jeong7331/Desktop/Gookto_io/sources/gookto_io/ParamArr.cpp -o CMakeFiles/app.dir/sources/gookto_io/ParamArr.cpp.s
 
+CMakeFiles/app.dir/sources/gookto_io/PaxArr.cpp.o: CMakeFiles/app.dir/flags.make
+CMakeFiles/app.dir/sources/gookto_io/PaxArr.cpp.o: ../sources/gookto_io/PaxArr.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/Gookto_io/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/app.dir/sources/gookto_io/PaxArr.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/app.dir/sources/gookto_io/PaxArr.cpp.o -c /Users/jeong7331/Desktop/Gookto_io/sources/gookto_io/PaxArr.cpp
+
+CMakeFiles/app.dir/sources/gookto_io/PaxArr.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/app.dir/sources/gookto_io/PaxArr.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/jeong7331/Desktop/Gookto_io/sources/gookto_io/PaxArr.cpp > CMakeFiles/app.dir/sources/gookto_io/PaxArr.cpp.i
+
+CMakeFiles/app.dir/sources/gookto_io/PaxArr.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/app.dir/sources/gookto_io/PaxArr.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/jeong7331/Desktop/Gookto_io/sources/gookto_io/PaxArr.cpp -o CMakeFiles/app.dir/sources/gookto_io/PaxArr.cpp.s
+
+CMakeFiles/app.dir/sources/gookto_io/InputPax.cpp.o: CMakeFiles/app.dir/flags.make
+CMakeFiles/app.dir/sources/gookto_io/InputPax.cpp.o: ../sources/gookto_io/InputPax.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/jeong7331/Desktop/Gookto_io/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/app.dir/sources/gookto_io/InputPax.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/app.dir/sources/gookto_io/InputPax.cpp.o -c /Users/jeong7331/Desktop/Gookto_io/sources/gookto_io/InputPax.cpp
+
+CMakeFiles/app.dir/sources/gookto_io/InputPax.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/app.dir/sources/gookto_io/InputPax.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/jeong7331/Desktop/Gookto_io/sources/gookto_io/InputPax.cpp > CMakeFiles/app.dir/sources/gookto_io/InputPax.cpp.i
+
+CMakeFiles/app.dir/sources/gookto_io/InputPax.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/app.dir/sources/gookto_io/InputPax.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/jeong7331/Desktop/Gookto_io/sources/gookto_io/InputPax.cpp -o CMakeFiles/app.dir/sources/gookto_io/InputPax.cpp.s
+
 # Object files for target app
 app_OBJECTS = \
 "CMakeFiles/app.dir/sources/gookto_io/intersection/connection.cpp.o" \
@@ -254,7 +280,9 @@ app_OBJECTS = \
 "CMakeFiles/app.dir/tinyapi/tinyxmlerror.cpp.o" \
 "CMakeFiles/app.dir/tinyapi/tinyxmlparser.cpp.o" \
 "CMakeFiles/app.dir/sources/gookto_io/AgentsArr.cpp.o" \
-"CMakeFiles/app.dir/sources/gookto_io/ParamArr.cpp.o"
+"CMakeFiles/app.dir/sources/gookto_io/ParamArr.cpp.o" \
+"CMakeFiles/app.dir/sources/gookto_io/PaxArr.cpp.o" \
+"CMakeFiles/app.dir/sources/gookto_io/InputPax.cpp.o"
 
 # External object files for target app
 app_EXTERNAL_OBJECTS =
@@ -273,9 +301,11 @@ lib/libapp.dylib: CMakeFiles/app.dir/tinyapi/tinyxmlerror.cpp.o
 lib/libapp.dylib: CMakeFiles/app.dir/tinyapi/tinyxmlparser.cpp.o
 lib/libapp.dylib: CMakeFiles/app.dir/sources/gookto_io/AgentsArr.cpp.o
 lib/libapp.dylib: CMakeFiles/app.dir/sources/gookto_io/ParamArr.cpp.o
+lib/libapp.dylib: CMakeFiles/app.dir/sources/gookto_io/PaxArr.cpp.o
+lib/libapp.dylib: CMakeFiles/app.dir/sources/gookto_io/InputPax.cpp.o
 lib/libapp.dylib: CMakeFiles/app.dir/build.make
 lib/libapp.dylib: CMakeFiles/app.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/jeong7331/Desktop/Gookto_io/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX shared library lib/libapp.dylib"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/jeong7331/Desktop/Gookto_io/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Linking CXX shared library lib/libapp.dylib"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/app.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

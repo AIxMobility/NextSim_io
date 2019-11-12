@@ -7,6 +7,8 @@ CMakeFiles/app.dir/sources/gookto_io/InputAgents.cpp.o: ../sources/gookto_io/Inp
 
 CMakeFiles/app.dir/sources/gookto_io/InputLink.cpp.o: ../sources/gookto_io/InputLink.cpp
 
+CMakeFiles/app.dir/sources/gookto_io/InputPax.cpp.o: ../sources/gookto_io/InputPax.cpp
+
 CMakeFiles/app.dir/sources/gookto_io/IntersectionNode.cpp.o: ../sources/gookto_io/IntersectionNode.cpp
 
 CMakeFiles/app.dir/sources/gookto_io/LinkArr.cpp.o: ../sources/gookto_io/LinkArr.cpp
@@ -14,6 +16,8 @@ CMakeFiles/app.dir/sources/gookto_io/LinkArr.cpp.o: ../sources/gookto_io/LinkArr
 CMakeFiles/app.dir/sources/gookto_io/NodeArr.cpp.o: ../sources/gookto_io/NodeArr.cpp
 
 CMakeFiles/app.dir/sources/gookto_io/ParamArr.cpp.o: ../sources/gookto_io/ParamArr.cpp
+
+CMakeFiles/app.dir/sources/gookto_io/PaxArr.cpp.o: ../sources/gookto_io/PaxArr.cpp
 
 CMakeFiles/app.dir/sources/gookto_io/intersection/connection.cpp.o: ../sources/gookto_io/intersection/connection.cpp
 

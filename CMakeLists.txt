@@ -20,7 +20,7 @@ set(CMAKE_MACOSX_RPATH 1)
 add_library(app SHARED sources/gookto_io/intersection/connection.cpp sources/gookto_io/intersection/intersectionPhase.cpp sources/gookto_io/intersection/port.cpp sources/gookto_io/InputLink.cpp 
 sources/gookto_io/InputAgents.cpp sources/gookto_io/IntersectionNode.cpp 
 sources/gookto_io/LinkArr.cpp sources/gookto_io/NodeArr.cpp tinyapi/tinystr.cpp tinyapi/tinyxml.cpp tinyapi/tinyxmlerror.cpp 
-tinyapi/tinyxmlparser.cpp sources/gookto_io/AgentsArr.cpp sources/gookto_io/ParamArr.cpp)
+tinyapi/tinyxmlparser.cpp sources/gookto_io/AgentsArr.cpp sources/gookto_io/ParamArr.cpp sources/gookto_io/PaxArr.cpp sources/gookto_io/AgentsArr.cpp sources/gookto_io/InputAgents.cpp sources/gookto_io/InputPax.cpp)
 
 include_directories(includes)
 
