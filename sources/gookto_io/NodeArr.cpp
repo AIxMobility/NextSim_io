@@ -103,17 +103,11 @@ NodeArr::NodeArr()
                     {
                         std::string val1 = e3->Value();
                         //port should be the same for normal 
-                        if (val1 == "port")
+                        if (val1 == "connection")
                         {
-                            //create port instance + pushLink to IntersectionNode
-                            int temp = -1;
-                            std::string att2 = e3->Attribute("type");
-                            if (att2 == "in")
-                            {
-                                temp = 1;
-                            }
-                            port single_link(atoi(e3->Attribute("link_id")), atoi(e3->Attribute("direction")), temp);
-                            single_node.pushLink(single_link);
+                            connection single_connection(atoi(e3->Attribute("id")), atoi(e3->Attribute("from_link")), atoi(e3->Attribute("from_lane")), 
+                                atoi(e3->Attribute("to_link")), atoi(e3->Attribute("to_lane")), atof(e3->Attribute("priority")));
+                            single_node.pushConnection(single_connection);
                         }
                     }
                     Nodes.push_back(single_node);

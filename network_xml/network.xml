@@ -7,223 +7,95 @@
     <!--Individual Node Specification -->
     <nodes>
         <!--Intersection Nodes  DONE-->
-        <node id="0" type="intersection" num_port ="8" num_connection="20">
+        <node id="3" type="intersection" num_port ="8" num_connection="14">
 
-            <port link_id="0" direction="270" type="out" >
+            <port link_id="23" direction="90" type="out" >
             </port>
 
-            <port link_id="1" direction="270" type="in">
+            <port link_id="11" direction="90" type="in">
             </port>
 
-            <port link_id="2" direction="180" type="out" >
+            <port link_id="48" direction="0" type="out" >
             </port>
 
-            <port link_id="3" direction="180" type="in" >
+            <port link_id="51" direction="0" type="in" >
             </port>
 
-            <port link_id="4" direction="0" type="in" >
+            <port link_id="12" direction="270" type="out" >
             </port>
 
-            <port link_id="5" direction="0" type="out" >
+            <port link_id="22" direction="270" type="in" >
             </port>
 
-            <port link_id="6" direction="90" type="in" >
+            <port link_id="45" direction="180" type="out" >
             </port>
 
-            <port link_id="7" direction="90" type="out" >
+            <port link_id="46" direction="180" type="in" >
             </port>
 
-            <!--From Link 1 -->
-            <connection id="0" from_link="1" from_lane="0" to_link="7" to_lane="0" length="12" priority=""/>
-            <connection id="1" from_link="1" from_lane="1" to_link="7" to_lane="1" length="12" priority=""/>
-            <connection id="2" from_link="1" from_lane="2" to_link="7" to_lane="2" length="12" priority=""/>
+            <!--From Link 46 -->
+            <connection id="0" from_link="46" from_lane="0" to_link="12" to_lane="0" length="50" priority=""/>
 
-            <connection id="3" from_link="1" from_lane="0" to_link="5" to_lane="0" length="9" priority=""/>
-            <connection id="4" from_link="1" from_lane="2" to_link="2" to_lane="2" length="3" priority=""/>
+            <connection id="1" from_link="46" from_lane="1" to_link="48" to_lane="0" length="50" priority=""/>
+            <connection id="2" from_link="46" from_lane="2" to_link="48" to_lane="1" length="80" priority=""/>
 
-            <!--From Link 4 -->
-            <connection id="5" from_link="4" from_lane="0" to_link="2" to_lane="0" length="12" priority=""/>
-            <connection id="6" from_link="4" from_lane="1" to_link="2" to_lane="1" length="12" priority=""/>
-            <connection id="7" from_link="4" from_lane="2" to_link="2" to_lane="2" length="12" priority=""/>
+            <!--From Link 11 -->
+            <connection id="3" from_link="11" from_lane="0" to_link="45" to_lane="0" length="80" priority=""/>
+            <connection id="4" from_link="11" from_lane="1" to_link="45" to_lane="1" length="90" priority=""/>
 
-            <connection id="8" from_link="4" from_lane="0" to_link="7" to_lane="0" length="9" priority=""/>
-            <connection id="9" from_link="4" from_lane="2" to_link="0" to_lane="2" length="3" priority=""/>
+            <connection id="5" from_link="11" from_lane="2" to_link="12" to_lane="0" length="50" priority=""/>
+            <connection id="6" from_link="11" from_lane="3" to_link="12" to_lane="1" length="50" priority=""/>
 
-            <!--From Link 6 -->
-            <connection id="10" from_link="6" from_lane="0" to_link="0" to_lane="0" length="12" priority=""/>
-            <connection id="11" from_link="6" from_lane="1" to_link="0" to_lane="1" length="12" priority=""/>
-            <connection id="12" from_link="6" from_lane="2" to_link="0" to_lane="2" length="12" priority=""/>
+            <!--From Link 51 -->
+            <connection id="7" from_link="51" from_lane="0" to_link="23" to_lane="0" length="80" priority=""/>
 
-            <connection id="13" from_link="6" from_lane="0" to_link="2" to_lane="0" length="9" priority=""/>
-            <connection id="14" from_link="6" from_lane="2" to_link="5" to_lane="2" length="3" priority=""/>
+            <connection id="8" from_link="51" from_lane="1" to_link="45" to_lane="0" length="50" priority=""/>
+            <connection id="9" from_link="51" from_lane="2" to_link="45" to_lane="1" length="50" priority=""/>
 
-            <!--From Link 3 -->
-            <connection id="15" from_link="3" from_lane="0" to_link="5" to_lane="0" length="12" priority=""/>
-            <connection id="16" from_link="3" from_lane="1" to_link="5" to_lane="1" length="12" priority=""/>
-            <connection id="17" from_link="3" from_lane="2" to_link="5" to_lane="2" length="12" priority=""/>
+            <!--From Link 22 -->
+            <connection id="10" from_link="22" from_lane="0" to_link="48" to_lane="0" length="80" priority=""/>
+            <connection id="11" from_link="22" from_lane="1" to_link="48" to_lane="1" length="90" priority=""/>
 
-            <connection id="18" from_link="3" from_lane="0" to_link="0" to_lane="0" length="9" priority=""/>
-            <connection id="19" from_link="3" from_lane="2" to_link="7" to_lane="2" length="3" priority=""/>
+            <connection id="12" from_link="22" from_lane="0" to_link="23" to_lane="0" length="50" priority=""/>
+            <connection id="13" from_link="22" from_lane="1" to_link="23" to_lane="1" length="50" priority=""/>
 
 
             <!--Phase setting -->
             <phase id="0">
-                <connection id_ref="0" priority="1" />
                 <connection id_ref="1" priority="1" />
                 <connection id_ref="2" priority="1" />
-                <connection id_ref="3" priority="1" />
-                <connection id_ref="4" priority="0.5" />
-                <connection id_ref="9" priority="0.1" />
-                <connection id_ref="19" priority="0.1" />
-                <connection id_ref="14" priority="0.1" />
+                <connection id_ref="8" priority="1" />
+                <connection id_ref="9" priority="1" />
             </phase>
 
             <phase id="1">
-                <connection id_ref="15" priority="1" />
-                <connection id_ref="16" priority="1" />
-                <connection id_ref="17" priority="1" />
-                <connection id_ref="18" priority="1" />
-                <connection id_ref="19" priority="0.5" />
-                <connection id_ref="14" priority="0.1" />
-                <connection id_ref="9" priority="0.1" />
-                <connection id_ref="4" priority="0.1" />
-            </phase>
-
-            <phase id="2">
-                <connection id_ref="10" priority="1" />
-                <connection id_ref="11" priority="1" />
-                <connection id_ref="12" priority="1" />
-                <connection id_ref="13" priority="1" />
-                <connection id_ref="14" priority="0.5" />
-                <connection id_ref="9" priority="0.1" />
-                <connection id_ref="4" priority="0.1" />
-                <connection id_ref="19" priority="0.1" />
-            </phase>
-
-            <phase id="3">
-                <connection id_ref="5" priority="1" />
-                <connection id_ref="6" priority="1" />
-                <connection id_ref="7" priority="1" />
-                <connection id_ref="8" priority="1" />
-                <connection id_ref="9" priority="0.5" />
-                <connection id_ref="4" priority="0.1" />
-                <connection id_ref="19" priority="0.1" />
-                <connection id_ref="14" priority="0.1" />
-            </phase>
-
-            <!--Signal Plan -->
-            <signal_plan order="0 1 2 3" phase_length="30 30 30 30" offset="0">
-            </signal_plan>
-
-
-        </node>
-
-        <node id="1" type="intersection" num_port ="8" num_connection="20">
-
-            <port link_id="14" direction="270" type="out">
-            </port>
-
-            <port link_id="15" direction="270" type="in">
-            </port>
-
-            <port link_id="8" direction="180" type="out">
-            </port>
-
-            <port link_id="9" direction="180" type="in">
-            </port>
-
-            <port link_id="10" direction="0" type="in">
-            </port>
-
-            <port link_id="11" direction="0" type="out">
-            </port>
-
-            <port link_id="12" direction="90" type="in">
-            </port>
-
-            <port link_id="13" direction="90" type="out">
-            </port>
-
-            <!--From Link 15 -->
-            <connection id="0" from_link="15" from_lane="0" to_link="13" to_lane="0" length="12" priority=""/>
-            <connection id="1" from_link="15" from_lane="1" to_link="13" to_lane="1" length="12" priority=""/>
-            <connection id="2" from_link="15" from_lane="2" to_link="13" to_lane="2" length="12" priority=""/>
-
-            <connection id="3" from_link="15" from_lane="0" to_link="11" to_lane="0" length="9" priority=""/>
-            <connection id="4" from_link="15" from_lane="2" to_link="8" to_lane="2" length="3" priority=""/>
-
-            <!--From Link 10 -->
-            <connection id="5" from_link="10" from_lane="0" to_link="8" to_lane="0" length="12" priority=""/>
-            <connection id="6" from_link="10" from_lane="1" to_link="8" to_lane="1" length="12" priority=""/>
-            <connection id="7" from_link="10" from_lane="2" to_link="8" to_lane="2" length="12" priority=""/>
-
-            <connection id="8" from_link="10" from_lane="0" to_link="13" to_lane="0" length="9" priority=""/>
-            <connection id="9" from_link="10" from_lane="2" to_link="14" to_lane="2" length="3" priority=""/>
-
-            <!--From Link 12 -->
-            <connection id="10" from_link="12" from_lane="0" to_link="14" to_lane="0" length="12" priority=""/>
-            <connection id="11" from_link="12" from_lane="1" to_link="14" to_lane="1" length="12" priority=""/>
-            <connection id="12" from_link="12" from_lane="2" to_link="14" to_lane="2" length="12" priority=""/>
-
-            <connection id="13" from_link="12" from_lane="0" to_link="8" to_lane="0" length="9" priority=""/>
-            <connection id="14" from_link="12" from_lane="2" to_link="11" to_lane="2" length="3" priority=""/>
-
-            <!--From Link 9 -->
-            <connection id="15" from_link="9" from_lane="0" to_link="11" to_lane="0" length="12" priority=""/>
-            <connection id="16" from_link="9" from_lane="1" to_link="11" to_lane="1" length="12" priority=""/>
-            <connection id="17" from_link="9" from_lane="2" to_link="11" to_lane="2" length="12" priority=""/>
-
-            <connection id="18" from_link="9" from_lane="0" to_link="14" to_lane="0" length="9" priority=""/>
-            <connection id="19" from_link="9" from_lane="2" to_link="13" to_lane="2" length="3" priority=""/>
-
-
-            <!--Phase setting -->
-            <phase id="0">
                 <connection id_ref="0" priority="1" />
                 <connection id_ref="1" priority="1" />
                 <connection id_ref="2" priority="1" />
-                <connection id_ref="3" priority="1" />
-                <connection id_ref="4" priority="0.5" />
-                <connection id_ref="9" priority="0.1" />
-                <connection id_ref="19" priority="0.1" />
-                <connection id_ref="14" priority="0.1" />
-            </phase>
-
-            <phase id="1">
-                <connection id_ref="15" priority="1" />
-                <connection id_ref="16" priority="1" />
-                <connection id_ref="17" priority="1" />
-                <connection id_ref="18" priority="1" />
-                <connection id_ref="19" priority="0.5" />
-                <connection id_ref="14" priority="0.1" />
-                <connection id_ref="9" priority="0.1" />
-                <connection id_ref="4" priority="0.1" />
             </phase>
 
             <phase id="2">
-                <connection id_ref="10" priority="1" />
-                <connection id_ref="11" priority="1" />
+                <connection id_ref="5" priority="1" />
+                <connection id_ref="6" priority="1" />
                 <connection id_ref="12" priority="1" />
                 <connection id_ref="13" priority="1" />
-                <connection id_ref="14" priority="0.5" />
-                <connection id_ref="9" priority="0.1" />
-                <connection id_ref="4" priority="0.1" />
-                <connection id_ref="19" priority="0.1" />
             </phase>
 
             <phase id="3">
-                <connection id_ref="5" priority="1" />
-                <connection id_ref="6" priority="1" />
+                <connection id_ref="3" priority="1" />
+                <connection id_ref="4" priority="1" />
+                <connection id_ref="10" priority="1" />
+                <connection id_ref="11" priority="1" />
+            </phase>
+
+            <phase id="4">
                 <connection id_ref="7" priority="1" />
                 <connection id_ref="8" priority="1" />
-                <connection id_ref="9" priority="0.5" />
-                <connection id_ref="4" priority="0.1" />
-                <connection id_ref="19" priority="0.1" />
-                <connection id_ref="14" priority="0.1" />
+                <connection id_ref="9" priority="1" />
             </phase>
 
             <!--Signal Plan -->
-            <signal_plan order="0 1 2 3" phase_length="30 30 30 30" offset="0">
+            <signal_plan order="0 1 2 3 4" phase_length="140 140 140 140" offset="0">
             </signal_plan>
 
 
@@ -231,575 +103,574 @@
 
         <node id="2" type="intersection" num_port ="8" num_connection="20">
 
-            <port link_id="22" direction="270" type="out">
+            <port link_id="29" direction="90" type="out">
             </port>
 
-            <port link_id="23" direction="270" type="in">
+            <port link_id="5" direction="90" type="in">
             </port>
 
-            <port link_id="24" direction="180" type="out">
+            <port link_id="40" direction="0" type="out">
             </port>
 
-            <port link_id="25" direction="180" type="in">
+            <port link_id="44" direction="0" type="in">
             </port>
 
-            <port link_id="8" direction="0" type="in">
-            </port>
-
-            <port link_id="9" direction="0" type="out">
-            </port>
-
-            <port link_id="27" direction="90" type="in">
-            </port>
-
-            <port link_id="26" direction="90" type="out">
-            </port>
-
-            <!--From Link 23 -->
-            <connection id="0" from_link="23" from_lane="0" to_link="26" to_lane="0" length="12" priority=""/>
-            <connection id="1" from_link="23" from_lane="1" to_link="26" to_lane="1" length="12" priority=""/>
-            <connection id="2" from_link="23" from_lane="2" to_link="26" to_lane="2" length="12" priority=""/>
-
-            <connection id="3" from_link="23" from_lane="0" to_link="9" to_lane="0" length="9" priority=""/>
-            <connection id="4" from_link="23" from_lane="2" to_link="24" to_lane="2" length="3" priority=""/>
-
-            <!--From Link 8 -->
-            <connection id="5" from_link="8" from_lane="0" to_link="24" to_lane="0" length="12" priority=""/>
-            <connection id="6" from_link="8" from_lane="1" to_link="24" to_lane="1" length="12" priority=""/>
-            <connection id="7" from_link="8" from_lane="2" to_link="24" to_lane="2" length="12" priority=""/>
-
-            <connection id="8" from_link="8" from_lane="0" to_link="26" to_lane="0" length="9" priority=""/>
-            <connection id="9" from_link="8" from_lane="2" to_link="22" to_lane="2" length="3" priority=""/>
-
-            <!--From Link 27 -->
-            <connection id="10" from_link="27" from_lane="0" to_link="22" to_lane="0" length="12" priority=""/>
-            <connection id="11" from_link="27" from_lane="1" to_link="22" to_lane="1" length="12" priority=""/>
-            <connection id="12" from_link="27" from_lane="2" to_link="22" to_lane="2" length="12" priority=""/>
-
-            <connection id="13" from_link="27" from_lane="0" to_link="24" to_lane="0" length="9" priority=""/>
-            <connection id="14" from_link="27" from_lane="2" to_link="9" to_lane="2" length="3" priority=""/>
-
-            <!--From Link 25 -->
-            <connection id="15" from_link="25" from_lane="0" to_link="9" to_lane="0" length="12" priority=""/>
-            <connection id="16" from_link="25" from_lane="1" to_link="9" to_lane="1" length="12" priority=""/>
-            <connection id="17" from_link="25" from_lane="2" to_link="9" to_lane="2" length="12" priority=""/>
-
-            <connection id="18" from_link="25" from_lane="0" to_link="22" to_lane="0" length="9" priority=""/>
-            <connection id="19" from_link="25" from_lane="2" to_link="26" to_lane="2" length="3" priority=""/>
-
-
-            <!--Phase setting -->
-            <phase id="0">
-                <connection id_ref="0" priority="1" />
-                <connection id_ref="1" priority="1" />
-                <connection id_ref="2" priority="1" />
-                <connection id_ref="3" priority="1" />
-                <connection id_ref="4" priority="0.5" />
-                <connection id_ref="9" priority="0.1" />
-                <connection id_ref="19" priority="0.1" />
-                <connection id_ref="14" priority="0.1" />
-            </phase>
-
-            <phase id="1">
-                <connection id_ref="15" priority="1" />
-                <connection id_ref="16" priority="1" />
-                <connection id_ref="17" priority="1" />
-                <connection id_ref="18" priority="1" />
-                <connection id_ref="19" priority="0.5" />
-                <connection id_ref="14" priority="0.1" />
-                <connection id_ref="9" priority="0.1" />
-                <connection id_ref="4" priority="0.1" />
-            </phase>
-
-            <phase id="2">
-                <connection id_ref="10" priority="1" />
-                <connection id_ref="11" priority="1" />
-                <connection id_ref="12" priority="1" />
-                <connection id_ref="13" priority="1" />
-                <connection id_ref="14" priority="0.5" />
-                <connection id_ref="9" priority="0.1" />
-                <connection id_ref="4" priority="0.1" />
-                <connection id_ref="19" priority="0.1" />
-            </phase>
-
-            <phase id="3">
-                <connection id_ref="5" priority="1" />
-                <connection id_ref="6" priority="1" />
-                <connection id_ref="7" priority="1" />
-                <connection id_ref="8" priority="1" />
-                <connection id_ref="9" priority="0.5" />
-                <connection id_ref="4" priority="0.1" />
-                <connection id_ref="19" priority="0.1" />
-                <connection id_ref="14" priority="0.1" />
-            </phase>
-
-            <!--Signal Plan -->
-            <signal_plan order="0 1 2 3" phase_length="30 30 30 30" offset="0">
-            </signal_plan>
-
-
-        </node>
-
-        <node id="3" type="intersection" num_port ="8" num_connection="20">
-
-            <port link_id="16" direction="270" type="out">
-            </port>
-
-            <port link_id="17" direction="270" type="in">
-            </port>
-
-            <port link_id="18" direction="180" type="out">
-            </port>
-
-            <port link_id="19" direction="180" type="in">
-            </port>
-
-            <port link_id="2" direction="0" type="in">
-            </port>
-
-            <port link_id="3" direction="0" type="out">
-            </port>
-
-            <port link_id="20" direction="90" type="in">
-            </port>
-
-            <port link_id="21" direction="90" type="out">
-            </port>
-
-            <!--From Link 17 -->
-            <connection id="0" from_link="17" from_lane="0" to_link="21" to_lane="0" length="12" priority=""/>
-            <connection id="1" from_link="17" from_lane="1" to_link="21" to_lane="1" length="12" priority=""/>
-            <connection id="2" from_link="17" from_lane="2" to_link="21" to_lane="2" length="12" priority=""/>
-
-            <connection id="3" from_link="17" from_lane="0" to_link="3" to_lane="0" length="9" priority=""/>
-            <connection id="4" from_link="17" from_lane="2" to_link="18" to_lane="2" length="3" priority=""/>
-
-            <!--From Link 2 -->
-            <connection id="5" from_link="2" from_lane="0" to_link="18" to_lane="0" length="12" priority=""/>
-            <connection id="6" from_link="2" from_lane="1" to_link="18" to_lane="1" length="12" priority=""/>
-            <connection id="7" from_link="2" from_lane="2" to_link="18" to_lane="2" length="12" priority=""/>
-
-            <connection id="8" from_link="2" from_lane="0" to_link="21" to_lane="0" length="9" priority=""/>
-            <connection id="9" from_link="2" from_lane="2" to_link="16" to_lane="2" length="3" priority=""/>
-
-            <!--From Link 20 -->
-            <connection id="10" from_link="20" from_lane="0" to_link="16" to_lane="0" length="12" priority=""/>
-            <connection id="11" from_link="20" from_lane="1" to_link="16" to_lane="1" length="12" priority=""/>
-            <connection id="12" from_link="20" from_lane="2" to_link="16" to_lane="2" length="12" priority=""/>
-
-            <connection id="13" from_link="20" from_lane="0" to_link="18" to_lane="0" length="9" priority=""/>
-            <connection id="14" from_link="20" from_lane="2" to_link="3" to_lane="2" length="3" priority=""/>
-
-            <!--From Link 19 -->
-            <connection id="15" from_link="19" from_lane="0" to_link="3" to_lane="0" length="12" priority=""/>
-            <connection id="16" from_link="19" from_lane="1" to_link="3" to_lane="1" length="12" priority=""/>
-            <connection id="17" from_link="19" from_lane="2" to_link="3" to_lane="2" length="12" priority=""/>
-
-            <connection id="18" from_link="19" from_lane="0" to_link="16" to_lane="0" length="9" priority=""/>
-            <connection id="19" from_link="19" from_lane="2" to_link="21" to_lane="2" length="3" priority=""/>
-
-
-            <!--Phase setting -->
-            <phase id="0">
-                <connection id_ref="0" priority="1" />
-                <connection id_ref="1" priority="1" />
-                <connection id_ref="2" priority="1" />
-                <connection id_ref="3" priority="1" />
-                <connection id_ref="4" priority="0.5" />
-                <connection id_ref="9" priority="0.1" />
-                <connection id_ref="19" priority="0.1" />
-                <connection id_ref="14" priority="0.1" />
-            </phase>
-
-            <phase id="1">
-                <connection id_ref="15" priority="1" />
-                <connection id_ref="16" priority="1" />
-                <connection id_ref="17" priority="1" />
-                <connection id_ref="18" priority="1" />
-                <connection id_ref="19" priority="0.5" />
-                <connection id_ref="14" priority="0.1" />
-                <connection id_ref="9" priority="0.1" />
-                <connection id_ref="4" priority="0.1" />
-            </phase>
-
-            <phase id="2">
-                <connection id_ref="10" priority="1" />
-                <connection id_ref="11" priority="1" />
-                <connection id_ref="12" priority="1" />
-                <connection id_ref="13" priority="1" />
-                <connection id_ref="14" priority="0.5" />
-                <connection id_ref="9" priority="0.1" />
-                <connection id_ref="4" priority="0.1" />
-                <connection id_ref="19" priority="0.1" />
-            </phase>
-
-            <phase id="3">
-                <connection id_ref="5" priority="1" />
-                <connection id_ref="6" priority="1" />
-                <connection id_ref="7" priority="1" />
-                <connection id_ref="8" priority="1" />
-                <connection id_ref="9" priority="0.5" />
-                <connection id_ref="4" priority="0.1" />
-                <connection id_ref="19" priority="0.1" />
-                <connection id_ref="14" priority="0.1" />
-            </phase>
-
-            <!--Signal Plan -->
-            <signal_plan order="0 1 2 3" phase_length="30 30 30 30" offset="0">
-            </signal_plan>
-
-
-        </node>
-
-
-
-        <!--Normal/Relay Nodes DONE-->
-        <node id="4" type="normal" num_port="4">
             <port link_id="6" direction="270" type="out">
             </port>
-            <port link_id="7" direction="270" type="in">
+
+            <port link_id="28" direction="270" type="in">
             </port>
-            <port link_id="14" direction="90" type="in">
+
+            <port link_id="35" direction="180" type="out">
             </port>
-            <port link_id="15" direction="90" type="out">
+
+            <port link_id="39" direction="180" type="in">
             </port>
+
+            <!--From Link 39 -->
+            <connection id="0" from_link="39" from_lane="0" to_link="6" to_lane="0" length="80" priority=""/>
+
+            <connection id="1" from_link="39" from_lane="1" to_link="6" to_lane="1" length="90" priority=""/>
+            <connection id="2" from_link="39" from_lane="1" to_link="40" to_lane="0" length="50" priority=""/>
+
+            <connection id="3" from_link="39" from_lane="2" to_link="40" to_lane="1" length="50" priority=""/>
+            <connection id="4" from_link="39" from_lane="3" to_link="29" to_lane="2" length="20" priority=""/>
+
+            <!--From Link 5 -->
+            <connection id="5" from_link="5" from_lane="0" to_link="35" to_lane="0" length="80" priority=""/>
+
+            <connection id="6" from_link="5" from_lane="1" to_link="35" to_lane="1" length="90" priority=""/>
+            <connection id="7" from_link="5" from_lane="1" to_link="6" to_lane="0" length="50" priority=""/>
+
+            <connection id="8" from_link="5" from_lane="2" to_link="6" to_lane="1" length="50" priority=""/>
+            <connection id="9" from_link="5" from_lane="3" to_link="40" to_lane="1" length="10" priority=""/>
+
+            <!--From Link 44 -->
+            <connection id="10" from_link="44" from_lane="0" to_link="29" to_lane="0" length="80" priority=""/>
+
+            <connection id="11" from_link="44" from_lane="1" to_link="29" to_lane="1" length="90" priority=""/>
+            <connection id="12" from_link="44" from_lane="1" to_link="35" to_lane="0" length="50" priority=""/>
+
+            <connection id="13" from_link="44" from_lane="2" to_link="35" to_lane="1" length="50" priority=""/>
+            <connection id="14" from_link="44" from_lane="3" to_link="6" to_lane="1" length="20" priority=""/>
+
+
+            <!--From Link 28 -->
+            <connection id="15" from_link="28" from_lane="0" to_link="40" to_lane="0" length="80" priority=""/>
+
+            <connection id="16" from_link="28" from_lane="1" to_link="40" to_lane="1" length="90" priority=""/>
+            <connection id="17" from_link="28" from_lane="1" to_link="29" to_lane="1" length="50" priority=""/>
+
+            <connection id="18" from_link="28" from_lane="2" to_link="29" to_lane="2" length="50" priority=""/>
+            <connection id="19" from_link="28" from_lane="3" to_link="35" to_lane="1" length="10" priority=""/>
+
+
+            <!--Phase setting -->
+            <phase id="0">
+                <connection id_ref="7" priority="1" />
+                <connection id_ref="8" priority="1" />
+                <connection id_ref="17" priority="1" />
+                <connection id_ref="18" priority="1" />
+                <connection id_ref="9" priority="1" />
+                <connection id_ref="19" priority="1" />
+            </phase>
+
+            <phase id="1">
+                <connection id_ref="5" priority="1" />
+                <connection id_ref="6" priority="1" />
+                <connection id_ref="2" priority="1" />
+            </phase>
+
+            <phase id="2">
+                <connection id_ref="5" priority="1" />
+                <connection id_ref="6" priority="1" />
+                <connection id_ref="15" priority="1" />
+                <connection id_ref="16" priority="1" />
+            </phase>
+
+            <phase id="3">
+                <connection id_ref="2" priority="1" />
+                <connection id_ref="3" priority="1" />
+                <connection id_ref="12" priority="1" />
+                <connection id_ref="13" priority="1" />
+                <connection id_ref="4" priority="1" />
+                <connection id_ref="14" priority="1" />
+            </phase>
+
+            <phase id="4">
+                <connection id_ref="10" priority="1" />
+                <connection id_ref="11" priority="1" />
+                <connection id_ref="0" priority="1" />
+                <connection id_ref="1" priority="1" />
+            </phase>
+
+            <!--Signal Plan -->
+            <signal_plan order="0 1 2 3 4" phase_length="160 160 160 160" offset="0">
+            </signal_plan>
+
+
         </node>
 
-        <node id="5" type="normal" num_port="4">
-            <port link_id="20" direction="270" type="out">
-            </port>
-            <port link_id="21" direction="270" type="in">
-            </port>
-            <port link_id="22" direction="90" type="in">
-            </port>
-            <port link_id="23" direction="90" type="out">
-            </port>
+
+
+        <!--Normal/Relay Nodes DONE 9-48  +9 on sketch-->
+        <node id="9" type="normal" num_port="3">
+            <connection id="0" from_link="0" from_lane="0" to_link="1" to_lane="0" priority="1"/>
+            <connection id="1" from_link="0" from_lane="1" to_link="1" to_lane="1" priority="1"/>
+            <connection id="2" from_link="0" from_lane="2" to_link="1" to_lane="1" priority="0.5"/>
+        </node>
+
+        <node id="10" type="normal" num_port="4">
+            <connection id="0" from_link="1" from_lane="0" to_link="2" to_lane="0" priority="1"/>
+            <connection id="1" from_link="1" from_lane="0" to_link="2" to_lane="1" priority="1"/>
+            <connection id="2" from_link="1" from_lane="1" to_link="2" to_lane="2" priority="1"/>
+            <connection id="3" from_link="1" from_lane="1" to_link="2" to_lane="3" priority="1"/>
+        </node>
+
+        <node id="11" type="normal" num_port="4">
+            <connection id="0" from_link="2" from_lane="0" to_link="3" to_lane="0" priority="1"/>
+            <connection id="1" from_link="2" from_lane="1" to_link="3" to_lane="1" priority="1"/>
+            <connection id="2" from_link="2" from_lane="2" to_link="3" to_lane="2" priority="1"/>
+            <connection id="3" from_link="2" from_lane="3" to_link="3" to_lane="2" priority="0.1"/>
+        </node>
+
+        <node id="12" type="normal" num_port="4">
+            <connection id="0" from_link="3" from_lane="0" to_link="4" to_lane="0" priority="1"/>
+            <connection id="1" from_link="3" from_lane="1" to_link="4" to_lane="1" priority="1"/>
+            <connection id="2" from_link="3" from_lane="2" to_link="4" to_lane="1" priority="0.5"/>
+        </node>
+
+        <node id="13" type="normal" num_port="4">
+            <connection id="0" from_link="4" from_lane="0" to_link="5" to_lane="0" priority="1"/>
+            <connection id="1" from_link="4" from_lane="0" to_link="5" to_lane="1" priority="1"/>
+            <connection id="2" from_link="4" from_lane="1" to_link="5" to_lane="2" priority="1"/>
+            <connection id="3" from_link="4" from_lane="1" to_link="5" to_lane="3" priority="1"/>
+        </node>
+
+        <node id="14" type="normal" num_port="4">
+            <connection id="0" from_link="6" from_lane="0" to_link="7" to_lane="0" priority="1"/>
+            <connection id="1" from_link="6" from_lane="1" to_link="7" to_lane="1" priority="1"/>
+            <connection id="2" from_link="6" from_lane="2" to_link="7" to_lane="1" priority="0.5"/>
+        </node>
+
+        <node id="15" type="normal" num_port="4">
+            <connection id="0" from_link="7" from_lane="0" to_link="8" to_lane="0" priority="1"/>
+            <connection id="1" from_link="7" from_lane="1" to_link="8" to_lane="1" priority="1"/>
+            <connection id="2" from_link="7" from_lane="1" to_link="8" to_lane="2" priority="1"/>
+        </node>
+
+        <node id="16" type="normal" num_port="4">
+            <connection id="0" from_link="8" from_lane="0" to_link="52" to_lane="0" priority="1"/>
+            <connection id="1" from_link="8" from_lane="1" to_link="52" to_lane="1" priority="1"/>
+            <connection id="2" from_link="8" from_lane="2" to_link="9" to_lane="0" priority="1"/>
+        </node>
+
+        <node id="17" type="normal" num_port="4">
+            <connection id="0" from_link="9" from_lane="0" to_link="10" to_lane="0" priority="1"/>
+            <connection id="1" from_link="9" from_lane="0" to_link="10" to_lane="1" priority="1"/>
+            <connection id="2" from_link="9" from_lane="0" to_link="10" to_lane="2" priority="1"/>
+        </node>
+
+        <node id="18" type="normal" num_port="4">
+            <connection id="0" from_link="10" from_lane="0" to_link="11" to_lane="0" priority="1"/>
+            <connection id="1" from_link="10" from_lane="1" to_link="11" to_lane="1" priority="1"/>
+            <connection id="2" from_link="10" from_lane="2" to_link="11" to_lane="2" priority="1"/>
+            <connection id="3" from_link="10" from_lane="2" to_link="11" to_lane="3" priority="1"/>
+        </node>
+
+        <node id="19" type="normal" num_port="4">
+            <connection id="0" from_link="12" from_lane="0" to_link="13" to_lane="0" priority="1"/>
+            <connection id="1" from_link="12" from_lane="1" to_link="13" to_lane="0" priority="0.5"/>
+        </node>
+
+        <node id="20" type="normal" num_port="4">
+            <connection id="0" from_link="13" from_lane="0" to_link="14" to_lane="2" priority="1"/>
+        </node>
+
+        <node id="21" type="normal" num_port="4">
+            <connection id="0" from_link="14" from_lane="0" to_link="15" to_lane="0" priority="1"/>
+            <connection id="1" from_link="14" from_lane="1" to_link="15" to_lane="1" priority="1"/>
+            <connection id="2" from_link="14" from_lane="2" to_link="15" to_lane="1" priority="0.5"/>
+        </node>
+
+        <node id="22" type="normal" num_port="4">
+            <connection id="0" from_link="15" from_lane="0" to_link="16" to_lane="0" priority="1"/>
+            <connection id="1" from_link="15" from_lane="1" to_link="16" to_lane="1" priority="1"/>
+            <connection id="2" from_link="15" from_lane="1" to_link="16" to_lane="2" priority="1"/>
+        </node>
+
+        <node id="23" type="normal" num_port="4">
+            <connection id="0" from_link="16" from_lane="0" to_link="17" to_lane="0" priority="1"/>
+            <connection id="1" from_link="16" from_lane="1" to_link="17" to_lane="1" priority="1"/>
+            <connection id="2" from_link="16" from_lane="2" to_link="17" to_lane="2" priority="1"/>
+            <connection id="3" from_link="16" from_lane="2" to_link="17" to_lane="3" priority="1"/>
+        </node>
+
+        <node id="24" type="normal" num_port="4">
+            <connection id="0" from_link="18" from_lane="0" to_link="19" to_lane="0" priority="1"/>
+            <connection id="1" from_link="18" from_lane="1" to_link="19" to_lane="1" priority="1"/>
+            <connection id="2" from_link="18" from_lane="2" to_link="19" to_lane="1" priority="0.5"/>
+        </node>
+
+        <node id="25" type="normal" num_port="4">
+            <connection id="0" from_link="19" from_lane="0" to_link="20" to_lane="0" priority="1"/>
+            <connection id="1" from_link="19" from_lane="1" to_link="20" to_lane="1" priority="1"/>
+            <connection id="2" from_link="19" from_lane="1" to_link="20" to_lane="2" priority="1"/>
+        </node>
+
+        <node id="26" type="normal" num_port="4">
+            <connection id="0" from_link="20" from_lane="0" to_link="53" to_lane="0" priority="1"/>
+            <connection id="1" from_link="20" from_lane="1" to_link="53" to_lane="1" priority="1"/>
+            <connection id="2" from_link="20" from_lane="2" to_link="21" to_lane="0" priority="1"/>
+        </node>
+
+        <node id="27" type="normal" num_port="4">
+            <connection id="0" from_link="21" from_lane="0" to_link="22" to_lane="0" priority="1"/>
+            <connection id="1" from_link="21" from_lane="0" to_link="22" to_lane="1" priority="1"/>
+            <connection id="2" from_link="21" from_lane="0" to_link="22" to_lane="2" priority="1"/>
+            <connection id="3" from_link="21" from_lane="0" to_link="22" to_lane="3" priority="1"/>
+        </node>
+
+        <node id="28" type="normal" num_port="4">
+            <connection id="0" from_link="23" from_lane="0" to_link="24" to_lane="0" priority="1"/>
+            <connection id="1" from_link="23" from_lane="1" to_link="24" to_lane="0" priority="0.5"/>
+        </node>
+
+        <node id="29" type="normal" num_port="4">
+            <connection id="0" from_link="24" from_lane="0" to_link="25" to_lane="2" priority="1"/>
+        </node>
+
+        <node id="30" type="normal" num_port="4">
+            <connection id="0" from_link="53" from_lane="0" to_link="25" to_lane="0" priority="1"/>
+            <connection id="1" from_link="53" from_lane="1" to_link="25" to_lane="1" priority="1"/>
+        </node>
+
+        <node id="31" type="normal" num_port="4">
+            <connection id="0" from_link="52" from_lane="0" to_link="14" to_lane="0" priority="1"/>
+            <connection id="1" from_link="52" from_lane="1" to_link="14" to_lane="1" priority="1"/>
+        </node>
+
+        <node id="32" type="normal" num_port="4">
+            <connection id="0" from_link="25" from_lane="0" to_link="26" to_lane="0" priority="1"/>
+            <connection id="1" from_link="25" from_lane="1" to_link="26" to_lane="1" priority="1"/>
+            <connection id="2" from_link="25" from_lane="2" to_link="26" to_lane="1" priority="0.5"/>
+        </node>
+
+        <node id="33" type="normal" num_port="4">
+            <connection id="0" from_link="26" from_lane="0" to_link="27" to_lane="0" priority="1"/>
+            <connection id="1" from_link="26" from_lane="1" to_link="27" to_lane="1" priority="1"/>
+            <connection id="2" from_link="26" from_lane="1" to_link="27" to_lane="2" priority="1"/>
+        </node>
+
+        <node id="34" type="normal" num_port="4">
+            <connection id="0" from_link="27" from_lane="0" to_link="28" to_lane="0" priority="1"/>
+            <connection id="1" from_link="27" from_lane="1" to_link="28" to_lane="1" priority="1"/>
+            <connection id="2" from_link="27" from_lane="2" to_link="28" to_lane="2" priority="1"/>
+            <connection id="3" from_link="27" from_lane="2" to_link="28" to_lane="3" priority="1"/>
+        </node>
+
+        <node id="35" type="normal" num_port="4">
+            <connection id="0" from_link="29" from_lane="0" to_link="30" to_lane="0" priority="1"/>
+            <connection id="1" from_link="29" from_lane="1" to_link="30" to_lane="1" priority="1"/>
+            <connection id="2" from_link="29" from_lane="2" to_link="30" to_lane="1" priority="0.5"/>
+        </node>
+
+        <node id="36" type="normal" num_port="4">
+            <connection id="0" from_link="30" from_lane="0" to_link="31" to_lane="0" priority="1"/>
+            <connection id="1" from_link="30" from_lane="0" to_link="31" to_lane="1" priority="1"/>
+            <connection id="2" from_link="30" from_lane="1" to_link="31" to_lane="2" priority="1"/>
+            <connection id="3" from_link="30" from_lane="1" to_link="31" to_lane="3" priority="1"/>
+        </node>
+
+        <node id="37" type="normal" num_port="4">
+            <connection id="0" from_link="31" from_lane="0" to_link="32" to_lane="0" priority="1"/>
+            <connection id="1" from_link="31" from_lane="1" to_link="32" to_lane="1" priority="1"/>
+            <connection id="2" from_link="31" from_lane="2" to_link="32" to_lane="2" priority="1"/>
+            <connection id="3" from_link="31" from_lane="3" to_link="32" to_lane="2" priority="0.5"/>
+        </node>
+
+        <node id="38" type="normal" num_port="4">
+            <connection id="0" from_link="32" from_lane="0" to_link="33" to_lane="0" priority="1"/>
+            <connection id="1" from_link="32" from_lane="1" to_link="33" to_lane="1" priority="1"/>
+            <connection id="2" from_link="32" from_lane="2" to_link="33" to_lane="1" priority="0.5"/>
+        </node>
+
+        <node id="39" type="normal" num_port="4">
+            <connection id="0" from_link="33" from_lane="0" to_link="34" to_lane="0" priority="1"/>
+            <connection id="1" from_link="33" from_lane="1" to_link="34" to_lane="1" priority="1"/>
+            <connection id="2" from_link="33" from_lane="1" to_link="34" to_lane="2" priority="1"/>
+        </node>
+
+        <node id="40" type="normal" num_port="4">
+            <connection id="0" from_link="35" from_lane="0" to_link="36" to_lane="0" priority="1"/>
+            <connection id="1" from_link="35" from_lane="0" to_link="36" to_lane="1" priority="1"/>
+            <connection id="2" from_link="35" from_lane="1" to_link="36" to_lane="2" priority="1"/>
+        </node>
+
+        <node id="41" type="normal" num_port="4">
+            <connection id="0" from_link="37" from_lane="0" to_link="38" to_lane="0" priority="1"/>
+            <connection id="1" from_link="37" from_lane="0" to_link="38" to_lane="1" priority="1"/>
+            <connection id="2" from_link="37" from_lane="1" to_link="38" to_lane="2" priority="1"/>
+        </node>
+
+        <node id="42" type="normal" num_port="4">
+            <connection id="0" from_link="38" from_lane="0" to_link="39" to_lane="0" priority="1"/>
+            <connection id="1" from_link="38" from_lane="1" to_link="39" to_lane="1" priority="1"/>
+            <connection id="2" from_link="38" from_lane="2" to_link="39" to_lane="2" priority="1"/>
+            <connection id="3" from_link="38" from_lane="2" to_link="39" to_lane="3" priority="1"/>
+        </node>
+
+        <node id="43" type="normal" num_port="4">
+            <connection id="0" from_link="40" from_lane="0" to_link="41" to_lane="0" priority="1"/>
+            <connection id="1" from_link="40" from_lane="0" to_link="41" to_lane="1" priority="1"/>
+            <connection id="2" from_link="40" from_lane="1" to_link="41" to_lane="2" priority="1"/>
+        </node>
+
+        <node id="44" type="normal" num_port="4">
+            <connection id="0" from_link="42" from_lane="0" to_link="43" to_lane="0" priority="1"/>
+            <connection id="1" from_link="42" from_lane="0" to_link="43" to_lane="1" priority="1"/>
+            <connection id="2" from_link="42" from_lane="1" to_link="43" to_lane="2" priority="1"/>
+        </node>
+
+        <node id="45" type="normal" num_port="4">
+            <connection id="0" from_link="43" from_lane="0" to_link="44" to_lane="0" priority="1"/>
+            <connection id="1" from_link="43" from_lane="1" to_link="44" to_lane="1" priority="1"/>
+            <connection id="2" from_link="43" from_lane="2" to_link="44" to_lane="2" priority="1"/>
+            <connection id="3" from_link="43" from_lane="2" to_link="44" to_lane="3" priority="1"/>
+        </node>
+
+        <node id="46" type="normal" num_port="4">
+            <connection id="0" from_link="47" from_lane="0" to_link="46" to_lane="0" priority="1"/>
+            <connection id="1" from_link="47" from_lane="0" to_link="46" to_lane="1" priority="1"/>
+            <connection id="2" from_link="47" from_lane="1" to_link="46" to_lane="2" priority="1"/>
+        </node>
+
+        <node id="47" type="normal" num_port="4">
+            <connection id="0" from_link="48" from_lane="0" to_link="49" to_lane="0" priority="1"/>
+            <connection id="1" from_link="48" from_lane="1" to_link="49" to_lane="1" priority="1"/>
+            <connection id="2" from_link="48" from_lane="2" to_link="49" to_lane="1" priority="0.5"/>
+        </node>
+
+        <node id="48" type="normal" num_port="4">
+            <connection id="0" from_link="50" from_lane="0" to_link="51" to_lane="0" priority="1"/>
+            <connection id="1" from_link="50" from_lane="0" to_link="51" to_lane="1" priority="1"/>
+            <connection id="2" from_link="50" from_lane="1" to_link="51" to_lane="2" priority="0.5"/>
         </node>
 
         <!--Sink/Source Nodes  DONE-->
-        <node id="6" type="terminal" num_port="2">
-            <port link_id="0" direction="90" type="in">
+        <node id="0" type="terminal" num_port="2">
+            <port link_id="0" direction="270" type="out">
             </port>
-            <port link_id="1" direction="90" type="out">
+            <port link_id="34" direction="270" type="in">
+            </port>
+        </node>
+
+        <node id="4" type="terminal" num_port="2">
+            <port link_id="50" direction="180" type="out">
+            </port>
+            <port link_id="49" direction="180" type="in">
+            </port>
+        </node>
+
+        <node id="5" type="terminal" num_port="2">
+            <port link_id="17" direction="90" type="in">
+            </port>
+            <port link_id="18" direction="90" type="out">
+            </port>
+        </node>
+
+        <node id="6" type="terminal" num_port="2">
+            <port link_id="45" direction="0" type="in">
+            </port>
+            <port link_id="47" direction="0" type="out">
             </port>
         </node>
 
         <node id="7" type="terminal" num_port="2">
-            <port link_id="5" direction="180" type="in">
+            <port link_id="36" direction="0" type="in">
             </port>
-            <port link_id="4" direction="180" type="out">
+            <port link_id="37" direction="0" type="out">
             </port>
         </node>
 
         <node id="8" type="terminal" num_port="2">
-            <port link_id="11" direction="180" type="in">
+            <port link_id="41" direction="180" type="in">
             </port>
-            <port link_id="10" direction="180" type="out">
-            </port>
-        </node>
-
-        <node id="9" type="terminal" num_port="2">
-            <port link_id="13" direction="270" type="in">
-            </port>
-            <port link_id="12" direction="270" type="out">
+            <port link_id="42" direction="180" type="out">
             </port>
         </node>
-
-        <node id="10" type="terminal" num_port="2">
-            <port link_id="26" direction="270" type="in">
-            </port>
-            <port link_id="27" direction="270" type="out">
-            </port>
-        </node>
-
-        <node id="11" type="terminal" num_port="2">
-            <port link_id="24" direction="0" type="in">
-            </port>
-            <port link_id="25" direction="0" type="out">
-            </port>
-        </node>
-
-        <node id="12" type="terminal" num_port="2">
-            <port link_id="18" direction="0" type="in">
-            </port>
-            <port link_id="19" direction="0" type="out">
-            </port>
-        </node>
-
-        <node id="13" type="terminal" num_port="2">
-            <port link_id="16" direction="90" type="in">
-            </port>
-            <port link_id="17" direction="90" type="out">
-            </port>
-        </node>
-
         <!--End of Nodes -->
     </nodes>
 
 
     <!--Station Specifications DONE -->
     <stations>
-        <station id="1" link_ref="0" lane_ref="2" pos="10"/>
-        <station id="2" link_ref="14" lane_ref="2" pos="10"/>
-        <station id="3" link_ref="2" lane_ref="2" pos="10"/>
-        <station id="4" link_ref="20" lane_ref="2" pos="10"/>
-        <station id="5" link_ref="23" lane_ref="2" pos="10"/>
-        <station id="6" link_ref="26" lane_ref="2" pos="10"/>
+        
     </stations>
 
 
     <!--Individual Link Specification DONE-->
     <links>
         <link id="0" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
         </link>
 
-        <link id="1" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
+        <link id="1" type="straight" num_lane="2" num_sect="10" ffspeed="40" max_spd="" min_spd="" length="500" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
         </link>
 
-        <link id="2" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
+        <link id="2" type="straight" num_lane="4" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
         </link>
 
         <link id="3" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
         </link>
 
-        <link id="4" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
+        <link id="4" type="straight" num_lane="2" num_sect="6" ffspeed="40" max_spd="" min_spd="" length="300" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
         </link>
 
-        <link id="5" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
+        <link id="5" type="straight" num_lane="4" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
         </link>
 
         <link id="6" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
         </link>
 
-        <link id="7" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
+        <link id="7" type="straight" num_lane="2" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
         </link>
 
-        <link id="8" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
+        <link id="8" type="straight" num_lane="3" num_sect="6" ffspeed="40" max_spd="" min_spd="" length="300" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
         </link>
 
-        <link id="9" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
+        <link id="9" type="straight" num_lane="1" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
         </link>
 
         <link id="10" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
         </link>
 
-        <link id="11" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
+        <link id="11" type="straight" num_lane="4" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
         </link>
 
-        <link id="12" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
+        <link id="12" type="straight" num_lane="2" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
         </link>
 
-        <link id="13" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
+        <link id="13" type="straight" num_lane="1" num_sect="8" ffspeed="40" max_spd="" min_spd="" length="400" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
         </link>
 
         <link id="14" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
         </link>
 
-        <link id="15" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
+        <link id="15" type="straight" num_lane="2" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
         </link>
 
         <link id="16" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
         </link>
 
-        <link id="17" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
+        <link id="17" type="straight" num_lane="4" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
         </link>
 
         <link id="18" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
         </link>
 
-        <link id="19" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
+        <link id="19" type="straight" num_lane="2" num_sect="4" ffspeed="40" max_spd="" min_spd="" length="200" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
         </link>
 
         <link id="20" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
         </link>
 
-        <link id="21" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
+        <link id="21" type="straight" num_lane="1" num_sect="8" ffspeed="40" max_spd="" min_spd="" length="400" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
         </link>
 
-        <link id="22" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
+        <link id="22" type="straight" num_lane="4" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
         </link>
 
-        <link id="23" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
+        <link id="23" type="straight" num_lane="2" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
         </link>
 
-        <link id="24" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
+        <link id="24" type="straight" num_lane="1" num_sect="4" ffspeed="40" max_spd="" min_spd="" length="200" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
         </link>
 
         <link id="25" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
         </link>
 
-        <link id="26" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
+        <link id="26" type="straight" num_lane="2" num_sect="4" ffspeed="40" max_spd="" min_spd="" length="200" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
         </link>
 
         <link id="27" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
-            <lane id="0">
-            </lane>
-            <lane id="1">
-            </lane>
-            <lane id="2">
-            </lane>
+        </link>
+
+        <link id="28" type="straight" num_lane="4" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="29" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="30" type="straight" num_lane="2" num_sect="6" ffspeed="40" max_spd="" min_spd="" length="300" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="31" type="straight" num_lane="4" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="32" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="33" type="straight" num_lane="2" num_sect="10" ffspeed="40" max_spd="" min_spd="" length="500" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="34" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="35" type="straight" num_lane="2" num_sect="6" ffspeed="40" max_spd="" min_spd="" length="300" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="36" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="37" type="straight" num_lane="2" num_sect="4" ffspeed="40" max_spd="" min_spd="" length="200" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="38" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="39" type="straight" num_lane="4" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="40" type="straight" num_lane="2" num_sect="6" ffspeed="40" max_spd="" min_spd="" length="300" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="41" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="42" type="straight" num_lane="2" num_sect="4" ffspeed="40" max_spd="" min_spd="" length="200" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="43" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link> 
+
+        <link id="44" type="straight" num_lane="4" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="45" type="straight" num_lane="2" num_sect="6" ffspeed="40" max_spd="" min_spd="" length="300" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="46" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="47" type="straight" num_lane="2" num_sect="4" ffspeed="40" max_spd="" min_spd="" length="200" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="48" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="49" type="straight" num_lane="2" num_sect="4" ffspeed="40" max_spd="" min_spd="" length="200" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="50" type="straight" num_lane="2" num_sect="4" ffspeed="40" max_spd="" min_spd="" length="200" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="51" type="straight" num_lane="3" num_sect="2" ffspeed="40" max_spd="" min_spd="" length="100" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="52" type="straight" num_lane="2" num_sect="12" ffspeed="40" max_spd="" min_spd="" length="600" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
+        </link>
+
+        <link id="53" type="straight" num_lane="2" num_sect="12" ffspeed="40" max_spd="" min_spd="" length="600" width="3" qmax ="1500" waveSpd="15" maxVeh="14">
         </link>
 
     </links>
