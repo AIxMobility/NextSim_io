@@ -11,6 +11,9 @@ private:
 
 public:
     AgentsArr();
+    /**
+     * Creates a vector of InputAgents
+     */
 
     //check
     void showArr();

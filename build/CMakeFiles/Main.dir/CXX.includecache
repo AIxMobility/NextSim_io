@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/jeong7331/CLionProjects/InputXmlParser/library.cpp
+library.h
+/Users/jeong7331/CLionProjects/InputXmlParser/library.h
+iostream
+-
+
+/Users/jeong7331/CLionProjects/InputXmlParser/library.h
+
+/Users/jeong7331/CLionProjects/InputXmlParser/main.cpp
+library.h
+/Users/jeong7331/CLionProjects/InputXmlParser/library.h
+iostream
+-
+

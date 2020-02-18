@@ -20,11 +20,23 @@ private:
      */
     int type; 
     int id;
-    int numConnections; //num_connection 
+    int numConnections; //num_connection
+    /**
+     * numConnections: Applicable only for IntersectionNode
+     */
     int numLinks; //num_port
     std::vector<port> connectedLinks;//port:  linkId, direction, type(in / out)
+    /**
+     * port: Intersection, Terminal
+     */
     std::vector<connection> connectionTable; //connection:  connectionId (index), to_lane, to_link, from_lane, from_link, length
+    /**
+     * connection: Intersection, Normal
+     */
     std::vector<intersectionPhase> phaseTable; //intersectionPhase:  id, connectionId (list), priority(list)
+    /**
+     * intersectionPhase: Intersection
+     */
     
     //signalSequence: order(list), phase_length
     //may have to make this into a Pointer Loop

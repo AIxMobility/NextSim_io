@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/jeong7331/CLionProjects/InputXmlParser/sources/gookto_io/AgentsArr.cpp
+string
+-
+iostream
+-
+sstream
+-
+includes/gookto_io/InputAgents.hpp
+-
+includes/gookto_io/AgentsArr.hpp
+-
+tinyapi/tinyxml.h
+-
+tinyapi/tinystr.h
+-
+

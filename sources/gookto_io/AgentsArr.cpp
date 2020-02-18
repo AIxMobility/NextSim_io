@@ -2,11 +2,11 @@
 #include <iostream>
 #include <sstream>
 
-#include <includes/gookto_io/InputAgents.hpp>
-#include <includes/gookto_io/AgentsArr.hpp>
+#include <gookto_io/InputAgents.hpp>
+#include <gookto_io/AgentsArr.hpp>
 
-#include <tinyapi/tinyxml.h>
-#include <tinyapi/tinystr.h>
+#include <gookto_io/tinyapi/tinyxml.h>
+#include <gookto_io/tinyapi/tinystr.h>
 
 AgentsArr::AgentsArr()
 {

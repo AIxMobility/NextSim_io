@@ -2,10 +2,10 @@
 #include <iostream>
 #include <sstream>
 
-#include <includes/gookto_io/PaxArr.hpp>
+#include <gookto_io/PaxArr.hpp>
 
-#include <tinyapi/tinyxml.h>
-#include <tinyapi/tinystr.h>
+#include <gookto_io/tinyapi/tinyxml.h>
+#include <gookto_io/tinyapi/tinystr.h>
 
 PaxArr::PaxArr()
 {

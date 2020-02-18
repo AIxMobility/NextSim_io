@@ -1,10 +1,10 @@
 #include <string>
 #include <iostream>
 
-#include <includes/gookto_io/InputAgents.hpp>
+#include <gookto_io/InputAgents.hpp>
 
-#include <tinyapi/tinyxml.h>
-#include <tinyapi/tinystr.h>
+#include <gookto_io/tinyapi/tinyxml.h>
+#include <gookto_io/tinyapi/tinystr.h>
 
 InputAgents::InputAgents(int id, int type, float dpt_time) :
 id(id), type(type), dpt_time(dpt_time)

@@ -1,4 +1,4 @@
-# Install script for directory: /Users/jeong7331/Desktop/Gookto_io
+# Install script for directory: /Users/jeong7331/CLionProjects/InputXMLParser
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -12,7 +12,7 @@ if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
     string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
   else()
-    set(CMAKE_INSTALL_CONFIG_NAME "")
+    set(CMAKE_INSTALL_CONFIG_NAME "Debug")
   endif()
   message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
 endif()
@@ -33,9 +33,8 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for each subdirectory.
-  include("/Users/jeong7331/Desktop/Gookto_io/build/sources/gookto_io/cmake_install.cmake")
-
+  # Include the install script for the subdirectory.
+  include("/Users/jeong7331/CLionProjects/InputXMLParser/build/sources/gookto_io/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -46,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/jeong7331/Desktop/Gookto_io/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/jeong7331/CLionProjects/InputXMLParser/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -39,73 +39,27 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /opt/local/bin/cmake
+CMAKE_COMMAND = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake
 
 # The command to remove a file.
-RM = /opt/local/bin/cmake -E remove -f
+RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/jeong7331/Desktop/Gookto_io
+CMAKE_SOURCE_DIR = /Users/jeong7331/CLionProjects/InputXMLParser
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/jeong7331/Desktop/Gookto_io/build
+CMAKE_BINARY_DIR = /Users/jeong7331/CLionProjects/InputXMLParser/build
 
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/opt/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/opt/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/opt/local/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/opt/local/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/opt/local/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/opt/local/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/opt/local/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -115,8 +69,8 @@ rebuild_cache/fast: rebuild_cache
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/opt/local/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -126,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/jeong7331/Desktop/Gookto_io/build/CMakeFiles /Users/jeong7331/Desktop/Gookto_io/build/sources/gookto_io/CMakeFiles/progress.marks
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f CMakeFiles/Makefile2 sources/gookto_io/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/jeong7331/Desktop/Gookto_io/build/CMakeFiles 0
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/jeong7331/CLionProjects/InputXMLParser/build/CMakeFiles /Users/jeong7331/CLionProjects/InputXMLParser/build/sources/gookto_io/CMakeFiles/progress.marks
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f CMakeFiles/Makefile2 sources/gookto_io/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/jeong7331/CLionProjects/InputXMLParser/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f CMakeFiles/Makefile2 sources/gookto_io/clean
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f CMakeFiles/Makefile2 sources/gookto_io/clean
 .PHONY : clean
 
 # The main clean target
@@ -143,33 +97,48 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f CMakeFiles/Makefile2 sources/gookto_io/preinstall
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f CMakeFiles/Makefile2 sources/gookto_io/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f CMakeFiles/Makefile2 sources/gookto_io/preinstall
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f CMakeFiles/Makefile2 sources/gookto_io/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
-sources/gookto_io/CMakeFiles/Gookto_io.dir/rule:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f CMakeFiles/Makefile2 sources/gookto_io/CMakeFiles/Gookto_io.dir/rule
-.PHONY : sources/gookto_io/CMakeFiles/Gookto_io.dir/rule
+sources/gookto_io/CMakeFiles/Main.dir/rule:
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f CMakeFiles/Makefile2 sources/gookto_io/CMakeFiles/Main.dir/rule
+.PHONY : sources/gookto_io/CMakeFiles/Main.dir/rule
 
 # Convenience name for target.
-Gookto_io: sources/gookto_io/CMakeFiles/Gookto_io.dir/rule
+Main: sources/gookto_io/CMakeFiles/Main.dir/rule
 
-.PHONY : Gookto_io
+.PHONY : Main
 
 # fast build rule for target.
-Gookto_io/fast:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/build
-.PHONY : Gookto_io/fast
+Main/fast:
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/build
+.PHONY : Main/fast
+
+# Convenience name for target.
+sources/gookto_io/CMakeFiles/InputXmlParser.dir/rule:
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f CMakeFiles/Makefile2 sources/gookto_io/CMakeFiles/InputXmlParser.dir/rule
+.PHONY : sources/gookto_io/CMakeFiles/InputXmlParser.dir/rule
+
+# Convenience name for target.
+InputXmlParser: sources/gookto_io/CMakeFiles/InputXmlParser.dir/rule
+
+.PHONY : InputXmlParser
+
+# fast build rule for target.
+InputXmlParser/fast:
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/build
+.PHONY : InputXmlParser/fast
 
 AgentsArr.o: AgentsArr.cpp.o
 
@@ -177,7 +146,8 @@ AgentsArr.o: AgentsArr.cpp.o
 
 # target to build an object file
 AgentsArr.cpp.o:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/AgentsArr.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/AgentsArr.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/AgentsArr.cpp.o
 .PHONY : AgentsArr.cpp.o
 
 AgentsArr.i: AgentsArr.cpp.i
@@ -186,7 +156,8 @@ AgentsArr.i: AgentsArr.cpp.i
 
 # target to preprocess a source file
 AgentsArr.cpp.i:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/AgentsArr.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/AgentsArr.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/AgentsArr.cpp.i
 .PHONY : AgentsArr.cpp.i
 
 AgentsArr.s: AgentsArr.cpp.s
@@ -195,7 +166,8 @@ AgentsArr.s: AgentsArr.cpp.s
 
 # target to generate assembly for a file
 AgentsArr.cpp.s:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/AgentsArr.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/AgentsArr.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/AgentsArr.cpp.s
 .PHONY : AgentsArr.cpp.s
 
 InputAgents.o: InputAgents.cpp.o
@@ -204,7 +176,8 @@ InputAgents.o: InputAgents.cpp.o
 
 # target to build an object file
 InputAgents.cpp.o:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/InputAgents.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/InputAgents.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/InputAgents.cpp.o
 .PHONY : InputAgents.cpp.o
 
 InputAgents.i: InputAgents.cpp.i
@@ -213,7 +186,8 @@ InputAgents.i: InputAgents.cpp.i
 
 # target to preprocess a source file
 InputAgents.cpp.i:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/InputAgents.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/InputAgents.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/InputAgents.cpp.i
 .PHONY : InputAgents.cpp.i
 
 InputAgents.s: InputAgents.cpp.s
@@ -222,7 +196,8 @@ InputAgents.s: InputAgents.cpp.s
 
 # target to generate assembly for a file
 InputAgents.cpp.s:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/InputAgents.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/InputAgents.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/InputAgents.cpp.s
 .PHONY : InputAgents.cpp.s
 
 InputLink.o: InputLink.cpp.o
@@ -231,7 +206,8 @@ InputLink.o: InputLink.cpp.o
 
 # target to build an object file
 InputLink.cpp.o:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/InputLink.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/InputLink.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/InputLink.cpp.o
 .PHONY : InputLink.cpp.o
 
 InputLink.i: InputLink.cpp.i
@@ -240,7 +216,8 @@ InputLink.i: InputLink.cpp.i
 
 # target to preprocess a source file
 InputLink.cpp.i:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/InputLink.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/InputLink.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/InputLink.cpp.i
 .PHONY : InputLink.cpp.i
 
 InputLink.s: InputLink.cpp.s
@@ -249,7 +226,8 @@ InputLink.s: InputLink.cpp.s
 
 # target to generate assembly for a file
 InputLink.cpp.s:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/InputLink.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/InputLink.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/InputLink.cpp.s
 .PHONY : InputLink.cpp.s
 
 InputPax.o: InputPax.cpp.o
@@ -258,7 +236,8 @@ InputPax.o: InputPax.cpp.o
 
 # target to build an object file
 InputPax.cpp.o:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/InputPax.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/InputPax.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/InputPax.cpp.o
 .PHONY : InputPax.cpp.o
 
 InputPax.i: InputPax.cpp.i
@@ -267,7 +246,8 @@ InputPax.i: InputPax.cpp.i
 
 # target to preprocess a source file
 InputPax.cpp.i:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/InputPax.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/InputPax.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/InputPax.cpp.i
 .PHONY : InputPax.cpp.i
 
 InputPax.s: InputPax.cpp.s
@@ -276,7 +256,8 @@ InputPax.s: InputPax.cpp.s
 
 # target to generate assembly for a file
 InputPax.cpp.s:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/InputPax.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/InputPax.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/InputPax.cpp.s
 .PHONY : InputPax.cpp.s
 
 IntersectionNode.o: IntersectionNode.cpp.o
@@ -285,7 +266,8 @@ IntersectionNode.o: IntersectionNode.cpp.o
 
 # target to build an object file
 IntersectionNode.cpp.o:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/IntersectionNode.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/IntersectionNode.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/IntersectionNode.cpp.o
 .PHONY : IntersectionNode.cpp.o
 
 IntersectionNode.i: IntersectionNode.cpp.i
@@ -294,7 +276,8 @@ IntersectionNode.i: IntersectionNode.cpp.i
 
 # target to preprocess a source file
 IntersectionNode.cpp.i:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/IntersectionNode.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/IntersectionNode.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/IntersectionNode.cpp.i
 .PHONY : IntersectionNode.cpp.i
 
 IntersectionNode.s: IntersectionNode.cpp.s
@@ -303,7 +286,8 @@ IntersectionNode.s: IntersectionNode.cpp.s
 
 # target to generate assembly for a file
 IntersectionNode.cpp.s:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/IntersectionNode.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/IntersectionNode.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/IntersectionNode.cpp.s
 .PHONY : IntersectionNode.cpp.s
 
 LinkArr.o: LinkArr.cpp.o
@@ -312,7 +296,8 @@ LinkArr.o: LinkArr.cpp.o
 
 # target to build an object file
 LinkArr.cpp.o:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/LinkArr.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/LinkArr.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/LinkArr.cpp.o
 .PHONY : LinkArr.cpp.o
 
 LinkArr.i: LinkArr.cpp.i
@@ -321,7 +306,8 @@ LinkArr.i: LinkArr.cpp.i
 
 # target to preprocess a source file
 LinkArr.cpp.i:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/LinkArr.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/LinkArr.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/LinkArr.cpp.i
 .PHONY : LinkArr.cpp.i
 
 LinkArr.s: LinkArr.cpp.s
@@ -330,7 +316,8 @@ LinkArr.s: LinkArr.cpp.s
 
 # target to generate assembly for a file
 LinkArr.cpp.s:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/LinkArr.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/LinkArr.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/LinkArr.cpp.s
 .PHONY : LinkArr.cpp.s
 
 NodeArr.o: NodeArr.cpp.o
@@ -339,7 +326,8 @@ NodeArr.o: NodeArr.cpp.o
 
 # target to build an object file
 NodeArr.cpp.o:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/NodeArr.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/NodeArr.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/NodeArr.cpp.o
 .PHONY : NodeArr.cpp.o
 
 NodeArr.i: NodeArr.cpp.i
@@ -348,7 +336,8 @@ NodeArr.i: NodeArr.cpp.i
 
 # target to preprocess a source file
 NodeArr.cpp.i:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/NodeArr.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/NodeArr.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/NodeArr.cpp.i
 .PHONY : NodeArr.cpp.i
 
 NodeArr.s: NodeArr.cpp.s
@@ -357,7 +346,8 @@ NodeArr.s: NodeArr.cpp.s
 
 # target to generate assembly for a file
 NodeArr.cpp.s:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/NodeArr.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/NodeArr.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/NodeArr.cpp.s
 .PHONY : NodeArr.cpp.s
 
 ParamArr.o: ParamArr.cpp.o
@@ -366,7 +356,8 @@ ParamArr.o: ParamArr.cpp.o
 
 # target to build an object file
 ParamArr.cpp.o:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/ParamArr.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/ParamArr.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/ParamArr.cpp.o
 .PHONY : ParamArr.cpp.o
 
 ParamArr.i: ParamArr.cpp.i
@@ -375,7 +366,8 @@ ParamArr.i: ParamArr.cpp.i
 
 # target to preprocess a source file
 ParamArr.cpp.i:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/ParamArr.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/ParamArr.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/ParamArr.cpp.i
 .PHONY : ParamArr.cpp.i
 
 ParamArr.s: ParamArr.cpp.s
@@ -384,7 +376,8 @@ ParamArr.s: ParamArr.cpp.s
 
 # target to generate assembly for a file
 ParamArr.cpp.s:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/ParamArr.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/ParamArr.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/ParamArr.cpp.s
 .PHONY : ParamArr.cpp.s
 
 PaxArr.o: PaxArr.cpp.o
@@ -393,7 +386,8 @@ PaxArr.o: PaxArr.cpp.o
 
 # target to build an object file
 PaxArr.cpp.o:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/PaxArr.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/PaxArr.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/PaxArr.cpp.o
 .PHONY : PaxArr.cpp.o
 
 PaxArr.i: PaxArr.cpp.i
@@ -402,7 +396,8 @@ PaxArr.i: PaxArr.cpp.i
 
 # target to preprocess a source file
 PaxArr.cpp.i:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/PaxArr.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/PaxArr.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/PaxArr.cpp.i
 .PHONY : PaxArr.cpp.i
 
 PaxArr.s: PaxArr.cpp.s
@@ -411,8 +406,36 @@ PaxArr.s: PaxArr.cpp.s
 
 # target to generate assembly for a file
 PaxArr.cpp.s:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/PaxArr.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/PaxArr.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/PaxArr.cpp.s
 .PHONY : PaxArr.cpp.s
+
+__/__/tests/main.o: __/__/tests/main.cpp.o
+
+.PHONY : __/__/tests/main.o
+
+# target to build an object file
+__/__/tests/main.cpp.o:
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/__/__/tests/main.cpp.o
+.PHONY : __/__/tests/main.cpp.o
+
+__/__/tests/main.i: __/__/tests/main.cpp.i
+
+.PHONY : __/__/tests/main.i
+
+# target to preprocess a source file
+__/__/tests/main.cpp.i:
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/__/__/tests/main.cpp.i
+.PHONY : __/__/tests/main.cpp.i
+
+__/__/tests/main.s: __/__/tests/main.cpp.s
+
+.PHONY : __/__/tests/main.s
+
+# target to generate assembly for a file
+__/__/tests/main.cpp.s:
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/__/__/tests/main.cpp.s
+.PHONY : __/__/tests/main.cpp.s
 
 intersection/connection.o: intersection/connection.cpp.o
 
@@ -420,7 +443,8 @@ intersection/connection.o: intersection/connection.cpp.o
 
 # target to build an object file
 intersection/connection.cpp.o:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/intersection/connection.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/intersection/connection.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/intersection/connection.cpp.o
 .PHONY : intersection/connection.cpp.o
 
 intersection/connection.i: intersection/connection.cpp.i
@@ -429,7 +453,8 @@ intersection/connection.i: intersection/connection.cpp.i
 
 # target to preprocess a source file
 intersection/connection.cpp.i:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/intersection/connection.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/intersection/connection.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/intersection/connection.cpp.i
 .PHONY : intersection/connection.cpp.i
 
 intersection/connection.s: intersection/connection.cpp.s
@@ -438,7 +463,8 @@ intersection/connection.s: intersection/connection.cpp.s
 
 # target to generate assembly for a file
 intersection/connection.cpp.s:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/intersection/connection.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/intersection/connection.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/intersection/connection.cpp.s
 .PHONY : intersection/connection.cpp.s
 
 intersection/intersectionPhase.o: intersection/intersectionPhase.cpp.o
@@ -447,7 +473,8 @@ intersection/intersectionPhase.o: intersection/intersectionPhase.cpp.o
 
 # target to build an object file
 intersection/intersectionPhase.cpp.o:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/intersection/intersectionPhase.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/intersection/intersectionPhase.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/intersection/intersectionPhase.cpp.o
 .PHONY : intersection/intersectionPhase.cpp.o
 
 intersection/intersectionPhase.i: intersection/intersectionPhase.cpp.i
@@ -456,7 +483,8 @@ intersection/intersectionPhase.i: intersection/intersectionPhase.cpp.i
 
 # target to preprocess a source file
 intersection/intersectionPhase.cpp.i:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/intersection/intersectionPhase.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/intersection/intersectionPhase.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/intersection/intersectionPhase.cpp.i
 .PHONY : intersection/intersectionPhase.cpp.i
 
 intersection/intersectionPhase.s: intersection/intersectionPhase.cpp.s
@@ -465,7 +493,8 @@ intersection/intersectionPhase.s: intersection/intersectionPhase.cpp.s
 
 # target to generate assembly for a file
 intersection/intersectionPhase.cpp.s:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/intersection/intersectionPhase.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/intersection/intersectionPhase.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/intersection/intersectionPhase.cpp.s
 .PHONY : intersection/intersectionPhase.cpp.s
 
 intersection/port.o: intersection/port.cpp.o
@@ -474,7 +503,8 @@ intersection/port.o: intersection/port.cpp.o
 
 # target to build an object file
 intersection/port.cpp.o:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/intersection/port.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/intersection/port.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/intersection/port.cpp.o
 .PHONY : intersection/port.cpp.o
 
 intersection/port.i: intersection/port.cpp.i
@@ -483,7 +513,8 @@ intersection/port.i: intersection/port.cpp.i
 
 # target to preprocess a source file
 intersection/port.cpp.i:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/intersection/port.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/intersection/port.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/intersection/port.cpp.i
 .PHONY : intersection/port.cpp.i
 
 intersection/port.s: intersection/port.cpp.s
@@ -492,8 +523,129 @@ intersection/port.s: intersection/port.cpp.s
 
 # target to generate assembly for a file
 intersection/port.cpp.s:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Gookto_io.dir/build.make sources/gookto_io/CMakeFiles/Gookto_io.dir/intersection/port.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/intersection/port.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/intersection/port.cpp.s
 .PHONY : intersection/port.cpp.s
+
+tinyapi/tinystr.o: tinyapi/tinystr.cpp.o
+
+.PHONY : tinyapi/tinystr.o
+
+# target to build an object file
+tinyapi/tinystr.cpp.o:
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/tinyapi/tinystr.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/tinyapi/tinystr.cpp.o
+.PHONY : tinyapi/tinystr.cpp.o
+
+tinyapi/tinystr.i: tinyapi/tinystr.cpp.i
+
+.PHONY : tinyapi/tinystr.i
+
+# target to preprocess a source file
+tinyapi/tinystr.cpp.i:
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/tinyapi/tinystr.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/tinyapi/tinystr.cpp.i
+.PHONY : tinyapi/tinystr.cpp.i
+
+tinyapi/tinystr.s: tinyapi/tinystr.cpp.s
+
+.PHONY : tinyapi/tinystr.s
+
+# target to generate assembly for a file
+tinyapi/tinystr.cpp.s:
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/tinyapi/tinystr.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/tinyapi/tinystr.cpp.s
+.PHONY : tinyapi/tinystr.cpp.s
+
+tinyapi/tinyxml.o: tinyapi/tinyxml.cpp.o
+
+.PHONY : tinyapi/tinyxml.o
+
+# target to build an object file
+tinyapi/tinyxml.cpp.o:
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/tinyapi/tinyxml.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/tinyapi/tinyxml.cpp.o
+.PHONY : tinyapi/tinyxml.cpp.o
+
+tinyapi/tinyxml.i: tinyapi/tinyxml.cpp.i
+
+.PHONY : tinyapi/tinyxml.i
+
+# target to preprocess a source file
+tinyapi/tinyxml.cpp.i:
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/tinyapi/tinyxml.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/tinyapi/tinyxml.cpp.i
+.PHONY : tinyapi/tinyxml.cpp.i
+
+tinyapi/tinyxml.s: tinyapi/tinyxml.cpp.s
+
+.PHONY : tinyapi/tinyxml.s
+
+# target to generate assembly for a file
+tinyapi/tinyxml.cpp.s:
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/tinyapi/tinyxml.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/tinyapi/tinyxml.cpp.s
+.PHONY : tinyapi/tinyxml.cpp.s
+
+tinyapi/tinyxmlerror.o: tinyapi/tinyxmlerror.cpp.o
+
+.PHONY : tinyapi/tinyxmlerror.o
+
+# target to build an object file
+tinyapi/tinyxmlerror.cpp.o:
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/tinyapi/tinyxmlerror.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/tinyapi/tinyxmlerror.cpp.o
+.PHONY : tinyapi/tinyxmlerror.cpp.o
+
+tinyapi/tinyxmlerror.i: tinyapi/tinyxmlerror.cpp.i
+
+.PHONY : tinyapi/tinyxmlerror.i
+
+# target to preprocess a source file
+tinyapi/tinyxmlerror.cpp.i:
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/tinyapi/tinyxmlerror.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/tinyapi/tinyxmlerror.cpp.i
+.PHONY : tinyapi/tinyxmlerror.cpp.i
+
+tinyapi/tinyxmlerror.s: tinyapi/tinyxmlerror.cpp.s
+
+.PHONY : tinyapi/tinyxmlerror.s
+
+# target to generate assembly for a file
+tinyapi/tinyxmlerror.cpp.s:
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/tinyapi/tinyxmlerror.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/tinyapi/tinyxmlerror.cpp.s
+.PHONY : tinyapi/tinyxmlerror.cpp.s
+
+tinyapi/tinyxmlparser.o: tinyapi/tinyxmlparser.cpp.o
+
+.PHONY : tinyapi/tinyxmlparser.o
+
+# target to build an object file
+tinyapi/tinyxmlparser.cpp.o:
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/tinyapi/tinyxmlparser.cpp.o
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/tinyapi/tinyxmlparser.cpp.o
+.PHONY : tinyapi/tinyxmlparser.cpp.o
+
+tinyapi/tinyxmlparser.i: tinyapi/tinyxmlparser.cpp.i
+
+.PHONY : tinyapi/tinyxmlparser.i
+
+# target to preprocess a source file
+tinyapi/tinyxmlparser.cpp.i:
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/tinyapi/tinyxmlparser.cpp.i
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/tinyapi/tinyxmlparser.cpp.i
+.PHONY : tinyapi/tinyxmlparser.cpp.i
+
+tinyapi/tinyxmlparser.s: tinyapi/tinyxmlparser.cpp.s
+
+.PHONY : tinyapi/tinyxmlparser.s
+
+# target to generate assembly for a file
+tinyapi/tinyxmlparser.cpp.s:
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/Main.dir/build.make sources/gookto_io/CMakeFiles/Main.dir/tinyapi/tinyxmlparser.cpp.s
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(MAKE) -f sources/gookto_io/CMakeFiles/InputXmlParser.dir/build.make sources/gookto_io/CMakeFiles/InputXmlParser.dir/tinyapi/tinyxmlparser.cpp.s
+.PHONY : tinyapi/tinyxmlparser.cpp.s
 
 # Help Target
 help:
@@ -501,13 +653,10 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/local"
-	@echo "... install/strip"
-	@echo "... install"
-	@echo "... Gookto_io"
-	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... Main"
+	@echo "... InputXmlParser"
 	@echo "... AgentsArr.o"
 	@echo "... AgentsArr.i"
 	@echo "... AgentsArr.s"
@@ -535,6 +684,9 @@ help:
 	@echo "... PaxArr.o"
 	@echo "... PaxArr.i"
 	@echo "... PaxArr.s"
+	@echo "... __/__/tests/main.o"
+	@echo "... __/__/tests/main.i"
+	@echo "... __/__/tests/main.s"
 	@echo "... intersection/connection.o"
 	@echo "... intersection/connection.i"
 	@echo "... intersection/connection.s"
@@ -544,6 +696,18 @@ help:
 	@echo "... intersection/port.o"
 	@echo "... intersection/port.i"
 	@echo "... intersection/port.s"
+	@echo "... tinyapi/tinystr.o"
+	@echo "... tinyapi/tinystr.i"
+	@echo "... tinyapi/tinystr.s"
+	@echo "... tinyapi/tinyxml.o"
+	@echo "... tinyapi/tinyxml.i"
+	@echo "... tinyapi/tinyxml.s"
+	@echo "... tinyapi/tinyxmlerror.o"
+	@echo "... tinyapi/tinyxmlerror.i"
+	@echo "... tinyapi/tinyxmlerror.s"
+	@echo "... tinyapi/tinyxmlparser.o"
+	@echo "... tinyapi/tinyxmlparser.i"
+	@echo "... tinyapi/tinyxmlparser.s"
 .PHONY : help
 
 
@@ -555,6 +719,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/jeong7331/Desktop/Gookto_io/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/jeong7331/CLionProjects/InputXMLParser/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -1,13 +1,13 @@
-#include <includes/gookto_io/IntersectionNode.hpp>
+#include <gookto_io/IntersectionNode.hpp>
 
-#include <includes/gookto_io/intersection/port.hpp>
-#include <includes/gookto_io/intersection/connection.hpp>
-#include <includes/gookto_io/intersection/intersectionPhase.hpp>
+#include <gookto_io/intersection/port.hpp>
+#include <gookto_io/intersection/connection.hpp>
+#include <gookto_io/intersection/intersectionPhase.hpp>
 
 #include <vector>
 
-#include <tinyapi/tinyxml.h>
-#include <tinyapi/tinystr.h>
+#include <gookto_io/tinyapi/tinyxml.h>
+#include <gookto_io/tinyapi/tinystr.h>
 
 #include <string>
 #include <iostream>

@@ -2,10 +2,10 @@
 #include <string>
 #include <sstream>
 
-#include <includes/gookto_io/ParamArr.hpp>
+#include <gookto_io/ParamArr.hpp>
 
-#include <tinyapi/tinyxml.h>
-#include <tinyapi/tinystr.h>
+#include <gookto_io/tinyapi/tinyxml.h>
+#include <gookto_io/tinyapi/tinystr.h>
 
 // intialize with the meso params
 ParamArr::ParamArr() : micro_veh_len(3), jam_gap(3), ff_speed(3), reaction_time(3), max_acc(3), max_dec(3)

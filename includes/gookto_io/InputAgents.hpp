@@ -12,9 +12,9 @@ private:
     // common attributes for both SAV and BAV
     int id;
 
-    /*
-    type = 1 --> SAV (small_av)
-    type = 2 --> BAV (bus_av)
+    /**
+     * type 1 --> SAV (small_av)
+     * type 2 --> BAV (bus_av)
      */
     int type;
     float dpt_time;

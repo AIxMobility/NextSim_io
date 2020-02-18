@@ -1,17 +1,19 @@
 #include <string>
 #include <iostream>
 
-#include <includes/gookto_io/LinkArr.hpp>
-#include <includes/gookto_io/InputLink.hpp>
+#include <gookto_io/LinkArr.hpp>
+#include <gookto_io/InputLink.hpp>
 
-#include <tinyapi/tinyxml.h>
-#include <tinyapi/tinystr.h>
+#include <gookto_io/tinyapi/tinyxml.h>
+#include <gookto_io/tinyapi/tinystr.h>
 
 //LinkArr Constructor
 LinkArr::LinkArr()
 {
     TiXmlDocument doc("./network_xml/network.xml");
     bool loadOkay = doc.LoadFile();
+
+    std::cout << loadOkay << std::endl;
 
     std::cout << "Loading LinkArr" << std::endl;
 
