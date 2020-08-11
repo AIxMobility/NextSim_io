@@ -14,7 +14,6 @@ id(id), numLane(lane), numSect(sect)
     waveSpeed.resize(lane);
     maxVehicle.resize(lane);
 
-
     for (int i = 0; i < lane; i++) 
     {
         freeFlowSpeed[i].resize(sect);
@@ -86,6 +85,12 @@ void InputLink::setWidth(float val)
     
     width = val;
     
+}
+
+
+void InputLink::pushLaneId(long val)
+{
+    laneIds.push_back(val);
 }
 
 

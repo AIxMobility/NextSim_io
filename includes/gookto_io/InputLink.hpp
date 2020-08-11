@@ -24,6 +24,8 @@ private:
     std::vector<std::vector<float> > waveSpeed;
     std::vector<std::vector<size_t> > maxVehicle;
 
+    std::vector<long> laneIds;
+
     //int *width;
     //int *length;
 
@@ -52,6 +54,9 @@ public:
     std::vector<std::vector<float> > getQmax() { return Qmax; }              
     std::vector<std::vector<float> > getWaveSpeed() { return waveSpeed; }     
     std::vector<std::vector<size_t> > getMaxVehicle() { return maxVehicle; }    
+
+    std::vector<long> getLaneIds() { return laneIds; }
+
     float getWidth() { return width; }                       
     float getLength() { return length; }                     
 
@@ -63,6 +68,8 @@ public:
 
     void setLength(float val);
     void setWidth(float val);
+
+    void pushLaneId(long val);
 
     //Free 2d Vectors
 

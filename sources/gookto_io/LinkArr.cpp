@@ -54,6 +54,12 @@ LinkArr::LinkArr()
                     demoLink.setWaveSpeed(atof(e->Attribute("waveSpd")));
                     demoLink.setMaxVehicle(atoi(e->Attribute("maxVeh")));
 
+                    //save lane infos for each link
+                    for (TiXmlElement *ele = e->FirstChildElement(); ele !=NULL; ele = ele->NextSiblingElement())
+                    {
+                        demoLink.pushLaneId(atol(ele->Attribute("id")));
+                    }
+
 
                     
 

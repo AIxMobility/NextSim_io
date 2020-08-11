@@ -31,32 +31,10 @@ int main(int argc, char* argv[])
     LinkArr holy_links;
 
     NodeArr holy_nodes;
-
-    AgentsArr holy_vehicles;
-
-    ParamArr holy_params;
-
     cout << "read till agents" << endl;
 
 
     holy_nodes.getNodes()[0].getType();
-
-    // Intersections Header Test
-
-
-    // Agents/ Vehicles Header Test
-
-    cout << "Threshold 1" << endl;
-    //holy_links.showArr();
-
-    cout << "Threshold 2" << endl;
-
-    //holy_nodes.showArr();
-
-    cout << "Threshold 3" << endl;
-
-    holy_vehicles.showArr();
-    // WORKS
 
 
     //Example: accessing the nodes attributes --> got to check the type first
@@ -68,9 +46,8 @@ int main(int argc, char* argv[])
 
     cout << holy_nodes.getNodes()[2].getType() << endl;
 
-    cout << "ParamArr test, meso max_flow:" << endl;
+    cout << holy_links.getLinks()[0].getLaneIds()[0] << endl;
 
-    cout << holy_params.getMaxFlow() << endl;
 
     return 0;
 }
