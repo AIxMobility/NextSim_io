@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
 
     cout << holy_nodes.getNodes()[2].getType() << endl;
 
-    cout << holy_links.getLinks()[0].getLaneIds()[0] << endl;
+    // cout << holy_links.getLinks()[0].getLaneIds()[0] << endl;
 
 
     return 0;
