@@ -30,6 +30,13 @@ void InputLink::pushLaneId(InputLane *lane)
 
 }
 InputLink::~InputLink(){
+      
+    // LaneArr.end();
+    for (auto itr = LaneArr.begin(); itr != LaneArr.end() ; itr++)
+    {
+        delete *itr;
+    }
+    
     LaneArr.clear();
     LaneIds.clear();
     NumCell_in_Lanes.clear();

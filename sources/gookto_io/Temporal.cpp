@@ -93,6 +93,16 @@ InputLane::~InputLane(){
         id= num_cell = 0;
         if (left_lane_id){delete left_lane_id;}
         if (right_lane_id){delete right_lane_id;}
+        for (auto itr : CellsArr)
+        {       
+                delete *itr;
+        }
+        for (auto itr : SegmentArr)
+        {
+                delete *itr;
+        }
+        
+        
         CellArr.clear();
         SegmentArr.clear();
 }
