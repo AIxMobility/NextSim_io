@@ -142,6 +142,11 @@ void ParseLane(InputLink *parent_link, InputLane *lane, TiXmlElement *e_lane){
 
 }
 LinkArr::~LinkArr(){
+    for (auto itr = Links.begin(); itr != Links.end(); itr++)
+    {
+        delete *itr;
+    }
+    
     Links.clear();
 }
 // void LinkArr::showArr() 
