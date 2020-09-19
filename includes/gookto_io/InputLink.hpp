@@ -1,16 +1,48 @@
 #ifndef INPUTLINK_H
 #define INPUTLINK_H
 
-#pragma once
-#include <vector>
 
-class InputLink
+#include <vector>
+#include <string>
+#include "InputLink.hpp"
+#include "Temporal.hpp"
+
+// #include "InputLane.hpp"
+// #include "InputCell.hpp"
+
+
+class InputLink: public MetadataBase
 {
 private:
     //Data Members -- Micro-sim variables are commented out
-    int id;
+
+    //  <link ffspeed="40.0" 
+    // from_node="1000010130" 
+    // id="2000010224" 
+    // length="207.56" 
+    // maxVeh="0" 
+    // max_spd="40.0" 
+    // min_spd="0.0" 
+    // num_lane="3" 
+    // qmax="0.0" 
+    // sim_type="0" 
+    // to_node="1000010109" 
+    // type="straight" 
+    // waveSpd="0.0" 
+    // width="0.0">
+    
+    u_ll _toNode, _fromNode;
     int numLane;
-    int numSect;
+    std::string _type, _sim_type;
+
+
+    // float _freeFlowSpeed, _max_spd,  _min_spd, _waveSpeed;
+    // float _length, _width, _Qmax;
+    // size_t _maxVehicle;
+
+
+    
+    // int numSect; //not used 
     //int startPosition;
     //int endPosition;
     
@@ -19,27 +51,28 @@ private:
     //int **waveSpeed;     
     //int **maxVehicle;
 
-    std::vector<std::vector<float> > freeFlowSpeed;
-    std::vector<std::vector<float> > Qmax;
-    std::vector<std::vector<float> > waveSpeed;
-    std::vector<std::vector<size_t> > maxVehicle;
+    
+    // std::vector<std::vector<float> > freeFlowSpeed;
+    // std::vector<std::vector<float> > Qmax;
+    // std::vector<std::vector<float> > waveSpeed;
+    // std::vector<std::vector<size_t> > maxVehicle;
 
-    std::vector<long> laneIds;
+    std::vector<InputLane*> LaneArr;
+    std::vector<u_ll> LaneIds;
+    std::vector<int> NumCell_in_Lanes;
+    
 
     //int *width;
     //int *length;
 
-    float width;
-    float length;
 
 public:
     //Constructor
-    InputLink(int id, int lane, int sect);
-    
+    InputLink(u_ll id, int lane, float length, float width );
+    ~InputLink();
 
-    int getId() { return id; }
-    int getNumLane() { return numLane; }
-    int getNumSect() { return numSect; }
+    
+    
 
     /**
      * getFreeFlowSpeed()
@@ -50,27 +83,23 @@ public:
      * 
      * @return std::vector<std::vector<float> > 
      */
-    std::vector<std::vector<float> > getFreeFlowSpeed() { return freeFlowSpeed; }
-    std::vector<std::vector<float> > getQmax() { return Qmax; }              
-    std::vector<std::vector<float> > getWaveSpeed() { return waveSpeed; }     
-    std::vector<std::vector<size_t> > getMaxVehicle() { return maxVehicle; }    
 
-    std::vector<long> getLaneIds() { return laneIds; }
+    //each cell might have different 4 params
+    // std::vector<std::vector<float> > getFreeFlowSpeed() { return freeFlowSpeed; }
+    // std::vector<std::vector<float> > getQmax() { return Qmax; }              
+    // std::vector<std::vector<float> > getWaveSpeed() { return waveSpeed; }     
+    // std::vector<std::vector<size_t> > getMaxVehicle() { return maxVehicle; }    
 
-    float getWidth() { return width; }                       
-    float getLength() { return length; }                     
+    std::vector<u_ll> getLaneIds() { return LaneIds; }
+    std::vector<InputLane*> getLaneArr(){return LaneArr;}
 
-    //Setting the Variables
-    void setFreeFlowSpeed(float val);
-    void setQmax(float val);
-    void setWaveSpeed(float val);
-    void setMaxVehicle(int val);
-
-    void setLength(float val);
-    void setWidth(float val);
-
-    void pushLaneId(long val);
-
+    int getNumLane() { return numLane; }
+    void setNumLane(int num);
+    void pushLaneId(InputLane *lane);
+    void setFromNode(u_ll val);
+    u_ll getFromNode();
+    void setToNode(u_ll val);
+    u_ll getToNode();
     //Free 2d Vectors
 
     //Need to make helper functions for Designating cell-by-cell values
