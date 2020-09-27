@@ -110,7 +110,7 @@ bool a_to_bool(const char * val){
     bool temp;
     if (strcmp(val, "true") == 0){ temp = true;}
     else if(strcmp(val, "false") == 0){temp = false;}
-    else{ assert(false);} 
+    else{ temp=false; assert(false);} 
     return temp;
 
 }
