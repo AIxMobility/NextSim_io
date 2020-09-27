@@ -108,10 +108,10 @@ class InputSegment
 {
     private:
                 // <segment block="true" end_point="169.15" id="20000102240301" init_point="0.0" left_lc="false" right_lc="false"/>
-        bool blocked;
         u_ll id;
-        float init_point, end_point;
+        bool blocked;
         bool left_lc, right_lc; // change the names for better UI
+        float init_point, end_point;
 
     public:
         InputSegment(u_ll id_val, bool block, bool left_lc_val, bool right_lc_val, float init_point_val, float end_point_val):
