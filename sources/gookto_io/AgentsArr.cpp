@@ -211,9 +211,9 @@ AgentsArr::AgentsArr()
 
 void AgentsArr::showArr()
 {
-    for (int i=0; i < Agents.size(); i++)
+    for (size_t i=0; i < Agents.size(); i++)
     {
-        for (int j=0; j < Agents[i].getLinkSeq().size(); j++)
+        for (size_t j=0; j < Agents[i].getLinkSeq().size(); j++)
         {
             std::cout << Agents[i].getLinkSeq()[j] << " ";
         }
