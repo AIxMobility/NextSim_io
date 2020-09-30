@@ -4,9 +4,8 @@
 
 #include <vector>
 #include <string>
-#include "InputLink.hpp"
-#include "Temporal.hpp"
-
+#include "BaseClass.hpp"
+#include "InputLane.hpp"
 // #include "InputLane.hpp"
 // #include "InputCell.hpp"
 
@@ -36,54 +35,20 @@ private:
     std::string _type, _sim_type;
 
 
-    // float _freeFlowSpeed, _max_spd,  _min_spd, _waveSpeed;
-    // float _length, _width, _Qmax;
-    // size_t _maxVehicle;
-
-
-    
-    // int numSect; //not used 
-    //int startPosition;
-    //int endPosition;
-    
-    //int **freeFlowSpeed; 
-    //int **Qmax;          
-    //int **waveSpeed;     
-    //int **maxVehicle;
-
-    
-    // std::vector<std::vector<float> > freeFlowSpeed;
-    // std::vector<std::vector<float> > Qmax;
-    // std::vector<std::vector<float> > waveSpeed;
-    // std::vector<std::vector<size_t> > maxVehicle;
-
-    std::vector<InputLane*> LaneArr;
+    std::vector<InputLane> LaneArr;
     std::vector<u_ll> LaneIds;
     std::vector<int> NumCell_in_Lanes;
     
 
-    //int *width;
-    //int *length;
-
 
 public:
-    //Constructor
+    //Constructors
     InputLink(u_ll id, int lane, float length, float width );
-    ~InputLink();
+    ~InputLink() = default;
+    InputLink(const InputLink& link) = default;
+    InputLink& operator=(const InputLink& link) = default;
 
     
-    
-
-    /**
-     * getFreeFlowSpeed()
-     * @brief Get the Free Flow Speed of link
-     * Value exists for each cell of the link
-     * 
-     * 2D vector: numLane x numSect
-     * 
-     * @return std::vector<std::vector<float> > 
-     */
-
     //each cell might have different 4 params
     // std::vector<std::vector<float> > getFreeFlowSpeed() { return freeFlowSpeed; }
     // std::vector<std::vector<float> > getQmax() { return Qmax; }              
@@ -91,15 +56,23 @@ public:
     // std::vector<std::vector<size_t> > getMaxVehicle() { return maxVehicle; }    
 
     std::vector<u_ll> getLaneIds() { return LaneIds; }
-    std::vector<InputLane*> getLaneArr(){return LaneArr;}
+    std::vector<InputLane> getLaneArr(){return LaneArr;}
 
-    int getNumLane() { return numLane; }
+    int getNumLane() {return numLane;}
     void setNumLane(int num);
-    void pushLaneId(InputLane *lane);
+
+    void pushLaneId(InputLane lane);
+
     void setFromNode(u_ll val);
-    u_ll getFromNode();
+    u_ll getFromNode(){return _fromNode;}
+
     void setToNode(u_ll val);
-    u_ll getToNode();
+    u_ll getToNode(){return _toNode;}
+
+    void setSimType(std::string val){ _sim_type = val;}
+    std::string getSimType(){return _sim_type;}
+    void setType(std::string val){ _type = val;}
+    std::string getType(){return _type;}
     //Free 2d Vectors
 
     //Need to make helper functions for Designating cell-by-cell values
