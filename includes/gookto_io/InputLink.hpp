@@ -50,14 +50,14 @@ public:
 
     
     //each cell might have different 4 params
-    // std::vector<std::vector<float> > getFreeFlowSpeed() { return freeFlowSpeed; }
-    // std::vector<std::vector<float> > getQmax() { return Qmax; }              
-    // std::vector<std::vector<float> > getWaveSpeed() { return waveSpeed; }     
-    // std::vector<std::vector<size_t> > getMaxVehicle() { return maxVehicle; }    
-
+    std::vector<std::vector<float> > get2DFreeFlowSpeed();
+    std::vector<std::vector<float> > get2DQmax2D();        
+    std::vector<std::vector<float> > get2DWaveSpeed();
+    std::vector<std::vector<size_t> > get2DMaxVehicle();
     std::vector<u_ll> getLaneIds() { return LaneIds; }
     std::vector<InputLane> getLaneArr(){return LaneArr;}
 
+    int getNumSect(){ return NumCell_in_Lanes[0]; }
     int getNumLane() {return numLane;}
     void setNumLane(int num);
 
@@ -74,6 +74,7 @@ public:
     void setType(std::string val){ _type = val;}
     std::string getType(){return _type;}
     //Free 2d Vectors
+
 
     //Need to make helper functions for Designating cell-by-cell values
 };
