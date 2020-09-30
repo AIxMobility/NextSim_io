@@ -18,7 +18,73 @@ void InputLink::pushLaneId(InputLane lane)
     NumCell_in_Lanes.push_back(lane.getNumCell());
 }
 
+std::vector<std::vector<float> > InputLink::get2DFreeFlowSpeed(){
 
+    std::vector<std::vector<float>> matrix;
+    matrix.resize(numLane);
+    for (int i = 0; i < numLane; i++)
+    {
+        matrix[i].resize(NumCell_in_Lanes[i]);
+        for (int j = 0; j  < NumCell_in_Lanes[i]; j++)
+        {
+            matrix[i][j] = LaneArr[i].getCells()[j].getFreeFlowSpeed();
+        }
+        
+    }
+    return matrix;
+    
+
+}
+std::vector<std::vector<float> > InputLink::get2DQmax2D(){
+
+    std::vector<std::vector<float>> matrix;
+    matrix.resize(numLane);
+    for (int i = 0; i < numLane; i++)
+    {
+        matrix[i].resize(NumCell_in_Lanes[i]);
+        for (int j = 0; j  < NumCell_in_Lanes[i]; j++)
+        {
+            matrix[i][j] = LaneArr[i].getCells()[j].getQmax();
+        }
+        
+    }
+    return matrix;
+
+
+}       
+std::vector<std::vector<float> > InputLink::get2DWaveSpeed(){
+
+    std::vector<std::vector<float>> matrix;
+    matrix.resize(numLane);
+    for (int i = 0; i < numLane; i++)
+    {
+        matrix[i].resize(NumCell_in_Lanes[i]);
+        for (int j = 0; j  < NumCell_in_Lanes[i]; j++)
+        {
+            matrix[i][j] = LaneArr[i].getCells()[j].getWaveSpeed();
+        }
+        
+    }
+    return matrix;
+
+}
+std::vector<std::vector<size_t> > InputLink::get2DMaxVehicle(){
+    
+    std::vector<std::vector<size_t>> matrix;
+    matrix.resize(numLane);
+    for (int i = 0; i < numLane; i++)
+    {
+        matrix[i].resize(NumCell_in_Lanes[i]);
+        for (int j = 0; j  < NumCell_in_Lanes[i]; j++)
+        {
+            matrix[i][j] = LaneArr[i].getCells()[j].getMaxVehicle();
+        }
+        
+    }
+    return matrix;
+
+
+}
 
 
 
