@@ -90,9 +90,9 @@ LinkArr::LinkArr()
                             }
 
                             InputLane demoLane(
-                                (u_ll)atoll(ele->Attribute("id")),
-                                (u_ll)atoll(leftLaneID),
-                                (u_ll)atoll(rightLaneID),
+                                (u_ll)atoll(ele->Attribute("id"))  % 10 -1 ,
+                                (u_ll)atoll(leftLaneID)  % 10 -1 ,
+                                (u_ll)atoll(rightLaneID)  % 10 -1 ,
                                 atoi(ele->Attribute("num_cell")), r_empty,
                                 l_empty);
 
