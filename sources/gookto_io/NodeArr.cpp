@@ -72,7 +72,7 @@ NodeArr::NodeArr()
                         else if (val1 == "connection")
                         {
                             connection single_connection(
-                                atol(e3->Attribute("id")),
+                                atol(e3->Attribute("id")) ,
                                 atol(e3->Attribute("from_link")),
                                 atol(e3->Attribute("from_lane"))  % 10 -1 ,
                                 atol(e3->Attribute("to_link")),
@@ -124,7 +124,22 @@ NodeArr::NodeArr()
                     {
                         std::string val1 = e3->Value();
                         // port should be the same for normal
-                        if (val1 == "connection")
+                        if (val1 == "port")
+                        {
+                            // create port instance + pushLink to
+                            // IntersectionNode
+                            int temp = -1;
+                            std::string att2 = e3->Attribute("type");
+                            if (att2 == "in")
+                            {
+                                temp = 1;
+                            }
+                            port single_link(atol(e3->Attribute("link_id")),
+                                             atoi(e3->Attribute("direction")),
+                                             temp);
+                            single_node.pushLink(single_link);
+                        }
+                        else if (val1 == "connection")
                         {
                             connection single_connection(
                                 atol(e3->Attribute("id") ) % 1000  ,
