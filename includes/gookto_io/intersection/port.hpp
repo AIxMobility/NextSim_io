@@ -6,15 +6,15 @@
 class port
 {
 private:
-    int linkId;
+    long int linkId;
     int direction;
     int type;
 
 public:
-    port(int id, int dir, int type);
+    port(long int id, int dir, int type);
 
     //access functions
-    int getLinkId() { return linkId; }
+    long int getLinkId() { return linkId; }
     int getDir() { return direction; }
     int getType() { return type; }
     /*

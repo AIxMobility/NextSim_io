@@ -6,22 +6,22 @@
 class connection
 {
 private:
-    int connectionId;
-    int from_link;
-    int from_lane;
-    int to_link;
-    int to_lane;
+    long int connectionId;
+    long int from_link;
+    long int from_lane;
+    long int to_link;
+    long int to_lane;
     float priority;
 
 public:
-    connection(int id, int fromLink, int fromLane, int toLink, int toLane, float priority);
+    connection(long int id, long int fromLink, long int fromLane, long int toLink, long int toLane, float priority);
 
     //access functions
-    int getConnId() { return connectionId; }
-    int getFromLink() { return from_link; }
-    int getFromLane() { return from_lane; }
-    int getToLink() { return to_link; }
-    int getToLane() { return to_lane; }
+    long int getConnId() { return connectionId; }
+    long int getFromLink() { return from_link; }
+    long int getFromLane() { return from_lane; }
+    long int getToLink() { return to_link; }
+    long int getToLane() { return to_lane; }
     float getPriority() { return priority; }
 
 };

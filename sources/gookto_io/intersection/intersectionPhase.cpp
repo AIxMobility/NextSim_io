@@ -7,7 +7,7 @@ intersectionPhase::intersectionPhase(int id) :
 id(id)
 {};
 
-void intersectionPhase::pushConnectionRef(int val)
+void intersectionPhase::pushConnectionRef(long int val)
 {
     connectionRef.push_back(val);
 };

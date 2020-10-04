@@ -45,7 +45,7 @@ NodeArr::NodeArr()
                     // std::cout << "got intersection" << std::endl;
                     // create single IntersectionNode instance here
                     IntersectionNode single_node(
-                        0, atoi(e2->Attribute("id")),
+                        0, atol(e2->Attribute("id")),
                         atoi(e2->Attribute("num_connection")),
                         atoi(e2->Attribute("num_port")));
 
@@ -63,7 +63,7 @@ NodeArr::NodeArr()
                             {
                                 temp = 1;
                             }
-                            port single_link(atoi(e3->Attribute("link_id")),
+                            port single_link(atol(e3->Attribute("link_id")),
                                              atoi(e3->Attribute("direction")),
                                              temp);
                             single_node.pushLink(single_link);
@@ -72,18 +72,18 @@ NodeArr::NodeArr()
                         else if (val1 == "connection")
                         {
                             connection single_connection(
-                                atoi(e3->Attribute("id")),
-                                atoi(e3->Attribute("from_link")),
-                                atoi(e3->Attribute("from_lane")),
-                                atoi(e3->Attribute("to_link")),
-                                atoi(e3->Attribute("to_lane")), 1);
+                                atol(e3->Attribute("id")),
+                                atol(e3->Attribute("from_link")),
+                                atol(e3->Attribute("from_lane")),
+                                atol(e3->Attribute("to_link")),
+                                atol(e3->Attribute("to_lane")), 1);
                             single_node.pushConnection(single_connection);
                         }
 
                         else if (val1 == "phase")
                         {
                             intersectionPhase single_phase(
-                                atoi(e2->Attribute("id")));
+                                atol(e2->Attribute("id")));
                             for (TiXmlElement *e4 = e3->FirstChildElement();
                                  e4 != NULL; e4 = e4->NextSiblingElement())
                             {
@@ -91,7 +91,7 @@ NodeArr::NodeArr()
                                 if (val2 == "connection")
                                 {
                                     single_phase.pushConnectionRef(
-                                        atoi(e4->Attribute("id_ref")));
+                                        atol(e4->Attribute("id_ref")));
                                     single_phase.pushPriority(
                                         atof(e4->Attribute("priority")));
                                 }
@@ -115,7 +115,7 @@ NodeArr::NodeArr()
                     // std::cout << "got normal" << std::endl;
                     // create single IntersectionNode instance here
                     IntersectionNode single_node(
-                        1, atoi(e2->Attribute("id")), -1,
+                        1, atol(e2->Attribute("id")), -1,
                         atoi(e2->Attribute("num_port")));
 
                     for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
@@ -126,11 +126,11 @@ NodeArr::NodeArr()
                         if (val1 == "connection")
                         {
                             connection single_connection(
-                                atoi(e3->Attribute("id")),
-                                atoi(e3->Attribute("from_link")),
-                                atoi(e3->Attribute("from_lane")),
-                                atoi(e3->Attribute("to_link")),
-                                atoi(e3->Attribute("to_lane")),
+                                atol(e3->Attribute("id")),
+                                atol(e3->Attribute("from_link")),
+                                atol(e3->Attribute("from_lane")),
+                                atol(e3->Attribute("to_link")),
+                                atol(e3->Attribute("to_lane")),
                                 atof(e3->Attribute("priority")));
                             single_node.pushConnection(single_connection);
                         }
@@ -145,7 +145,7 @@ NodeArr::NodeArr()
                     // std::cout << "got terminal" << std::endl;
                     // create single IntersectionNode instance here
                     IntersectionNode single_node(
-                        2, atoi(e2->Attribute("id")), -1,
+                        2, atol(e2->Attribute("id")), -1,
                         atoi(e2->Attribute("num_port")));
 
                     for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
@@ -163,7 +163,7 @@ NodeArr::NodeArr()
                             {
                                 temp = 1;
                             }
-                            port single_link(atoi(e3->Attribute("link_id")),
+                            port single_link(atol(e3->Attribute("link_id")),
                                              atoi(e3->Attribute("direction")),
                                              temp);
                             single_node.pushLink(single_link);

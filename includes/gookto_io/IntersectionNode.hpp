@@ -19,7 +19,7 @@ private:
         Terminal = 2
      */
     int type; 
-    int id;
+    long int id;
     int numConnections; //num_connection
     /**
      * numConnections: Applicable only for IntersectionNode
@@ -42,7 +42,7 @@ private:
     //may have to make this into a Pointer Loop
 
 public:
-    IntersectionNode(int type, int id, int num_connection, int num_port);
+    IntersectionNode(int type, long int id, int num_connection, int num_port);
 
     void initPhase(); //set all priority to 0 for all connections;
     void setPhase( int phase ); //set priority according to chosen phase number
@@ -52,7 +52,7 @@ public:
     void pushPhase ( intersectionPhase phase );
 
     //Check Functions
-    int getId() { return id; }
+    long int getId() { return id; }
     int getType() { return type; }
     int getNumConn() { return numConnections; }
     int getNumLink() { return numLinks; }

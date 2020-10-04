@@ -18,22 +18,19 @@ void InputLink::pushLaneId(InputLane lane)
     NumCell_in_Lanes.push_back(lane.getNumCell());
 }
 
-std::vector<std::vector<float> > InputLink::get2DFreeFlowSpeed(){
-
+std::vector<std::vector<float>> InputLink::get2DFreeFlowSpeed()
+{
     std::vector<std::vector<float>> matrix;
     matrix.resize(numLane);
     for (int i = 0; i < numLane; i++)
     {
         matrix[i].resize(NumCell_in_Lanes[i]);
-        for (int j = 0; j  < NumCell_in_Lanes[i]; j++)
+        for (int j = 0; j < NumCell_in_Lanes[i]; j++)
         {
             matrix[i][j] = LaneArr[i].getCells()[j].getFreeFlowSpeed();
         }
-        
     }
     return matrix;
-    
-
 }
 std::vector<std::vector<float> > InputLink::get2DQmax2D(){
 

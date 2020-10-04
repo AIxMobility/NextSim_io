@@ -17,8 +17,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/InputXmlParser.dir/tinyapi/tinyxml.cpp.o"
   "CMakeFiles/InputXmlParser.dir/tinyapi/tinyxmlerror.cpp.o"
   "CMakeFiles/InputXmlParser.dir/tinyapi/tinyxmlparser.cpp.o"
-  "libInputXmlParser.a"
-  "libInputXmlParser.pdb"
+  "../../../../lib/libInputXmlParser.pdb"
+  "../../../../lib/libInputXmlParser.a"
 )
 
 # Per-language clean rules from dependency scanning.

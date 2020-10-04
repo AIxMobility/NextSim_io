@@ -26,7 +26,7 @@ AgentsArr::AgentsArr()
     {
         std::string elemName = elem->Value();
 
-        const char *attr;
+        //const char *attr;
         if (elemName == "small_av")
         {
             std::cout << "Got Small AV" << std::endl;
@@ -44,7 +44,7 @@ AgentsArr::AgentsArr()
                     float dpt_time = atof(e->Attribute("dpt_time"));
 
                     //Intialize single Vehicle
-                    InputAgents single_veh(atoi(e->Attribute("id")), type, dpt_time);
+                    InputAgents single_veh(atol(e->Attribute("id")), type, dpt_time);
 
 
 
@@ -149,7 +149,7 @@ AgentsArr::AgentsArr()
                     float dpt_time = atof(e->Attribute("dpt_time"));
 
                     //Intialize single Vehicle
-                    InputAgents single_veh(atoi(e->Attribute("id")), type, dpt_time);
+                    InputAgents single_veh(atol(e->Attribute("id")), type, dpt_time);
 
                     //parse the Link Seq of each vehicles:
                     // String Stream --> Extract Integer

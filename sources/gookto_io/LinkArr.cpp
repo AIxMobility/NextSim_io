@@ -1,17 +1,18 @@
 #include <iostream>
 #include <string>
 
-#include <gookto_io/LinkArr.hpp>
-#include <gookto_io/tinyapi/tinyxml.h>
 #include <gookto_io/tinyapi/tinystr.h>
+#include <gookto_io/tinyapi/tinyxml.h>
+#include <gookto_io/LinkArr.hpp>
 
 // tool functions
 void SetCellAttrs(InputLink *parent_link, InputCell *cell);
 bool a_to_bool(const char *val);
 
-// Note: All IDs of all objects should be more than 0, if id is 0 the object is not valid
+// Note: All IDs of all objects should be more than 0, if id is 0 the object is
+// not valid
 
-//LinkArr Constructor
+// LinkArr Constructor
 LinkArr::LinkArr()
 {
     TiXmlDocument doc("./network_xml/network.xml");
@@ -35,7 +36,7 @@ LinkArr::LinkArr()
     {
         std::string elemName = elem->Value();
 
-        const char *attr;
+        //const char *attr;
         if (elemName == "links")
         {
             std::cout << "Got links" << std::endl;
@@ -47,23 +48,24 @@ LinkArr::LinkArr()
 
                 if (elemName2 == "link")
                 {
-                    //std::cout << "Got A link" << std::endl;
+                    // std::cout << "Got A link" << std::endl;
 
                     InputLink demoLink((u_ll)atoll(e->Attribute("id")),
                                        atoi(e->Attribute("num_lane")),
                                        atof(e->Attribute("length")),
                                        atof(e->Attribute("width")));
 
-                    //set the Link 2d, 1d values here.
+                    // set the Link 2d, 1d values here.
                     // TODO: add set min max speed
 
                     demoLink.setFreeFlowSpeed(atof(e->Attribute("ffspeed")));
                     demoLink.setQmax(atof(e->Attribute("qmax")));
                     demoLink.setWaveSpeed(atof(e->Attribute("waveSpd")));
                     demoLink.setMaxVehicle(atoi(e->Attribute("maxVeh")));
-                    demoLink.setFromNode((u_ll)atoll(e->Attribute("from_node")));
+                    demoLink.setFromNode(
+                        (u_ll)atoll(e->Attribute("from_node")));
                     demoLink.setToNode(((u_ll)atoll(e->Attribute("to_node"))));
-                    //save lane infos for each link
+                    // save lane infos for each link
                     // int lane_num = 0;
                     for (TiXmlElement *ele = e->FirstChildElement();
                          ele != NULL; ele = ele->NextSiblingElement())
@@ -71,7 +73,6 @@ LinkArr::LinkArr()
                         std::string elemName3 = ele->Value();
                         if (elemName3 == "lane")
                         {
-
                             // demoLink.pushLaneId(atol(ele->Attribute("id")));
 
                             const char *leftLaneID =
@@ -88,29 +89,44 @@ LinkArr::LinkArr()
                                 r_empty = true;
                             }
 
-                            InputLane demoLane((u_ll)atoll(ele->Attribute("id")), (u_ll)atoll(leftLaneID), (u_ll)atoll(rightLaneID), atoi(ele->Attribute("num_cell")), r_empty, l_empty);
+                            InputLane demoLane(
+                                (u_ll)atoll(ele->Attribute("id")),
+                                (u_ll)atoll(leftLaneID),
+                                (u_ll)atoll(rightLaneID),
+                                atoi(ele->Attribute("num_cell")), r_empty,
+                                l_empty);
 
-                            for (TiXmlElement *e_lane = ele->FirstChildElement(); e_lane != NULL; e_lane = e_lane->NextSiblingElement())
+                            for (TiXmlElement *e_lane =
+                                     ele->FirstChildElement();
+                                 e_lane != NULL;
+                                 e_lane = e_lane->NextSiblingElement())
                             {
                                 // parse the lane
                                 std::string elemName = e_lane->Value();
                                 if (elemName == "cell")
                                 {
-                                    InputCell demoCell((u_ll)atoll(e_lane->Attribute("id")), atof(e_lane->Attribute("offset")), atof(e_lane->Attribute("length")));
+                                    InputCell demoCell(
+                                        (u_ll)atoll(e_lane->Attribute("id")),
+                                        atof(e_lane->Attribute("offset")),
+                                        atof(e_lane->Attribute("length")));
                                     SetCellAttrs(&demoLink, &demoCell);
                                     demoLane.pushCell(demoCell);
                                 }
                                 else if (elemName == "segment")
                                 {
-                                    const char *block = e_lane->Attribute("block");
+                                    const char *block =
+                                        e_lane->Attribute("block");
                                     bool blocked = a_to_bool(block);
-                                    bool left_lc = a_to_bool(e_lane->Attribute("left_lc"));
-                                    bool right_lc = a_to_bool(e_lane->Attribute("right_lc"));
+                                    bool left_lc =
+                                        a_to_bool(e_lane->Attribute("left_lc"));
+                                    bool right_lc = a_to_bool(
+                                        e_lane->Attribute("right_lc"));
 
-                                    InputSegment demoSegment((u_ll)atoll(e_lane->Attribute("id")),
-                                                             blocked, left_lc, right_lc,
-                                                             atof(e_lane->Attribute("init_point")),
-                                                             atof(e_lane->Attribute("end_point")));
+                                    InputSegment demoSegment(
+                                        (u_ll)atoll(e_lane->Attribute("id")),
+                                        blocked, left_lc, right_lc,
+                                        atof(e_lane->Attribute("init_point")),
+                                        atof(e_lane->Attribute("end_point")));
                                     demoLane.pushSegment(demoSegment);
                                 }
                                 else
@@ -152,7 +168,6 @@ bool a_to_bool(const char *val)
 
 void SetCellAttrs(InputLink *parent_link, InputCell *cell)
 {
-
     cell->setFreeFlowSpeed(parent_link->getFreeFlowSpeed());
     cell->setMaxSpeed(parent_link->getMaxSpeed());
     cell->setMinSpeed(parent_link->getMinSpeed());
@@ -161,75 +176,3 @@ void SetCellAttrs(InputLink *parent_link, InputCell *cell)
     cell->setWaveSpeed(parent_link->getWaveSpeed());
     cell->setWidth(-1);
 }
-
-// void LinkArr::showArr()
-// {
-//     if (Links.size() == 0)
-//     {
-//         std::cout << "ITS EMPTY" << std::endl;
-//     }
-
-//     for (int i=0; i< Links.size(); i++)
-//     {
-//         std::cout << Links[i].getId() << " " << Links[i].getNumLane() << " "
-//         << std::endl;
-
-//         // PRINT CELL INFORMATION
-//         std::cout << "FFSpeed Values" << std::endl;
-//         // for (int j = 0; j < Links[i].getNumLane(); j++)
-//         // {
-
-//         //     for (int k = 0; k < Links[i].getNumSect(); k++)
-//         //     {
-//         //         std::cout << Links[i].getFreeFlowSpeed()[j][k] << " ";
-//         //     }
-//         //     std::cout << std::endl;
-//         // }
-
-//         std::cout << "Qmax Values" << std::endl;
-//         // for (int j = 0; j < Links[i].getNumLane(); j++)
-//         // {
-
-//         //     for (int k = 0; k < Links[i].getNumSect(); k++)
-//         //     {
-//         //         std::cout << Links[i].getQmax()[j][k] << " ";
-//         //     }
-//         //     std::cout << std::endl;
-//         // }
-
-//         std::cout << "WaveSpeed Values" << std::endl;
-//         // for (int j = 0; j < Links[i].getNumLane(); j++)
-//         // {
-
-//         //     for (int k = 0; k < Links[i].getNumSect(); k++)
-//         //     {
-//         //         std::cout << Links[i].getWaveSpeed()[j][k] << " ";
-//         //     }
-//         //     std::cout << std::endl;
-//         // }
-
-//         std::cout << "MaxVehicle Values" << std::endl;
-//         // for (int j = 0; j < Links[i].getNumLane(); j++)
-//         // {
-
-//         //     for (int k = 0; k < Links[i].getNumSect(); k++)
-//         //     {
-//         //         std::cout << Links[i].getMaxVehicle()[j][k] << " ";
-//         //     }
-//         //     std::cout << std::endl;
-//         // }
-
-//         std::cout << "Length Values" << std::endl;
-
-//         std::cout << Links[i].getLength() << " ";
-
-//         std::cout << std::endl;
-
-//         std::cout << "Width Values" << std::endl;
-
-//         std::cout << Links[i].getWidth() << " ";
-
-//         std::cout << "\n" << std::endl;
-//     }
-
-// }

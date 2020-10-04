@@ -26,7 +26,7 @@ PaxArr::PaxArr()
     {
         std::string elemName = elem->Value();
 
-        const char *attr;
+        //const char *attr;
         if (elemName == "nv_pax")
         {
             std::cout << "Got NV pax" << std::endl;
@@ -38,7 +38,7 @@ PaxArr::PaxArr()
                 if (elemName2 == "pax")
                 {
 
-                    InputPax demoPax(atoi(e->Attribute("id")), 0, atof(e->Attribute("dpt_time")));
+                    InputPax demoPax(atol(e->Attribute("id")), 0, atof(e->Attribute("dpt_time")));
 
                     //set the Link 2d, 1d values here.
                     demoPax.setReactionTime(atof(e->Attribute("reaction_time")));

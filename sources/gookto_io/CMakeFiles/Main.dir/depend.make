@@ -12,15 +12,18 @@ Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputAgents.cpp.o: Lib
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputAgents.cpp.o: Libraries/gookto_io/includes/gookto_io/tinyapi/tinystr.h
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputAgents.cpp.o: Libraries/gookto_io/includes/gookto_io/tinyapi/tinyxml.h
 
-Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputCell.cpp.o: Libraries/gookto_io/sources/gookto_io/InputCell.cpp
-
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputLane.cpp.o: Libraries/gookto_io/sources/gookto_io/InputLane.cpp
+Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputLane.cpp.o: Libraries/gookto_io/includes/gookto_io/BaseClass.hpp
+Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputLane.cpp.o: Libraries/gookto_io/includes/gookto_io/InputCell.hpp
+Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputLane.cpp.o: Libraries/gookto_io/includes/gookto_io/InputLane.hpp
+Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputLane.cpp.o: Libraries/gookto_io/includes/gookto_io/InputSegment.hpp
 
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputLink.cpp.o: Libraries/gookto_io/sources/gookto_io/InputLink.cpp
+Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputLink.cpp.o: Libraries/gookto_io/includes/gookto_io/BaseClass.hpp
+Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputLink.cpp.o: Libraries/gookto_io/includes/gookto_io/InputCell.hpp
+Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputLink.cpp.o: Libraries/gookto_io/includes/gookto_io/InputLane.hpp
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputLink.cpp.o: Libraries/gookto_io/includes/gookto_io/InputLink.hpp
-Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputLink.cpp.o: Libraries/gookto_io/includes/gookto_io/Temporal.hpp
-Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputLink.cpp.o: Libraries/gookto_io/includes/gookto_io/tinyapi/tinystr.h
-Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputLink.cpp.o: Libraries/gookto_io/includes/gookto_io/tinyapi/tinyxml.h
+Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputLink.cpp.o: Libraries/gookto_io/includes/gookto_io/InputSegment.hpp
 
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputPax.cpp.o: Libraries/gookto_io/sources/gookto_io/InputPax.cpp
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputPax.cpp.o: Libraries/gookto_io/includes/gookto_io/InputPax.hpp
@@ -28,6 +31,7 @@ Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputPax.cpp.o: Librar
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputPax.cpp.o: Libraries/gookto_io/includes/gookto_io/tinyapi/tinyxml.h
 
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputSegment.cpp.o: Libraries/gookto_io/sources/gookto_io/InputSegment.cpp
+Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/InputSegment.cpp.o: Libraries/gookto_io/includes/gookto_io/InputSegment.hpp
 
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/IntersectionNode.cpp.o: Libraries/gookto_io/sources/gookto_io/IntersectionNode.cpp
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/IntersectionNode.cpp.o: Libraries/gookto_io/includes/gookto_io/IntersectionNode.hpp
@@ -38,9 +42,12 @@ Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/IntersectionNode.cpp.o
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/IntersectionNode.cpp.o: Libraries/gookto_io/includes/gookto_io/tinyapi/tinyxml.h
 
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/LinkArr.cpp.o: Libraries/gookto_io/sources/gookto_io/LinkArr.cpp
+Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/LinkArr.cpp.o: Libraries/gookto_io/includes/gookto_io/BaseClass.hpp
+Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/LinkArr.cpp.o: Libraries/gookto_io/includes/gookto_io/InputCell.hpp
+Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/LinkArr.cpp.o: Libraries/gookto_io/includes/gookto_io/InputLane.hpp
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/LinkArr.cpp.o: Libraries/gookto_io/includes/gookto_io/InputLink.hpp
+Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/LinkArr.cpp.o: Libraries/gookto_io/includes/gookto_io/InputSegment.hpp
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/LinkArr.cpp.o: Libraries/gookto_io/includes/gookto_io/LinkArr.hpp
-Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/LinkArr.cpp.o: Libraries/gookto_io/includes/gookto_io/Temporal.hpp
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/LinkArr.cpp.o: Libraries/gookto_io/includes/gookto_io/tinyapi/tinystr.h
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/LinkArr.cpp.o: Libraries/gookto_io/includes/gookto_io/tinyapi/tinyxml.h
 
@@ -64,19 +71,18 @@ Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/PaxArr.cpp.o: Librarie
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/PaxArr.cpp.o: Libraries/gookto_io/includes/gookto_io/tinyapi/tinystr.h
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/PaxArr.cpp.o: Libraries/gookto_io/includes/gookto_io/tinyapi/tinyxml.h
 
-Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/Temporal.cpp.o: Libraries/gookto_io/sources/gookto_io/Temporal.cpp
-Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/Temporal.cpp.o: Libraries/gookto_io/includes/gookto_io/InputLink.hpp
-Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/Temporal.cpp.o: Libraries/gookto_io/includes/gookto_io/Temporal.hpp
-
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/__/__/tests/main.cpp.o: Libraries/gookto_io/tests/main.cpp
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/__/__/tests/main.cpp.o: Libraries/gookto_io/includes/gookto_io/AgentsArr.hpp
+Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/__/__/tests/main.cpp.o: Libraries/gookto_io/includes/gookto_io/BaseClass.hpp
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/__/__/tests/main.cpp.o: Libraries/gookto_io/includes/gookto_io/InputAgents.hpp
+Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/__/__/tests/main.cpp.o: Libraries/gookto_io/includes/gookto_io/InputCell.hpp
+Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/__/__/tests/main.cpp.o: Libraries/gookto_io/includes/gookto_io/InputLane.hpp
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/__/__/tests/main.cpp.o: Libraries/gookto_io/includes/gookto_io/InputLink.hpp
+Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/__/__/tests/main.cpp.o: Libraries/gookto_io/includes/gookto_io/InputSegment.hpp
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/__/__/tests/main.cpp.o: Libraries/gookto_io/includes/gookto_io/IntersectionNode.hpp
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/__/__/tests/main.cpp.o: Libraries/gookto_io/includes/gookto_io/LinkArr.hpp
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/__/__/tests/main.cpp.o: Libraries/gookto_io/includes/gookto_io/NodeArr.hpp
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/__/__/tests/main.cpp.o: Libraries/gookto_io/includes/gookto_io/ParamArr.hpp
-Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/__/__/tests/main.cpp.o: Libraries/gookto_io/includes/gookto_io/Temporal.hpp
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/__/__/tests/main.cpp.o: Libraries/gookto_io/includes/gookto_io/intersection/connection.hpp
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/__/__/tests/main.cpp.o: Libraries/gookto_io/includes/gookto_io/intersection/intersectionPhase.hpp
 Libraries/gookto_io/sources/gookto_io/CMakeFiles/Main.dir/__/__/tests/main.cpp.o: Libraries/gookto_io/includes/gookto_io/intersection/port.hpp
