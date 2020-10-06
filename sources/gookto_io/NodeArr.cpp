@@ -74,9 +74,9 @@ NodeArr::NodeArr()
                             connection single_connection(
                                 atol(e3->Attribute("id")) ,
                                 atol(e3->Attribute("from_link")),
-                                atol(e3->Attribute("from_lane"))  % 10 -1 ,
+                                atol(e3->Attribute("from_lane"))  ,
                                 atol(e3->Attribute("to_link")),
-                                atol(e3->Attribute("to_lane")) % 10 -1   ,
+                                atol(e3->Attribute("to_lane"))    ,
                                  1);
                             single_node.pushConnection(single_connection);
                         }
@@ -142,11 +142,11 @@ NodeArr::NodeArr()
                         else if (val1 == "connection")
                         {
                             connection single_connection(
-                                atol(e3->Attribute("id") ) % 1000  ,
+                                atol(e3->Attribute("id") )  ,
                                 atol(e3->Attribute("from_link")),
-                                atol(e3->Attribute("from_lane"))  % 10 -1 ,
+                                atol(e3->Attribute("from_lane"))   ,
                                 atol(e3->Attribute("to_link")),
-                                atol(e3->Attribute("to_lane"))  % 10 -1 ,
+                                atol(e3->Attribute("to_lane"))  ,
                                 atof(e3->Attribute("priority")));
                             single_node.pushConnection(single_connection);
                         }
