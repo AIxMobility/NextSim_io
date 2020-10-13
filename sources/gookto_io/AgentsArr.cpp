@@ -1,12 +1,12 @@
-#include <string>
 #include <iostream>
 #include <sstream>
+#include <string>
 
-#include <gookto_io/InputAgents.hpp>
 #include <gookto_io/AgentsArr.hpp>
+#include <gookto_io/InputAgents.hpp>
 
-#include <gookto_io/tinyapi/tinyxml.h>
 #include <gookto_io/tinyapi/tinystr.h>
+#include <gookto_io/tinyapi/tinyxml.h>
 
 AgentsArr::AgentsArr()
 {
@@ -22,33 +22,34 @@ AgentsArr::AgentsArr()
 
     TiXmlElement *root = doc.FirstChildElement();
 
-    for (TiXmlElement *elem = root->FirstChildElement(); elem != NULL; elem = elem->NextSiblingElement())
+    for (TiXmlElement *elem = root->FirstChildElement(); elem != NULL;
+         elem = elem->NextSiblingElement())
     {
         std::string elemName = elem->Value();
 
-        //const char *attr;
+        // const char *attr;
         if (elemName == "small_av")
         {
             std::cout << "Got Small AV" << std::endl;
 
-            for (TiXmlElement *e = elem->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
+            for (TiXmlElement *e = elem->FirstChildElement(); e != NULL;
+                 e = e->NextSiblingElement())
             {
                 std::string elemName2 = e->Value();
 
                 if (elemName2 == "veh")
                 {
-                    //std::cout << "Got Veh" << std::endl;
+                    // std::cout << "Got Veh" << std::endl;
 
                     int type = atoi(e->Attribute("type"));
 
                     float dpt_time = atof(e->Attribute("dpt_time"));
 
-                    //Intialize single Vehicle
-                    InputAgents single_veh(atol(e->Attribute("id")), type, dpt_time);
+                    // Intialize single Vehicle
+                    InputAgents single_veh(atol(e->Attribute("id")), type,
+                                           dpt_time);
 
-
-
-                    //parse the Link Seq of each vehicles:
+                    // parse the Link Seq of each vehicles:
                     // String Stream --> Extract Integer
                     std::stringstream links;
                     std::stringstream nodes;
@@ -59,19 +60,20 @@ AgentsArr::AgentsArr()
                     links << e->Attribute("link_seq");
                     nodes << e->Attribute("node_seq");
                     pax << e->Attribute("pax_list");
-                    origins << e-> Attribute("pax_origin");
-                    destinations << e-> Attribute("pax_dest");
+                    origins << e->Attribute("pax_origin");
+                    destinations << e->Attribute("pax_dest");
 
-                    std::string temp_links; 
+                    std::string temp_links;
                     std::string temp_nodes;
                     std::string temp_pax;
                     std::string temp_origins;
                     std::string temp_dests;
 
-                    int found; 
+                    int found;
 
                     // add Links
-                    while (!links.eof()) {
+                    while (!links.eof())
+                    {
                         links >> temp_links;
                         if (std::stringstream(temp_links) >> found)
                         {
@@ -80,7 +82,7 @@ AgentsArr::AgentsArr()
                         temp_links = "";
                     }
 
-                    //add Nodes
+                    // add Nodes
                     while (!nodes.eof())
                     {
                         nodes >> temp_nodes;
@@ -91,7 +93,7 @@ AgentsArr::AgentsArr()
                         temp_nodes = "";
                     }
 
-                    //add Pax
+                    // add Pax
                     while (!pax.eof())
                     {
                         pax >> temp_pax;
@@ -102,7 +104,7 @@ AgentsArr::AgentsArr()
                         temp_pax = "";
                     }
 
-                    //add Pax Origin
+                    // add Pax Origin
                     while (!origins.eof())
                     {
                         origins >> temp_origins;
@@ -113,7 +115,7 @@ AgentsArr::AgentsArr()
                         temp_origins = "";
                     }
 
-                    //add Pax Dest
+                    // add Pax Dest
                     while (!destinations.eof())
                     {
                         destinations >> temp_dests;
@@ -124,10 +126,7 @@ AgentsArr::AgentsArr()
                         temp_dests = "";
                     }
 
-
-
                     Agents.push_back(single_veh);
-
                 }
             }
         }
@@ -136,22 +135,25 @@ AgentsArr::AgentsArr()
         {
             std::cout << "Got BUS AV" << std::endl;
 
-            for (TiXmlElement *e = elem->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
+            for (TiXmlElement *e = elem->FirstChildElement(); e != NULL;
+                 e = e->NextSiblingElement())
             {
                 std::string elemName2 = e->Value();
 
                 if (elemName2 == "veh")
                 {
-                    //std::cout << "Got Veh" << std::endl;
+                    // std::cout << "Got Veh" << std::endl;
+                    // dpt_time, type, id, link_seq, node_seq
 
                     int type = atoi(e->Attribute("type"));
 
                     float dpt_time = atof(e->Attribute("dpt_time"));
 
-                    //Intialize single Vehicle
-                    InputAgents single_veh(atol(e->Attribute("id")), type, dpt_time);
+                    // Intialize single Vehicle
+                    InputAgents single_veh(atol(e->Attribute("id")), type,
+                                           dpt_time);
 
-                    //parse the Link Seq of each vehicles:
+                    // parse the Link Seq of each vehicles:
                     // String Stream --> Extract Integer
                     std::stringstream links;
                     std::stringstream nodes;
@@ -178,7 +180,7 @@ AgentsArr::AgentsArr()
                         temp_links = "";
                     }
 
-                    //add Nodes
+                    // add Nodes
                     while (!nodes.eof())
                     {
                         nodes >> temp_nodes;
@@ -189,7 +191,7 @@ AgentsArr::AgentsArr()
                         temp_nodes = "";
                     }
 
-                    //add Stations
+                    // add Stations
                     while (!stations.eof())
                     {
                         stations >> temp_stations;
@@ -208,12 +210,11 @@ AgentsArr::AgentsArr()
     doc.Clear();
 };
 
-
 void AgentsArr::showArr()
 {
-    for (size_t i=0; i < Agents.size(); i++)
+    for (size_t i = 0; i < Agents.size(); i++)
     {
-        for (size_t j=0; j < Agents[i].getLinkSeq().size(); j++)
+        for (size_t j = 0; j < Agents[i].getLinkSeq().size(); j++)
         {
             std::cout << Agents[i].getLinkSeq()[j] << " ";
         }
