@@ -31,6 +31,7 @@ private:
     // width="0.0">
     
     u_ll _toNode, _fromNode;
+    u_ll linkid;
     int numLane;
     std::string _type, _sim_type;
 
@@ -57,6 +58,7 @@ public:
     std::vector<u_ll> getLaneIds() { return LaneIds; }
     std::vector<InputLane> getLaneArr(){return LaneArr;}
 
+    u_ll getId() const { return linkid; }
     int getNumSect(){ return NumCell_in_Lanes[0]; }
     int getNumLane() {return numLane;}
     void setNumLane(int num);

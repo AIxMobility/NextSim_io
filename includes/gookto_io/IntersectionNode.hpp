@@ -52,7 +52,7 @@ public:
     void pushPhase ( intersectionPhase phase );
 
     //Check Functions
-    int getId() { return id; }
+    int getId() const { return id; }
     int getType() { return type; }
     int getNumConn() { return numConnections; }
     int getNumLink() { return numLinks; }
