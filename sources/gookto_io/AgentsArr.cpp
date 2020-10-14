@@ -206,6 +206,70 @@ AgentsArr::AgentsArr()
                 }
             }
         }
+
+        if (elemName == "NormalVeh")
+        {
+            std::cout << "Got Normal Veh" << std::endl;
+
+            for (TiXmlElement *e = elem->FirstChildElement(); e != NULL;
+                 e = e->NextSiblingElement())
+            {
+                std::string elemName2 = e->Value();
+
+                if (elemName2 == "veh")
+                {
+                    // std::cout << "Got Veh" << std::endl;
+                    // dpt_time, type, id, link_seq, node_seq
+
+                    int type = atoi(e->Attribute("type"));
+
+                    float dpt_time = atof(e->Attribute("dpt_time"));
+
+                    // Intialize single Vehicle
+                    InputAgents single_veh(atol(e->Attribute("id")), type,
+                                           dpt_time);
+
+                    // parse the Link Seq of each vehicles:
+                    // String Stream --> Extract Integer
+                    std::stringstream links;
+                    std::stringstream nodes;
+
+                    links << e->Attribute("link_seq");
+                    nodes << e->Attribute("node_seq");
+                    //stations << e->Attribute("station_seq");
+
+                    std::string temp_links;
+                    std::string temp_nodes;
+                    //std::string temp_stations;
+
+                    int found;
+
+                    // add Links
+                    while (!links.eof())
+                    {
+                        links >> temp_links;
+                        if (std::stringstream(temp_links) >> found)
+                        {
+                            single_veh.addLink(found);
+                        }
+                        temp_links = "";
+                    }
+
+                    // add Nodes
+                    while (!nodes.eof())
+                    {
+                        nodes >> temp_nodes;
+                        if (std::stringstream(temp_nodes) >> found)
+                        {
+                            single_veh.addNode(found);
+                        }
+                        temp_nodes = "";
+                    }
+
+                    Agents.push_back(single_veh);
+                }
+            }
+        }
     }
     doc.Clear();
 };
