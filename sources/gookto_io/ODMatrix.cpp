@@ -23,18 +23,19 @@ ODMatrix::ODMatrix()
     TiXmlElement *root = doc.FirstChildElement();
 
     for (TiXmlElement *elem = root->FirstChildElement(); elem != NULL;
-         elem = elem->NextSiblingElement())
+         elem = elem->NextSiblingElement("Demand"))
     {
         std::string elemName = elem->Value();
 
         // const char *attr;
         if (elemName == "Demand")
         {
-            std::cout << "Got Demand" << std::endl;
             Demand single_demand(atoi(elem->Attribute("flow")), atoi(elem->Attribute("sink")), atoi(elem->Attribute("source")), 1);
 
             Demands.push_back(single_demand);
         }
-        doc.Clear();
+        
     };
+    std::cout << "Got Demand" << std::endl;
+    doc.Clear();
 }

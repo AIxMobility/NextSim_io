@@ -5,6 +5,7 @@
 InputLink::InputLink(u_ll id, int lane, float length, float width)
     : MetadataBase(id, length, width)
 {
+    linkid =id ;
     numLane = lane;
 }
 
