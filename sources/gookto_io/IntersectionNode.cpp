@@ -40,6 +40,11 @@ void IntersectionNode::pushPhase(intersectionPhase phase)
     phaseTable.push_back(phase);
 };
 
+void IntersectionNode::pushPhaseLength(int length)
+{
+    phaseLength.push_back(length);
+}
+
 
 
 //Setting the Connection Priority from given Phase #

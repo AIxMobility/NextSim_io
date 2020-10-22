@@ -37,6 +37,8 @@ private:
     /**
      * intersectionPhase: Intersection
      */
+
+    std::vector<int> phaseLength;
     
     //signalSequence: order(list), phase_length
     //may have to make this into a Pointer Loop
@@ -50,6 +52,7 @@ public:
     void pushConnection( connection conn );
     void pushLink( port link );
     void pushPhase ( intersectionPhase phase );
+    void pushPhaselength ( int length );
 
     //Check Functions
     int getId() const { return id; }
@@ -60,8 +63,10 @@ public:
     std::vector<port> getLinks() { return connectedLinks; }
     std::vector<connection> getConnections() { return connectionTable; }
     std::vector<intersectionPhase> getPhaseTable() { return phaseTable; }
+    std::vector<int> getPhaseLength() { return phaseLength; }
 
     void freeConnectedLinks() { std::vector<port>().swap(connectedLinks); }
     void freeConnectedTable() { std::vector<connection>().swap(connectionTable); }
     void freePhaseTable() { std::vector<intersectionPhase>().swap(phaseTable); }
+    void freePhaseLength() { std::vector<int>().swap(phaseLength); }
 };

@@ -102,6 +102,13 @@ NodeArr::NodeArr()
 
                         else if (val1 == "signal_plan")
                         {
+                            std::string phase_string = e3->Attribute("phase");
+                            std::string buf;
+                            std::stringstream ss(phase_string);
+
+                            while (ss >> buf)
+                                single_node.pushPhaseLength(atoi(buf));
+
                         }
                     }
                     Nodes.push_back(single_node);
