@@ -39,6 +39,9 @@ private:
      */
 
     std::vector<int> phaseLength;
+    std::vector<int> phaseOrder;
+    int phaseOffset;
+    
     
     //signalSequence: order(list), phase_length
     //may have to make this into a Pointer Loop
@@ -48,25 +51,30 @@ public:
 
     void initPhase(); //set all priority to 0 for all connections;
     void setPhase( int phase ); //set priority according to chosen phase number
+    void setPhaseOffset ( int offset );
 
     void pushConnection( connection conn );
     void pushLink( port link );
     void pushPhase ( intersectionPhase phase );
-    void pushPhaselength ( int length );
+    void pushPhaseLength ( int length );
+    void pushPhaseOrder ( int order );
 
     //Check Functions
     int getId() const { return id; }
     int getType() { return type; }
     int getNumConn() { return numConnections; }
     int getNumLink() { return numLinks; }
+    int getPhaseOffset() { return phaseOffset; }
 
     std::vector<port> getLinks() { return connectedLinks; }
     std::vector<connection> getConnections() { return connectionTable; }
     std::vector<intersectionPhase> getPhaseTable() { return phaseTable; }
     std::vector<int> getPhaseLength() { return phaseLength; }
+    std::vector<int> getPhaseOrder() { return phaseOrder; }
 
     void freeConnectedLinks() { std::vector<port>().swap(connectedLinks); }
     void freeConnectedTable() { std::vector<connection>().swap(connectionTable); }
     void freePhaseTable() { std::vector<intersectionPhase>().swap(phaseTable); }
     void freePhaseLength() { std::vector<int>().swap(phaseLength); }
+    void freePhaseOrder() { std::vector<int>().swap(phaseOrder); }
 };
