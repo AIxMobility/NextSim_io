@@ -45,6 +45,12 @@ void IntersectionNode::pushPhaseLength(int length)
     phaseLength.push_back(length);
 }
 
+void IntersectionNode::pushPhaseOrder(int order)
+{
+    phaseOffset.push_back(order)
+}
+
+
 
 
 //Setting the Connection Priority from given Phase #
@@ -61,3 +67,8 @@ void IntersectionNode::setPhase( int phase )
 {
     //phaseTable[phase]
 };
+
+void IntersectionNode::setPhaseOffset( int offset )
+{
+    phaseOffset = offset;
+}

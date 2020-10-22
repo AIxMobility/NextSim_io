@@ -102,12 +102,20 @@ NodeArr::NodeArr()
 
                         else if (val1 == "signal_plan")
                         {
-                            std::string phase_string = e3->Attribute("phase");
-                            std::string buf;
-                            std::stringstream ss(phase_string);
+                            //std::string phase_string = e3->Attribute("phase");
+                            auto iss1 = std::istringstream{e3->Attribute("phase")};
+                            auto str1 = std::string{};
+                            while (iss1 >> str1) {
+                                single_node.pushPhaseLength(atoi(str1));
+                            }
 
-                            while (ss >> buf)
-                                single_node.pushPhaseLength(atoi(buf));
+                            auto iss2 = std::istringstream{e3->Attribute("order")};
+                            auto str2 = std::string{};
+                            while (iss2 >> str2) {
+                                single_node.pushPhaseOrder(atoi(str2));
+                            }
+
+                            single_node.setPhaseOffset(atoi(e3->Attribute("offset")));
 
                         }
                     }
