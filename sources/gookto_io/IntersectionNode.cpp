@@ -47,7 +47,7 @@ void IntersectionNode::pushPhaseLength(int length)
 
 void IntersectionNode::pushPhaseOrder(int order)
 {
-    phaseOffset.push_back(order)
+    phaseOrder.push_back(order);
 }
 
 

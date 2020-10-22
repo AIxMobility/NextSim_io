@@ -56,7 +56,7 @@ public:
     void pushConnection( connection conn );
     void pushLink( port link );
     void pushPhase ( intersectionPhase phase );
-    void pushPhaselength ( int length );
+    void pushPhaseLength ( int length );
     void pushPhaseOrder ( int order );
 
     //Check Functions
