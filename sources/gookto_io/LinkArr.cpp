@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <filesystem>
 
 #include <gookto_io/tinyapi/tinystr.h>
 #include <gookto_io/tinyapi/tinyxml.h>
@@ -15,6 +16,9 @@ bool a_to_bool(const char *val);
 // LinkArr Constructor
 LinkArr::LinkArr()
 {
+    std::filesystem::path cwd = std::filesystem::current_path() ;
+    std::cout << cwd << std::endl;
+
     TiXmlDocument doc("./network_xml/network.xml");
     bool loadOkay = doc.LoadFile();
 
