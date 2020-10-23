@@ -19,6 +19,13 @@ LinkArr::LinkArr()
     std::filesystem::path cwd = std::filesystem::current_path() ;
     std::cout << cwd << std::endl;
 
+    for (const auto & entry : std::filesystem::directory_iterator(cwd))
+        std::cout << entry.path() << std::endl;
+
+    std::filesystem::path netdir("network_xml") ;
+    for (const auto & entry : std::filesystem::directory_iterator(cwd/netdir))
+        std::cout << entry.path() << std::endl;
+
     TiXmlDocument doc("./network_xml/network.xml");
     bool loadOkay = doc.LoadFile();
 
