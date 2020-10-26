@@ -1,6 +1,6 @@
+#include <filesystem>
 #include <iostream>
 #include <string>
-#include <filesystem>
 
 #include <gookto_io/tinyapi/tinystr.h>
 #include <gookto_io/tinyapi/tinyxml.h>
@@ -16,14 +16,14 @@ bool a_to_bool(const char *val);
 // LinkArr Constructor
 LinkArr::LinkArr()
 {
-    std::filesystem::path cwd = std::filesystem::current_path() ;
+    std::filesystem::path cwd = std::filesystem::current_path();
     std::cout << cwd << std::endl;
 
-    for (const auto & entry : std::filesystem::directory_iterator(cwd))
+    for (const auto &entry : std::filesystem::directory_iterator(cwd))
         std::cout << entry.path() << std::endl;
 
-    std::filesystem::path netdir("network_xml") ;
-    for (const auto & entry : std::filesystem::directory_iterator(cwd/netdir))
+    std::filesystem::path netdir("network_xml");
+    for (const auto &entry : std::filesystem::directory_iterator(cwd / netdir))
         std::cout << entry.path() << std::endl;
 
     TiXmlDocument doc("./network_xml/network.xml");
@@ -47,7 +47,7 @@ LinkArr::LinkArr()
     {
         std::string elemName = elem->Value();
 
-        //const char *attr;
+        // const char *attr;
         if (elemName == "links")
         {
             std::cout << "Got links" << std::endl;
@@ -101,9 +101,9 @@ LinkArr::LinkArr()
                             }
 
                             InputLane demoLane(
-                                (u_ll)atoll(ele->Attribute("id"))  ,
-                                (u_ll)atoll(leftLaneID)  ,
-                                (u_ll)atoll(rightLaneID) ,
+                                (u_ll)atoll(ele->Attribute("id")),
+                                (u_ll)atoll(leftLaneID),
+                                (u_ll)atoll(rightLaneID),
                                 atoi(ele->Attribute("num_cell")), r_empty,
                                 l_empty);
 
