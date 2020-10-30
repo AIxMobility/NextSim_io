@@ -1,16 +1,9 @@
 #include <gookto_io/IntersectionNode.hpp>
-
 #include <gookto_io/intersection/port.hpp>
 #include <gookto_io/intersection/connection.hpp>
 #include <gookto_io/intersection/intersectionPhase.hpp>
 
 #include <vector>
-
-#include <gookto_io/tinyapi/tinyxml.h>
-#include <gookto_io/tinyapi/tinystr.h>
-
-#include <string>
-#include <iostream>
 
 
 IntersectionNode::IntersectionNode(int type, int id, int num_connection, int num_port) : 
@@ -52,21 +45,6 @@ void IntersectionNode::pushPhaseOrder(int order)
 
 
 
-
-//Setting the Connection Priority from given Phase #
-void IntersectionNode::initPhase()
-{
-    for (int i=0; i < numConnections; i++)
-    {
-        //connectionTable[i].priority = 0;
-        //getPriority()
-    }
-};
-
-void IntersectionNode::setPhase( int phase )
-{
-    //phaseTable[phase]
-};
 
 void IntersectionNode::setPhaseOffset( int offset )
 {

@@ -2,83 +2,79 @@
 #include <iostream>
 #include <string>
 
-InputLink::InputLink(u_ll id, int lane, float length, float width)
-    : MetadataBase(id, length, width)
+InputLink::InputLink(std::size_t id, int lane, double length, double width)
+    : MetaData(id, length, width), m_numLane(lane)
 {
-    linkid =id ;
-    numLane = lane;
 }
 
-void InputLink::setFromNode(u_ll val)
+void InputLink::SetFromNode(std::size_t val)
 {
-    _fromNode = val;
+    m_fromNode = val;
 }
-void InputLink::setToNode(u_ll val)
+void InputLink::SetToNode(std::size_t val)
 {
-    _toNode = val;
+    m_toNode = val;
 }
 void InputLink::setNumLane(int num)
 {
-    numLane = num;
+    m_numLane = num;
 }
 
 void InputLink::pushLaneId(InputLane lane)
 {
     LaneIds.push_back(lane.getID());
     LaneArr.push_back(lane);
-    NumCell_in_Lanes.push_back(lane.getNumCell());
+    m_laneNumCellVector.push_back(lane.getNumCell());
 }
 
-std::vector<std::vector<float>> InputLink::get2DFreeFlowSpeed()
+std::vector<std::vector<double>> InputLink::Get2DFreeFlowSpeed()
 {
-    std::vector<std::vector<float>> matrix;
-    matrix.resize(numLane);
-    for (int i = 0; i < numLane; i++)
+    std::vector<std::vector<double>> matrix(m_numLane);
+    for (int i = 0; i < m_numLane; i++)
     {
-        matrix[i].resize(NumCell_in_Lanes[i]);
-        for (int j = 0; j < NumCell_in_Lanes[i]; j++)
+        matrix[i] = std::vector<double>(m_laneNumCellVector[i]);
+        for (int j = 0; j < m_laneNumCellVector[i]; j++)
         {
-            matrix[i][j] = LaneArr[i].getCells()[j].getFreeFlowSpeed();
+            matrix[i][j] = LaneArr[i].GetCellVector()[j].FreeFlowSpeed;
         }
     }
     return matrix;
 }
-std::vector<std::vector<float>> InputLink::get2DQmax2D()
+std::vector<std::vector<double>> InputLink::Get2DQmax2D()
 {
-    std::vector<std::vector<float>> matrix;
-    matrix.resize(numLane);
-    for (int i = 0; i < numLane; i++)
+    std::vector<std::vector<double>> matrix(m_numLane);
+    for (int i = 0; i < m_numLane; i++)
     {
-        matrix[i].resize(NumCell_in_Lanes[i]);
-        for (int j = 0; j < NumCell_in_Lanes[i]; j++)
+        matrix[i] = std::vector<double>(m_laneNumCellVector[i]);
+        for (int j = 0; j < m_laneNumCellVector[i]; j++)
         {
-            matrix[i][j] = LaneArr[i].getCells()[j].getQmax();
+            matrix[i][j] = LaneArr[i].GetCellVector()[j].Qmax;
         }
     }
     return matrix;
 }
-std::vector<std::vector<float>> InputLink::get2DWaveSpeed()
+std::vector<std::vector<double>> InputLink::Get2DWaveSpeed()
 {
-    std::vector<std::vector<float>> matrix;
-    matrix.resize(numLane);
-    for (int i = 0; i < numLane; i++)
+    std::vector<std::vector<double>> matrix;
+    matrix.resize(m_numLane);
+    for (int i = 0; i < m_numLane; i++)
     {
-        matrix[i].resize(NumCell_in_Lanes[i]);
-        for (int j = 0; j < NumCell_in_Lanes[i]; j++)
+        matrix[i].resize(m_laneNumCellVector[i]);
+        for (int j = 0; j < m_laneNumCellVector[i]; j++)
         {
-            matrix[i][j] = LaneArr[i].getCells()[j].getWaveSpeed();
+            matrix[i][j] = LaneArr[i].GetCellVector()[j].WaveSpeed;
         }
     }
     return matrix;
 }
-std::vector<std::vector<size_t>> InputLink::get2DMaxVehicle()
+std::vector<std::vector<size_t>> InputLink::Get2DMaxVehicle()
 {
     std::vector<std::vector<size_t>> matrix;
-    matrix.resize(numLane);
-    for (int i = 0; i < numLane; i++)
+    matrix.resize(m_numLane);
+    for (int i = 0; i < m_numLane; i++)
     {
-        matrix[i].resize(NumCell_in_Lanes[i]);
-        for (int j = 0; j < NumCell_in_Lanes[i]; j++)
+        matrix[i].resize(m_laneNumCellVector[i]);
+        for (int j = 0; j < m_laneNumCellVector[i]; j++)
         {
             // temporary calculation basaed on ceiling(length / 5)
             matrix[i][j] = 1 + ((100 - 1) / 5);

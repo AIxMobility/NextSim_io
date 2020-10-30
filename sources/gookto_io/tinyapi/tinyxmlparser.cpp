@@ -984,7 +984,7 @@ void TiXmlElement::StreamIn (std::istream * in, TIXML_STRING * tag)
 				*tag += (char) c;
 				in->get();
 
-				// Early out if we find the CDATA id.
+				// Early out if we find the CDATA ID.
 				if ( c == '[' && tag->size() >= 9 )
 				{
 					size_t len = tag->size();
@@ -1025,7 +1025,7 @@ void TiXmlElement::StreamIn (std::istream * in, TIXML_STRING * tag)
 			}
 			else
 			{
-				// If not a closing tag, id it, and stream.
+				// If not a closing tag, ID it, and stream.
 				const char* tagloc = tag->c_str() + tagIndex;
 				TiXmlNode* node = Identify( tagloc, TIXML_DEFAULT_ENCODING );
 				if ( !node )

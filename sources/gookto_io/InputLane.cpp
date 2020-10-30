@@ -5,63 +5,67 @@
 // InputLane methods
 
 
-InputLane::InputLane(u_ll id_val, u_ll left_lane_id_val, u_ll right_lane_id_val, int num_cell_val){
-
-        id = id_val;
-        num_cell = num_cell_val;
-        left_lane_id = (left_lane_id_val);
-        right_lane_id = (right_lane_id_val);
-        // CellArr.resize(num_cell);
-
-}
-
-InputLane::InputLane(u_ll id_val, u_ll left_lane_id_val, u_ll right_lane_id_val, 
-                        int num_cell_val, bool RightEmpty, bool LeftEmpty)
+InputLane::InputLane(std::size_t idVal, std::size_t leftLaneIdVal,
+                     std::size_t rightLaneIdVal,
+                     int numCellVal)
+    : m_id(idVal),
+      m_leftLaneId(leftLaneIdVal),
+      m_rightLaneId(rightLaneIdVal),
+      m_numCell(numCellVal)
 {
+    m_id = idVal;
+    m_numCell = numCellVal;
+    m_leftLaneId = leftLaneIdVal;
+    m_rightLaneId = rightLaneIdVal;
+}
 
-        id = id_val;
-        num_cell = num_cell_val;
-        if (RightEmpty){
-                right_lane_id = 0;}
-        else{
-                right_lane_id = (right_lane_id_val);
-        }
+InputLane::InputLane(std::size_t id_val, std::size_t left_lane_id_val,
+                     std::size_t right_lane_id_val,
+                     int num_cell_val, bool RightEmpty, bool LeftEmpty)
+{
+    m_id = id_val;
+    m_numCell = num_cell_val;
+    if (RightEmpty)
+    {
+        m_rightLaneId = 0;
+    }
+    else
+    {
+        m_rightLaneId = (right_lane_id_val);
+    }
 
-        if (LeftEmpty){
-
-                left_lane_id = 0; 
-        }
-        else{          
-                
-                left_lane_id = (left_lane_id_val);
-
-        }
-        // CellArr = new std::vector<InputCell>();
-        // CellArr.resize(num_cell);
-
-
+    if (LeftEmpty)
+    {
+        m_leftLaneId = 0;
+    }
+    else
+    {
+        m_leftLaneId = (left_lane_id_val);
+    }
 }
 
 
-
-void InputLane::setLeftLaneID(u_ll left_lane_id_val){
-        left_lane_id = left_lane_id_val;
+void InputLane::setLeftLaneID(std::size_t left_lane_id_val)
+{
+    m_leftLaneId = left_lane_id_val;
 }
 
-void InputLane::setRightLaneID(u_ll right_lane_id_val){
-        right_lane_id = right_lane_id_val;
-}
-void InputLane::setNumCell(int num_cell_val){
-        num_cell =num_cell_val;
+void InputLane::setRightLaneID(std::size_t right_lane_id_val)
+{
+    m_rightLaneId = right_lane_id_val;
 }
 
-void InputLane::pushCell(InputCell cell){
-
-        CellArr.push_back(cell);
-
+void InputLane::setNumCell(int num_cell_val)
+{
+    m_numCell = num_cell_val;
 }
-void InputLane::pushSegment(InputSegment segment){
 
-        SegmentArr.push_back(segment);
+void InputLane::pushCell(InputCell cell)
+{
+    CellArr.emplace_back(cell);
+}
 
+void InputLane::pushSegment(InputSegment segment)
+{
+    SegmentArr.emplace_back(segment);
 }

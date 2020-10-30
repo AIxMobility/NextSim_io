@@ -7,10 +7,10 @@
 #include <gookto_io/LinkArr.hpp>
 
 // tool functions
-void SetCellAttrs(InputLink *parent_link, InputCell *cell);
+void SetCellAttrs(const InputLink& parentLink, InputCell& cell);
 bool a_to_bool(const char *val);
 
-// Note: All IDs of all objects should be more than 0, if id is 0 the object is
+// Note: All IDs of all objects should be more than 0, if ID is 0 the object is
 // not valid
 
 // LinkArr Constructor
@@ -22,8 +22,8 @@ LinkArr::LinkArr()
     for (const auto &entry : std::filesystem::directory_iterator(cwd))
         std::cout << entry.path() << std::endl;
 
-    std::filesystem::path netdir("network_xml");
-    for (const auto &entry : std::filesystem::directory_iterator(cwd / netdir))
+    std::filesystem::path netDir("network_xml");
+    for (const auto &entry : std::filesystem::directory_iterator(cwd / netDir))
         std::cout << entry.path() << std::endl;
 
     TiXmlDocument doc("./network_xml/network.xml");
@@ -42,7 +42,7 @@ LinkArr::LinkArr()
 
     TiXmlElement *root = doc.FirstChildElement();
 
-    for (TiXmlElement *elem = root->FirstChildElement(); elem != NULL;
+    for (TiXmlElement *elem = root->FirstChildElement(); elem != nullptr;
          elem = elem->NextSiblingElement())
     {
         std::string elemName = elem->Value();
@@ -52,7 +52,7 @@ LinkArr::LinkArr()
         {
             std::cout << "Got links" << std::endl;
             std::cout << (elem->FirstChildElement())->Value() << std::endl;
-            for (TiXmlElement *e = elem->FirstChildElement(); e != NULL;
+            for (TiXmlElement *e = elem->FirstChildElement(); e != nullptr;
                  e = e->NextSiblingElement())
             {
                 std::string elemName2 = e->Value();
@@ -61,7 +61,7 @@ LinkArr::LinkArr()
                 {
                     // std::cout << "Got A link" << std::endl;
 
-                    InputLink demoLink((u_ll)atoll(e->Attribute("id")),
+                    InputLink demoLink(static_cast<std::size_t>(atoll(e->Attribute("ID"))),
                                        atoi(e->Attribute("num_lane")),
                                        atof(e->Attribute("length")),
                                        atof(e->Attribute("width")));
@@ -69,22 +69,22 @@ LinkArr::LinkArr()
                     // set the Link 2d, 1d values here.
                     // TODO: add set min max speed
 
-                    demoLink.setFreeFlowSpeed(atof(e->Attribute("ffspeed")));
-                    demoLink.setQmax(atof(e->Attribute("qmax")));
-                    demoLink.setWaveSpeed(atof(e->Attribute("waveSpd")));
-                    demoLink.setMaxVehicle(atoi(e->Attribute("maxVeh")));
-                    demoLink.setFromNode(
-                        (u_ll)atoll(e->Attribute("from_node")));
-                    demoLink.setToNode(((u_ll)atoll(e->Attribute("to_node"))));
+                    demoLink.FreeFlowSpeed = std::atof(e->Attribute("ffspeed"));
+                    demoLink.Qmax = std::atof(e->Attribute("qmax"));
+                    demoLink.WaveSpeed = std::atof(e->Attribute("waveSpd"));
+                    demoLink.MaxVehicle = std::atoi(e->Attribute("maxVeh"));
+                    demoLink.SetFromNode(
+                        static_cast<std::size_t>(std::atoll(e->Attribute("from_node"))));
+                    demoLink.SetToNode(((std::size_t)atoll(e->Attribute("to_node"))));
                     // save lane infos for each link
                     // int lane_num = 0;
                     for (TiXmlElement *ele = e->FirstChildElement();
-                         ele != NULL; ele = ele->NextSiblingElement())
+                         ele != nullptr; ele = ele->NextSiblingElement())
                     {
                         std::string elemName3 = ele->Value();
                         if (elemName3 == "lane")
                         {
-                            // demoLink.pushLaneId(atol(ele->Attribute("id")));
+                            // demoLink.pushLaneId(atol(ele->Attribute("ID")));
 
                             const char *leftLaneID =
                                 (ele->Attribute("left_lane_id"));
@@ -101,29 +101,29 @@ LinkArr::LinkArr()
                             }
 
                             InputLane demoLane(
-                                (u_ll)atoll(ele->Attribute("id")),
-                                (u_ll)atoll(leftLaneID),
-                                (u_ll)atoll(rightLaneID),
+                                (std::size_t)atoll(ele->Attribute("ID")),
+                                (std::size_t)atoll(leftLaneID),
+                                (std::size_t)atoll(rightLaneID),
                                 atoi(ele->Attribute("num_cell")), r_empty,
                                 l_empty);
 
                             for (TiXmlElement *e_lane =
                                      ele->FirstChildElement();
-                                 e_lane != NULL;
+                                 e_lane != nullptr;
                                  e_lane = e_lane->NextSiblingElement())
                             {
                                 // parse the lane
-                                std::string elemName = e_lane->Value();
-                                if (elemName == "cell")
+                                std::string elementName = e_lane->Value();
+                                if (elementName == "cell")
                                 {
                                     InputCell demoCell(
-                                        (u_ll)atoll(e_lane->Attribute("id")),
+                                        (std::size_t)atoll(e_lane->Attribute("ID")),
                                         atof(e_lane->Attribute("offset")),
                                         atof(e_lane->Attribute("length")));
-                                    SetCellAttrs(&demoLink, &demoCell);
+                                    SetCellAttrs(demoLink, demoCell);
                                     demoLane.pushCell(demoCell);
                                 }
-                                else if (elemName == "segment")
+                                else if (elementName == "segment")
                                 {
                                     const char *block =
                                         e_lane->Attribute("block");
@@ -134,7 +134,7 @@ LinkArr::LinkArr()
                                         e_lane->Attribute("right_lc"));
 
                                     InputSegment demoSegment(
-                                        (u_ll)atoll(e_lane->Attribute("id")),
+                                        (std::size_t)atoll(e_lane->Attribute("ID")),
                                         blocked, left_lc, right_lc,
                                         atof(e_lane->Attribute("init_point")),
                                         atof(e_lane->Attribute("end_point")));
@@ -177,13 +177,13 @@ bool a_to_bool(const char *val)
     return temp;
 }
 
-void SetCellAttrs(InputLink *parent_link, InputCell *cell)
+void SetCellAttrs(const InputLink& parentLink, InputCell& cell)
 {
-    cell->setFreeFlowSpeed(parent_link->getFreeFlowSpeed());
-    cell->setMaxSpeed(parent_link->getMaxSpeed());
-    cell->setMinSpeed(parent_link->getMinSpeed());
-    cell->setMaxVehicle(parent_link->getMaxVehicle());
-    cell->setQmax(parent_link->getQmax());
-    cell->setWaveSpeed(parent_link->getWaveSpeed());
-    cell->setWidth(-1);
+    cell.FreeFlowSpeed = parentLink.FreeFlowSpeed;
+    cell.MaxSpeed = parentLink.MaxSpeed;
+    cell.MinSpeed = parentLink.MinSpeed;
+    cell.MaxVehicle = parentLink.MaxVehicle;
+    cell.Qmax = parentLink.Qmax;
+    cell.WaveSpeed = parentLink.WaveSpeed;
+    cell.Width = -1;
 }

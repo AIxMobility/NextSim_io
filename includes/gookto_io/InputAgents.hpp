@@ -17,7 +17,7 @@ private:
      * type 2 --> BAV (bus_av)
      */
     int type;
-    float dpt_time;
+    double dpt_time;
 
 
 
@@ -36,7 +36,7 @@ private:
 
 
 public:
-    InputAgents(int id, int type, float dpt_time);
+    InputAgents(int id, int type, double dpt_time);
 
 
     // adding new links/nodes to the link_seq / node_seq

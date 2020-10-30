@@ -12,7 +12,7 @@ void intersectionPhase::pushConnectionRef(int val)
     connectionRef.push_back(val);
 };
 
-void intersectionPhase::pushPriority(float val)
+void intersectionPhase::pushPriority(double val)
 {
     priority.push_back(val);
 };

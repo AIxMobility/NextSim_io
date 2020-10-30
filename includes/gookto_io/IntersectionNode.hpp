@@ -33,7 +33,7 @@ private:
     /**
      * connection: Intersection, Normal
      */
-    std::vector<intersectionPhase> phaseTable; //intersectionPhase:  id, connectionId (list), priority(list)
+    std::vector<intersectionPhase> phaseTable; //intersectionPhase:  ID, connectionId (list), priority(list)
     /**
      * intersectionPhase: Intersection
      */
