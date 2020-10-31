@@ -41,12 +41,12 @@ AgentsArr::AgentsArr()
                 {
                     // std::cout << "Got Veh" << std::endl;
 
-                    int type = atoi(e->Attribute("type"));
+                    int type = std::atoi(e->Attribute("type"));
 
-                    float dpt_time = atof(e->Attribute("dpt_time"));
+                    double dpt_time = std::atof(e->Attribute("dpt_time"));
 
                     // Intialize single Vehicle
-                    InputAgents single_veh(atol(e->Attribute("id")), type,
+                    InputAgents single_veh(atol(e->Attribute("ID")), type,
                                            dpt_time);
 
                     // parse the Link Seq of each vehicles:
@@ -143,14 +143,14 @@ AgentsArr::AgentsArr()
                 if (elemName2 == "veh")
                 {
                     // std::cout << "Got Veh" << std::endl;
-                    // dpt_time, type, id, link_seq, node_seq
+                    // dpt_time, type, ID, link_seq, node_seq
 
                     int type = atoi(e->Attribute("type"));
 
-                    float dpt_time = atof(e->Attribute("dpt_time"));
+                    double dpt_time = atof(e->Attribute("dpt_time"));
 
                     // Intialize single Vehicle
-                    InputAgents single_veh(atol(e->Attribute("id")), type,
+                    InputAgents single_veh(atol(e->Attribute("ID")), type,
                                            dpt_time);
 
                     // parse the Link Seq of each vehicles:
@@ -219,14 +219,14 @@ AgentsArr::AgentsArr()
                 if (elemName2 == "veh")
                 {
                     // std::cout << "Got Veh" << std::endl;
-                    // dpt_time, type, id, link_seq, node_seq
+                    // dpt_time, type, ID, link_seq, node_seq
 
                     int type = atoi(e->Attribute("type"));
 
-                    float dpt_time = atof(e->Attribute("dpt_time"));
+                    double dpt_time = atof(e->Attribute("dpt_time"));
 
                     // Intialize single Vehicle
-                    InputAgents single_veh(atol(e->Attribute("id")), type,
+                    InputAgents single_veh(atol(e->Attribute("ID")), type,
                                            dpt_time);
 
                     // parse the Link Seq of each vehicles:

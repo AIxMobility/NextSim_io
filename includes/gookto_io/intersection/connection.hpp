@@ -11,10 +11,10 @@ private:
     int from_lane;
     int to_link;
     int to_lane;
-    float priority;
+    double priority;
 
 public:
-    connection(int id, int fromLink, int fromLane, int toLink, int toLane, float priority);
+    connection(int id, int fromLink, int fromLane, int toLink, int toLane, double priority);
 
     //access functions
     int getConnId() { return connectionId; }
@@ -22,6 +22,6 @@ public:
     int getFromLane() { return from_lane; }
     int getToLink() { return to_link; }
     int getToLane() { return to_lane; }
-    float getPriority() { return priority; }
+    double getPriority() { return priority; }
 
 };

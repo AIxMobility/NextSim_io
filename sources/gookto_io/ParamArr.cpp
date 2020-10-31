@@ -34,17 +34,17 @@ ParamArr::ParamArr() : micro_veh_len(3), jam_gap(3), ff_speed(3), reaction_time(
                 std::string elemName2 = e->Value();
                 if ( elemName2 == "max_flow")
                 {
-                    setMaxFlow(atof(e->Attribute("value")));
+                    SetMaxFlow(atof(e->Attribute("value")));
                 }
 
                 if ( elemName2 == "veh_len")
                 {
-                    setMesoVehLen(atof(e->Attribute("value")));
+                    SetMesoVehLen(atof(e->Attribute("value")));
                 }
 
                 if ( elemName2 == "wave_speed")
                 {
-                    setWaveSpeed(atof(e->Attribute("value")));
+                    SetWaveSpeed(atof(e->Attribute("value")));
                 }
             }
         }
@@ -63,9 +63,9 @@ ParamArr::ParamArr() : micro_veh_len(3), jam_gap(3), ff_speed(3), reaction_time(
                 std::string dist = e->Attribute("dist");
                 const char* model = dist.c_str();
 
-                setMean(atof(e->Attribute("mean")), conv_str);
-                setSd(atof(e->Attribute("sd")), conv_str);
-                setModel(model, conv_str);
+                SetMean(atof(e->Attribute("mean")), conv_str);
+                SetSd(atof(e->Attribute("sd")), conv_str);
+                SetModel(model, conv_str);
             }
         }
     }
@@ -73,7 +73,7 @@ ParamArr::ParamArr() : micro_veh_len(3), jam_gap(3), ff_speed(3), reaction_time(
 };
 
 
-void ParamArr::setMean(float val, const char *str)
+void ParamArr::SetMean(double val, const char *str)
 {
     if (strncmp(str, "veh_len", 5) == 0)
     {
@@ -106,7 +106,7 @@ void ParamArr::setMean(float val, const char *str)
     }
 };
 
-void ParamArr::setSd(float val, const char *str)
+void ParamArr::SetSd(double val, const char *str)
 {
     if (strncmp(str, "veh_len", 5) == 0)
     {
@@ -139,9 +139,9 @@ void ParamArr::setSd(float val, const char *str)
     }
 };
 
-void ParamArr::setModel(const char *model, const char *str)
+void ParamArr::SetModel(const char *model, const char *str)
 {
-    float val;
+    double val = 0;
     //first determine the model representation
     if (strncmp(model, "normal", 3) == 0)
     {

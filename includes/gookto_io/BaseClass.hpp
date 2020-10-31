@@ -1,78 +1,69 @@
-#ifndef BASECLASS_H
-#define BASECLASS_H
+//! STS19 Captain
+//! Copyright (c) 2019 Justin Kim, Kaist
+//! Copying, reproducing and commercial use is not allowed.
+//! We are not conveying any rights to any intellectual property of any third
+//! parties
+//!
+//! \file : BaseClass.hpp
+//! \version : 1.0
+//! \author : Jae Hwan Jung, Justin Kim
+
+#ifndef BASECLASS_HPP
+#define BASECLASS_HPP
+
 #include <vector>
-typedef unsigned long long u_ll;
 
-class MetadataBase{
-    private:
-        u_ll id;
-        float _freeFlowSpeed, _max_spd,  _min_spd, _waveSpeed;
-        float _length, _width, _Qmax;
-        size_t _maxVehicle;
-        
-    public:
-        MetadataBase() = default;
-        
-        MetadataBase(u_ll id_val){
-            id = id_val;
-        }
-        MetadataBase(u_ll id_val, float length_val){
-            id = id_val;
-            _length = length_val;
-        }
-        MetadataBase(u_ll id_val, float length_val, float width_val){
-            id = id_val;
-            _length = length_val;
-            _width = width_val;
-        }
-        MetadataBase(u_ll id_val, float length_val, float freeFlowSpeed_val, float max_spd_val, float  min_spd_val, float waveSpeed_val, size_t maxVehicle_val, float Qmax_val){
-            id = id_val;
-            _length = length_val;
-            _freeFlowSpeed = freeFlowSpeed_val;
-            _max_spd = max_spd_val;
-            _min_spd = min_spd_val;
-            _waveSpeed = waveSpeed_val;
-            _maxVehicle = maxVehicle_val;
-            _Qmax = Qmax_val;
-            _width = -1;
-        }
-        ~MetadataBase() = default;
-        MetadataBase(const MetadataBase& metadatabase) = default;
-        MetadataBase& operator=(const MetadataBase& metadatabase) = default;
+class MetaData
+{
+
+public:
+   std::size_t ID = 0;
+   double FreeFlowSpeed = 0, MaxSpeed = 0, MinSpeed = 0, WaveSpeed = 0;
+   double Length = 0, Width = 0, Qmax = 0;
+   size_t MaxVehicle = 0;
 
 
-        // common for every other class
-        void setID(u_ll id_val){id = id_val;}
-        u_ll getID(){return id;}
-        void setLength(float length_val){_length = length_val;}
-        float getLength(){return _length;}
-        void setWidth(float width_val){ _width = width_val;}
-        float getWidth(){return _width;}
+    MetaData() = default;
+
+    MetaData(std::size_t id) : ID(id)
+    {
+    }
+
+    MetaData(std::size_t id, double length)
+        : ID(id),
+          Length(length)
+    {
+    }
+
+    MetaData(std::size_t id_val, double length_val, double width_val)
+    {
+        ID = id_val;
+        Length = length_val;
+        Width = width_val;
+    }
+
+    MetaData(std::size_t id, double length, double freeFlowSpeed,
+                 double maxSpeed, double minSpeed, double waveSpeed,
+                 size_t maxVehicle, double qMax)
+        : ID(id),
+          FreeFlowSpeed(freeFlowSpeed),
+          MaxSpeed(maxSpeed),
+          MinSpeed(minSpeed),
+          WaveSpeed(waveSpeed),
+          Length(length),
+          Width(-1),
+          Qmax(qMax),
+          MaxVehicle(maxVehicle)
+
+    {
+    }
+
+    virtual ~MetaData() = default;
+    MetaData(const MetaData& metaData) = default;
+    MetaData& operator=(const MetaData& metaData) = default;
 
 
-        // for link and cell 
-        virtual void setFreeFlowSpeed(float val){ _freeFlowSpeed = val;}
-        virtual void setQmax(float val){_Qmax = val;}
-        virtual void setWaveSpeed(float val){ _waveSpeed = val;}
-        virtual void setMaxVehicle(size_t val){_maxVehicle = val;}
-        virtual void setMaxSpeed(float val){_max_spd = val;}
-        virtual void setMinSpeed(float val){_min_spd = val;}
-
-        
-        virtual float getFreeFlowSpeed(){return _freeFlowSpeed;}
-        virtual float getQmax(){return _Qmax;}
-        virtual float getWaveSpeed(){return _waveSpeed;}
-        virtual size_t getMaxVehicle(){return _maxVehicle;}
-        virtual float getMaxSpeed(){return _max_spd;}
-        virtual float getMinSpeed(){return _min_spd;}
 };
-
-
-
-
-
-
-
 
 
 #endif
