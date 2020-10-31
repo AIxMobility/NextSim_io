@@ -11,15 +11,16 @@
 
 #include <gookto_io/tinyapi/tinystr.h>
 #include <gookto_io/tinyapi/tinyxml.h>
+#include <gookto_io/FilePath.hpp>
 
 NodeArr::NodeArr()
 {
     TiXmlDocument doc;
 
-    doc.LoadFile("./network_xml/network.xml");
+    doc.LoadFile(STSIO::NetworkXMLPath.string().c_str());
     std::cout << "Loading NodeArr" << std::endl;
 
-    if (!doc.LoadFile("./network_xml/network.xml"))
+    if (!doc.LoadFile(STSIO::NetworkXMLPath.string().c_str()))
     {
         std::cerr << doc.ErrorDesc() << std::endl;
     }

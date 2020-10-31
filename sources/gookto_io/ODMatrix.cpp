@@ -7,12 +7,13 @@
 
 #include <gookto_io/tinyapi/tinystr.h>
 #include <gookto_io/tinyapi/tinyxml.h>
+#include <gookto_io/FilePath.hpp>
 
 ODMatrix::ODMatrix()
 {
     TiXmlDocument doc;
 
-    doc.LoadFile("./network_xml/odmatrix.xml");
+    doc.LoadFile(STSIO::OdMatrixXMLPath.string().c_str());
     std::cout << "Loading ODMatrix" << std::endl;
 
     if (!doc.LoadFile("./network_xml/odmatrix.xml"))
