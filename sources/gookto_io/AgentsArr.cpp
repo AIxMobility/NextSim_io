@@ -46,7 +46,7 @@ AgentsArr::AgentsArr()
                     double dpt_time = std::atof(e->Attribute("dpt_time"));
 
                     // Intialize single Vehicle
-                    InputAgents single_veh(atol(e->Attribute("ID")), type,
+                    InputAgents single_veh(atol(e->Attribute("id")), type,
                                            dpt_time);
 
                     // parse the Link Seq of each vehicles:
@@ -150,7 +150,7 @@ AgentsArr::AgentsArr()
                     double dpt_time = atof(e->Attribute("dpt_time"));
 
                     // Intialize single Vehicle
-                    InputAgents single_veh(atol(e->Attribute("ID")), type,
+                    InputAgents single_veh(atol(e->Attribute("id")), type,
                                            dpt_time);
 
                     // parse the Link Seq of each vehicles:
@@ -226,7 +226,7 @@ AgentsArr::AgentsArr()
                     double dpt_time = atof(e->Attribute("dpt_time"));
 
                     // Intialize single Vehicle
-                    InputAgents single_veh(atol(e->Attribute("ID")), type,
+                    InputAgents single_veh(atol(e->Attribute("id")), type,
                                            dpt_time);
 
                     // parse the Link Seq of each vehicles:

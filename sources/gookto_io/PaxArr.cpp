@@ -7,9 +7,11 @@
 #include <gookto_io/tinyapi/tinyxml.h>
 #include <gookto_io/tinyapi/tinystr.h>
 
+#include <gookto_io/FilePath.hpp>
+
 PaxArr::PaxArr()
 {
-    TiXmlDocument doc("./network_xml/pax.xml");
+    TiXmlDocument doc(STSIO::PassengerXMLPath.string().c_str());
     bool loadOkay = doc.LoadFile();
 
     std::cout << "Loading LinkArr" << std::endl;
@@ -20,9 +22,10 @@ PaxArr::PaxArr()
         std::cerr << doc.ErrorDesc() << std::endl;
     }
 
-    TiXmlElement *root = doc.FirstChildElement();
+    TiXmlElement* root = doc.FirstChildElement();
 
-    for (TiXmlElement *elem = root->FirstChildElement(); elem != NULL; elem = elem->NextSiblingElement())
+    for (TiXmlElement* elem = root->FirstChildElement(); elem != NULL;
+         elem = elem->NextSiblingElement())
     {
         std::string elemName = elem->Value();
 
@@ -31,17 +34,19 @@ PaxArr::PaxArr()
         {
             std::cout << "Got NV pax" << std::endl;
 
-            for (TiXmlElement *e = elem->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
+            for (TiXmlElement* e = elem->FirstChildElement(); e != NULL;
+                 e = e->NextSiblingElement())
             {
                 std::string elemName2 = e->Value();
 
                 if (elemName2 == "pax")
                 {
-
-                    InputPax demoPax(atol(e->Attribute("id")), 0, atof(e->Attribute("dpt_time")));
+                    InputPax demoPax(atol(e->Attribute("id")), 0,
+                                     atof(e->Attribute("dpt_time")));
 
                     //set the Link 2d, 1d values here.
-                    demoPax.setReactionTime(atof(e->Attribute("reaction_time")));
+                    demoPax.
+                        setReactionTime(atof(e->Attribute("reaction_time")));
                     demoPax.setJamGap(atof(e->Attribute("jamgap")));
                     demoPax.setMaxAcc(atof(e->Attribute("max_acc")));
                     demoPax.setMaxDec(atof(e->Attribute("max_dec")));
@@ -91,14 +96,13 @@ PaxArr::PaxArr()
         {
             std::cout << "Got Public pax" << std::endl;
 
-            for (TiXmlElement *e = elem->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
+            for (TiXmlElement* e = elem->FirstChildElement(); e != NULL;
+                 e = e->NextSiblingElement())
             {
                 std::string elemName2 = e->Value();
 
                 if (elemName2 == "pax")
                 {
-
-                    
                 }
             }
         }

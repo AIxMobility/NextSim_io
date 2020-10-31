@@ -6,59 +6,67 @@
 
 #include <gookto_io/tinyapi/tinyxml.h>
 #include <gookto_io/tinyapi/tinystr.h>
+#include <gookto_io/FilePath.hpp>
 
 // intialize with the meso params
-ParamArr::ParamArr() : micro_veh_len(3), jam_gap(3), ff_speed(3), reaction_time(3), max_acc(3), max_dec(3)
+ParamArr::ParamArr()
+    : micro_veh_len(3),
+      jam_gap(3),
+      ff_speed(3),
+      reaction_time(3),
+      max_acc(3),
+      max_dec(3)
 {
     TiXmlDocument doc;
 
-    doc.LoadFile("./network_xml/param.xml");
+    doc.LoadFile(STSIO::ParamXMLPath.string().c_str());
     std::cout << "Loading ParamArr" << std::endl;
 
-    if (!doc.LoadFile("./network_xml/param.xml"))
+    if (!doc.LoadFile(STSIO::ParamXMLPath.string().c_str()))
     {
         std::cerr << doc.ErrorDesc() << std::endl;
     }
 
-    TiXmlElement *root = doc.FirstChildElement();
+    TiXmlElement* root = doc.FirstChildElement();
 
-    for (TiXmlElement *elem = root->FirstChildElement(); elem != NULL; elem = elem->NextSiblingElement())
+    for (TiXmlElement* elem = root->FirstChildElement(); elem != NULL;
+         elem = elem->NextSiblingElement())
     {
         std::string elemName = elem->Value();
 
         if (elemName == "meso")
         {
             std::cout << "Got Meso Params" << std::endl;
-            for (TiXmlElement *e = elem->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
+            for (TiXmlElement* e = elem->FirstChildElement(); e != NULL;
+                 e = e->NextSiblingElement())
             {
                 std::string elemName2 = e->Value();
-                if ( elemName2 == "max_flow")
+                if (elemName2 == "max_flow")
                 {
                     SetMaxFlow(atof(e->Attribute("value")));
                 }
 
-                if ( elemName2 == "veh_len")
+                if (elemName2 == "veh_len")
                 {
                     SetMesoVehLen(atof(e->Attribute("value")));
                 }
 
-                if ( elemName2 == "wave_speed")
+                if (elemName2 == "wave_speed")
                 {
                     SetWaveSpeed(atof(e->Attribute("value")));
                 }
             }
         }
 
-
         if (elemName == "micro")
         {
             std::cout << "Got Micro Params" << std::endl;
 
-            for (TiXmlElement *e = elem->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
+            for (TiXmlElement* e = elem->FirstChildElement(); e != NULL;
+                 e = e->NextSiblingElement())
             {
                 std::string elemName2 = e->Value();
                 const char* conv_str = elemName2.c_str();
-
 
                 std::string dist = e->Attribute("dist");
                 const char* model = dist.c_str();
@@ -73,7 +81,7 @@ ParamArr::ParamArr() : micro_veh_len(3), jam_gap(3), ff_speed(3), reaction_time(
 };
 
 
-void ParamArr::SetMean(double val, const char *str)
+void ParamArr::SetMean(double val, const char* str)
 {
     if (strncmp(str, "veh_len", 5) == 0)
     {
@@ -106,7 +114,7 @@ void ParamArr::SetMean(double val, const char *str)
     }
 };
 
-void ParamArr::SetSd(double val, const char *str)
+void ParamArr::SetSd(double val, const char* str)
 {
     if (strncmp(str, "veh_len", 5) == 0)
     {
@@ -139,7 +147,7 @@ void ParamArr::SetSd(double val, const char *str)
     }
 };
 
-void ParamArr::SetModel(const char *model, const char *str)
+void ParamArr::SetModel(const char* model, const char* str)
 {
     double val = 0;
     //first determine the model representation
