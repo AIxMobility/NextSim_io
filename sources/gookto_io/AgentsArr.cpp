@@ -207,7 +207,7 @@ AgentsArr::AgentsArr()
             }
         }
 
-        if (elemName == "NormalVeh")
+        if (elemName == "PublicVeh")
         {
             std::cout << "Got Normal Veh" << std::endl;
 
@@ -236,11 +236,11 @@ AgentsArr::AgentsArr()
 
                     links << e->Attribute("link_seq");
                     nodes << e->Attribute("node_seq");
-                    //stations << e->Attribute("station_seq");
+                    // stations << e->Attribute("station_seq");
 
                     std::string temp_links;
                     std::string temp_nodes;
-                    //std::string temp_stations;
+                    // std::string temp_stations;
 
                     int found;
 
