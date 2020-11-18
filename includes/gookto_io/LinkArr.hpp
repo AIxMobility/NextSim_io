@@ -4,7 +4,6 @@
 #include <vector>
 #include "InputLink.hpp"
 
-
 class LinkArr
 {
 private:
@@ -13,15 +12,13 @@ private:
 public:
     LinkArr();
     ~LinkArr() = default;
-    LinkArr(const LinkArr& link) = default;
-    LinkArr& operator=(const LinkArr& link) = default;
+    LinkArr(const LinkArr &link) = default;
+    LinkArr &operator=(const LinkArr &link) = default;
 
     void showArr();
 
     //access functions
     std::vector<InputLink> getLinks() { return Links; }
-
-
 };
 
 #endif

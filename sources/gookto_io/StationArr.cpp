@@ -7,7 +7,7 @@
 #include <gookto_io/tinyapi/tinyxml.h>
 #include <gookto_io/StationArr.hpp>
 #include <gookto_io/InputStation.hpp>
-#include <gookto_io/includes/gookto_io/FilePath.hpp>
+#include <gookto_io/FilePath.hpp>
 
 StationArr::StationArr()
 {
