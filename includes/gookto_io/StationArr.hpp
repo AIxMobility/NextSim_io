@@ -11,11 +11,6 @@ private:
 
 public:
     StationArr();
-    ~StationArr() = default;
-    StationArr(const StationArr &station) = default;
-    StationArr &operator=(const StationArr &station) = default;
-
-    void showArr();
 
     //access functions
     std::vector<InputStation> getStations() { return Stations; }
