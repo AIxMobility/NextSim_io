@@ -9,7 +9,7 @@
 #include <gookto_io/InputStation.hpp>
 #include <gookto_io/includes/gookto_io/FilePath.hpp>
 
-LinkArr::LinkArr()
+StationArr::StationArr()
 {
     std::filesystem::path cwd = std::filesystem::current_path();
     std::cout << cwd << std::endl;
