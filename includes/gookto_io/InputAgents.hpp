@@ -7,7 +7,7 @@
 
 class InputAgents
 {
- private:
+private:
     // common attributes for both SAV and BAV
     int id;
 
@@ -28,8 +28,12 @@ class InputAgents
 
     // unique to BAV -- station information
     std::vector<int> station_seq;
+    std::vector<double> station_dwell_time;
+    std::vector<int> station_in;
+    std::vector<int> station_out;
+    // station_dwell_time, station_in, station_out
 
- public:
+public:
     InputAgents(int id, int type, double dpt_time);
 
     // adding new links/nodes to the link_seq / node_seq
@@ -42,6 +46,9 @@ class InputAgents
     void addPaxDest(int val);
 
     void addStation(int val);
+    void addStationDwellTime(double val);
+    void addStationIn(int val);
+    void addStationOut(int val);
 
     // access functions
     int getId()
@@ -82,6 +89,21 @@ class InputAgents
     std::vector<int> getStationSeq()
     {
         return station_seq;
+    }
+
+    std::vector<double> getStationDwellTime()
+    {
+        return station_dwell_time;
+    }
+
+    std::vector<int> getStationIn()
+    {
+        return station_in;
+    }
+
+    std::vector<int> getStationOut()
+    {
+        return station_out;
     }
 };
 

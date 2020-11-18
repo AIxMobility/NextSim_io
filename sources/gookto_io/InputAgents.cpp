@@ -6,10 +6,7 @@
 #include <gookto_io/tinyapi/tinyxml.h>
 #include <gookto_io/tinyapi/tinystr.h>
 
-InputAgents::InputAgents(int id, int type, double dpt_time) :
-id(id), type(type), dpt_time(dpt_time)
-{};
-
+InputAgents::InputAgents(int id, int type, double dpt_time) : id(id), type(type), dpt_time(dpt_time){};
 
 void InputAgents::addLink(int val)
 {
@@ -39,4 +36,19 @@ void InputAgents::addPaxDest(int val)
 void InputAgents::addStation(int val)
 {
     station_seq.push_back(val);
+};
+
+void InputAgents::addStationDwellTime(double val)
+{
+    station_dwell_time.push_back(val);
+};
+
+void InputAgents::addStationIn(int val)
+{
+    station_in.push_back(val);
+};
+
+void InputAgents::addStationOut(int val)
+{
+    station_out.push_back(val);
 };
