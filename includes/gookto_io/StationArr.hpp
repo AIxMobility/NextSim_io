@@ -12,8 +12,8 @@ private:
 public:
     StationArr();
     ~StationArr() = default;
-    StationArr(const StationArr &link) = default;
-    StationArr &operator=(const StationArr &link) = default;
+    StationArr(const StationArr &station) = default;
+    StationArr &operator=(const StationArr &station) = default;
 
     void showArr();
 
