@@ -1,6 +1,6 @@
 #include <iostream>
-#include <string>
 #include <sstream>
+#include <string>
 
 #include <gookto_io/IntersectionNode.hpp>
 #include <gookto_io/NodeArr.hpp>
@@ -74,19 +74,19 @@ NodeArr::NodeArr()
                         else if (val1 == "connection")
                         {
                             connection single_connection(
-                                atol(e3->Attribute("id")) ,
+                                atol(e3->Attribute("id")),
                                 atol(e3->Attribute("from_link")),
-                                atol(e3->Attribute("from_lane"))  ,
+                                atol(e3->Attribute("from_lane")),
                                 atol(e3->Attribute("to_link")),
-                                atol(e3->Attribute("to_lane"))    ,
-                                 1);
+                                atol(e3->Attribute("to_lane")), 1,
+                                atof(e3->Attribute("length")));
                             single_node.pushConnection(single_connection);
                         }
 
                         else if (val1 == "phase")
                         {
                             intersectionPhase single_phase(
-                                atol(e2->Attribute("id")));
+                                atol(e3->Attribute("id")));
                             for (TiXmlElement *e4 = e3->FirstChildElement();
                                  e4 != NULL; e4 = e4->NextSiblingElement())
                             {
@@ -104,24 +104,28 @@ NodeArr::NodeArr()
 
                         else if (val1 == "signal_plan")
                         {
-                            //std::string phase_string = e3->Attribute("phase");
-                            //std::string tmp1 = e3->Attribute("phase");
+                            // std::string phase_string =
+                            // e3->Attribute("phase"); std::string tmp1 =
+                            // e3->Attribute("phase");
 
-                            auto iss1 = std::istringstream{e3->Attribute("phase_length")};
+                            auto iss1 = std::istringstream{ e3->Attribute(
+                                "phase_length") };
                             auto str1 = std::string{};
-                            while (iss1 >> str1) {
+                            while (iss1 >> str1)
+                            {
                                 single_node.pushPhaseLength(atoi(str1.c_str()));
                             }
-                            
 
-                            auto iss2 = std::istringstream{e3->Attribute("order")};
+                            auto iss2 =
+                                std::istringstream{ e3->Attribute("order") };
                             auto str2 = std::string{};
-                            while (iss2 >> str2) {
+                            while (iss2 >> str2)
+                            {
                                 single_node.pushPhaseOrder(atoi(str2.c_str()));
                             }
 
-                            single_node.setPhaseOffset(atoi(e3->Attribute("offset")));
-
+                            single_node.setPhaseOffset(
+                                atoi(e3->Attribute("offset")));
                         }
                     }
                     Nodes.push_back(single_node);
@@ -162,12 +166,13 @@ NodeArr::NodeArr()
                         else if (val1 == "connection")
                         {
                             connection single_connection(
-                                atol(e3->Attribute("id") )  ,
+                                atol(e3->Attribute("id")),
                                 atol(e3->Attribute("from_link")),
-                                atol(e3->Attribute("from_lane"))   ,
+                                atol(e3->Attribute("from_lane")),
                                 atol(e3->Attribute("to_link")),
-                                atol(e3->Attribute("to_lane"))  ,
-                                atof(e3->Attribute("priority")));
+                                atol(e3->Attribute("to_lane")),
+                                atof(e3->Attribute("priority")),
+                                atof(e3->Attribute("length")));
                             single_node.pushConnection(single_connection);
                         }
                     }
