@@ -238,22 +238,91 @@ AgentsArr::AgentsArr()
                     std::stringstream station_in;
                     std::stringstream station_out;
 
+                    // station related attributes are optional
+
+                    //Station Sequence
+                    if (e->Attribute("station_seq"))
+                    {
+                        stations << e->Attribute("station_seq");
+
+                        int found;
+
+                        std::string temp_stations;
+                        while (!stations.eof())
+                        {
+                            stations >> temp_stations;
+                            if (std::stringstream(temp_stations) >> found)
+                            {
+                                single_veh.addStation(found);
+                            }
+                            temp_stations = "";
+                        }
+                    }
+
+                    //Station Dwell Time
+                    if (e->Attribute("station_dwell_time"))
+                    {
+                        station_dwell_times << e->Attribute("station_dwell_time");
+
+                        double found_double;
+
+                        std::string temp_station_dwell_times;
+                        while (!station_dwell_times.eof())
+                        {
+                            station_dwell_times >> temp_station_dwell_times;
+                            if (std::stringstream(temp_station_dwell_times) >> found_double)
+                            {
+                                single_veh.addStationDwellTime(found_double);
+                            }
+                            temp_station_dwell_times = "";
+                        }
+                    }
+
+                    // Station In
+                    if (e->Attribute("station_in"))
+                    {
+                        station_in << e->Attribute("station_in");
+
+                        int found;
+
+                        std::string temp_station_in;
+                        while (!station_in.eof())
+                        {
+                            station_in >> temp_station_in;
+                            if (std::stringstream(temp_station_in) >> found)
+                            {
+                                single_veh.addStationIn(found);
+                            }
+                            temp_station_in = "";
+                        }
+                    }
+
+                    // Station Out
+                    if (e->Attribute("station_out"))
+                    {
+                        station_out << e->Attribute("station_out");
+
+                        int found;
+
+                        std::string temp_station_out;
+                        while (!station_out.eof())
+                        {
+                            station_out >> temp_station_out;
+                            if (std::stringstream(temp_station_out) >> found)
+                            {
+                                single_veh.addStationOut(found);
+                            }
+                            temp_station_out = "";
+                        }
+                    }
+
                     links << e->Attribute("link_seq");
                     nodes << e->Attribute("node_seq");
-                    stations << e->Attribute("station_seq");
-                    station_dwell_times << e->Attribute("station_dwell_time");
-                    station_in << e->Attribute("station_in");
-                    station_out << e->Attribute("station_out");
 
                     std::string temp_links;
                     std::string temp_nodes;
-                    std::string temp_stations;
-                    std::string temp_station_dwell_times;
-                    std::string temp_station_in;
-                    std::string temp_station_out;
 
                     int found;
-                    double found_double;
 
                     // add Links
                     while (!links.eof())
@@ -275,50 +344,6 @@ AgentsArr::AgentsArr()
                             single_veh.addNode(found);
                         }
                         temp_nodes = "";
-                    }
-
-                    //add Stations
-                    while (!stations.eof())
-                    {
-                        stations >> temp_stations;
-                        if (std::stringstream(temp_stations) >> found)
-                        {
-                            single_veh.addStation(found);
-                        }
-                        temp_stations = "";
-                    }
-
-                    //add Station Dwell Times
-                    while (!station_dwell_times.eof())
-                    {
-                        station_dwell_times >> temp_station_dwell_times;
-                        if (std::stringstream(temp_station_dwell_times) >> found_double)
-                        {
-                            single_veh.addStationDwellTime(found_double);
-                        }
-                        temp_station_dwell_times = "";
-                    }
-
-                    // add Station In
-                    while (!station_in.eof())
-                    {
-                        station_in >> temp_station_in;
-                        if (std::stringstream(temp_station_in) >> found)
-                        {
-                            single_veh.addStationIn(found);
-                        }
-                        temp_station_in = "";
-                    }
-
-                    // add Station Out
-                    while (!station_out.eof())
-                    {
-                        station_out >> temp_station_out;
-                        if (std::stringstream(temp_station_out) >> found)
-                        {
-                            single_veh.addStationOut(found);
-                        }
-                        temp_station_out = "";
                     }
 
                     Agents.push_back(single_veh);
