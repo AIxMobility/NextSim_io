@@ -1,6 +1,7 @@
 #include <gookto_io/InputLink.hpp>
 #include <iostream>
 #include <string>
+#include <cmath>
 
 InputLink::InputLink(std::size_t id, int lane, double length, double width)
     : MetaData(id, length, width), m_numLane(lane)
@@ -67,7 +68,7 @@ std::vector<std::vector<double>> InputLink::Get2DWaveSpeed()
     }
     return matrix;
 }
-std::vector<std::vector<size_t>> InputLink::Get2DMaxVehicle()
+std::vector<std::vector<size_t>> InputLink::Get2DMaxVehicle(int vehlength)
 {
     std::vector<std::vector<size_t>> matrix;
     matrix.resize(m_numLane);
@@ -77,7 +78,7 @@ std::vector<std::vector<size_t>> InputLink::Get2DMaxVehicle()
         for (int j = 0; j < m_laneNumCellVector[i]; j++)
         {
             // temporary calculation basaed on ceiling(length / 5)
-            matrix[i][j] = 1 + ((100 - 1) / 5);
+            matrix[i][j] = static_cast<std::size_t>(std::ceil(Length/vehlength));
         }
     }
     return matrix;
