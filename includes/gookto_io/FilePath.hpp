@@ -18,6 +18,8 @@ static std::filesystem::path ParamXMLPath = XmlFilePath / "param.xml";
 
 static std::filesystem::path AgnetTypeXMLPath = XmlFilePath / "agenttypes.xml";
 
+static std::filesystem::path EventXMLPath = XmlFilePath / "event.xml";
+
 static std::filesystem::path PassengerXMLPath = XmlFilePath / "pax.xml";
 }
 

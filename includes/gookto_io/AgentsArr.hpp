@@ -8,6 +8,7 @@ class AgentsArr
 {
 private:
     std::vector<InputAgents> Agents;
+    std::vector<InputAgents> Shuttles;
 
 public:
     AgentsArr();
@@ -16,11 +17,12 @@ public:
      */
 
     //check
+    void parseAgent(std::string type);
     void showArr();
 
     //access function
     std::vector<InputAgents> getAgents() { return Agents; }
-
+    std::vector<InputAgents> getShuttles() { return Shuttles; }
 
 };
 

@@ -10,14 +10,30 @@
 
 AgentsArr::AgentsArr()
 {
+    parseAgent("Agents");
+    parseAgent("Shuttles");
+};
+
+void AgentsArr::parseAgent(std::string AgentType){
     TiXmlDocument doc;
 
-    doc.LoadFile("./network_xml/agents.xml");
-    std::cout << "Loading AgentsArr" << std::endl;
+    if(AgentType == "Agents"){
+        doc.LoadFile("./network_xml/agents.xml");
+        std::cout << "Loading AgentsArr" << std::endl;
 
-    if (!doc.LoadFile("./network_xml/agents.xml"))
-    {
-        std::cerr << doc.ErrorDesc() << std::endl;
+        if (!doc.LoadFile("./network_xml/agents.xml"))
+        {
+            std::cerr << doc.ErrorDesc() << std::endl;
+        }
+    }
+    else if(AgentType == "Shuttles"){
+        doc.LoadFile("./network_xml/shuttles.xml");
+        std::cout << "Loading ShuttlesArr" << std::endl;
+
+        if (!doc.LoadFile("./network_xml/shuttles.xml"))
+        {
+            std::cerr << doc.ErrorDesc() << std::endl;
+        }
     }
 
     TiXmlElement *root = doc.FirstChildElement();
@@ -126,7 +142,8 @@ AgentsArr::AgentsArr()
                         temp_dests = "";
                     }
 
-                    Agents.push_back(single_veh);
+                    if(AgentType == "Agents")    Agents.push_back(single_veh);
+                    else if(AgentType == "Shuttles") Shuttles.push_back(single_veh);
                 }
             }
         }
@@ -202,7 +219,8 @@ AgentsArr::AgentsArr()
                         temp_stations = "";
                     }
 
-                    Agents.push_back(single_veh);
+                    if(AgentType == "Agents")    Agents.push_back(single_veh);
+                    else if(AgentType == "Shuttles") Shuttles.push_back(single_veh);
                 }
             }
         }
@@ -346,13 +364,14 @@ AgentsArr::AgentsArr()
                         temp_nodes = "";
                     }
 
-                    Agents.push_back(single_veh);
+                    if(AgentType == "Agents")    Agents.push_back(single_veh);
+                    else if(AgentType == "Shuttles") Shuttles.push_back(single_veh);
                 }
             }
         }
     }
     doc.Clear();
-};
+}
 
 void AgentsArr::showArr()
 {
