@@ -8,16 +8,15 @@
 
 #include <gookto_io/tinyapi/tinystr.h>
 #include <gookto_io/tinyapi/tinyxml.h>
-#include <gookto_io/FilePath.hpp>
 
 EventArr::EventArr()
 {
     TiXmlDocument doc;
 
-    doc.LoadFile("./network_xml/event.xml");
+    doc.LoadFile("./network_xml/eventdata.xml");
     std::cout << "Loading EventArr" << std::endl;
 
-    if (!doc.LoadFile("./network_xml/event.xml"))
+    if (!doc.LoadFile("./network_xml/eventdata.xml"))
     {
         std::cerr << doc.ErrorDesc() << std::endl;
     }

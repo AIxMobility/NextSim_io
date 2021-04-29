@@ -16,9 +16,9 @@ static std::filesystem::path OdMatrixXMLPath = XmlFilePath / "odmatrix.xml";
 
 static std::filesystem::path ParamXMLPath = XmlFilePath / "param.xml";
 
-static std::filesystem::path AgnetTypeXMLPath = XmlFilePath / "agenttypes.xml";
+static std::filesystem::path AgentTypeXMLPath = XmlFilePath / "agenttypes.xml";
 
-static std::filesystem::path EventXMLPath = XmlFilePath / "event.xml";
+static std::filesystem::path EventXMLPath = XmlFilePath / "eventdata.xml";
 
 static std::filesystem::path PassengerXMLPath = XmlFilePath / "pax.xml";
 }

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <filesystem>
 
 #include <gookto_io/AgentsArr.hpp>
 #include <gookto_io/InputAgents.hpp>
@@ -11,7 +12,7 @@
 AgentsArr::AgentsArr()
 {
     parseAgent("Agents");
-    parseAgent("Shuttles");
+    parseAgent("Agents_opt");
 };
 
 void AgentsArr::parseAgent(std::string AgentType){
@@ -26,11 +27,13 @@ void AgentsArr::parseAgent(std::string AgentType){
             std::cerr << doc.ErrorDesc() << std::endl;
         }
     }
-    else if(AgentType == "Shuttles"){
-        doc.LoadFile("./network_xml/shuttles.xml");
-        std::cout << "Loading ShuttlesArr" << std::endl;
+    else if(AgentType == "Agents_opt"){
+        if (!std::filesystem::exists("./network_xml/agents_opt.xml"))   return;
 
-        if (!doc.LoadFile("./network_xml/shuttles.xml"))
+        doc.LoadFile("./network_xml/agents_opt.xml");
+        std::cout << "Loading Optional AgentsArr" << std::endl;
+
+        if (!doc.LoadFile("./network_xml/agents_opt.xml"))
         {
             std::cerr << doc.ErrorDesc() << std::endl;
         }
@@ -143,7 +146,7 @@ void AgentsArr::parseAgent(std::string AgentType){
                     }
 
                     if(AgentType == "Agents")    Agents.push_back(single_veh);
-                    else if(AgentType == "Shuttles") Shuttles.push_back(single_veh);
+                    else if(AgentType == "Agents_opt") Agents_opt.push_back(single_veh);
                 }
             }
         }
@@ -220,7 +223,7 @@ void AgentsArr::parseAgent(std::string AgentType){
                     }
 
                     if(AgentType == "Agents")    Agents.push_back(single_veh);
-                    else if(AgentType == "Shuttles") Shuttles.push_back(single_veh);
+                    else if(AgentType == "Agents_opt") Agents_opt.push_back(single_veh);
                 }
             }
         }
@@ -365,7 +368,7 @@ void AgentsArr::parseAgent(std::string AgentType){
                     }
 
                     if(AgentType == "Agents")    Agents.push_back(single_veh);
-                    else if(AgentType == "Shuttles") Shuttles.push_back(single_veh);
+                    else if(AgentType == "Agents_opt") Agents_opt.push_back(single_veh);
                 }
             }
         }

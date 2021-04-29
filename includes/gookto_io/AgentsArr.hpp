@@ -8,7 +8,7 @@ class AgentsArr
 {
 private:
     std::vector<InputAgents> Agents;
-    std::vector<InputAgents> Shuttles;
+    std::vector<InputAgents> Agents_opt;
 
 public:
     AgentsArr();
@@ -22,7 +22,7 @@ public:
 
     //access function
     std::vector<InputAgents> getAgents() { return Agents; }
-    std::vector<InputAgents> getShuttles() { return Shuttles; }
+    std::vector<InputAgents> getAgentsOpt() { return Agents_opt; }
 
 };
 

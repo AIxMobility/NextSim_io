@@ -53,7 +53,6 @@ LinkArr::LinkArr()
         if (elemName == "links")
         {
             std::cout << "Got links" << std::endl;
-            std::cout << (elem->FirstChildElement())->Value() << std::endl;
             for (TiXmlElement* e = elem->FirstChildElement(); e != nullptr;
                  e = e->NextSiblingElement())
             {
