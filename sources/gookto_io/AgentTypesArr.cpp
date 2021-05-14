@@ -1,7 +1,7 @@
+#include <cstdlib>
 #include <filesystem>
 #include <iostream>
 #include <string>
-#include <cstdlib>
 
 #include <gookto_io/AgentTypesArr.hpp>
 #include <gookto_io/InputAgentTypes.hpp>
@@ -33,14 +33,20 @@ AgentTypesArr::AgentTypesArr()
         {
             std::cout << "Got vehtype" << std::endl;
 
-            InputDistribution veh_lenDist(std::string("Normal"), -1.0, 0.0, 1.0, 1.0);
-            InputDistribution jamgapDist(std::string("Normal"), -1.0, 0.0, 1.0, 1.0);
-            InputDistribution vfDist(std::string("Normal"), -1.0, 0.0, 1.0, 1.0);
-            InputDistribution reaction_timeDist(std::string("Normal"), -1.0, 0.0, 1.0, 1.0);
-            InputDistribution max_accDist(std::string("Normal"), -1.0, 0.0, 1.0, 1.0);
-            InputDistribution max_decDist(std::string("Normal"), -1.0, 0.0, 1.0, 1.0);
+            InputDistribution veh_lenDist(std::string("Normal"), -1.0, 0.0, 1.0,
+                                          1.0);
+            InputDistribution jamgapDist(std::string("Normal"), -1.0, 0.0, 1.0,
+                                         1.0);
+            InputDistribution vfDist(std::string("Normal"), -1.0, 0.0, 1.0,
+                                     1.0);
+            InputDistribution reaction_timeDist(std::string("Normal"), -1.0,
+                                                0.0, 1.0, 1.0);
+            InputDistribution max_accDist(std::string("Normal"), -1.0, 0.0, 1.0,
+                                          1.0);
+            InputDistribution max_decDist(std::string("Normal"), -1.0, 0.0, 1.0,
+                                          1.0);
 
-            for (TiXmlElement* e = elem->FirstChildElement(); e != nullptr;
+            for (TiXmlElement *e = elem->FirstChildElement(); e != nullptr;
                  e = e->NextSiblingElement())
             {
                 std::string elemName2 = e->Value();
@@ -97,14 +103,10 @@ AgentTypesArr::AgentTypesArr()
 
             InputAgentTypes demoAgentTypes(
                 elem->Attribute("name"),
-                std::atoi(elem->Attribute("max_pax")),
-                veh_lenDist,
-                jamgapDist,
-                vfDist,
-                reaction_timeDist,
-                max_accDist,
-                max_decDist
-            );
+                // std::atoi(elem->Attribute("max_pax")),
+                0,  // TODO: something is making error here
+                veh_lenDist, jamgapDist, vfDist, reaction_timeDist, max_accDist,
+                max_decDist);
 
             vehTypes.push_back(demoAgentTypes);
         }
