@@ -1,19 +1,19 @@
 #ifndef AGENTTYPESARR_H
 #define AGENTTYPESARR_H
 
-#include <vector>
+#include <map>
 #include "InputAgentTypes.hpp"
 
 class AgentTypesArr
 {
 private:
-    std::vector<InputAgentTypes> vehTypes;
+    std::map<int, InputAgentTypes> vehTypes;
 
 public:
     AgentTypesArr();
 
     //access function
-    InputAgentTypes getAgentType(int type) { return vehTypes.at(type); }
+    InputAgentTypes getAgentType(int type) { return vehTypes.find(type)->second; }
 };
 
 

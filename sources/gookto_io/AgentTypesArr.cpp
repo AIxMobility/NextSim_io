@@ -106,7 +106,7 @@ AgentTypesArr::AgentTypesArr()
                 max_decDist
             );
 
-            vehTypes.push_back(demoAgentTypes);
+            vehTypes.insert({ std::atoi(elem->Attribute("id")), demoAgentTypes });
         }
     }
     doc.Clear();

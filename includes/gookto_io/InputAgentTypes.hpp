@@ -5,7 +5,6 @@
 #include <string>
 #include <vector>
 
-#include <captain/Structs/VehicleInfo.hpp>
 #include "InputDistribution.hpp"
 
 class InputAgentTypes
@@ -43,7 +42,8 @@ public:
     }
     double genvf()
     {
-        return vf.genValue();
+        double newvf = vf.genValue();
+        return newvf / 3.6;
     }
     double genreaction_time()
     {
