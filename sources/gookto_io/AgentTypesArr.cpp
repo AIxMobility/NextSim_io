@@ -103,8 +103,7 @@ AgentTypesArr::AgentTypesArr()
 
             InputAgentTypes demoAgentTypes(
                 elem->Attribute("name"),
-                // std::atoi(elem->Attribute("max_pax")),
-                0,  // TODO: something is making error here
+                std::atoi(elem->Attribute("max_pax")),
                 veh_lenDist, jamgapDist, vfDist, reaction_timeDist, max_accDist,
                 max_decDist);
 
