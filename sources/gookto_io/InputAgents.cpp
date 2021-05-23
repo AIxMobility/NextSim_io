@@ -3,9 +3,6 @@
 
 #include <gookto_io/InputAgents.hpp>
 
-#include <gookto_io/tinyapi/tinyxml.h>
-#include <gookto_io/tinyapi/tinystr.h>
-
 InputAgents::InputAgents(int id, int type, double dpt_time) : id(id), type(type), dpt_time(dpt_time){};
 
 void InputAgents::addLink(int val)

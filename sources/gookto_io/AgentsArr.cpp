@@ -47,110 +47,6 @@ void AgentsArr::parseAgent(std::string AgentType){
         std::string elemName = elem->Value();
 
         // const char *attr;
-        if (elemName == "small_av")
-        {
-            std::cout << "Got Small AV" << std::endl;
-
-            for (TiXmlElement *e = elem->FirstChildElement(); e != NULL;
-                 e = e->NextSiblingElement())
-            {
-                std::string elemName2 = e->Value();
-
-                if (elemName2 == "veh")
-                {
-                    // std::cout << "Got Veh" << std::endl;
-
-                    int type = std::atoi(e->Attribute("type"));
-
-                    double dpt_time = std::atof(e->Attribute("dpt_time"));
-
-                    // Intialize single Vehicle
-                    InputAgents single_veh(atol(e->Attribute("id")), type,
-                                           dpt_time);
-
-                    // parse the Link Seq of each vehicles:
-                    // String Stream --> Extract Integer
-                    std::stringstream links;
-                    std::stringstream nodes;
-                    std::stringstream origins;
-                    std::stringstream destinations;
-                    std::stringstream pax;
-
-                    links << e->Attribute("link_seq");
-                    nodes << e->Attribute("node_seq");
-                    pax << e->Attribute("pax_list");
-                    origins << e->Attribute("pax_origin");
-                    destinations << e->Attribute("pax_dest");
-
-                    std::string temp_links;
-                    std::string temp_nodes;
-                    std::string temp_pax;
-                    std::string temp_origins;
-                    std::string temp_dests;
-
-                    int found;
-
-                    // add Links
-                    while (!links.eof())
-                    {
-                        links >> temp_links;
-                        if (std::stringstream(temp_links) >> found)
-                        {
-                            single_veh.addLink(found);
-                        }
-                        temp_links = "";
-                    }
-
-                    // add Nodes
-                    while (!nodes.eof())
-                    {
-                        nodes >> temp_nodes;
-                        if (std::stringstream(temp_nodes) >> found)
-                        {
-                            single_veh.addNode(found);
-                        }
-                        temp_nodes = "";
-                    }
-
-                    // add Pax
-                    while (!pax.eof())
-                    {
-                        pax >> temp_pax;
-                        if (std::stringstream(temp_pax) >> found)
-                        {
-                            single_veh.addPaxList(found);
-                        }
-                        temp_pax = "";
-                    }
-
-                    // add Pax Origin
-                    while (!origins.eof())
-                    {
-                        origins >> temp_origins;
-                        if (std::stringstream(temp_origins) >> found)
-                        {
-                            single_veh.addPaxOrigin(found);
-                        }
-                        temp_origins = "";
-                    }
-
-                    // add Pax Dest
-                    while (!destinations.eof())
-                    {
-                        destinations >> temp_dests;
-                        if (std::stringstream(temp_dests) >> found)
-                        {
-                            single_veh.addPaxDest(found);
-                        }
-                        temp_dests = "";
-                    }
-
-                    if(AgentType == "Agents")    Agents.push_back(single_veh);
-                    else if(AgentType == "Agents_opt") Agents_opt.push_back(single_veh);
-                }
-            }
-        }
-
         if (elemName == "bus_av")
         {
             std::cout << "Got BUS AV" << std::endl;
@@ -230,7 +126,7 @@ void AgentsArr::parseAgent(std::string AgentType){
 
         if (elemName == "PublicVeh")
         {
-            std::cout << "Got Normal Veh" << std::endl;
+            std::cout << "Got Public Veh" << std::endl;
 
             for (TiXmlElement *e = elem->FirstChildElement(); e != NULL;
                  e = e->NextSiblingElement())
