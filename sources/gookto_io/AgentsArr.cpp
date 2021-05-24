@@ -46,10 +46,9 @@ void AgentsArr::parseAgent(std::string AgentType){
     {
         std::string elemName = elem->Value();
 
-        // const char *attr;
-        if (elemName == "bus_av")
+        if (elemName == "NormalVeh")
         {
-            std::cout << "Got BUS AV" << std::endl;
+            std::cout << "Got Normal Vehicle" << std::endl;
 
             for (TiXmlElement *e = elem->FirstChildElement(); e != NULL;
                  e = e->NextSiblingElement())
@@ -73,15 +72,12 @@ void AgentsArr::parseAgent(std::string AgentType){
                     // String Stream --> Extract Integer
                     std::stringstream links;
                     std::stringstream nodes;
-                    std::stringstream stations;
 
                     links << e->Attribute("link_seq");
                     nodes << e->Attribute("node_seq");
-                    stations << e->Attribute("station_seq");
 
                     std::string temp_links;
                     std::string temp_nodes;
-                    std::string temp_stations;
 
                     int found;
 
@@ -105,17 +101,6 @@ void AgentsArr::parseAgent(std::string AgentType){
                             single_veh.addNode(found);
                         }
                         temp_nodes = "";
-                    }
-
-                    // add Stations
-                    while (!stations.eof())
-                    {
-                        stations >> temp_stations;
-                        if (std::stringstream(temp_stations) >> found)
-                        {
-                            single_veh.addStation(found);
-                        }
-                        temp_stations = "";
                     }
 
                     if(AgentType == "Agents")    Agents.push_back(single_veh);
