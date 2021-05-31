@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <random>
+#include <math.h>
 
 class InputDistribution
 {
@@ -37,6 +38,7 @@ public:
             std::lognormal_distribution<double> LNdist(vehmean, vehsd);
             while (value < vehmin || vehmax < value) {
                 value = LNdist(gen);
+                value = log (value);
             }
         }
 
