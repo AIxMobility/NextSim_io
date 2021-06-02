@@ -1,3 +1,10 @@
+/**
+ * STS19 Captain
+ * @file : EventArr.hpp
+ * @version : 1.0
+ * @author : Jeyun Kim
+ */
+
 #ifndef EVENTARR_H
 #define EVENTARR_H
 

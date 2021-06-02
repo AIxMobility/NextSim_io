@@ -1,3 +1,10 @@
+/**
+ * STS19 Captain
+ * @file : InputEvent.hpp
+ * @version : 1.0
+ * @author : Jeyun Kim
+ */
+
 #ifndef INPUTEVENT_H
 #define INPUTEVENT_H
 

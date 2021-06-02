@@ -48,7 +48,7 @@ void AgentsArr::parseAgent(std::string AgentType){
 
         if (elemName == "NormalVeh")
         {
-            std::cout << "Got Normal Vehicle" << std::endl;
+            std::cout << "Got Normal Veh" << std::endl;
 
             for (TiXmlElement *e = elem->FirstChildElement(); e != NULL;
                  e = e->NextSiblingElement())
@@ -57,24 +57,32 @@ void AgentsArr::parseAgent(std::string AgentType){
 
                 if (elemName2 == "veh")
                 {
-                    // std::cout << "Got Veh" << std::endl;
-                    // dpt_time, type, ID, link_seq, node_seq
+                    const char *id = e->Attribute("id");
+                    const char *type = e->Attribute("type");
+                    const char *dpt_time = e->Attribute("dpt_time");
 
-                    int type = atoi(e->Attribute("type"));
+                    if (!id)   throw std::runtime_error ("Element should have 'id' attribute");
+                    if (!type)   throw std::runtime_error ("Element should have 'type' attribute");
+                    if (!dpt_time)   throw std::runtime_error ("Element should have 'dpt_time' attribute");
 
-                    double dpt_time = atof(e->Attribute("dpt_time"));
-
-                    // Intialize single Vehicle
-                    InputAgents single_veh(atol(e->Attribute("id")), type,
-                                           dpt_time);
+                    InputAgents single_veh(
+                        atol(id),
+                        atoi(type),
+                        atof(dpt_time));
 
                     // parse the Link Seq of each vehicles:
                     // String Stream --> Extract Integer
+                    const char *link_seq = e->Attribute("link_seq");
+                    const char *node_seq = e->Attribute("node_seq");
+
+                    if (!link_seq)   throw std::runtime_error ("Element should have 'link_seq' attribute");
+                    if (!node_seq)   throw std::runtime_error ("Element should have 'node_seq' attribute");
+
                     std::stringstream links;
                     std::stringstream nodes;
 
-                    links << e->Attribute("link_seq");
-                    nodes << e->Attribute("node_seq");
+                    links << link_seq;
+                    nodes << node_seq;
 
                     std::string temp_links;
                     std::string temp_nodes;
@@ -120,19 +128,28 @@ void AgentsArr::parseAgent(std::string AgentType){
 
                 if (elemName2 == "veh")
                 {
-                    // std::cout << "Got Veh" << std::endl;
-                    // dpt_time, type, ID, link_seq, node_seq
+                    const char *id = e->Attribute("id");
+                    const char *type = e->Attribute("type");
+                    const char *dpt_time = e->Attribute("dpt_time");
 
-                    int type = atoi(e->Attribute("type"));
+                    if (!id)   throw std::runtime_error ("Element should have 'id' attribute");
+                    if (!type)   throw std::runtime_error ("Element should have 'type' attribute");
+                    if (!dpt_time)   throw std::runtime_error ("Element should have 'dpt_time' attribute");
 
-                    double dpt_time = atof(e->Attribute("dpt_time"));
-
-                    // Intialize single Vehicle
-                    InputAgents single_veh(atol(e->Attribute("id")), type,
-                                           dpt_time);
+                    InputAgents single_veh(
+                        atol(id),
+                        atoi(type),
+                        atof(dpt_time));
 
                     // parse the Link Seq of each vehicles:
                     // String Stream --> Extract Integer
+
+                    const char *link_seq = e->Attribute("link_seq");
+                    const char *node_seq = e->Attribute("node_seq");
+
+                    if (!link_seq)   throw std::runtime_error ("Element should have 'link_seq' attribute");
+                    if (!node_seq)   throw std::runtime_error ("Element should have 'node_seq' attribute");
+
                     std::stringstream links;
                     std::stringstream nodes;
                     std::stringstream stations;
@@ -218,8 +235,8 @@ void AgentsArr::parseAgent(std::string AgentType){
                         }
                     }
 
-                    links << e->Attribute("link_seq");
-                    nodes << e->Attribute("node_seq");
+                    links << link_seq;
+                    nodes << node_seq;
 
                     std::string temp_links;
                     std::string temp_nodes;

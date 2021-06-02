@@ -43,17 +43,29 @@ ParamArr::ParamArr()
                 std::string elemName2 = e->Value();
                 if (elemName2 == "max_flow")
                 {
-                    SetMaxFlow(atof(e->Attribute("value")));
+                    const char *value = e->Attribute("value");
+
+                    if (!value) throw std::runtime_error ("Element should have 'value' attribute");
+
+                    SetMaxFlow(atof(value));
                 }
 
                 if (elemName2 == "veh_len")
                 {
-                    SetMesoVehLen(atof(e->Attribute("value")));
+                    const char *value = e->Attribute("value");
+
+                    if (!value) throw std::runtime_error ("Element should have 'value' attribute");
+
+                    SetMesoVehLen(atof(value));
                 }
 
                 if (elemName2 == "wave_speed")
                 {
-                    SetWaveSpeed(atof(e->Attribute("value")));
+                    const char *value = e->Attribute("value");
+
+                    if (!value) throw std::runtime_error ("Element should have 'value' attribute");
+
+                    SetWaveSpeed(atof(value));
                 }
             }
         }

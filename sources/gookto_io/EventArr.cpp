@@ -1,3 +1,10 @@
+/**
+ * STS19 Captain
+ * @file : EventArr.cpp
+ * @version : 1.0
+ * @author : Jeyun Kim
+ */
+
 #include <filesystem>
 #include <iostream>
 #include <string>
@@ -30,15 +37,31 @@ EventArr::EventArr()
 
         if (elemName == "event")
         {
-            std::cout << "Got event" << std::endl;
+            
+            const char* id = elem->Attribute("id");
+            const char* pos = elem->Attribute("pos");
+            const char* lane = elem->Attribute("lane");
+            const char* stime = elem->Attribute("stime");
+            const char* etime = elem->Attribute("etime");
+            const char* type = elem->Attribute("type");
+            const char* sern = elem->Attribute("sern");
+
+            if (!id)   throw std::runtime_error ("Element should have 'id' attribute");
+            if (!pos)   throw std::runtime_error ("Element should have 'pos' attribute");
+            if (!lane)   throw std::runtime_error ("Element should have 'lane' attribute");
+            if (!stime)   throw std::runtime_error ("Element should have 'stime' attribute");
+            if (!etime)   throw std::runtime_error ("Element should have 'etime' attribute");
+            if (!type)   type = "1";
+            if (!sern)   sern = "1";
+
             InputEvent demoEvent(
-                static_cast<std::size_t>(atoll(elem->Attribute("id"))),
-                atof(elem->Attribute("pos")),
-                atoi(elem->Attribute("lane")),
-                atof(elem->Attribute("stime")),
-                atof(elem->Attribute("etime")),
-                atoi(elem->Attribute("type")),
-                atoi(elem->Attribute("sern")));
+                static_cast<std::size_t>(atoll(id)),
+                atof(pos),
+                atoi(lane),
+                atof(stime),
+                atof(etime),
+                atoi(type),
+                atoi(sern));
 
             Events.push_back(demoEvent);
         }

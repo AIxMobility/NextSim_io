@@ -11,20 +11,8 @@
 
 StationArr::StationArr()
 {
-    // std::filesystem::path cwd = std::filesystem::current_path();
-    // std::cout << cwd << std::endl;
-
-    // for (const auto &entry : std::filesystem::directory_iterator(cwd))
-    //     std::cout << entry.path() << std::endl;
-
-    // std::filesystem::path netDir("network_xml");
-    // for (const auto &entry : std::filesystem::directory_iterator(cwd / netDir))
-    //     std::cout << entry.path() << std::endl;
-
     TiXmlDocument doc("");
     bool loadOkay = doc.LoadFile(STSIO::NetworkXMLPath.string().c_str());
-
-    std::cout << loadOkay << std::endl;
 
     std::cout << "Loading StationArr" << std::endl;
 
@@ -42,10 +30,8 @@ StationArr::StationArr()
     {
         std::string elemName = elem->Value();
 
-        // const char *attr;
         if (elemName == "stations")
         {
-
             std::cout << "Got stations" << std::endl;
             std::cout << (elem->FirstChildElement())->Value() << std::endl;
             for (TiXmlElement *e = elem->FirstChildElement(); e != nullptr;
@@ -55,11 +41,21 @@ StationArr::StationArr()
 
                 if (elemName2 == "station")
                 {
+                    const char *id = e->Attribute("id");
+                    const char *lane_ref = e->Attribute("lane_ref");
+                    const char *link_ref = e->Attribute("link_ref");
+                    const char *pos = e->Attribute("pos");
+
+                    if (!id) throw std::runtime_error ("Element should have 'id' attribute");
+                    if (!lane_ref) throw std::runtime_error ("Element should have 'lane_ref' attribute");
+                    if (!link_ref) throw std::runtime_error ("Element should have 'link_ref' attribute");
+                    if (!pos) throw std::runtime_error ("Element should have 'pos' attribute");
+
                     InputStation demoStation(
-                        static_cast<std::size_t>(atoll(e->Attribute("id"))),
-                        atoi(e->Attribute("lane_ref")),
-                        atof(e->Attribute("link_ref")),
-                        atof(e->Attribute("pos")));
+                        static_cast<std::size_t>(atoll(id)),
+                        atoi(lane_ref),
+                        atof(link_ref),
+                        atof(pos));
 
                     Stations.push_back(demoStation);
                 }
