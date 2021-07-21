@@ -20,10 +20,10 @@ MessageArr::MessageArr()
 {
     TiXmlDocument doc;
 
-    doc.LoadFile("./network_xml/message.xml");
+    doc.LoadFile("./network_xml/v2xdata.xml");
     std::cout << "Loading Message" << std::endl;
 
-    if (!doc.LoadFile("./network_xml/message.xml"))
+    if (!doc.LoadFile("./network_xml/v2xdata.xml"))
     {
         std::cerr << doc.ErrorDesc() << std::endl;
     }
