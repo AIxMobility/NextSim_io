@@ -15,10 +15,10 @@ private:
     int value;
 
     // unique to Region Message
-    int node_id;
+    int node_id = 0;
 
     // unique to Vehicle Message
-    int veh_id;
+    int veh_id = 0;
 
 public:
     // Constructor
