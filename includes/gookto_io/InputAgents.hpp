@@ -1,3 +1,10 @@
+/**
+ * STS19 Captain
+ * @file : InputAgents.hpp
+ * @version : 1.0
+ * @author : Jeyun Kim
+ */
+
 #ifndef INPUTAGENTS_H
 #define INPUTAGENTS_H
 

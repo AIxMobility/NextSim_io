@@ -24,19 +24,35 @@ ODMatrix::ODMatrix()
     TiXmlElement *root = doc.FirstChildElement();
 
     for (TiXmlElement *elem = root->FirstChildElement(); elem != NULL;
-         elem = elem->NextSiblingElement("Demand"))
+         elem = elem->NextSiblingElement())
     {
         std::string elemName = elem->Value();
 
-        // const char *attr;
         if (elemName == "Demand")
         {
-            Demand single_demand(atoi(elem->Attribute("flow")), atoi(elem->Attribute("sink")), atoi(elem->Attribute("source")), 1);
+            const char *flow = elem->Attribute("flow");
+            const char *sink = elem->Attribute("sink");
+            const char *source = elem->Attribute("source");
+            const char *dist = elem->Attribute("dist");
+
+            if (!flow)   throw std::runtime_error ("Element should have 'flow' attribute");
+            if (!sink)   throw std::runtime_error ("Element should have 'sink' attribute");
+            if (!source)   throw std::runtime_error ("Element should have 'source' attribute");
+            if (!dist)   dist = "Exponential";
+
+            if (!strcmp (dist, "Normal"))   dist = "0";
+            else if (!strcmp (dist, "Exponential")) dist = "1";
+            else dist = "2";
+
+            Demand single_demand(
+                atoi(flow),
+                atoi(sink),
+                atoi(source),
+                atoi(dist));
 
             Demands.push_back(single_demand);
         }
         
     };
-    std::cout << "Got Demand" << std::endl;
     doc.Clear();
 }

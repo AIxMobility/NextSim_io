@@ -1,3 +1,10 @@
+/**
+ * STS19 Captain
+ * @file : AgentTypesArr.hpp
+ * @version : 1.0
+ * @author : Jeyun Kim
+ */
+
 #ifndef AGENTTYPESARR_H
 #define AGENTTYPESARR_H
 
