@@ -37,18 +37,18 @@ public:
     void setInitialPoint(double init_point_val);
     void setEndPoint(double end_point_val);
 
-    std::size_t getID() { return id; }
-    bool getBlocked() { return blocked; }
+    std::size_t getID() const { return id; }
+    bool getBlocked() const { return blocked; }
 
-    std::pair<bool, bool> getLeftRight_lc()
+    std::pair<bool, bool>  getLeftRight_lc() const
     {
         return std::make_pair(left_lc, right_lc);
     }
 
-    bool getLeft_lc() { return left_lc; }
-    bool getRight_lc() { return right_lc; }
-    double getInitialPoint() { return init_point; }
-    double getEndPoint() { return end_point; }
+    bool getLeft_lc() const { return left_lc; }
+    bool getRight_lc() const { return right_lc; }
+    double getInitialPoint() const { return init_point; }
+    double getEndPoint() const { return end_point; }
 };
 
 
