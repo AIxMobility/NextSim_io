@@ -25,6 +25,7 @@ private:
      * numConnections: Applicable only for IntersectionNode
      */
     int numLinks; //num_port
+    bool v2xActive; // active of v2x
     std::vector<port> connectedLinks;//port:  linkId, direction, type(in / out)
     /**
      * port: Intersection, Terminal
@@ -47,7 +48,7 @@ private:
     //may have to make this into a Pointer Loop
 
 public:
-    IntersectionNode(int type, int id, int num_connection, int num_port);
+    IntersectionNode(int type, int id, int num_connection, int num_port, bool v2xActive);
 
     void initPhase(); //set all priority to 0 for all connections;
     void setPhase( int phase ); //set priority according to chosen phase number
@@ -64,6 +65,7 @@ public:
     int getType() { return type; }
     int getNumConn() { return numConnections; }
     int getNumLink() { return numLinks; }
+    bool getV2XActive() { return v2xActive; }
     int getPhaseOffset() { return phaseOffset; }
 
     std::vector<port> getLinks() { return connectedLinks; }

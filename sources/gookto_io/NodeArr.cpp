@@ -59,7 +59,8 @@ NodeArr::NodeArr()
                         0,
                         atol(nodeId),
                         atoi(num_connection),
-                        atoi(num_port));
+                        atoi(num_port),
+                        strcmp(v2x, "on") == 0 ? true : false);
 
                     for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
                          e3 = e3->NextSiblingElement())
@@ -194,7 +195,8 @@ NodeArr::NodeArr()
                     // create single IntersectionNode instance here
                     IntersectionNode single_node(
                         1, atol(nodeId), -1,
-                        atoi(num_port));
+                        atoi(num_port),
+                        strcmp(v2x, "on") == 0 ? true : false);
 
                     for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
                          e3 = e3->NextSiblingElement())
@@ -264,7 +266,8 @@ NodeArr::NodeArr()
                     // create single IntersectionNode instance here
                     IntersectionNode single_node(
                         2, atol(nodeId), -1,
-                        atoi(num_port));
+                        atoi(num_port),
+                        strcmp(v2x, "on") == 0 ? true : false);
 
                     for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
                          e3 = e3->NextSiblingElement())

@@ -197,6 +197,7 @@ AgentTypesArr::AgentTypesArr()
             InputAgentTypes demoAgentTypes(
                 name,
                 std::atoi(max_pax),
+                strcmp(v2x, "on") == 0 ? true : false,
                 veh_lenDist, jamgapDist, vfDist, reaction_timeDist, max_accDist,
                 max_decDist);
 

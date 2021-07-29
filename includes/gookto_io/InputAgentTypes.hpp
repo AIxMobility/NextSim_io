@@ -19,6 +19,7 @@ class InputAgentTypes
 private:
     std::string vehType;
     int max_pax;
+    bool v2xActive;
     InputDistribution veh_len;
     InputDistribution jamgap;
     InputDistribution vf;
@@ -28,7 +29,7 @@ private:
 
 public:
     // Constructor
-    InputAgentTypes(std::string vehType, int max_pax, InputDistribution veh_len, InputDistribution jamgap, InputDistribution vf, InputDistribution reaction_time, InputDistribution max_acc, InputDistribution max_dec);
+    InputAgentTypes(std::string vehType, int max_pax, bool v2xActive, InputDistribution veh_len, InputDistribution jamgap, InputDistribution vf, InputDistribution reaction_time, InputDistribution max_acc, InputDistribution max_dec);
 
     // access functions
     std::string getvehType()
@@ -38,6 +39,10 @@ public:
     int getmax_pax()
     {
         return max_pax;
+    }
+    bool getv2xActive()
+    {
+        return v2xActive;
     }
     double genveh_len()
     {
