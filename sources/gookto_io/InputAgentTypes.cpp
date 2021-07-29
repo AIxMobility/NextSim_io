@@ -1,3 +1,10 @@
+/**
+ * STS19 Captain
+ * @file : InputAgentTypes.cpp
+ * @version : 1.0
+ * @author : Jeyun Kim
+ */
+
 #include <string>
 #include <iostream>
 

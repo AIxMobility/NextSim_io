@@ -1,3 +1,10 @@
+/**
+ * STS19 Captain
+ * @file : InputMessage.hpp
+ * @version : 1.0
+ * @author : Jeyun Kim
+ */
+
 #ifndef INPUTMESSAGE_H
 #define INPUTMESSAGE_H
 
@@ -9,8 +16,8 @@ class InputMessage
 {
 private:
     int id;
-    int stime;
-    int etime;
+    double stime;
+    double etime;
     int msg_type;
     int value;
 
@@ -22,18 +29,18 @@ private:
 
 public:
     // Constructor
-    InputMessage(int id, int stime, int etime, int msg_type, int value);
+    InputMessage(int id, double stime, double etime, int msg_type, int value);
 
     // access functions
     int getId()
     {
         return id;
     }
-    int getStime()
+    double getStime()
     {
         return stime;
     }
-    int getEtime()
+    double getEtime()
     {
         return etime;
     }

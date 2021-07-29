@@ -1,3 +1,10 @@
+/**
+ * STS19 Captain
+ * @file : MessageArr.hpp
+ * @version : 1.0
+ * @author : Jeyun Kim
+ */
+
 #ifndef MESSAGEARR_H
 #define MESSAGEARR_H
 

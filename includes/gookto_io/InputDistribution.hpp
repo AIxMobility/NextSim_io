@@ -1,3 +1,10 @@
+/**
+ * STS19 Captain
+ * @file : InputDistribution.hpp
+ * @version : 1.0
+ * @author : Jeyun Kim
+ */
+
 #ifndef INPUTDISTRIBUTION_H
 #define INPUTDISTRIBUTION_H
 
