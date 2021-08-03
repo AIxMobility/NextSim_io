@@ -39,6 +39,7 @@ EventArr::EventArr()
         {
             
             const char* id = elem->Attribute("id");
+            const char* link_id = elem->Attribute("link_id");
             const char* pos = elem->Attribute("pos");
             const char* lane = elem->Attribute("lane");
             const char* stime = elem->Attribute("stime");
@@ -47,6 +48,7 @@ EventArr::EventArr()
             const char* sern = elem->Attribute("sern");
 
             if (!id)   throw std::runtime_error ("Element should have 'id' attribute");
+            if (!link_id)   throw std::runtime_error ("Element should have 'link_id' attribute");
             if (!pos)   throw std::runtime_error ("Element should have 'pos' attribute");
             if (!lane)   throw std::runtime_error ("Element should have 'lane' attribute");
             if (!stime)   throw std::runtime_error ("Element should have 'stime' attribute");
@@ -56,6 +58,7 @@ EventArr::EventArr()
 
             InputEvent demoEvent(
                 static_cast<std::size_t>(atoll(id)),
+                static_cast<std::size_t>(atoll(link_id)),
                 atof(pos),
                 atoi(lane),
                 atof(stime),

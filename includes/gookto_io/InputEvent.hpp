@@ -15,7 +15,9 @@
 class InputEvent
 {
 private:
+
     int id;
+    std::size_t link_id;
     double pos;
     int lane;
     double stime;
@@ -25,12 +27,16 @@ private:
 
 public:
     // Constructor
-    InputEvent(int id, double pos, int lane, double stime, double etime, int type, int sern);
+    InputEvent(int id, std::size_t link_id, double pos, int lane, double stime, double etime, int type, int sern);
 
     // access functions
     int getId()
     {
         return id;
+    }
+    std::size_t getLinkId()
+    {
+        return link_id;
     }
     double getPos()
     {
