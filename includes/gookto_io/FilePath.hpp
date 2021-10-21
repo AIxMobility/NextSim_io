@@ -21,6 +21,8 @@ static std::filesystem::path AgentTypeXMLPath = XmlFilePath / "agenttypes.xml";
 static std::filesystem::path EventXMLPath = XmlFilePath / "eventdata.xml";
 
 static std::filesystem::path PassengerXMLPath = XmlFilePath / "pax.xml";
+
+static std::filesystem::path VehicleJSONPath = XmlFilePath / "Vehicle.json";
 }
 
 #endif
