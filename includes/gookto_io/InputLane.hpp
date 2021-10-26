@@ -41,7 +41,7 @@ public:
     void pushCell(InputCell cell);
     void pushSegment(InputSegment segment);
 
-    std::size_t getID() { return m_id; }
+    std::size_t getID() const { return m_id; }
     std::size_t getLeftLaneID() { return m_leftLaneId; }
     std::size_t getRightLaneID() { return m_rightLaneId; }
     int getNumCell() { return m_numCell; }
