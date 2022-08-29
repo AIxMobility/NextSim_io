@@ -10,6 +10,8 @@ static std::filesystem::path XmlFilePath =
 
 static std::filesystem::path NetworkXMLPath = XmlFilePath / "network.xml";
 
+static std::filesystem::path SignalXMLPath = XmlFilePath / "signal.xml";
+
 static std::filesystem::path AgentXMLPath = XmlFilePath / "agents.xml";
 
 static std::filesystem::path OdMatrixXMLPath = XmlFilePath / "odmatrix.xml";
