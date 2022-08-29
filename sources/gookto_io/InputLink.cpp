@@ -68,7 +68,7 @@ std::vector<std::vector<double>> InputLink::Get2DWaveSpeed()
     }
     return matrix;
 }
-std::vector<std::vector<size_t>> InputLink::Get2DMaxVehicle(int vehlength)
+std::vector<std::vector<size_t>> InputLink::Get2DMaxVehicle()
 {
     std::vector<std::vector<size_t>> matrix;
     matrix.resize(m_numLane);
@@ -78,7 +78,8 @@ std::vector<std::vector<size_t>> InputLink::Get2DMaxVehicle(int vehlength)
         for (int j = 0; j < m_laneNumCellVector[i]; j++)
         {
             // temporary calculation basaed on ceiling(length / 5)
-            matrix[i][j] = static_cast<std::size_t>(std::ceil(Length/vehlength));
+            // matrix[i][j] = static_cast<std::size_t>(std::ceil(Length/vehlength));
+            matrix[i][j] = LaneArr[i].GetCellVector()[j].MaxVehicle;
         }
     }
     return matrix;

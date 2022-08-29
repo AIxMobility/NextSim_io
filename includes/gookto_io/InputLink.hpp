@@ -61,7 +61,7 @@ public:
     std::vector<std::vector<double>> Get2DFreeFlowSpeed();
     std::vector<std::vector<double>> Get2DQmax2D();
     std::vector<std::vector<double>> Get2DWaveSpeed();
-    std::vector<std::vector<size_t>> Get2DMaxVehicle(int vehlength);
+    std::vector<std::vector<size_t>> Get2DMaxVehicle();
     [[nodiscard]] const std::vector<std::size_t>& GetLaneIds() const { return LaneIds; }
     [[nodiscard]] const std::vector<InputLane>& GetLaneArr() const { return LaneArr; }
 
