@@ -3,6 +3,8 @@
 #include <vector>
 
 #include "intersection/intersectionPhase.hpp"
+#include "intersection/signalInfo.hpp"
+
 #pragma once
 
 
@@ -20,23 +22,14 @@ private:
     double end; //end time
     
     double start; // start time  
+
+    std::vector<signalInfo> nodeSignal; //intersectionPhase:  ID, connectionId (list), priority(list)
+
     /**
      * numConnections: Applicable only for IntersectionNode
      */
     // std::vector<intersectionSignal> signalTable; //intersectionPhase:  ID, connectionId (list), priority(list)
 
-    std::vector<intersectionPhase> phaseTable; //intersectionPhase:  ID, connectionId (list), priority(list)
-    /**
-     * intersectionPhase: Intersection
-     */
-
-    std::vector<int> phaseLength;
-    std::vector<int> phaseOrder;
-    int phaseOffset;
-    
-    
-    //signalSequence: order(list), phase_length
-    //may have to make this into a Pointer Loop
 
 public:
     Signalplans(int id, double end, double start);
@@ -45,21 +38,21 @@ public:
     void setPhase( int phase ); //set priority according to chosen phase number
     void setPhaseOffset ( int offset );
 
-    void pushPhase ( intersectionPhase phase );
-    void pushPhaseLength ( int length );
-    void pushPhaseOrder ( int order );
+    void pushInfo ( signalInfo node );
+    // void pushPhaseLength ( int length );
+    // void pushPhaseOrder ( int order );
 
     //Check Functions
     int getId() const { return id; }
     // int getNode() const { return node; }
 
-    int getPhaseOffset() { return phaseOffset; }
+    // int getPhaseOffset() { return phaseOffset; }
 
-    std::vector<intersectionPhase> getPhaseTable() { return phaseTable; }
-    std::vector<int> getPhaseLength() { return phaseLength; }
-    std::vector<int> getPhaseOrder() { return phaseOrder; }
+    // std::vector<intersectionPhase> getPhaseTable() { return phaseTable; }
+    // std::vector<int> getPhaseLength() { return phaseLength; }
+    // std::vector<int> getPhaseOrder() { return phaseOrder; }
 
-    void freePhaseTable() { std::vector<intersectionPhase>().swap(phaseTable); }
-    void freePhaseLength() { std::vector<int>().swap(phaseLength); }
-    void freePhaseOrder() { std::vector<int>().swap(phaseOrder); }
+    // void freePhaseTable() { std::vector<intersectionPhase>().swap(phaseTable); }
+    // void freePhaseLength() { std::vector<int>().swap(phaseLength); }
+    // void freePhaseOrder() { std::vector<int>().swap(phaseOrder); }
 };

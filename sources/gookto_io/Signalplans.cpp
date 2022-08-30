@@ -1,11 +1,13 @@
 #include <gookto_io/Signalplans.hpp>
+#include <gookto_io/intersection/signalInfo.hpp>
+
 #include <gookto_io/intersection/intersectionPhase.hpp>
 
 #include <vector>
 
 
 Signalplans::Signalplans(int id, double end, double start): 
-id(id), start(start), end(end)
+id(id), end(end),start(start)
 {
     //initialize size of connectedLinks --> numLinks
     //initialize size of connectionTable --> numConnections
@@ -17,22 +19,7 @@ id(id), start(start), end(end)
 //setting the Variables
 
 
-void Signalplans::pushPhase(intersectionPhase phase)
+void Signalplans::pushInfo(signalInfo node)
 {
-    phaseTable.push_back(phase);
+    nodeSignal.push_back(node);
 };
-
-void Signalplans::pushPhaseLength(int length)
-{
-    phaseLength.push_back(length);
-}
-
-void Signalplans::pushPhaseOrder(int order)
-{
-    phaseOrder.push_back(order);
-}
-
-void Signalplans::setPhaseOffset( int offset )
-{
-    phaseOffset = offset;
-}

@@ -6,6 +6,7 @@
 #include <gookto_io/SignalArr.hpp>
 
 #include <gookto_io/intersection/intersectionPhase.hpp>
+#include <gookto_io/intersection/signalInfo.hpp>
 
 #include <gookto_io/tinyapi/tinystr.h>
 #include <gookto_io/tinyapi/tinyxml.h>
@@ -56,12 +57,18 @@ SignalArr::SignalArr()
                         e3 = e3->NextSiblingElement())
                 {
                     
+                    const char *node = e3->Attribute("id");
+
+
+                    signalInfo signal_info(
+                        atoi(node));
+
                     // const char *nodeid = e3->Attribute("id");
 
                     for (TiXmlElement *e4 = e3->FirstChildElement(); e4 != NULL;
                         e4 = e4->NextSiblingElement())
                     {
-                    
+                        
                     std::string val1 = e4->Value();
 
                     if (val1 == "phase")
@@ -91,7 +98,7 @@ SignalArr::SignalArr()
                                     atof(priority));
                             }
                         }
-                        signal_node.pushPhase(single_phase);
+                        signal_info.pushPhase(single_phase);
                     }
 
                     else if (val1 == "signal_plan")
@@ -104,7 +111,7 @@ SignalArr::SignalArr()
                         auto str1 = std::string{};
                         while (iss1 >> str1)
                         {
-                            signal_node.pushPhaseLength(atoi(str1.c_str()));
+                            signal_info.pushPhaseLength(atoi(str1.c_str()));
                         }
 
                         const char *order = e4->Attribute("order");
@@ -116,21 +123,22 @@ SignalArr::SignalArr()
                         auto str2 = std::string{};
                         while (iss2 >> str2)
                         {
-                            signal_node.pushPhaseOrder(atoi(str2.c_str()));
+                            signal_info.pushPhaseOrder(atoi(str2.c_str()));
                         }
 
-                        const char *offset = e3->Attribute("offset");
+                        const char *offset = e4->Attribute("offset");
                         
                         if (!offset)   throw std::runtime_error ("Element should have 'offset' attribute");
 
-                        signal_node.setPhaseOffset(
+                        signal_info.setPhaseOffset(
                             atoi(offset));
                     }
                     }
+                    signal_node.pushInfo(signal_info);
                 }
                 Signals.push_back(signal_node);
 
-                signal_node.freePhaseTable();
+                // signal_info.freePhaseTable();
             
             }
         }

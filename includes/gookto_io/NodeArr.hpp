@@ -6,7 +6,6 @@
 
 #include "intersection/port.hpp"
 #include "intersection/connection.hpp"
-#include "intersection/intersectionPhase.hpp"
 
 
 class NodeArr

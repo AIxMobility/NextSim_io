@@ -1,7 +1,6 @@
 #include <gookto_io/IntersectionNode.hpp>
 #include <gookto_io/intersection/port.hpp>
 #include <gookto_io/intersection/connection.hpp>
-#include <gookto_io/intersection/intersectionPhase.hpp>
 
 #include <vector>
 
@@ -28,25 +27,3 @@ void IntersectionNode::pushLink(port link)
     connectedLinks.push_back(link);
 };
 
-void IntersectionNode::pushPhase(intersectionPhase phase)
-{
-    phaseTable.push_back(phase);
-};
-
-void IntersectionNode::pushPhaseLength(int length)
-{
-    phaseLength.push_back(length);
-}
-
-void IntersectionNode::pushPhaseOrder(int order)
-{
-    phaseOrder.push_back(order);
-}
-
-
-
-
-void IntersectionNode::setPhaseOffset( int offset )
-{
-    phaseOffset = offset;
-}
