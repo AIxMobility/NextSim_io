@@ -79,4 +79,6 @@ public:
     void freePhaseTable() { std::vector<intersectionPhase>().swap(phaseTable); }
     void freePhaseLength() { std::vector<int>().swap(phaseLength); }
     void freePhaseOrder() { std::vector<int>().swap(phaseOrder); }
+
+    bool hasPhase() {return !phaseTable.empty();}
 };
