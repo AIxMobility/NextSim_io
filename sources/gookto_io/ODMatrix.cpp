@@ -2,8 +2,9 @@
 #include <sstream>
 #include <string>
 
-#include <gookto_io/ODMatrix.hpp>
 #include <gookto_io/Demand.hpp>
+#include <gookto_io/DemandInfo.hpp>
+#include <gookto_io/ODMatrix.hpp>
 
 #include <gookto_io/tinyapi/tinystr.h>
 #include <gookto_io/tinyapi/tinyxml.h>
@@ -28,31 +29,70 @@ ODMatrix::ODMatrix()
     {
         std::string elemName = elem->Value();
 
-        if (elemName == "Demand")
+        if (elemName == "od_matrix")
         {
-            const char *flow = elem->Attribute("flow");
-            const char *sink = elem->Attribute("sink");
-            const char *source = elem->Attribute("source");
-            const char *dist = elem->Attribute("dist");
+            const char *id = elem->Attribute("id");
+            if (!id)
+                throw std::runtime_error("Element should have 'id' attribute");
 
-            if (!flow)   throw std::runtime_error ("Element should have 'flow' attribute");
-            if (!sink)   throw std::runtime_error ("Element should have 'sink' attribute");
-            if (!source)   throw std::runtime_error ("Element should have 'source' attribute");
-            if (!dist)   dist = "Exponential";
+            std::string type;
+            std::vector<Demand> Demands;
 
-            if (!strcmp (dist, "Normal"))   dist = "0";
-            else if (!strcmp (dist, "Exponential")) dist = "1";
-            else dist = "2";
+            for (TiXmlElement *child = elem->FirstChildElement(); child != NULL;
+                 child = child->NextSiblingElement())
+            {
+                std::string childName = child->Value();
 
-            Demand single_demand(
-                atoi(flow),
-                atoi(sink),
-                atoi(source),
-                atoi(dist));
+                if (childName == "nv_od_matrix")
+                {
+                    type = "nv";
+                    for (TiXmlElement *demand = child->FirstChildElement();
+                         demand != NULL; demand = demand->NextSiblingElement())
+                    {
+                        std::string demandName = demand->Value();
 
-            Demands.push_back(single_demand);
+                        if (demandName == "demand")
+                        {
+                            const char *flow = demand->Attribute("flow");
+                            const char *sink = demand->Attribute("sink");
+                            const char *source = demand->Attribute("source");
+                            const char *dist = demand->Attribute("dist");
+
+                            if (!flow)
+                                throw std::runtime_error(
+                                    "Element should have 'flow' attribute");
+                            if (!sink)
+                                throw std::runtime_error(
+                                    "Element should have 'sink' attribute");
+                            if (!source)
+                                throw std::runtime_error(
+                                    "Element should have 'source' attribute");
+                            if (!dist)
+                                dist = "Exponential";
+
+                            if (!strcmp(dist, "Normal")) dist = "0";
+                            else if (!strcmp(dist, "Exponential")) dist = "1";
+                            else dist = "2"; 
+
+                            Demand single_demand(
+                                atoi(flow), 
+                                atoi(sink),
+                                atoi(source), 
+                                atoi(dist));
+
+                            Demands.push_back(single_demand);
+                        }
+                    }
+                }
+            }
+
+            DemandInfo demandInfo(
+                atoi(id), 
+                type, 
+                Demands);
+
+            ODmatrix.push_back(demandInfo);
         }
-        
     };
     doc.Clear();
 }

@@ -3,21 +3,18 @@
 
 #include <vector>
 #include "InputAgents.hpp"
-#include "Demand.hpp"
+#include "DemandInfo.hpp"
 
 class ODMatrix
 {
 private:
-    std::vector<Demand> Demands;
+    std::vector<DemandInfo> ODmatrix;
 
 public:
     ODMatrix();
-    /**
-     * Creates a vector of InputAgents
-     */
-
+    
     //access function
-    std::vector<Demand> getDemands() { return Demands; }
+    std::vector<DemandInfo> getODmatrix() { return ODmatrix; }
 };
 
 #endif

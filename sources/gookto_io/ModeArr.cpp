@@ -27,14 +27,12 @@ void ModeArr::parseArr(){
     {
         int id = std::stoi(elem->Attribute("id"));
         int scycle = std::stoi(elem->Attribute("scycle"));
-        int ecycle = std::stoi(elem->Attribute("ecycle"));
 
         if (!id)   throw std::runtime_error ("Element should have 'id' attribute");
         if (!scycle)   throw std::runtime_error ("Element should have 'scycle' attribute");
-        if (!ecycle)   throw std::runtime_error ("Element should have 'ecycle' attribute");
 
         TiXmlElement *e = elem->FirstChildElement();
-        Mode tMode = Mode(id, scycle, ecycle);
+        Mode tMode = Mode(id, scycle);
 
         std::string microArr = e->Attribute("linkid");
         tMode.setMicroLinkArr(microArr);

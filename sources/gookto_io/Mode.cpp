@@ -5,7 +5,7 @@
 
 #include <gookto_io/Mode.hpp>
 
-Mode::Mode(int id, int scycle, int ecycle) : id(id), scycle(scycle), ecycle(ecycle){};
+Mode::Mode(int id, int scycle) : id(id), scycle(scycle){};
 
 void Mode::setMicroLinkArr(std::string linkArr)
 {

@@ -7,12 +7,12 @@
 class Mode
 {
 private:
-    int id, scycle, ecycle;
+    int id, scycle;
     std::vector<int> microLinkArr;
     std::vector<int> mesoLinkArr;
 
 public:
-    Mode(int id, int scycle, int ecycle);
+    Mode(int id, int scycle);
 
     // string to vector
     void setMicroLinkArr(std::string linkArr);
@@ -26,10 +26,6 @@ public:
     int getScycle()
     {
         return scycle;
-    }
-    int getEcycle()
-    {
-        return ecycle;
     }
     std::vector<int> getMicroLinkArr()
     {

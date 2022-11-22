@@ -213,10 +213,10 @@ bool a_to_bool(const char* val)
     {
         temp = false;
     }
-    else
-    {
-        assert(false);
-    }
+    // else
+    // {
+    //     assert(false);
+    // }
     return temp;
 }
 
