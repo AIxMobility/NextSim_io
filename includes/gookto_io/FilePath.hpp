@@ -14,6 +14,8 @@ static std::filesystem::path AgentXMLPath = XmlFilePath / "agents.xml";
 
 static std::filesystem::path OdMatrixXMLPath = XmlFilePath / "odmatrix.xml";
 
+static std::filesystem::path ScenarioXMLPath = XmlFilePath / "odscenario.xml";
+
 static std::filesystem::path ParamXMLPath = XmlFilePath / "param.xml";
 
 static std::filesystem::path AgentTypeXMLPath = XmlFilePath / "agenttypes.xml";
