@@ -1,4 +1,5 @@
 #include <gookto_io/InputLink.hpp>
+#include <captain/Util/GlobalHyperParameters.hpp>
 #include <iostream>
 #include <string>
 #include <cmath>
@@ -28,7 +29,7 @@ void InputLink::pushLaneId(InputLane lane)
     m_laneNumCellVector.push_back(lane.getNumCell());
 }
 
-std::vector<std::vector<double>> InputLink::Get2DFreeFlowSpeed()
+std::vector<std::vector<double>> InputLink::Get2DFreeFlowSpeed()  // m/s
 {
     std::vector<std::vector<double>> matrix(m_numLane);
     for (int i = 0; i < m_numLane; i++)
@@ -36,12 +37,12 @@ std::vector<std::vector<double>> InputLink::Get2DFreeFlowSpeed()
         matrix[i] = std::vector<double>(m_laneNumCellVector[i]);
         for (int j = 0; j < m_laneNumCellVector[i]; j++)
         {
-            matrix[i][j] = LaneArr[i].GetCellVector()[j].FreeFlowSpeed;
+            matrix[i][j] = LaneArr[i].GetCellVector()[j].FreeFlowSpeed / 3.6;
         }
     }
     return matrix;
 }
-std::vector<std::vector<double>> InputLink::Get2DQmax2D()
+std::vector<std::vector<double>> InputLink::Get2DQmax2D()  // veh/hr
 {
     std::vector<std::vector<double>> matrix(m_numLane);
     for (int i = 0; i < m_numLane; i++)
@@ -54,7 +55,7 @@ std::vector<std::vector<double>> InputLink::Get2DQmax2D()
     }
     return matrix;
 }
-std::vector<std::vector<double>> InputLink::Get2DWaveSpeed()
+std::vector<std::vector<double>> InputLink::Get2DWaveSpeed()  // m/s
 {
     std::vector<std::vector<double>> matrix(m_numLane);
     for (int i = 0; i < m_numLane; i++)
@@ -62,12 +63,12 @@ std::vector<std::vector<double>> InputLink::Get2DWaveSpeed()
         matrix[i] = std::vector<double>(m_laneNumCellVector[i]);
         for (int j = 0; j < m_laneNumCellVector[i]; j++)
         {
-            matrix[i][j] = LaneArr[i].GetCellVector()[j].WaveSpeed;
+            matrix[i][j] = LaneArr[i].GetCellVector()[j].WaveSpeed / 3.6;
         }
     }
     return matrix;
 }
-std::vector<std::vector<size_t>> InputLink::Get2DMaxVehicle()
+std::vector<std::vector<size_t>> InputLink::Get2DMaxVehicle()  // veh/lane
 {
     std::vector<std::vector<size_t>> matrix;
     matrix.resize(m_numLane);

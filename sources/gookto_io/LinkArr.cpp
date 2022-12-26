@@ -77,10 +77,10 @@ LinkArr::LinkArr()
                     // set the Link 2d, 1d values here.
                     // TODO: add set min max speed
 
-                    const char *ffspeed = e->Attribute("ffspeed");
-                    const char *qmax = e->Attribute("qmax");
-                    const char *waveSpd = e->Attribute("waveSpd");
-                    const char *maxVeh = e->Attribute("maxVeh");
+                    const char *ffspeed = e->Attribute("ffspeed");  // km/h
+                    const char *qmax = e->Attribute("qmax");  // veh/hr
+                    const char *waveSpd = e->Attribute("waveSpd");  // km/h
+                    const char *maxVeh = e->Attribute("maxVeh");  // veh/link
                     const char *from_node = e->Attribute("from_node");
                     const char *to_node = e->Attribute("to_node");
 

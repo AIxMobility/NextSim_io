@@ -19,7 +19,8 @@ class MetaData
 public:
    std::size_t ID = 0;
    double FreeFlowSpeed = 0, MaxSpeed = 0, MinSpeed = 0, WaveSpeed = 0;
-   double Length = 0, Width = 0, Qmax = 0;
+   double Length = 0, Width = 0;  // m
+   double Qmax = 0;
    size_t MaxVehicle = 0;
 
 
