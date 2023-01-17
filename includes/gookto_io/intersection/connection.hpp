@@ -47,4 +47,9 @@ class connection
     {
         return length;
     }
+
+    bool operator< (const connection& other) const
+    {
+        return to_lane < other.to_lane;
+    }
 };
