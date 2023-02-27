@@ -21,7 +21,7 @@ public:
    double FreeFlowSpeed = 0, MaxSpeed = 0, MinSpeed = 0, WaveSpeed = 0;
    double Length = 0, Width = 0;  // m
    double Qmax = 0;
-   size_t MaxVehicle = 0;
+   std::size_t MaxVehicle = 0;
 
 
     MetaData() = default;
@@ -45,7 +45,7 @@ public:
 
     MetaData(std::size_t id, double length, double freeFlowSpeed,
                  double maxSpeed, double minSpeed, double waveSpeed,
-                 size_t maxVehicle, double qMax)
+                 std::size_t maxVehicle, double qMax)
         : ID(id),
           FreeFlowSpeed(freeFlowSpeed),
           MaxSpeed(maxSpeed),
