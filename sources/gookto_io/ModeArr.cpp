@@ -18,7 +18,7 @@ void ModeArr::parseArr(){
     TiXmlDocument doc;
 
     doc.LoadFile("./network_xml/mode.xml");
-    std::cout << "Loading AgentsArr" << std::endl;
+    std::cout << "Loading ModeArr" << std::endl;
     if (!doc.LoadFile("./network_xml/mode.xml")) return;
 
     TiXmlElement *root = doc.FirstChildElement();
@@ -28,17 +28,33 @@ void ModeArr::parseArr(){
         int id = std::stoi(elem->Attribute("id"));
         int scycle = std::stoi(elem->Attribute("scycle"));
 
-        if (!id)   throw std::runtime_error ("Element should have 'id' attribute");
-        if (!scycle)   throw std::runtime_error ("Element should have 'scycle' attribute");
-
         TiXmlElement *e = elem->FirstChildElement();
         Mode tMode = Mode(id, scycle);
 
-        std::string microArr = e->Attribute("linkid");
-        tMode.setMicroLinkArr(microArr);
-        e = e->NextSiblingElement();
-        std::string mesoArr = e->Attribute("linkid");
-        tMode.setMesoLinkArr(mesoArr);
+        bool getMicro = false;
+        bool getMeso = false;
+
+        while(e->Value())
+        {
+            std::string eName = e->Value();
+            if (eName == "micro")
+            {
+                std::string microArr = e->Attribute("linkid");
+                tMode.setMicroLinkArr(microArr);
+                getMicro = true;
+            }
+            else if (eName == "meso")
+            {
+                std::string mesoArr = e->Attribute("linkid");
+                tMode.setMesoLinkArr(mesoArr);
+                getMeso = true;
+            }
+
+            if (getMicro && getMeso)
+                break;
+                
+            e = e->NextSiblingElement();
+        }
 
         modeArr.push_back(tMode);
     }
