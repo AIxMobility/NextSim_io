@@ -15,7 +15,7 @@ Scenario::Scenario()
     doc.LoadFile(STSIO::ScenarioXMLPath.string().c_str());
     std::cout << "Loading ODScenario" << std::endl;
 
-    if (!doc.LoadFile("./network_xml/odscenario.xml"))
+    if (!doc.LoadFile(STSIO::ScenarioXMLPath.string().c_str()))
     {
         std::cerr << doc.ErrorDesc() << std::endl;
     }

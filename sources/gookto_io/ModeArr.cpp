@@ -8,6 +8,7 @@
 
 #include <gookto_io/tinyapi/tinystr.h>
 #include <gookto_io/tinyapi/tinyxml.h>
+#include <gookto_io/FilePath.hpp>
 
 ModeArr::ModeArr()
 {
@@ -17,9 +18,9 @@ ModeArr::ModeArr()
 void ModeArr::parseArr(){
     TiXmlDocument doc;
 
-    doc.LoadFile("./network_xml/mode.xml");
+    doc.LoadFile(STSIO::ModeXMLPath.string().c_str());
     std::cout << "Loading ModeArr" << std::endl;
-    if (!doc.LoadFile("./network_xml/mode.xml")) return;
+    if (!doc.LoadFile(STSIO::ModeXMLPath.string().c_str())) return;
 
     TiXmlElement *root = doc.FirstChildElement();
 

@@ -30,7 +30,6 @@ LinkArr::LinkArr()
 
     TiXmlDocument doc("");
     bool loadOkay = doc.LoadFile(STSIO::NetworkXMLPath.string().c_str());
-
     std::cout << "Loading LinkArr" << std::endl;
 
     if (!loadOkay)

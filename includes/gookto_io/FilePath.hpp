@@ -6,11 +6,14 @@
 namespace STSIO
 {
 static std::filesystem::path XmlFilePath =
-    std::filesystem::current_path() / "network_xml";
-
+    // std::filesystem::current_path() / "network_xml";
+    "/home/wjstnwp/ubuntu/STS19/build/bin/network_xml";
+    
 static std::filesystem::path NetworkXMLPath = XmlFilePath / "network.xml";
 
 static std::filesystem::path AgentXMLPath = XmlFilePath / "agents.xml";
+
+static std::filesystem::path AgentOptXMLPath = XmlFilePath / "agents_opt.xml";
 
 static std::filesystem::path OdMatrixXMLPath = XmlFilePath / "odmatrix.xml";
 
@@ -23,6 +26,10 @@ static std::filesystem::path AgentTypeXMLPath = XmlFilePath / "agenttypes.xml";
 static std::filesystem::path EventXMLPath = XmlFilePath / "eventdata.xml";
 
 static std::filesystem::path PassengerXMLPath = XmlFilePath / "pax.xml";
+
+static std::filesystem::path V2XXMLPath = XmlFilePath / "v2xdata.xml";
+
+static std::filesystem::path ModeXMLPath = XmlFilePath / "mode.xml";
 
 static std::filesystem::path VehicleJSONPath = XmlFilePath / "Vehicle.json";
 }

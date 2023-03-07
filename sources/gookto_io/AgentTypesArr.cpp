@@ -16,15 +16,16 @@
 
 #include <gookto_io/tinyapi/tinystr.h>
 #include <gookto_io/tinyapi/tinyxml.h>
+#include <gookto_io/FilePath.hpp>
 
 AgentTypesArr::AgentTypesArr()
 {
     TiXmlDocument doc;
 
-    doc.LoadFile("./network_xml/agenttypes.xml");
+    doc.LoadFile(STSIO::AgentTypeXMLPath.string().c_str());
     std::cout << "Loading AgentTypesArr" << std::endl;
 
-    if (!doc.LoadFile("./network_xml/agenttypes.xml"))
+    if (!doc.LoadFile(STSIO::AgentTypeXMLPath.string().c_str()))
     {
         std::cerr << doc.ErrorDesc() << std::endl;
     }

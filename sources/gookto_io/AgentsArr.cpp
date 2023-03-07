@@ -8,6 +8,7 @@
 
 #include <gookto_io/tinyapi/tinystr.h>
 #include <gookto_io/tinyapi/tinyxml.h>
+#include <gookto_io/FilePath.hpp>
 
 AgentsArr::AgentsArr()
 {
@@ -19,21 +20,21 @@ void AgentsArr::parseAgent(std::string AgentType){
     TiXmlDocument doc;
 
     if(AgentType == "Agents"){
-        doc.LoadFile("./network_xml/agents.xml");
+        doc.LoadFile(STSIO::AgentXMLPath.string().c_str());
         std::cout << "Loading AgentsArr" << std::endl;
 
-        if (!doc.LoadFile("./network_xml/agents.xml"))
+        if (!doc.LoadFile(STSIO::AgentXMLPath.string().c_str()))
         {
             std::cerr << doc.ErrorDesc() << std::endl;
         }
     }
     else if(AgentType == "Agents_opt"){
-        if (!std::filesystem::exists("./network_xml/agents_opt.xml"))   return;
+        if (!std::filesystem::exists(STSIO::AgentOptXMLPath.string().c_str()))   return;
 
-        doc.LoadFile("./network_xml/agents_opt.xml");
+        doc.LoadFile(STSIO::AgentOptXMLPath.string().c_str());
         std::cout << "Loading Optional AgentsArr" << std::endl;
 
-        if (!doc.LoadFile("./network_xml/agents_opt.xml"))
+        if (!doc.LoadFile(STSIO::AgentOptXMLPath.string().c_str()))
         {
             std::cerr << doc.ErrorDesc() << std::endl;
         }

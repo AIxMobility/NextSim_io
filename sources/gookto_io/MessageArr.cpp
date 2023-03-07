@@ -15,15 +15,16 @@
 
 #include <gookto_io/tinyapi/tinystr.h>
 #include <gookto_io/tinyapi/tinyxml.h>
+#include <gookto_io/FilePath.hpp>
 
 MessageArr::MessageArr()
 {
     TiXmlDocument doc;
 
-    doc.LoadFile("./network_xml/v2xdata.xml");
+    doc.LoadFile(STSIO::V2XXMLPath.string().c_str());
     std::cout << "Loading Message" << std::endl;
 
-    if (!doc.LoadFile("./network_xml/v2xdata.xml"))
+    if (!doc.LoadFile(STSIO::V2XXMLPath.string().c_str()))
     {
         std::cerr << doc.ErrorDesc() << std::endl;
     }
