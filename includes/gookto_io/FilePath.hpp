@@ -32,6 +32,10 @@ static std::filesystem::path V2XXMLPath = XmlFilePath / "v2xdata.xml";
 static std::filesystem::path ModeXMLPath = XmlFilePath / "mode.xml";
 
 static std::filesystem::path VehicleJSONPath = XmlFilePath / "Vehicle.json";
+
+static std::filesystem::path TotalRoutePath = XmlFilePath / "TotalRoute.json";
+
+static std::filesystem::path IntersectionRoutePath = XmlFilePath / "IntersectionRoute.json";
 }
 
 #endif
