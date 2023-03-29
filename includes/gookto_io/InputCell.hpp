@@ -21,8 +21,8 @@ class InputCell: public MetaData
         InputCell& operator=(const InputCell& cell) = default;
 
 
-        void setOffset(double offset_val){offset = offset_val;}
-        double getOffset(){return offset;}
+        void setOffset(double offset_val) { offset = offset_val; }
+        const double getOffset() const { return offset; }
 };
 
 #endif
