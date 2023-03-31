@@ -5,10 +5,11 @@
 
 namespace STSIO
 {
+static std::filesystem::path currentPath = std::filesystem::current_path();
 static std::filesystem::path XmlFilePath =
-    // std::filesystem::current_path() / "network_xml";
-    "/home/wjstnwp/ubuntu/STS19/build/bin/network_xml";
-    
+    std::filesystem::current_path() / "network_xml";
+    // "/home/wjstnwp/ubuntu/STS19/build/bin/network_xml";
+
 static std::filesystem::path NetworkXMLPath = XmlFilePath / "network.xml";
 
 static std::filesystem::path AgentXMLPath = XmlFilePath / "agents.xml";
