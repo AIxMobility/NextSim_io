@@ -34,9 +34,7 @@ static std::filesystem::path ModeXMLPath = XmlFilePath / "mode.xml";
 
 static std::filesystem::path VehicleJSONPath = XmlFilePath / "Vehicle.json";
 
-static std::filesystem::path TotalRouteJSONPath = XmlFilePath / "TotalRoute.json";
-
-static std::filesystem::path InterRouteJSONPath = XmlFilePath / "IntersectionRoute.json";
+static std::filesystem::path RouteJSONPath = XmlFilePath / "Route.json";
 }
 
 #endif
