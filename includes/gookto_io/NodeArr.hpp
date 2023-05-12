@@ -13,12 +13,20 @@ class NodeArr
 {
 private:
     std::vector<IntersectionNode> Nodes;
+    std::vector<IntersectionNode> NormalNodes;
+    std::vector<IntersectionNode> IntersectionNodes;
+    std::vector<IntersectionNode> DivergingNodes;
+    std::vector<IntersectionNode> TerminalNodes;
 
 public:
     NodeArr();
 
     //access functions
     std::vector<IntersectionNode> getNodes() { return Nodes; }
+    std::vector<IntersectionNode> getNormalNodes() { return NormalNodes; }
+    std::vector<IntersectionNode> getIntersectionNodes() { return IntersectionNodes; }
+    std::vector<IntersectionNode> getDivergingNodes() { return DivergingNodes; }
+    std::vector<IntersectionNode> getTerminalNodes() { return TerminalNodes; }
 
     //check
     void showArr();

@@ -16,7 +16,8 @@ private:
     Node Types:
         Intersection = 0
         Normal = 1
-        Terminal = 2
+        Diverging = 2
+        Terminal = 3
      */
     int type; 
     int id;
