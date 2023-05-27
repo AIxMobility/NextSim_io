@@ -13,10 +13,11 @@ Scenario::Scenario()
     TiXmlDocument doc;
 
     doc.LoadFile(STSIO::ScenarioXMLPath.string().c_str());
-    std::cout << "Loading ODScenario" << std::endl;
+    // std::cout << "Loading ODScenario" << std::endl;
 
     if (!doc.LoadFile(STSIO::ScenarioXMLPath.string().c_str()))
     {
+        std::cout << "Loading failed (ODScenario)" << std::endl;
         std::cerr << doc.ErrorDesc() << std::endl;
     }
 

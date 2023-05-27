@@ -18,10 +18,11 @@ NodeArr::NodeArr()
     TiXmlDocument doc;
 
     doc.LoadFile(STSIO::NetworkXMLPath.string().c_str());
-    std::cout << "Loading NodeArr" << std::endl;
+    // std::cout << "Loading NodeArr" << std::endl;
 
     if (!doc.LoadFile(STSIO::NetworkXMLPath.string().c_str()))
     {
+        std::cout << "Loading failed (NodeArr)" << std::endl;
         std::cerr << doc.ErrorDesc() << std::endl;
     }
 
@@ -34,8 +35,6 @@ NodeArr::NodeArr()
 
         if (elemName2 == "nodes")
         {
-            std::cout << "Got nodes" << std::endl;
-
             for (TiXmlElement *e2 = e->FirstChildElement(); e2 != NULL;
                  e2 = e2->NextSiblingElement())
             {
@@ -192,7 +191,6 @@ NodeArr::NodeArr()
 
                 else if (!strcmp (nodeType, "normal"))
                 {
-                    // std::cout << "got normal" << std::endl;
                     // create single IntersectionNode instance here
                     IntersectionNode single_node(
                         1, atol(nodeId), -1,
@@ -328,7 +326,6 @@ NodeArr::NodeArr()
                 
                 else if (!strcmp (nodeType, "diverging"))
                 {
-                    // std::cout << "got normal" << std::endl;
                     // create single IntersectionNode instance here
                     IntersectionNode single_node(
                         2, atol(nodeId), -1,

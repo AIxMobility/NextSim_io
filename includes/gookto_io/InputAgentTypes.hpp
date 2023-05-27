@@ -26,6 +26,12 @@ private:
     InputDistribution reaction_time;
     InputDistribution max_acc;
     InputDistribution max_dec;
+    // InputDistribution delta_jamgap;
+    // InputDistribution b1;
+    // InputDistribution b2;
+    // InputDistribution c1;
+    // InputDistribution c2;
+    // InputDistribution c3;
 
 public:
     // Constructor
@@ -69,6 +75,30 @@ public:
     {
         return max_dec.genValue();
     }
+    // double gendelta_jamgap()
+    // {
+    //     return delta_jamgap.genValue();
+    // }
+    // double genb1()
+    // {
+    //     return b1.genValue();
+    // }
+    // double genb2()
+    // {
+    //     return b2.genValue();
+    // }
+    // double genc1()
+    // {
+    //     return c1.genValue();
+    // }
+    // double genc2()
+    // {
+    //     return c2.genValue();
+    // }
+    // double genc3()
+    // {
+    //     return c3.genValue();
+    // }
 };
 
 #endif

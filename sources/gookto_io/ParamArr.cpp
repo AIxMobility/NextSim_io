@@ -20,10 +20,11 @@ ParamArr::ParamArr()
     TiXmlDocument doc;
 
     doc.LoadFile(STSIO::ParamXMLPath.string().c_str());
-    std::cout << "Loading ParamArr" << std::endl;
+    // std::cout << "Loading ParamArr" << std::endl;
 
     if (!doc.LoadFile(STSIO::ParamXMLPath.string().c_str()))
     {
+        std::cout << "Loading failed (ParamArr)" << std::endl;
         std::cerr << doc.ErrorDesc() << std::endl;
     }
 
@@ -36,7 +37,6 @@ ParamArr::ParamArr()
 
         if (elemName == "meso")
         {
-            std::cout << "Got Meso Params" << std::endl;
             for (TiXmlElement* e = elem->FirstChildElement(); e != NULL;
                  e = e->NextSiblingElement())
             {
@@ -72,8 +72,6 @@ ParamArr::ParamArr()
 
         if (elemName == "micro")
         {
-            std::cout << "Got Micro Params" << std::endl;
-
             for (TiXmlElement* e = elem->FirstChildElement(); e != NULL;
                  e = e->NextSiblingElement())
             {

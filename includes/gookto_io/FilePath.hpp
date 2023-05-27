@@ -5,36 +5,40 @@
 
 namespace STSIO
 {
+static std::string network_name = "1lane";
 static std::filesystem::path currentPath = std::filesystem::current_path();
-static std::filesystem::path XmlFilePath =
-    std::filesystem::current_path() / "network_xml";
-    // "/home/wjstnwp/ubuntu/STS19/build/bin/network_xml";
+static std::filesystem::path NetworkXmlFilePath =
+    std::filesystem::current_path() / ("network_xml_" + network_name);
+static std::filesystem::path ParameterXmlFilePath =
+    std::filesystem::current_path() / "parameter_xml";
 
-static std::filesystem::path NetworkXMLPath = XmlFilePath / "network.xml";
+// Network xml file path
+static std::filesystem::path NetworkXMLPath = NetworkXmlFilePath / "network.xml";
 
-static std::filesystem::path AgentXMLPath = XmlFilePath / "agents.xml";
+static std::filesystem::path OdMatrixXMLPath = NetworkXmlFilePath / "odmatrix.xml";
 
-static std::filesystem::path AgentOptXMLPath = XmlFilePath / "agents_opt.xml";
+static std::filesystem::path ScenarioXMLPath = NetworkXmlFilePath / "odscenario.xml";
 
-static std::filesystem::path OdMatrixXMLPath = XmlFilePath / "odmatrix.xml";
+static std::filesystem::path ModeXMLPath = NetworkXmlFilePath / "mode.xml";
 
-static std::filesystem::path ScenarioXMLPath = XmlFilePath / "odscenario.xml";
+static std::filesystem::path RouteJSONPath = NetworkXmlFilePath / "Route.json";
 
-static std::filesystem::path ParamXMLPath = XmlFilePath / "param.xml";
+static std::filesystem::path AgentXMLPath = NetworkXmlFilePath / "agents.xml";
 
-static std::filesystem::path AgentTypeXMLPath = XmlFilePath / "agenttypes.xml";
+static std::filesystem::path AgentOptXMLPath = NetworkXmlFilePath / "agents_opt.xml";
 
-static std::filesystem::path EventXMLPath = XmlFilePath / "eventdata.xml";
+static std::filesystem::path EventXMLPath = NetworkXmlFilePath / "eventdata.xml";
 
-static std::filesystem::path PassengerXMLPath = XmlFilePath / "pax.xml";
+static std::filesystem::path V2XXMLPath = NetworkXmlFilePath / "v2xdata.xml";
 
-static std::filesystem::path V2XXMLPath = XmlFilePath / "v2xdata.xml";
+static std::filesystem::path PassengerXMLPath = NetworkXmlFilePath / "pax.xml";
 
-static std::filesystem::path ModeXMLPath = XmlFilePath / "mode.xml";
+// Parameter xml file path
+static std::filesystem::path AgentTypeXMLPath = ParameterXmlFilePath / "agenttypes.xml";
 
-static std::filesystem::path VehicleJSONPath = XmlFilePath / "Vehicle.json";
+static std::filesystem::path ParamXMLPath = ParameterXmlFilePath / "param.xml";
 
-static std::filesystem::path RouteJSONPath = XmlFilePath / "Route.json";
+static std::filesystem::path ParameterXMLPath = ParameterXmlFilePath / "parameter.xml";
 }
 
 #endif

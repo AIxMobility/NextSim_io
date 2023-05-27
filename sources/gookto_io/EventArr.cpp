@@ -22,10 +22,11 @@ EventArr::EventArr()
     TiXmlDocument doc;
 
     doc.LoadFile(STSIO::EventXMLPath.string().c_str());
-    std::cout << "Loading EventArr" << std::endl;
+    // std::cout << "Loading EventArr" << std::endl;
 
     if (!doc.LoadFile(STSIO::EventXMLPath.string().c_str()))
     {
+        std::cout << "Loading failed (EventArr)" << std::endl;
         std::cerr << doc.ErrorDesc() << std::endl;
     }
 

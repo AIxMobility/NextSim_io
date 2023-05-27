@@ -21,10 +21,11 @@ void AgentsArr::parseAgent(std::string AgentType){
 
     if(AgentType == "Agents"){
         doc.LoadFile(STSIO::AgentXMLPath.string().c_str());
-        std::cout << "Loading AgentsArr" << std::endl;
+        // std::cout << "Loading AgentsArr" << std::endl;
 
         if (!doc.LoadFile(STSIO::AgentXMLPath.string().c_str()))
         {
+            std::cout << "Loading failed (AgentsArr)" << std::endl;
             std::cerr << doc.ErrorDesc() << std::endl;
         }
     }
@@ -32,10 +33,11 @@ void AgentsArr::parseAgent(std::string AgentType){
         if (!std::filesystem::exists(STSIO::AgentOptXMLPath.string().c_str()))   return;
 
         doc.LoadFile(STSIO::AgentOptXMLPath.string().c_str());
-        std::cout << "Loading Optional AgentsArr" << std::endl;
+        // std::cout << "Loading Optional AgentsArr" << std::endl;
 
         if (!doc.LoadFile(STSIO::AgentOptXMLPath.string().c_str()))
         {
+            std::cout << "Loading failed (AgentsOptArr)" << std::endl;
             std::cerr << doc.ErrorDesc() << std::endl;
         }
     }
@@ -49,8 +51,6 @@ void AgentsArr::parseAgent(std::string AgentType){
 
         if (elemName == "NormalVeh")
         {
-            std::cout << "Got Normal Veh" << std::endl;
-
             for (TiXmlElement *e = elem->FirstChildElement(); e != NULL;
                  e = e->NextSiblingElement())
             {
@@ -120,8 +120,6 @@ void AgentsArr::parseAgent(std::string AgentType){
 
         if (elemName == "PublicVeh")
         {
-            std::cout << "Got Public Veh" << std::endl;
-
             for (TiXmlElement *e = elem->FirstChildElement(); e != NULL;
                  e = e->NextSiblingElement())
             {

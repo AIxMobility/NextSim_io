@@ -13,12 +13,11 @@ PaxArr::PaxArr()
 {
     TiXmlDocument doc(STSIO::PassengerXMLPath.string().c_str());
     bool loadOkay = doc.LoadFile();
-
-    std::cout << "Loading LinkArr" << std::endl;
+    // std::cout << "Loading PaxArr" << std::endl;
 
     if (!loadOkay)
     {
-        std::cout << "loading failed" << std::endl;
+        std::cout << "Loading failed (PaxArr)" << std::endl;
         std::cerr << doc.ErrorDesc() << std::endl;
     }
 
@@ -32,8 +31,6 @@ PaxArr::PaxArr()
         //const char *attr;
         if (elemName == "nv_pax")
         {
-            std::cout << "Got NV pax" << std::endl;
-
             for (TiXmlElement* e = elem->FirstChildElement(); e != NULL;
                  e = e->NextSiblingElement())
             {
@@ -94,8 +91,6 @@ PaxArr::PaxArr()
 
         else if (elemName == "pub_pax")
         {
-            std::cout << "Got Public pax" << std::endl;
-
             for (TiXmlElement* e = elem->FirstChildElement(); e != NULL;
                  e = e->NextSiblingElement())
             {

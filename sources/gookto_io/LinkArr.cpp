@@ -18,23 +18,13 @@ bool a_to_bool(const char* val);
 // LinkArr Constructor
 LinkArr::LinkArr()
 {
-    // std::filesystem::path cwd = std::filesystem::current_path();
-    // std::cout << cwd << std::endl;
-
-    // for (const auto& entry : std::filesystem::directory_iterator(cwd))
-    //     std::cout << entry.path() << std::endl;
-
-    // std::filesystem::path netDir("network_xml");
-    // for (const auto& entry : std::filesystem::directory_iterator(cwd / netDir))
-    //     std::cout << entry.path() << std::endl;
-
     TiXmlDocument doc("");
     bool loadOkay = doc.LoadFile(STSIO::NetworkXMLPath.string().c_str());
-    std::cout << "Loading LinkArr" << std::endl;
+    // std::cout << "Loading LinkArr" << std::endl;
 
     if (!loadOkay)
     {
-        std::cout << "loading failed" << std::endl;
+        std::cout << "Loading failed (LinkArr)" << std::endl;
         std::cerr << doc.ErrorDesc() << std::endl;
         exit(0);
     }
@@ -48,7 +38,6 @@ LinkArr::LinkArr()
 
         if (elemName == "links")
         {
-            std::cout << "Got links" << std::endl;
             for (TiXmlElement* e = elem->FirstChildElement(); e != nullptr;
                  e = e->NextSiblingElement())
             {

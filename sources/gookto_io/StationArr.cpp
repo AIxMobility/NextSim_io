@@ -13,12 +13,11 @@ StationArr::StationArr()
 {
     TiXmlDocument doc("");
     bool loadOkay = doc.LoadFile(STSIO::NetworkXMLPath.string().c_str());
-
-    std::cout << "Loading StationArr" << std::endl;
+    // std::cout << "Loading StationArr" << std::endl;
 
     if (!loadOkay)
     {
-        std::cout << "loading failed" << std::endl;
+        std::cout << "Loading failed (StationArr)" << std::endl;
         std::cerr << doc.ErrorDesc() << std::endl;
         exit(0);
     }
@@ -32,8 +31,6 @@ StationArr::StationArr()
 
         if (elemName == "stations")
         {
-            std::cout << "Got stations" << std::endl;
-            std::cout << (elem->FirstChildElement())->Value() << std::endl;
             for (TiXmlElement *e = elem->FirstChildElement(); e != nullptr;
                  e = e->NextSiblingElement())
             {
