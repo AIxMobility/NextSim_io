@@ -71,6 +71,8 @@ LinkArr::LinkArr()
                     const char *maxVeh = e->Attribute("maxVeh");  // veh/link
                     const char *from_node = e->Attribute("from_node");
                     const char *to_node = e->Attribute("to_node");
+                    const char *maxSpd = e->Attribute("max_spd");  // km/h
+                    const char *minSpd = e->Attribute("min_spd");  // km/h
 
                     if (!ffspeed)   throw std::runtime_error ("Element should have 'ffspeed' attribute");
                     if (!qmax)   throw std::runtime_error ("Element should have 'qmax' attribute");
@@ -78,6 +80,8 @@ LinkArr::LinkArr()
                     if (!maxVeh)   throw std::runtime_error ("Element should have 'maxVeh' attribute");
                     if (!from_node)   throw std::runtime_error ("Element should have 'from_node' attribute");
                     if (!to_node)   throw std::runtime_error ("Element should have 'to_node' attribute");
+                    if (!maxSpd)   throw std::runtime_error ("Element should have 'max_spd' attribute");
+                    if (!minSpd)   throw std::runtime_error ("Element should have 'min_spd' attribute");
 
                     demoLink.FreeFlowSpeed = std::atof(ffspeed);
                     demoLink.Qmax = std::atof(qmax);
@@ -88,6 +92,9 @@ LinkArr::LinkArr()
                             from_node)));
                     demoLink.SetToNode(
                         ((std::size_t)atoll(to_node)));
+                    demoLink.MaxSpeed = std::atof(maxSpd);
+                    demoLink.MinSpeed = std::atof(minSpd);
+
                     // save lane infos for each link
                     // int lane_num = 0;
                     for (TiXmlElement* ele = e->FirstChildElement();

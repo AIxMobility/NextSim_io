@@ -42,6 +42,7 @@ std::vector<std::vector<double>> InputLink::Get2DFreeFlowSpeed()  // m/s
     }
     return matrix;
 }
+
 std::vector<std::vector<double>> InputLink::Get2DQmax2D()  // veh/hr
 {
     std::vector<std::vector<double>> matrix(m_numLane);
@@ -55,6 +56,7 @@ std::vector<std::vector<double>> InputLink::Get2DQmax2D()  // veh/hr
     }
     return matrix;
 }
+
 std::vector<std::vector<double>> InputLink::Get2DWaveSpeed()  // m/s
 {
     std::vector<std::vector<double>> matrix(m_numLane);
@@ -68,6 +70,35 @@ std::vector<std::vector<double>> InputLink::Get2DWaveSpeed()  // m/s
     }
     return matrix;
 }
+
+std::vector<std::vector<double>> InputLink::Get2DMaxSpeed()  // m/s
+{
+    std::vector<std::vector<double>> matrix(m_numLane);
+    for (int i = 0; i < m_numLane; i++)
+    {
+        matrix[i] = std::vector<double>(m_laneNumCellVector[i]);
+        for (int j = 0; j < m_laneNumCellVector[i]; j++)
+        {
+            matrix[i][j] = LaneArr[i].GetCellVector()[j].MaxSpeed / 3.6;
+        }
+    }
+    return matrix;
+}
+
+std::vector<std::vector<double>> InputLink::Get2DMinSpeed()  // m/s
+{
+    std::vector<std::vector<double>> matrix(m_numLane);
+    for (int i = 0; i < m_numLane; i++)
+    {
+        matrix[i] = std::vector<double>(m_laneNumCellVector[i]);
+        for (int j = 0; j < m_laneNumCellVector[i]; j++)
+        {
+            matrix[i][j] = LaneArr[i].GetCellVector()[j].MinSpeed / 3.6;
+        }
+    }
+    return matrix;
+}
+
 std::vector<std::vector<size_t>> InputLink::Get2DMaxVehicle()  // veh/lane
 {
     std::vector<std::vector<size_t>> matrix;

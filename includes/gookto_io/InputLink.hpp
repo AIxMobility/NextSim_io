@@ -59,6 +59,8 @@ public:
 
     //each cell might have different 4 params
     std::vector<std::vector<double>> Get2DFreeFlowSpeed();
+    std::vector<std::vector<double>> Get2DMaxSpeed();
+    std::vector<std::vector<double>> Get2DMinSpeed();
     std::vector<std::vector<double>> Get2DQmax2D();
     std::vector<std::vector<double>> Get2DWaveSpeed();
     std::vector<std::vector<size_t>> Get2DMaxVehicle();
