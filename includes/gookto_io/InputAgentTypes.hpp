@@ -26,6 +26,9 @@ private:
     InputDistribution reaction_time;
     InputDistribution max_acc;
     InputDistribution max_dec;
+    InputDistribution lc_param1;
+    InputDistribution lc_param2;
+    InputDistribution lc_sensitivity;
     // InputDistribution delta_jamgap;
     // InputDistribution b1;
     // InputDistribution b2;
@@ -35,7 +38,18 @@ private:
 
 public:
     // Constructor
-    InputAgentTypes(std::string vehType, int max_pax, bool v2xActive, InputDistribution veh_len, InputDistribution jamgap, InputDistribution vf, InputDistribution reaction_time, InputDistribution max_acc, InputDistribution max_dec);
+    InputAgentTypes(std::string vehType, 
+                    int max_pax, 
+                    bool v2xActive, 
+                    InputDistribution veh_len, 
+                    InputDistribution jamgap, 
+                    InputDistribution vf, 
+                    InputDistribution reaction_time, 
+                    InputDistribution max_acc, 
+                    InputDistribution max_dec,
+                    InputDistribution lc_param1,
+                    InputDistribution lc_param2,
+                    InputDistribution lc_sensitivity);
 
     // access functions
     std::string getvehType()
@@ -74,6 +88,15 @@ public:
     double genmax_dec()
     {
         return max_dec.genValue();
+    }
+    std::pair<double, double> genLCparam()
+    {
+        return std::make_pair(
+            lc_param1.genValue(), lc_param2.genValue());
+    }
+    double genLCsensitivity()
+    {
+        return lc_sensitivity.genValue();
     }
     // double gendelta_jamgap()
     // {

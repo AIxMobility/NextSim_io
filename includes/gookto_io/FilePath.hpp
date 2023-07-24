@@ -5,7 +5,7 @@
 
 namespace STSIO
 {
-static std::string network_name = "1lane";
+static std::string network_name = "intersection2";
 static std::filesystem::path currentPath = std::filesystem::current_path();
 static std::filesystem::path NetworkXmlFilePath =
     std::filesystem::current_path() / ("network_xml_" + network_name);

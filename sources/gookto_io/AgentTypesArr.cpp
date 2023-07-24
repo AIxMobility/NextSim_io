@@ -40,18 +40,15 @@ AgentTypesArr::AgentTypesArr()
 
         if (elemName == "vehtype")
         {
-            InputDistribution veh_lenDist(std::string("Normal"), 4.5, 5.0, 5.5,
-                                          0.4);
-            InputDistribution jamgapDist(std::string("LogNormal"), 1.0, 2.0, 3.5,
-                                         0.2);
-            InputDistribution vfDist(std::string("Normal"), 50.0, 60.0, 70.0,
-                                     10.0);
-            InputDistribution reaction_timeDist(std::string("LogNormal"), 1.0,
-                                                1.5, 3.5, 0.2);
-            InputDistribution max_accDist(std::string("Normal"), 4.5, 4.8, 6.0,
-                                          1.1);
-            InputDistribution max_decDist(std::string("Normal"), 4.5, 5.6, 7.0,
-                                          1.2);
+            InputDistribution veh_lenDist(std::string("Normal"), 4.5, 5.0, 5.5, 0.4);
+            InputDistribution jamgapDist(std::string("LogNormal"), 1.0, 2.0, 3.5, 0.2);
+            InputDistribution vfDist(std::string("Normal"), 50.0, 60.0, 70.0, 10.0);
+            InputDistribution reaction_timeDist(std::string("LogNormal"), 1.0, 1.5, 3.5, 0.2);
+            InputDistribution max_accDist(std::string("Normal"), 4.5, 4.8, 6.0, 1.1);
+            InputDistribution max_decDist(std::string("Normal"), 4.5, 5.6, 7.0, 1.2);
+            InputDistribution lc_param1Dist(std::string("Normal"), 0.08, 0.055, 0.04, 0.02);
+            InputDistribution lc_param2Dist(std::string("Normal"), 0.04, 0.025, 0.01, 0.02);
+            InputDistribution lc_senseDist(std::string("LogNormal"), 0.1, 0.0033, 0.001, 2.5);
 
             for (TiXmlElement *e = elem->FirstChildElement(); e != nullptr;
                  e = e->NextSiblingElement())
@@ -183,6 +180,69 @@ AgentTypesArr::AgentTypesArr()
                     max_decDist.setmin(atof(min));
                     max_decDist.setsd(atof(sd));
                 }
+
+                else if (elemName2 == "lc_param1")
+                {
+                    const char* dist = e->Attribute("dist");
+                    const char* max = e->Attribute("max");
+                    const char* mean = e->Attribute("mean");
+                    const char* min = e->Attribute("min");
+                    const char* sd = e->Attribute("sd");
+
+                    if (!dist)   throw std::runtime_error ("Element should have 'dist' attribute");
+                    if (!max)   throw std::runtime_error ("Element should have 'max' attribute");
+                    if (!mean)   throw std::runtime_error ("Element should have 'mean' attribute");
+                    if (!min)   throw std::runtime_error ("Element should have 'min' attribute");
+                    if (!sd)   throw std::runtime_error ("Element should have 'sd' attribute");
+
+                    lc_param1Dist.setdist(dist);
+                    lc_param1Dist.setmax(atof(max));
+                    lc_param1Dist.setmean(atof(mean));
+                    lc_param1Dist.setmin(atof(min));
+                    lc_param1Dist.setsd(atof(sd));
+                }
+
+                else if (elemName2 == "lc_param2")
+                {
+                    const char* dist = e->Attribute("dist");
+                    const char* max = e->Attribute("max");
+                    const char* mean = e->Attribute("mean");
+                    const char* min = e->Attribute("min");
+                    const char* sd = e->Attribute("sd");
+
+                    if (!dist)   throw std::runtime_error ("Element should have 'dist' attribute");
+                    if (!max)   throw std::runtime_error ("Element should have 'max' attribute");
+                    if (!mean)   throw std::runtime_error ("Element should have 'mean' attribute");
+                    if (!min)   throw std::runtime_error ("Element should have 'min' attribute");
+                    if (!sd)   throw std::runtime_error ("Element should have 'sd' attribute");
+
+                    lc_param2Dist.setdist(dist);
+                    lc_param2Dist.setmax(atof(max));
+                    lc_param2Dist.setmean(atof(mean));
+                    lc_param2Dist.setmin(atof(min));
+                    lc_param2Dist.setsd(atof(sd));
+                }
+
+                else if (elemName2 == "lc_sensitivity")
+                {
+                    const char* dist = e->Attribute("dist");
+                    const char* max = e->Attribute("max");
+                    const char* mean = e->Attribute("mean");
+                    const char* min = e->Attribute("min");
+                    const char* sd = e->Attribute("sd");
+
+                    if (!dist)   throw std::runtime_error ("Element should have 'dist' attribute");
+                    if (!max)   throw std::runtime_error ("Element should have 'max' attribute");
+                    if (!mean)   throw std::runtime_error ("Element should have 'mean' attribute");
+                    if (!min)   throw std::runtime_error ("Element should have 'min' attribute");
+                    if (!sd)   throw std::runtime_error ("Element should have 'sd' attribute");
+
+                    lc_senseDist.setdist(dist);
+                    lc_senseDist.setmax(atof(max));
+                    lc_senseDist.setmean(atof(mean));
+                    lc_senseDist.setmin(atof(min));
+                    lc_senseDist.setsd(atof(sd));
+                }
             }
 
             const char* id = elem->Attribute("id");
@@ -197,11 +257,9 @@ AgentTypesArr::AgentTypesArr()
 
             // TODO: implement v2x on/off
             InputAgentTypes demoAgentTypes(
-                name,
-                std::atoi(max_pax),
-                strcmp(v2x, "on") == 0 ? true : false,
+                name, std::atoi(max_pax), strcmp(v2x, "on") == 0 ? true : false,
                 veh_lenDist, jamgapDist, vfDist, reaction_timeDist, max_accDist,
-                max_decDist);
+                max_decDist, lc_param1Dist, lc_param2Dist, lc_senseDist);
 
             vehTypes.insert({ std::atoi(id), demoAgentTypes });
         }
