@@ -10,7 +10,8 @@
 
 #include <gookto_io/InputAgents.hpp>
 
-InputAgents::InputAgents(int id, int type, double dpt_time) : id(id), type(type), dpt_time(dpt_time){};
+InputAgents::InputAgents(int id, int type, double dpt_time) 
+                         : id(id), typeId(type), dpt_time(dpt_time){};
 
 void InputAgents::addLink(int val)
 {

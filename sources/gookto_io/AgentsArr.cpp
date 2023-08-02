@@ -49,7 +49,7 @@ void AgentsArr::parseAgent(std::string AgentType){
     {
         std::string elemName = elem->Value();
 
-        if (elemName == "NormalVeh")
+        if (elemName == "PassengerVeh")
         {
             for (TiXmlElement *e = elem->FirstChildElement(); e != NULL;
                  e = e->NextSiblingElement())
@@ -59,16 +59,16 @@ void AgentsArr::parseAgent(std::string AgentType){
                 if (elemName2 == "veh")
                 {
                     const char *id = e->Attribute("id");
-                    const char *type = e->Attribute("type");
+                    const char *typeId = e->Attribute("type_id");
                     const char *dpt_time = e->Attribute("dpt_time");
 
                     if (!id)   throw std::runtime_error ("Element should have 'id' attribute");
-                    if (!type)   throw std::runtime_error ("Element should have 'type' attribute");
+                    if (!typeId)   throw std::runtime_error ("Element should have 'type_id' attribute");
                     if (!dpt_time)   throw std::runtime_error ("Element should have 'dpt_time' attribute");
 
                     InputAgents single_veh(
                         atol(id),
-                        atoi(type),
+                        atoi(typeId),
                         atof(dpt_time));
 
                     // parse the Link Seq of each vehicles:
@@ -128,18 +128,18 @@ void AgentsArr::parseAgent(std::string AgentType){
                 if (elemName2 == "veh")
                 {
                     const char *id = e->Attribute("id");
-                    const char *type = e->Attribute("type");
+                    const char *typeId = e->Attribute("type_id");
                     const char *dpt_time = e->Attribute("dpt_time");
 
                     if (!id)   throw std::runtime_error ("Element should have 'id' attribute");
-                    if (!type)   throw std::runtime_error ("Element should have 'type' attribute");
+                    if (!typeId)   throw std::runtime_error ("Element should have 'type_id' attribute");
                     if (!dpt_time)   throw std::runtime_error ("Element should have 'dpt_time' attribute");
 
                     InputAgents single_veh(
                         atol(id),
-                        atoi(type),
+                        atoi(typeId),
                         atof(dpt_time));
-
+                        
                     // parse the Link Seq of each vehicles:
                     // String Stream --> Extract Integer
 

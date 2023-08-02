@@ -15,33 +15,27 @@
 class InputAgents
 {
 private:
-    // common attributes for both SAV and BAV
     int id;
 
-    /**
-     * type 1 --> SAV (small_av)
-     * type 2 --> BAV (bus_av)
-     */
-    int type;
+    int typeId;
     double dpt_time;
 
     std::vector<int> link_seq;
     std::vector<int> node_seq;
 
-    // unique to SAV -- pax information
+    // unique to PassengerVeh -- pax information
     std::vector<int> pax_list;
     std::vector<int> pax_origin;
     std::vector<int> pax_dest;
 
-    // unique to BAV -- station information
+    // unique to PublicVeh -- station information
     std::vector<int> station_seq;
     std::vector<double> station_dwell_time;
     std::vector<int> station_in;
     std::vector<int> station_out;
-    // station_dwell_time, station_in, station_out
 
 public:
-    InputAgents(int id, int type, double dpt_time);
+    InputAgents(int id, int typeId, double dpt_time);
 
     // adding new links/nodes to the link_seq / node_seq
     void addLink(int val);
@@ -62,9 +56,9 @@ public:
     {
         return id;
     }
-    int getType()
+    int getTypeId()
     {
-        return type;
+        return typeId;
     }
     double getDepTime()
     {
