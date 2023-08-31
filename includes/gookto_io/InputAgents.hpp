@@ -23,7 +23,7 @@ private:
     std::vector<int> link_seq;
     std::vector<int> node_seq;
 
-    // unique to PassengerVeh -- pax information
+    // unique to PublicVeh -- pax information
     std::vector<int> pax_list;
     std::vector<int> pax_origin;
     std::vector<int> pax_dest;
