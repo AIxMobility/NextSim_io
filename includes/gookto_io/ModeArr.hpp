@@ -2,12 +2,12 @@
 #define MODEARR_H
 
 #include <vector>
-#include "Mode.hpp"
+#include "InputMode.hpp"
 
 class ModeArr
 {
 private:
-    std::vector<Mode> modeArr;
+    std::vector<InputMode> modeArr;
 
 public:
     ModeArr();
@@ -17,7 +17,7 @@ public:
     void parseArr();
 
     //access function
-    std::vector<Mode> getModeArr()
+    std::vector<InputMode> getModeArr()
     {
         return modeArr;
     }

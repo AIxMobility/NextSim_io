@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 
-class Mode
+class InputMode
 {
 private:
     int id, scycle;
@@ -12,7 +12,7 @@ private:
     std::vector<int> mesoLinkArr;
 
 public:
-    Mode(int id, int scycle);
+    InputMode(int id, int scycle);
 
     // string to vector
     void setMicroLinkArr(std::string linkArr);

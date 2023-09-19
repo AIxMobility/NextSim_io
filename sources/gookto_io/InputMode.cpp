@@ -3,11 +3,11 @@
 #include <string>
 #include <filesystem>
 
-#include <gookto_io/Mode.hpp>
+#include <gookto_io/InputMode.hpp>
 
-Mode::Mode(int id, int scycle) : id(id), scycle(scycle){};
+InputMode::InputMode(int id, int scycle) : id(id), scycle(scycle){};
 
-void Mode::setMicroLinkArr(std::string linkArr)
+void InputMode::setMicroLinkArr(std::string linkArr)
 {
     std::string tempStr;
     size_t pos = 0;
@@ -19,7 +19,7 @@ void Mode::setMicroLinkArr(std::string linkArr)
     }
 }
 
-void Mode::setMesoLinkArr(std::string linkArr)
+void InputMode::setMesoLinkArr(std::string linkArr)
 {
     std::string tempStr;
     size_t pos = 0;

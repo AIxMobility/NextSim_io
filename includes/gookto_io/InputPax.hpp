@@ -2,56 +2,45 @@
 #include <vector>
 #include <string>
 
-class InputPax
+class ODPax
 {
 private:
-    int id;
-    int type;
-    double dpt_time;
-
-    double reaction_time = 0;
-    double jamgap = 0;
-    double max_acc = 0;
-    double max_dec = 0;
-    double vehlength = 0;
-    double vfree = 0;
-
-    std::vector<int> link_seq;
-    std::vector<int> node_seq;
-
+    int origin;
+    int dest;
+    double flow; // pax/hr
+    std::string dist;
+    
 public:
-    InputPax(int id, int type, double dpt_time);
+    ODPax(int origin, int dest, double flow, std::string dist);
+
+    int getOrigin() { return origin; }
+    int getDest() { return dest; }
+    double getFlow() { return flow; }
+    std::string getDist() { return dist; }
+};
 
 
-    void setReactionTime(double val) { reaction_time = val; }
-    void setJamGap(double val) { jamgap = val; }
-    void setMaxAcc(double val) { max_acc = val; }
-    void setMaxDec(double val) { max_dec = val; }
-    void setVehLen(double val) { vehlength = val; }
-    void setVFree(double val) { vfree = val; }
+class AgentPax
+{
+private:
+    int origin_link;
+    double origin_pos;
+    int dest_link;
+    double dest_pos;
+    int num_pax;
+    double time;
+    std::string type;
+    
+public:
+    AgentPax(int origin_link, double origin_pos, 
+             int dest_link, double dest_pos, 
+             int num_pax, double time, std::string type);
 
-    void addLink(int val);
-    void addNode(int val);
-
-    [[nodiscard]] const std::vector<int>& getLinkSeq() const
-    {
-        return link_seq;
-    }
-
-    [[nodiscard]] const std::vector<int>& getNodeSeq() const
-    {
-        return node_seq;
-    }
-
-    int getType() { return type; }
-    int getId() { return id; }
-    double getDptTime() { return dpt_time; }
-
-
-    double getReactionTime() { return reaction_time; }
-    double getJamGap() { return jamgap; }
-    double getMaxAcc() { return max_acc; }
-    double getMaxDec() { return max_dec; }
-    double getVehLen() { return vehlength; }
-    double getVFree() { return vfree; }
+    int getOriginLink() { return origin_link; }
+    double getOriginPos() { return origin_pos; }
+    int getDestLink() { return dest_link; }
+    double getDestPos() { return dest_pos; }
+    int getNumPax() { return num_pax; }
+    double getTime() { return time; }
+    std::string getType() { return type; }
 };

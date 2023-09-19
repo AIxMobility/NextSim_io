@@ -8,12 +8,14 @@ class StationArr
 {
 private:
     std::vector<InputStation> Stations;
+    std::vector<InputDRTStation> DRTStations;
 
 public:
     StationArr();
 
     //access functions
     std::vector<InputStation> getStations() { return Stations; }
+    std::vector<InputDRTStation> getDRTStations() { return DRTStations; }
 };
 
 #endif

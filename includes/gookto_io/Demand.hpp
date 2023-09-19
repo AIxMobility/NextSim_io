@@ -5,7 +5,7 @@
 #include <string>
 #include <iostream>
 
-class Demand
+class NVdemand
 {
 private:
     int flow;
@@ -14,7 +14,7 @@ private:
     int dist;
 
 public:
-    Demand(int flow, int sink, int source, int dist);
+    NVdemand(int flow, int sink, int source, int dist);
 
     //access functions
     int getFlow() { return flow; }
@@ -23,4 +23,19 @@ public:
     int getDist() { return dist; }
 };
 
+class PVdemand
+{
+private:
+    int route;
+    int sink;
+    int source;
+
+public:
+    PVdemand(int route, int sink, int source);
+
+    //access functions
+    int getRoute() { return route; }
+    int getSink() { return sink; }
+    int getSource() { return source; }
+};
 #endif

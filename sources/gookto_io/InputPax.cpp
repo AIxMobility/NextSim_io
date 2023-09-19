@@ -1,16 +1,17 @@
 #include <gookto_io/InputPax.hpp>
 
 
-InputPax::InputPax(int id, int type, double dpt_time) :
-id(id), type(type), dpt_time(dpt_time)
-{};
-
-void InputPax::addLink(int val)
+ODPax::ODPax(int origin, int dest, double flow, std::string dist) :
+    origin(origin), dest(dest), flow(flow), dist(dist)
 {
-    link_seq.push_back(val);
 };
 
-void InputPax::addNode(int val)
+
+AgentPax::AgentPax(int origin_link, double origin_pos, 
+         int dest_link, double dest_pos, 
+         int num_pax, double time, std::string type) :
+    origin_link(origin_link), origin_pos(origin_pos),
+    dest_link(dest_link), dest_pos(dest_pos),
+    num_pax(num_pax), time(time), type(type)
 {
-    node_seq.push_back(val);
 };

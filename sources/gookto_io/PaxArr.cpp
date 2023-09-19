@@ -13,7 +13,6 @@ PaxArr::PaxArr()
 {
     TiXmlDocument doc(STSIO::PassengerXMLPath.string().c_str());
     bool loadOkay = doc.LoadFile();
-    // std::cout << "Loading PaxArr" << std::endl;
 
     if (!loadOkay)
     {
@@ -28,76 +27,43 @@ PaxArr::PaxArr()
     {
         std::string elemName = elem->Value();
 
-        //const char *attr;
-        if (elemName == "nv_pax")
+        if (elemName == "od_pax")
         {
             for (TiXmlElement* e = elem->FirstChildElement(); e != NULL;
                  e = e->NextSiblingElement())
             {
                 std::string elemName2 = e->Value();
 
-                if (elemName2 == "pax")
+                if (elemName2 == "demand")
                 {
-                    InputPax demoPax(atol(e->Attribute("id")), 0,
-                                     atof(e->Attribute("dpt_time")));
+                    ODPax demoPax(atol(e->Attribute("origin")),
+                                  atol(e->Attribute("dest")),
+                                  atof(e->Attribute("flow")),
+                                  e->Attribute("dist"));
 
-                    //set the Link 2d, 1d values here.
-                    demoPax.
-                        setReactionTime(atof(e->Attribute("reaction_time")));
-                    demoPax.setJamGap(atof(e->Attribute("jamgap")));
-                    demoPax.setMaxAcc(atof(e->Attribute("max_acc")));
-                    demoPax.setMaxDec(atof(e->Attribute("max_dec")));
-                    demoPax.setVehLen(atof(e->Attribute("vehlength")));
-                    demoPax.setVFree(atof(e->Attribute("vfree")));
-
-                    int found;
-
-                    std::stringstream links;
-                    std::stringstream nodes;
-
-                    links << e->Attribute("link_seq");
-                    nodes << e->Attribute("node_seq");
-
-                    std::string temp_links;
-                    std::string temp_nodes;
-
-                    // add Links
-                    while (!links.eof())
-                    {
-                        links >> temp_links;
-                        if (std::stringstream(temp_links) >> found)
-                        {
-                            demoPax.addLink(found);
-                        }
-                        temp_links = "";
-                    }
-
-                    //add Nodes
-                    while (!nodes.eof())
-                    {
-                        nodes >> temp_nodes;
-                        if (std::stringstream(temp_nodes) >> found)
-                        {
-                            demoPax.addNode(found);
-                        }
-                        temp_nodes = "";
-                    }
-
-                    Pax.push_back(demoPax);
-                    //perhaps need to free pointers here
+                    ODPaxVec.push_back(demoPax);
                 }
             }
         }
 
-        else if (elemName == "pub_pax")
+        else if (elemName == "agent_pax")
         {
             for (TiXmlElement* e = elem->FirstChildElement(); e != NULL;
                  e = e->NextSiblingElement())
             {
                 std::string elemName2 = e->Value();
 
-                if (elemName2 == "pax")
+                if (elemName2 == "agent")
                 {
+                    AgentPax demoPax(atol(e->Attribute("origin_link")),
+                                     atof(e->Attribute("origin_pos")),
+                                     atol(e->Attribute("dest_link")),
+                                     atof(e->Attribute("dest_pos")),
+                                     atol(e->Attribute("num_pax")),
+                                     atof(e->Attribute("time")),
+                                     e->Attribute("type"));
+
+                    AgentPaxVec.push_back(demoPax);
                 }
             }
         }

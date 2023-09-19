@@ -6,5 +6,5 @@
 #include <gookto_io/tinyapi/tinyxml.h>
 #include <gookto_io/tinyapi/tinystr.h>
 
-DemandInfo::DemandInfo(int id, std::string type, std::vector<Demand> demands)
-    : id(id), type(type), demands(demands){};
+DemandInfo::DemandInfo(int id, std::vector<NVdemand> nvdemands, std::vector<PVdemand> pvdemands)
+    : id(id), nvdemands(nvdemands), pvdemands(pvdemands) {};

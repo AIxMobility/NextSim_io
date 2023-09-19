@@ -4,7 +4,7 @@
 #include <filesystem>
 
 #include <gookto_io/ModeArr.hpp>
-#include <gookto_io/Mode.hpp>
+#include <gookto_io/InputMode.hpp>
 
 #include <gookto_io/tinyapi/tinystr.h>
 #include <gookto_io/tinyapi/tinyxml.h>
@@ -35,7 +35,7 @@ void ModeArr::parseArr(){
         int scycle = std::stoi(elem->Attribute("scycle"));
 
         TiXmlElement *e = elem->FirstChildElement();
-        Mode tMode = Mode(id, scycle);
+        InputMode tMode = InputMode(id, scycle);
 
         bool getMicro = false;
         bool getMeso = false;

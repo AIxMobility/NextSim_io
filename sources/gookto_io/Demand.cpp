@@ -6,4 +6,8 @@
 #include <gookto_io/tinyapi/tinyxml.h>
 #include <gookto_io/tinyapi/tinystr.h>
 
-Demand::Demand(int flow, int sink, int source, int dist) : flow(flow), sink(sink), source(source), dist(dist){};
+NVdemand::NVdemand(int flow, int sink, int source, int dist) : 
+    flow(flow), sink(sink), source(source), dist(dist) {};
+
+PVdemand::PVdemand(int route, int sink, int source) :
+    route(route), sink(sink), source(source) {};

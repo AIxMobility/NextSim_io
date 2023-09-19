@@ -8,25 +8,25 @@ class InputStation
 {
 private:
     int id;
-    int lane_ref;
     int link_ref;
+    int lane_ref;
     int pos;
 
 public:
     //Constructors
-    InputStation(int id, int lane_ref, int link_ref, int pos);
+    InputStation(int id, int link_ref, int lane_ref, int pos);
 
     int getId()
     {
         return id;
     }
+    int getLinkRef()
+    {
+        return link_ref;
+    }
     int getLaneRef()
     {
         return lane_ref;
-    }
-    double getLinkRef()
-    {
-        return link_ref;
     }
     int getPos()
     {
@@ -34,4 +34,37 @@ public:
     }
 };
 
+
+class InputDRTStation
+{
+private:
+    int id;
+    int link_ref;
+    int lane_ref;
+    std::pair<double, double> pos_range;
+
+public:
+    //Constructors
+    InputDRTStation(int id, int link_ref, int lane_ref);
+
+    // string to vector
+    void setPosRange(std::string pos_range_str);
+
+    int getId()
+    {
+        return id;
+    }
+    int getLinkRef()
+    {
+        return link_ref;
+    }
+    int getLaneRef()
+    {
+        return lane_ref;
+    }
+    std::pair<double, double> getPosRange()
+    {
+        return pos_range;
+    }
+};
 #endif

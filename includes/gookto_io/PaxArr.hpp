@@ -7,11 +7,13 @@
 class PaxArr
 {
 private:
-    std::vector<InputPax> Pax;
+    std::vector<ODPax> ODPaxVec;
+    std::vector<AgentPax> AgentPaxVec;
 
 public:
     PaxArr();
 
     //access functions
-    std::vector<InputPax> getPax() { return Pax; }
+    std::vector<ODPax> getODPax() { return ODPaxVec; }
+    std::vector<AgentPax> getAgentPax() { return AgentPaxVec; }
 };

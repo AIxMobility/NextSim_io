@@ -36,8 +36,8 @@ ODMatrix::ODMatrix()
             if (!id)
                 throw std::runtime_error("Element should have 'id' attribute");
 
-            std::string type;
-            std::vector<Demand> Demands;
+            std::vector<NVdemand> nvdemands;
+            std::vector<PVdemand> pvdemands;
 
             for (TiXmlElement *child = elem->FirstChildElement(); child != NULL;
                  child = child->NextSiblingElement())
@@ -46,7 +46,6 @@ ODMatrix::ODMatrix()
 
                 if (childName == "nv_od_matrix")
                 {
-                    type = "nv";
                     for (TiXmlElement *demand = child->FirstChildElement();
                          demand != NULL; demand = demand->NextSiblingElement())
                     {
@@ -75,13 +74,45 @@ ODMatrix::ODMatrix()
                             else if (!strcmp(dist, "Exponential")) dist = "1";
                             else dist = "2"; 
 
-                            Demand single_demand(
+                            NVdemand single_demand(
                                 atoi(flow), 
                                 atoi(sink),
                                 atoi(source), 
                                 atoi(dist));
 
-                            Demands.push_back(single_demand);
+                            nvdemands.push_back(single_demand);
+                        }
+                    }
+                }
+                else if (childName == "pv_od_matrix")
+                {
+                    for (TiXmlElement *demand = child->FirstChildElement();
+                         demand != NULL; demand = demand->NextSiblingElement())
+                    {
+                        std::string demandName = demand->Value();
+
+                        if (demandName == "demand")
+                        {
+                            const char *route = demand->Attribute("route");
+                            const char *sink = demand->Attribute("sink");
+                            const char *source = demand->Attribute("source");
+
+                            if (!route)
+                                throw std::runtime_error(
+                                    "Element should have 'route' attribute");
+                            if (!sink)
+                                throw std::runtime_error(
+                                    "Element should have 'sink' attribute");
+                            if (!source)
+                                throw std::runtime_error(
+                                    "Element should have 'source' attribute");
+
+                            PVdemand single_demand(
+                                atoi(route), 
+                                atoi(sink),
+                                atoi(source));
+
+                            pvdemands.push_back(single_demand);
                         }
                     }
                 }
@@ -89,8 +120,8 @@ ODMatrix::ODMatrix()
 
             DemandInfo demandInfo(
                 atoi(id), 
-                type, 
-                Demands);
+                nvdemands,
+                pvdemands);
 
             ODmatrix.push_back(demandInfo);
         }

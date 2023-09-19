@@ -11,52 +11,61 @@
 
 StationArr::StationArr()
 {
-    TiXmlDocument doc("");
-    bool loadOkay = doc.LoadFile(STSIO::NetworkXMLPath.string().c_str());
-    // std::cout << "Loading StationArr" << std::endl;
+    TiXmlDocument doc(STSIO::StationXMLPath.string().c_str());
+    bool loadOkay = doc.LoadFile();
 
     if (!loadOkay)
     {
         std::cout << "Loading failed (StationArr)" << std::endl;
         std::cerr << doc.ErrorDesc() << std::endl;
-        exit(0);
     }
 
-    TiXmlElement *root = doc.FirstChildElement();
+    TiXmlElement* root = doc.FirstChildElement();
 
-    for (TiXmlElement *elem = root->FirstChildElement(); elem != nullptr;
+    for (TiXmlElement* elem = root->FirstChildElement(); elem != NULL;
          elem = elem->NextSiblingElement())
     {
         std::string elemName = elem->Value();
 
-        if (elemName == "stations")
+        if (elemName == "Stations")
         {
-            for (TiXmlElement *e = elem->FirstChildElement(); e != nullptr;
+            for (TiXmlElement* e = elem->FirstChildElement(); e != NULL;
                  e = e->NextSiblingElement())
             {
                 std::string elemName2 = e->Value();
 
                 if (elemName2 == "station")
                 {
-                    const char *id = e->Attribute("id");
-                    const char *lane_ref = e->Attribute("lane_ref");
-                    const char *link_ref = e->Attribute("link_ref");
-                    const char *pos = e->Attribute("pos");
+                    InputStation demo(atol(e->Attribute("id")),
+                                      atol(e->Attribute("link_ref")),
+                                      atol(e->Attribute("lane_ref")),
+                                      atof(e->Attribute("pos")));
 
-                    if (!id) throw std::runtime_error ("Element should have 'id' attribute");
-                    if (!lane_ref) throw std::runtime_error ("Element should have 'lane_ref' attribute");
-                    if (!link_ref) throw std::runtime_error ("Element should have 'link_ref' attribute");
-                    if (!pos) throw std::runtime_error ("Element should have 'pos' attribute");
+                    Stations.push_back(demo);
+                }
+            }
+        }
 
-                    InputStation demoStation(
-                        static_cast<std::size_t>(atoll(id)),
-                        atoi(lane_ref),
-                        atof(link_ref),
-                        atof(pos));
+        else if (elemName == "Drt_Stations")
+        {
+            for (TiXmlElement* e = elem->FirstChildElement(); e != NULL;
+                 e = e->NextSiblingElement())
+            {
+                std::string elemName2 = e->Value();
 
-                    Stations.push_back(demoStation);
+                if (elemName2 == "station")
+                {
+                    InputDRTStation demo(atol(e->Attribute("id")),
+                                         atol(e->Attribute("link_ref")),
+                                         atol(e->Attribute("lane_ref")));
+                    
+                    std::string pos_range = e->Attribute("pos_range");
+                    demo.setPosRange(pos_range);
+                    
+                    DRTStations.push_back(demo);
                 }
             }
         }
     }
+    doc.Clear();
 }
