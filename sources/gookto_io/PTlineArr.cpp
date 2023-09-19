@@ -3,26 +3,26 @@
 #include <string>
 #include <filesystem>
 
-#include <gookto_io/PTRouteArr.hpp>
-#include <gookto_io/InputPTRoute.hpp>
+#include <gookto_io/PTlineArr.hpp>
+#include <gookto_io/InputPTline.hpp>
 
 #include <gookto_io/tinyapi/tinystr.h>
 #include <gookto_io/tinyapi/tinyxml.h>
 #include <gookto_io/FilePath.hpp>
 
-PTRouteArr::PTRouteArr()
+PTlineArr::PTlineArr()
 {
     parseArr();
 }
 
-void PTRouteArr::parseArr(){
+void PTlineArr::parseArr(){
     TiXmlDocument doc;
 
-    doc.LoadFile(STSIO::PTRouteXMLPath.string().c_str());
+    doc.LoadFile(STSIO::PTlineXMLPath.string().c_str());
     
-    if (!doc.LoadFile(STSIO::PTRouteXMLPath.string().c_str()))
+    if (!doc.LoadFile(STSIO::PTlineXMLPath.string().c_str()))
     {
-        std::cout << "Loading failed (PTRouteArr)" << std::endl;
+        std::cout << "Loading failed (PTlineArr)" << std::endl;
         std::cerr << doc.ErrorDesc() << std::endl;
     }
 
@@ -34,7 +34,7 @@ void PTRouteArr::parseArr(){
         int interval = std::stoi(elem->Attribute("interval"));
 
         TiXmlElement *e = elem->FirstChildElement();
-        InputPTRoute tPTRoute = InputPTRoute(id, interval);
+        InputPTline tPTline = InputPTline(id, interval);
 
         while(e->Value())
         {
@@ -42,22 +42,22 @@ void PTRouteArr::parseArr(){
             if (eName == "link")
             {
                 std::string linkSeq = e->Attribute("seq");
-                tPTRoute.setLinkSeq(linkSeq);
+                tPTline.setLinkSeq(linkSeq);
             }
             else if (eName == "node")
             {
                 std::string nodeSeq = e->Attribute("seq");
-                tPTRoute.setNodeSeq(nodeSeq);
+                tPTline.setNodeSeq(nodeSeq);
             }
             else if (eName == "station")
             {
                 std::string stationSeq = e->Attribute("seq");
-                tPTRoute.setStationSeq(stationSeq);
+                tPTline.setStationSeq(stationSeq);
             }
                
             e = e->NextSiblingElement();
         }
 
-        ptrouteArr.push_back(tPTRoute);
+        ptlineArr.push_back(tPTline);
     }
 }

@@ -23,7 +23,7 @@ static std::filesystem::path ModeXMLPath = NetworkXmlFilePath / "mode.xml";
 
 static std::filesystem::path StationXMLPath = NetworkXmlFilePath / "publicTransit.xml";
 
-static std::filesystem::path PTRouteXMLPath = NetworkXmlFilePath / "ptroute.xml";
+static std::filesystem::path PTlineXMLPath = NetworkXmlFilePath / "ptline.xml";
 
 static std::filesystem::path RouteJSONPath = NetworkXmlFilePath / "Route.json";
 

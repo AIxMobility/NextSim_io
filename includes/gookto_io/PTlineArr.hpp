@@ -2,24 +2,24 @@
 #define PTROUTEARR_H
 
 #include <vector>
-#include "InputPTRoute.hpp"
+#include "InputPTline.hpp"
 
-class PTRouteArr
+class PTlineArr
 {
 private:
-    std::vector<InputPTRoute> ptrouteArr;
+    std::vector<InputPTline> ptlineArr;
 
 public:
-    PTRouteArr();
+    PTlineArr();
     // Creates a vector of Links
 
     // vector check
     void parseArr();
 
     //access function
-    std::vector<InputPTRoute> getPTRoutes()
+    std::vector<InputPTline> getPTlines()
     {
-        return ptrouteArr;
+        return ptlineArr;
     }
 };
 

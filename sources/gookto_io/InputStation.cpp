@@ -4,8 +4,18 @@
 
 #include <gookto_io/InputStation.hpp>
 
-InputStation::InputStation(int id, int link_ref, int lane_ref, int pos) : 
+InputStation::InputStation(int id, int link_ref, int lane_ref, double pos) : 
     id(id), link_ref(link_ref), lane_ref(lane_ref), pos(pos){};
+
+void InputStation::setLineList(std::string line_list_str)
+{
+    std::stringstream ss(line_list_str);
+    int line_id;
+
+    while (ss >> line_id)
+        line_list.push_back(line_id);
+}
+
 
 InputDRTStation::InputDRTStation(int id, int link_ref, int lane_ref) : 
     id(id), link_ref(link_ref), lane_ref(lane_ref) {};
@@ -20,6 +30,6 @@ void InputDRTStation::setPosRange(std::string pos_range_str)
 
     ss >> start_pos >> delim >> end_pos;
 
-    if (delim != '-')
+    if (delim == '-')
         pos_range = std::make_pair(start_pos, end_pos);
 }

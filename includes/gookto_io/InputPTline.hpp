@@ -1,6 +1,6 @@
 /**
  * STS19 Captain
- * @file : InputPTRoute.hpp
+ * @file : InputPTline.hpp
  * @version : 1.0
  * @author : Jeyun Kim
  */
@@ -12,7 +12,7 @@
 #include <string>
 #include <vector>
 
-class InputPTRoute
+class InputPTline
 {
 private:
     int id;
@@ -23,7 +23,7 @@ private:
     std::vector<int> station_seq;
 
 public:
-    InputPTRoute(int id, double interval);
+    InputPTline(int id, double interval);
 
     // string to vector
     void setLinkSeq(std::string linkSeq);
