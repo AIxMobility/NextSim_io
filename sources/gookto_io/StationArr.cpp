@@ -40,7 +40,8 @@ StationArr::StationArr()
                                       atol(e->Attribute("link_ref")),
                                       atol(e->Attribute("lane_ref")),
                                       atof(e->Attribute("pos")));
-                    auto line_list = e->Attribute("line_list");
+                    auto ee = e->FirstChildElement();
+                    auto line_list = ee->Attribute("list");
                     demo.setLineList(line_list);
                     
                     Stations.push_back(demo);

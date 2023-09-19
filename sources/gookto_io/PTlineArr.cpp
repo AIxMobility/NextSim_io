@@ -36,28 +36,29 @@ void PTlineArr::parseArr(){
         TiXmlElement *e = elem->FirstChildElement();
         InputPTline tPTline = InputPTline(id, interval);
 
-        while(e->Value())
+        std::string eName = e->Value();
+        if (eName == "link")
         {
-            std::string eName = e->Value();
-            if (eName == "link")
-            {
-                std::string linkSeq = e->Attribute("seq");
-                tPTline.setLinkSeq(linkSeq);
-            }
-            else if (eName == "node")
-            {
-                std::string nodeSeq = e->Attribute("seq");
-                tPTline.setNodeSeq(nodeSeq);
-            }
-            else if (eName == "station")
-            {
-                std::string stationSeq = e->Attribute("seq");
-                tPTline.setStationSeq(stationSeq);
-            }
-               
-            e = e->NextSiblingElement();
+            std::string linkSeq = e->Attribute("seq");
+            tPTline.setLinkSeq(linkSeq);
         }
-
+        
+        e = e->NextSiblingElement();
+        eName = e->Value();
+        if (eName == "node")
+        {
+            std::string nodeSeq = e->Attribute("seq");
+            tPTline.setNodeSeq(nodeSeq);
+        }
+        
+        e = e->NextSiblingElement();
+        eName = e->Value();
+        if (eName == "station")
+        {
+            std::string stationSeq = e->Attribute("seq");
+            tPTline.setStationSeq(stationSeq);
+        }
+            
         ptlineArr.push_back(tPTline);
     }
 }
