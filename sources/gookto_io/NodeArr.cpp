@@ -502,6 +502,79 @@ NodeArr::NodeArr()
                     
                     single_node.freeConnectedLinks();
                 }
+
+                else if (!strcmp (nodeType, "garage"))
+                {
+                    // create single IntersectionNode instance here
+                    IntersectionNode single_node(
+                        4, atol(nodeId), -1,
+                        atoi(num_port),
+                        strcmp(v2x, "on") == 0 ? true : false);
+
+                    for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
+                         e3 = e3->NextSiblingElement())
+                    {
+                        std::string val1 = e3->Value();
+                        // port should be the same for normal
+                        if (val1 == "port")
+                        {
+                            // create port instance + pushLink to
+                            // IntersectionNode
+                            int temp = -1;
+
+                            const char *link_id = e3->Attribute("link_id");
+                            const char *direction = e3->Attribute("direction");
+                            const char *portType = e3->Attribute("type");
+
+                            if (!link_id)   throw std::runtime_error ("Element should have 'link_id' attribute");
+                            if (!direction)   throw std::runtime_error ("Element should have 'direction' attribute");
+                            if (!portType)   throw std::runtime_error ("Element should have 'type' attribute");
+
+                            if (!strcmp (portType, "in"))
+                            {
+                                temp = 1;
+                            }
+                            port single_link(
+                                atol(link_id),
+                                atoi(direction),
+                                temp);
+                            single_node.pushLink(single_link);
+                        }
+                        else if (val1 == "connection")
+                        {
+                            const char *connectionId = e3->Attribute("id");
+                            const char *from_link = e3->Attribute("from_link");
+                            const char *from_lane = e3->Attribute("from_lane");
+                            const char *to_link = e3->Attribute("to_link");
+                            const char *to_lane = e3->Attribute("to_lane");
+                            const char *length = e3->Attribute("length");
+                            const char *priority = e3->Attribute("priority");
+
+                            if (!connectionId)   throw std::runtime_error ("Element should have 'id' attribute");
+                            if (!from_link)   throw std::runtime_error ("Element should have 'from_link' attribute");
+                            if (!from_lane)   throw std::runtime_error ("Element should have 'from_lane' attribute");
+                            if (!to_link)   throw std::runtime_error ("Element should have 'to_link' attribute");
+                            if (!to_lane)   throw std::runtime_error ("Element should have 'to_lane' attribute");
+                            if (!length)   throw std::runtime_error ("Element should have 'length' attribute");
+                            if (!priority)   priority = "1";
+
+                            connection single_connection(
+                                atol(connectionId),
+                                atol(from_link),
+                                atol(from_lane),
+                                atol(to_link),
+                                atol(to_lane),
+                                atof(priority),
+                                atof(length));
+                            single_node.pushConnection(single_connection);
+                        }
+                    }
+                    Nodes.push_back(single_node);
+                    GarageNodes.push_back(single_node);
+
+                    single_node.freeConnectedLinks();
+                    single_node.freeConnectedTable();
+                }
             }
         }
     }

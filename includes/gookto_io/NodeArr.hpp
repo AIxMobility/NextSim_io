@@ -17,6 +17,7 @@ private:
     std::vector<IntersectionNode> IntersectionNodes;
     std::vector<IntersectionNode> DivergingNodes;
     std::vector<IntersectionNode> TerminalNodes;
+    std::vector<IntersectionNode> GarageNodes;
 
 public:
     NodeArr();
@@ -27,6 +28,7 @@ public:
     std::vector<IntersectionNode> getIntersectionNodes() { return IntersectionNodes; }
     std::vector<IntersectionNode> getDivergingNodes() { return DivergingNodes; }
     std::vector<IntersectionNode> getTerminalNodes() { return TerminalNodes; }
+    std::vector<IntersectionNode> getGarageNodes() { return GarageNodes; }
 
     //check
     void showArr();

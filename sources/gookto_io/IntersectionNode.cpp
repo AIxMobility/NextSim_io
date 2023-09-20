@@ -14,9 +14,6 @@ type(type), id(id), numConnections(num_connection), numLinks(num_port), v2xActiv
 
 };
 
-
-
-
 //setting the Variables
 void IntersectionNode::pushConnection(connection conn)
 {
@@ -42,9 +39,6 @@ void IntersectionNode::pushPhaseOrder(int order)
 {
     phaseOrder.push_back(order);
 }
-
-
-
 
 void IntersectionNode::setPhaseOffset( int offset )
 {

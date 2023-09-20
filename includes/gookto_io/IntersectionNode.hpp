@@ -18,6 +18,7 @@ private:
         Normal = 1
         Diverging = 2
         Terminal = 3
+        Garage = 4
      */
     int type; 
     int id;
