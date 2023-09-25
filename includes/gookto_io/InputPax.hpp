@@ -7,15 +7,15 @@ class ODPax
 private:
     int origin;
     int dest;
-    double flow; // pax/hr
+    int flow; // pax/hr
     std::string dist;
     
 public:
-    ODPax(int origin, int dest, double flow, std::string dist);
+    ODPax(int origin, int dest, int flow, std::string dist);
 
     int getOrigin() { return origin; }
     int getDest() { return dest; }
-    double getFlow() { return flow; }
+    int getFlow() { return flow; }
     std::string getDist() { return dist; }
 };
 

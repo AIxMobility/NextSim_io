@@ -1,7 +1,7 @@
 #include <gookto_io/InputPax.hpp>
 
 
-ODPax::ODPax(int origin, int dest, double flow, std::string dist) :
+ODPax::ODPax(int origin, int dest, int flow, std::string dist) :
     origin(origin), dest(dest), flow(flow), dist(dist)
 {
 };

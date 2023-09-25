@@ -38,7 +38,7 @@ PaxArr::PaxArr()
                 {
                     ODPax demoPax(atol(e->Attribute("origin")),
                                   atol(e->Attribute("dest")),
-                                  atof(e->Attribute("flow")),
+                                  atol(e->Attribute("flow")),
                                   e->Attribute("dist"));
 
                     ODPaxVec.push_back(demoPax);
