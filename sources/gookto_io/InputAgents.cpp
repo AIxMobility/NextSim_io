@@ -7,53 +7,36 @@
 
 #include <string>
 #include <iostream>
+#include <sstream>
 
 #include <gookto_io/InputAgents.hpp>
 
 InputAgents::InputAgents(int id, int type, double dpt_time) 
                          : id(id), typeId(type), dpt_time(dpt_time){};
 
-void InputAgents::addLink(int val)
+void InputAgents::setLinkSeq(std::string linkSeq)
 {
-    link_seq.push_back(val);
-};
+    std::stringstream ss(linkSeq);
+    int linkid;
 
-void InputAgents::addNode(int val)
-{
-    node_seq.push_back(val);
-};
+    while (ss >> linkid)
+        link_seq.push_back(linkid);
+}
 
-void InputAgents::addPaxList(int val)
+void InputAgents::setNodeSeq(std::string nodeSeq)
 {
-    pax_list.push_back(val);
-};
+    std::stringstream ss(nodeSeq);
+    int nodeid;
 
-void InputAgents::addPaxOrigin(int val)
-{
-    pax_origin.push_back(val);
-};
+    while (ss >> nodeid)
+        node_seq.push_back(nodeid);
+}
 
-void InputAgents::addPaxDest(int val)
+void InputAgents::setStationSeq(std::string stationSeq)
 {
-    pax_dest.push_back(val);
-};
+    std::stringstream ss(stationSeq);
+    int stationid;
 
-void InputAgents::addStation(int val)
-{
-    station_seq.push_back(val);
-};
-
-void InputAgents::addStationDwellTime(double val)
-{
-    station_dwell_time.push_back(val);
-};
-
-void InputAgents::addStationIn(int val)
-{
-    station_in.push_back(val);
-};
-
-void InputAgents::addStationOut(int val)
-{
-    station_out.push_back(val);
-};
+    while (ss >> stationid)
+        station_seq.push_back(stationid);
+}

@@ -26,15 +26,15 @@ public:
 class PVdemand
 {
 private:
-    int route;
+    int line;
     int sink;
     int source;
 
 public:
-    PVdemand(int route, int sink, int source);
+    PVdemand(int line, int sink, int source);
 
     //access functions
-    int getRoute() { return route; }
+    int getLine() { return line; }
     int getSink() { return sink; }
     int getSource() { return source; }
 };

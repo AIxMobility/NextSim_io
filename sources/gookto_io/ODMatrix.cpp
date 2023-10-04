@@ -93,13 +93,13 @@ ODMatrix::ODMatrix()
 
                         if (demandName == "demand")
                         {
-                            const char *route = demand->Attribute("route");
+                            const char *line = demand->Attribute("line");
                             const char *sink = demand->Attribute("sink");
                             const char *source = demand->Attribute("source");
 
-                            if (!route)
+                            if (!line)
                                 throw std::runtime_error(
-                                    "Element should have 'route' attribute");
+                                    "Element should have 'line' attribute");
                             if (!sink)
                                 throw std::runtime_error(
                                     "Element should have 'sink' attribute");
@@ -108,7 +108,7 @@ ODMatrix::ODMatrix()
                                     "Element should have 'source' attribute");
 
                             PVdemand single_demand(
-                                atoi(route), 
+                                atoi(line), 
                                 atoi(sink),
                                 atoi(source));
 

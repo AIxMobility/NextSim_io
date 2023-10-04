@@ -9,5 +9,5 @@
 NVdemand::NVdemand(int flow, int sink, int source, int dist) : 
     flow(flow), sink(sink), source(source), dist(dist) {};
 
-PVdemand::PVdemand(int route, int sink, int source) :
-    route(route), sink(sink), source(source) {};
+PVdemand::PVdemand(int line, int sink, int source) :
+    line(line), sink(sink), source(source) {};
