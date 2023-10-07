@@ -10,17 +10,15 @@ class DemandInfo
 {
 private:
     int id;
-    std::vector<NVdemand> nvdemands;
-    std::vector<PVdemand> pvdemands;
+    std::vector<Demand> demands;
+
 
 public:
     DemandInfo(int id,
-               std::vector<NVdemand> nvdemands, 
-               std::vector<PVdemand> pvdemands);
+               std::vector<Demand> demands);
 
     int getId() { return id; }
-    std::vector<NVdemand> getNVdemands() { return nvdemands; }
-    std::vector<PVdemand> getPVdemands() { return pvdemands; }
+    std::vector<Demand> getDemands() { return demands; }
 };
 
 #endif

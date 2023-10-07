@@ -74,17 +74,18 @@ ODMatrix::ODMatrix()
                             else if (!strcmp(dist, "Exponential")) dist = "1";
                             else dist = "2"; 
 
-                            NVdemand single_demand(
+                            Demand single_demand(
+                                0,
                                 atoi(flow), 
                                 atoi(sink),
                                 atoi(source), 
                                 atoi(dist));
 
-                            nvdemands.push_back(single_demand);
+                            demands.push_back(single_demand);
                         }
                     }
                 }
-                else if (childName == "pv_od_matrix")
+                else if (childName == "av_od_matrix")
                 {
                     for (TiXmlElement *demand = child->FirstChildElement();
                          demand != NULL; demand = demand->NextSiblingElement())
@@ -93,26 +94,76 @@ ODMatrix::ODMatrix()
 
                         if (demandName == "demand")
                         {
-                            const char *line = demand->Attribute("line");
+                            const char *flow = demand->Attribute("flow");
                             const char *sink = demand->Attribute("sink");
                             const char *source = demand->Attribute("source");
+                            const char *dist = demand->Attribute("dist");
 
-                            if (!line)
+                            if (!flow)
                                 throw std::runtime_error(
-                                    "Element should have 'line' attribute");
+                                    "Element should have 'flow' attribute");
                             if (!sink)
                                 throw std::runtime_error(
                                     "Element should have 'sink' attribute");
                             if (!source)
                                 throw std::runtime_error(
                                     "Element should have 'source' attribute");
+                            if (!dist)
+                                dist = "Exponential";
 
-                            PVdemand single_demand(
-                                atoi(line), 
+                            if (!strcmp(dist, "Normal")) dist = "0";
+                            else if (!strcmp(dist, "Exponential")) dist = "1";
+                            else dist = "2"; 
+
+                            Demand single_demand(
+                                1,
+                                atoi(flow), 
                                 atoi(sink),
-                                atoi(source));
+                                atoi(source), 
+                                atoi(dist));
 
-                            pvdemands.push_back(single_demand);
+                            demands.push_back(single_demand);
+                        }
+                    }
+                }
+                else if (childName == "tr_od_matrix")
+                {
+                    for (TiXmlElement *demand = child->FirstChildElement();
+                         demand != NULL; demand = demand->NextSiblingElement())
+                    {
+                        std::string demandName = demand->Value();
+
+                        if (demandName == "demand")
+                        {
+                            const char *flow = demand->Attribute("flow");
+                            const char *sink = demand->Attribute("sink");
+                            const char *source = demand->Attribute("source");
+                            const char *dist = demand->Attribute("dist");
+
+                            if (!flow)
+                                throw std::runtime_error(
+                                    "Element should have 'flow' attribute");
+                            if (!sink)
+                                throw std::runtime_error(
+                                    "Element should have 'sink' attribute");
+                            if (!source)
+                                throw std::runtime_error(
+                                    "Element should have 'source' attribute");
+                            if (!dist)
+                                dist = "Exponential";
+
+                            if (!strcmp(dist, "Normal")) dist = "0";
+                            else if (!strcmp(dist, "Exponential")) dist = "1";
+                            else dist = "2"; 
+
+                            Demand single_demand(
+                                2,
+                                atoi(flow), 
+                                atoi(sink),
+                                atoi(source), 
+                                atoi(dist));
+
+                            demands.push_back(single_demand);
                         }
                     }
                 }
@@ -120,8 +171,7 @@ ODMatrix::ODMatrix()
 
             DemandInfo demandInfo(
                 atoi(id), 
-                nvdemands,
-                pvdemands);
+                demands);
 
             ODmatrix.push_back(demandInfo);
         }

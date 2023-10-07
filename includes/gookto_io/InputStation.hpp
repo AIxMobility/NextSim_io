@@ -20,7 +20,7 @@ public:
     // string to vector
     void setLineList(std::string line_list_str);
 
-    int getId()
+    int getId() const
     {
         return id;
     }
