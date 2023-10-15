@@ -36,8 +36,7 @@ ODMatrix::ODMatrix()
             if (!id)
                 throw std::runtime_error("Element should have 'id' attribute");
 
-            std::vector<NVdemand> nvdemands;
-            std::vector<PVdemand> pvdemands;
+            std::vector<Demand> demands;
 
             for (TiXmlElement *child = elem->FirstChildElement(); child != NULL;
                  child = child->NextSiblingElement())
