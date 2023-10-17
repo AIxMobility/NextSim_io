@@ -39,7 +39,9 @@ StationArr::StationArr()
                     InputStation demo(atol(e->Attribute("id")),
                                       atol(e->Attribute("link_ref")),
                                       atol(e->Attribute("lane_ref")),
-                                      atof(e->Attribute("pos")));
+                                      atof(e->Attribute("pos")),
+                                      atol(e->Attribute("parkingLots")));
+                                      
                     auto ee = e->FirstChildElement();
                     auto line_list = ee->Attribute("list");
                     demo.setLineList(line_list);

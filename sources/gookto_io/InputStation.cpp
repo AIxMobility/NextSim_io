@@ -4,8 +4,8 @@
 
 #include <gookto_io/InputStation.hpp>
 
-InputStation::InputStation(int id, int link_ref, int lane_ref, double pos) : 
-    id(id), link_ref(link_ref), lane_ref(lane_ref), pos(pos){};
+InputStation::InputStation(int id, int link_ref, int lane_ref, double pos, int parkingLots) : 
+    id(id), link_ref(link_ref), lane_ref(lane_ref), pos(pos), parkingLots(parkingLots){};
 
 void InputStation::setLineList(std::string line_list_str)
 {

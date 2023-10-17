@@ -19,7 +19,7 @@ class MetaData
 public:
    std::size_t ID = 0;
    double FreeFlowSpeed = 0, MaxSpeed = 0, MinSpeed = 0, WaveSpeed = 0;
-   double Length = 0, Width = 0;  // m
+   double Length = 0, Width = 0, StopLine = 0;  // m
    double Qmax = 0;
    std::size_t MaxVehicle = 0;
 
@@ -41,6 +41,14 @@ public:
         ID = id_val;
         Length = length_val;
         Width = width_val;
+    }
+
+    MetaData(std::size_t id_val, double length_val, double width_val, double stopline_val)
+    {
+        ID = id_val;
+        Length = length_val;
+        Width = width_val;
+        StopLine = stopline_val;
     }
 
     MetaData(std::size_t id, double length, double freeFlowSpeed,

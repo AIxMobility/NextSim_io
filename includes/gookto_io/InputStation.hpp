@@ -11,11 +11,12 @@ private:
     int link_ref;
     int lane_ref;
     double pos;
+    int parkingLots;
     std::vector<int> line_list;
 
 public:
     //Constructors
-    InputStation(int id, int link_ref, int lane_ref, double pos);
+    InputStation(int id, int link_ref, int lane_ref, double pos, int parkingLots);
 
     // string to vector
     void setLineList(std::string line_list_str);
@@ -35,6 +36,10 @@ public:
     double getPos()
     {
         return pos;
+    }
+    int getParkingLotSize()
+    {
+        return parkingLots;
     }
     std::vector<int> getLineList()
     {
