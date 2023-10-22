@@ -27,6 +27,8 @@ static std::filesystem::path PTlineXMLPath = NetworkXmlFilePath / "ptline.xml";
 
 static std::filesystem::path RouteJSONPath = NetworkXmlFilePath / "Route.json";
 
+static std::filesystem::path PaxRouteJSONPath = NetworkXmlFilePath / "PaxRoute.json";
+
 static std::filesystem::path AgentXMLPath = NetworkXmlFilePath / "agents.xml";
 
 static std::filesystem::path AgentOptXMLPath = NetworkXmlFilePath / "agents_opt.xml";
