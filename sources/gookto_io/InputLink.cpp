@@ -4,8 +4,8 @@
 #include <string>
 #include <cmath>
 
-InputLink::InputLink(std::size_t id, int lane, double length, double width)
-    : MetaData(id, length, width), m_numLane(lane)
+InputLink::InputLink(std::size_t id, int lane, double length, double width, double stopline)
+    : MetaData(id, length, width, stopline), m_numLane(lane)
 {
 }
 

@@ -23,35 +23,17 @@
 class InputLink : public MetaData
 {
 private:
-    //Data Members -- Micro-sim variables are commented out
-
-    //  <link ffspeed="40.0" 
-    // from_node="1000010130" 
-    // ID="2000010224" 
-    // length="207.56" 
-    // maxVeh="0" 
-    // max_spd="40.0" 
-    // min_spd="0.0" 
-    // num_lane="3" 
-    // qmax="0.0" 
-    // sim_type="0" 
-    // to_node="1000010109" 
-    // type="straight" 
-    // waveSpd="0.0" 
-    // width="0.0">
     std::size_t m_toNode = 0, m_fromNode = 0;
     int m_numLane;
     std::string _type, _sim_type;
-
 
     std::vector<InputLane> LaneArr;
     std::vector<std::size_t> LaneIds;
     std::vector<int> m_laneNumCellVector;
 
-
 public:
     //Constructors
-    InputLink(std::size_t id, int lane, double length, double width);
+    InputLink(std::size_t id, int lane, double length, double width, double stopline);
     ~InputLink() = default;
     InputLink(const InputLink& link) = default;
     InputLink& operator=(const InputLink& link) = default;
