@@ -8,14 +8,14 @@
 #include <gookto_io/tinyapi/tinyxml.h>
 #include <gookto_io/FilePath.hpp>
 
-Scenario::Scenario()
+Scenario::Scenario(const std::string& userName)
 {
     TiXmlDocument doc;
 
-    doc.LoadFile(STSIO::ScenarioXMLPath.string().c_str());
+    doc.LoadFile(STSIO::ScenarioXML(userName).c_str());
     // std::cout << "Loading ODScenario" << std::endl;
 
-    if (!doc.LoadFile(STSIO::ScenarioXMLPath.string().c_str()))
+    if (!doc.LoadFile(STSIO::ScenarioXML(userName).c_str()))
     {
         std::cout << "Loading failed (ODScenario)" << std::endl;
         std::cerr << doc.ErrorDesc() << std::endl;

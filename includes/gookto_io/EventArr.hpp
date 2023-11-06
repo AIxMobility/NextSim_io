@@ -17,7 +17,7 @@ private:
     std::vector<InputEvent> Events;
 
 public:
-    EventArr();
+    EventArr(const std::string& userName);
     /**
      * Creates a vector of InputEvent
      */

@@ -11,13 +11,13 @@ private:
     std::vector<InputAgents> Agents_opt;
 
 public:
-    AgentsArr();
+    AgentsArr(const std::string& userName);
     /**
      * Creates a vector of InputAgents
      */
 
     //check
-    void parseAgent(std::string type);
+    void parseAgent(std::string type, const std::string& userName);
     void showArr();
 
     //access function

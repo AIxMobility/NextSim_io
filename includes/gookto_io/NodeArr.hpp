@@ -20,7 +20,7 @@ private:
     std::vector<IntersectionNode> GarageNodes;
 
 public:
-    NodeArr();
+    NodeArr(const std::string& userName);
 
     //access functions
     std::vector<IntersectionNode> getNodes() { return Nodes; }

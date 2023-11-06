@@ -10,14 +10,14 @@
 #include <gookto_io/tinyapi/tinyxml.h>
 #include <gookto_io/FilePath.hpp>
 
-ODMatrix::ODMatrix()
+ODMatrix::ODMatrix(const std::string& userName)
 {
     TiXmlDocument doc;
 
-    doc.LoadFile(STSIO::OdMatrixXMLPath.string().c_str());
+    doc.LoadFile(STSIO::OdMatrixXML(userName).c_str());
     // std::cout << "Loading ODMatrix" << std::endl;
 
-    if (!doc.LoadFile(STSIO::OdMatrixXMLPath.string().c_str()))
+    if (!doc.LoadFile(STSIO::OdMatrixXML(userName).c_str()))
     {
         std::cout << "Loading failed (ODMatrix)" << std::endl;
         std::cerr << doc.ErrorDesc() << std::endl;

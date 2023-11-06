@@ -10,18 +10,18 @@
 #include <gookto_io/tinyapi/tinyxml.h>
 #include <gookto_io/FilePath.hpp>
 
-ModeArr::ModeArr()
+ModeArr::ModeArr(const std::string& userName)
 {
-    parseArr();
+    parseArr(userName);
 }
 
-void ModeArr::parseArr(){
+void ModeArr::parseArr(const std::string& userName){
     TiXmlDocument doc;
 
-    doc.LoadFile(STSIO::ModeXMLPath.string().c_str());
+    doc.LoadFile(STSIO::ModeXML(userName).c_str());
     // std::cout << "Loading ModeArr" << std::endl;
     
-    if (!doc.LoadFile(STSIO::ModeXMLPath.string().c_str()))
+    if (!doc.LoadFile(STSIO::ModeXML(userName).c_str()))
     {
         std::cout << "Loading failed (ModeArr)" << std::endl;
         std::cerr << doc.ErrorDesc() << std::endl;

@@ -10,17 +10,17 @@
 #include <gookto_io/tinyapi/tinyxml.h>
 #include <gookto_io/FilePath.hpp>
 
-PTlineArr::PTlineArr()
+PTlineArr::PTlineArr(const std::string& userName)
 {
-    parseArr();
+    parseArr(userName);
 }
 
-void PTlineArr::parseArr(){
+void PTlineArr::parseArr(const std::string& userName){
     TiXmlDocument doc;
 
-    doc.LoadFile(STSIO::PTlineXMLPath.string().c_str());
+    doc.LoadFile(STSIO::PTlineXML(userName).c_str());
     
-    if (!doc.LoadFile(STSIO::PTlineXMLPath.string().c_str()))
+    if (!doc.LoadFile(STSIO::PTlineXML(userName).c_str()))
     {
         std::cout << "Loading failed (PTlineArr)" << std::endl;
         std::cerr << doc.ErrorDesc() << std::endl;

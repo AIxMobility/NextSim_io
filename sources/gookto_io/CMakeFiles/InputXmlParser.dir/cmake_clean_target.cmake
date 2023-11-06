@@ -1,3 +1,3 @@
 file(REMOVE_RECURSE
-  "libInputXmlParser.a"
+  "../../../../lib/libInputXmlParser.a"
 )

@@ -13,14 +13,14 @@
 #include <gookto_io/tinyapi/tinyxml.h>
 #include <gookto_io/FilePath.hpp>
 
-NodeArr::NodeArr()
+NodeArr::NodeArr(const std::string& userName)
 {
     TiXmlDocument doc;
 
-    doc.LoadFile(STSIO::NetworkXMLPath.string().c_str());
+    doc.LoadFile(STSIO::NetworkXML(userName).c_str());
     // std::cout << "Loading NodeArr" << std::endl;
 
-    if (!doc.LoadFile(STSIO::NetworkXMLPath.string().c_str()))
+    if (!doc.LoadFile(STSIO::NetworkXML(userName).c_str()))
     {
         std::cout << "Loading failed (NodeArr)" << std::endl;
         std::cerr << doc.ErrorDesc() << std::endl;

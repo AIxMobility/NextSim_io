@@ -27,24 +27,24 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 
-    // Links Header Test
-    LinkArr holy_links;
+    // // Links Header Test
+    // LinkArr holy_links;
 
-    NodeArr holy_nodes;
-    cout << "read till agents" << endl;
-
-
-    holy_nodes.getNodes()[0].getType();
+    // NodeArr holy_nodes;
+    // cout << "read till agents" << endl;
 
 
-    //Example: accessing the nodes attributes --> got to check the type first
-    // cout << holy_nodes.getNodes()[0].getConnections()[0].getFromLink() << endl;
+    // holy_nodes.getNodes()[0].getType();
 
-    cout << "Number of Nodes :" << endl;
 
-    cout << holy_nodes.getNodes().size() << endl;
+    // //Example: accessing the nodes attributes --> got to check the type first
+    // // cout << holy_nodes.getNodes()[0].getConnections()[0].getFromLink() << endl;
 
-    cout << holy_nodes.getNodes()[2].getType() << endl;
+    // cout << "Number of Nodes :" << endl;
+
+    // cout << holy_nodes.getNodes().size() << endl;
+
+    // cout << holy_nodes.getNodes()[2].getType() << endl;
 
     // cout << holy_links.getLinks()[0].GetLaneIds()[0] << endl;
 

@@ -11,7 +11,7 @@ private:
     std::vector<InputDRTStation> DRTStations;
 
 public:
-    StationArr();
+    StationArr(const std::string& userName);
 
     //access functions
     std::vector<InputStation> getStations() { return Stations; }

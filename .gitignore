@@ -1,3 +1,7 @@
+# No cmakefiles
+build/CMakeFiles/
+sources/gookto_io/CMakeFiles/
+*.cmake
 
 # Windows thumbnail cache files
 Thumbs.db

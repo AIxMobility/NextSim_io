@@ -10,7 +10,7 @@ private:
     std::vector<InputLink> Links;
 
 public:
-    LinkArr();
+    LinkArr(const std::string& userName);
     ~LinkArr() = default;
     LinkArr(const LinkArr &link) = default;
     LinkArr &operator=(const LinkArr &link) = default;

@@ -9,9 +9,9 @@
 
 #include <gookto_io/FilePath.hpp>
 
-PaxArr::PaxArr()
+PaxArr::PaxArr(const std::string& userName)
 {
-    TiXmlDocument doc(STSIO::PassengerXMLPath.string().c_str());
+    TiXmlDocument doc(STSIO::PassengerXML(userName).c_str());
     bool loadOkay = doc.LoadFile();
 
     if (!loadOkay)

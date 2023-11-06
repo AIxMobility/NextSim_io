@@ -11,7 +11,7 @@ private:
     std::vector<DemandInfo> ODmatrix;
 
 public:
-    ODMatrix();
+    ODMatrix(const std::string& userName);
     
     //access function
     std::vector<DemandInfo> getODmatrix() { return ODmatrix; }

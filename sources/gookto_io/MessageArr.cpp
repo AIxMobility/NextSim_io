@@ -17,14 +17,14 @@
 #include <gookto_io/tinyapi/tinyxml.h>
 #include <gookto_io/FilePath.hpp>
 
-MessageArr::MessageArr()
+MessageArr::MessageArr(const std::string& userName)
 {
     TiXmlDocument doc;
 
-    doc.LoadFile(STSIO::V2XXMLPath.string().c_str());
+    doc.LoadFile(STSIO::V2XXML(userName).c_str());
     // std::cout << "Loading Message" << std::endl;
 
-    if (!doc.LoadFile(STSIO::V2XXMLPath.string().c_str()))
+    if (!doc.LoadFile(STSIO::V2XXML(userName).c_str()))
     {
         std::cout << "Loading failed (MessageArr)" << std::endl;
         std::cerr << doc.ErrorDesc() << std::endl;

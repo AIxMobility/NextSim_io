@@ -9,9 +9,9 @@
 #include <gookto_io/InputStation.hpp>
 #include <gookto_io/FilePath.hpp>
 
-StationArr::StationArr()
+StationArr::StationArr(const std::string& userName)
 {
-    TiXmlDocument doc(STSIO::StationXMLPath.string().c_str());
+    TiXmlDocument doc(STSIO::StationXML(userName).c_str());
     bool loadOkay = doc.LoadFile();
 
     if (!loadOkay)

@@ -18,7 +18,7 @@ private:
     std::vector<InputMessage> VehMessage;
 
 public:
-    MessageArr();
+    MessageArr(const std::string& userName);
     /**
      * Creates a vector of InputMessage
      */

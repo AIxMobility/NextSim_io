@@ -10,32 +10,32 @@
 #include <gookto_io/tinyapi/tinyxml.h>
 #include <gookto_io/FilePath.hpp>
 
-AgentsArr::AgentsArr()
+AgentsArr::AgentsArr(const std::string& userName)
 {
-    parseAgent("Agents");
-    parseAgent("Agents_opt");
+    parseAgent("Agents", userName);
+    parseAgent("Agents_opt", userName);
 };
 
-void AgentsArr::parseAgent(std::string AgentType){
+void AgentsArr::parseAgent(std::string AgentType, const std::string& userName){
     TiXmlDocument doc;
 
     if(AgentType == "Agents"){
-        doc.LoadFile(STSIO::AgentXMLPath.string().c_str());
+        doc.LoadFile(STSIO::AgentXML(userName).c_str());
         // std::cout << "Loading AgentsArr" << std::endl;
 
-        if (!doc.LoadFile(STSIO::AgentXMLPath.string().c_str()))
+        if (!doc.LoadFile(STSIO::AgentXML(userName).c_str()))
         {
             std::cout << "Loading failed (AgentsArr)" << std::endl;
             std::cerr << doc.ErrorDesc() << std::endl;
         }
     }
     else if(AgentType == "Agents_opt"){
-        if (!std::filesystem::exists(STSIO::AgentOptXMLPath.string().c_str()))   return;
+        if (!std::filesystem::exists(STSIO::AgentOptXML(userName).c_str()))   return;
 
-        doc.LoadFile(STSIO::AgentOptXMLPath.string().c_str());
+        doc.LoadFile(STSIO::AgentOptXML(userName).c_str());
         // std::cout << "Loading Optional AgentsArr" << std::endl;
 
-        if (!doc.LoadFile(STSIO::AgentOptXMLPath.string().c_str()))
+        if (!doc.LoadFile(STSIO::AgentOptXML(userName).c_str()))
         {
             std::cout << "Loading failed (AgentsOptArr)" << std::endl;
             std::cerr << doc.ErrorDesc() << std::endl;

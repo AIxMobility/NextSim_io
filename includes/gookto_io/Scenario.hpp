@@ -9,7 +9,7 @@ private:
     std::vector<std::pair<int, int>> ODscenario;
 
 public:
-    Scenario();
+    Scenario(const std::string& userName);
     
     //access function
     std::vector<std::pair<int, int>> getScenario() { return ODscenario; }

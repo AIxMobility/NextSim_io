@@ -11,7 +11,7 @@ private:
     std::vector<AgentPax> AgentPaxVec;
 
 public:
-    PaxArr();
+    PaxArr(const std::string& userName);
 
     //access functions
     std::vector<ODPax> getODPax() { return ODPaxVec; }

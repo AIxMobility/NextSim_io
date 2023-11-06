@@ -16,10 +16,10 @@ bool a_to_bool(const char* val);
 // not valid
 
 // LinkArr Constructor
-LinkArr::LinkArr()
+LinkArr::LinkArr(const std::string& userName)
 {
     TiXmlDocument doc("");
-    bool loadOkay = doc.LoadFile(STSIO::NetworkXMLPath.string().c_str());
+    bool loadOkay = doc.LoadFile(STSIO::NetworkXML(userName).c_str());
     // std::cout << "Loading LinkArr" << std::endl;
 
     if (!loadOkay)

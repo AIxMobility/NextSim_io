@@ -5,37 +5,123 @@
 
 namespace STSIO
 {
-static std::string network_name = "intersection2";
+static std::string network_name = "intersection";
 static std::filesystem::path currentPath = std::filesystem::current_path();
-static std::filesystem::path NetworkXmlFilePath =
-    std::filesystem::current_path() / ("network_xml_" + network_name);
+
+// static std::filesystem::path NetworkXmlFilePath =
+//     std::filesystem::current_path() / ("network_xml_" + network_name);
 static std::filesystem::path ParameterXmlFilePath =
     std::filesystem::current_path() / "parameter_xml";
 
+
 // Network xml file path
-static std::filesystem::path NetworkXMLPath = NetworkXmlFilePath / "network.xml";
+inline std::string NetworkXML(const std::string& userName) {
+    // Define the function implementation here
+    // You can use userName and otherArg to calculate the user directory
+    std::filesystem::path NetworkXMLPath = std::filesystem::current_path() / userName / ("network_xml_" + network_name) / "network.xml";
+    return NetworkXMLPath;
+}
 
-static std::filesystem::path OdMatrixXMLPath = NetworkXmlFilePath / "odmatrix.xml";
+// OD Matrix xml file path
+inline std::string OdMatrixXML(const std::string& userName) {
+    // Define the function implementation here
+    // You can use userName and otherArg to calculate the user directory
+    std::filesystem::path OdMatrixXMLPath = std::filesystem::current_path() / userName / ("network_xml_" + network_name) / "odmatrix.xml";
+    return OdMatrixXMLPath;
+}
 
-static std::filesystem::path ScenarioXMLPath = NetworkXmlFilePath / "odscenario.xml";
+// Scenario xml file path
+inline std::string ScenarioXML(const std::string& userName) {
+    // Define the function implementation here
+    // You can use userName and otherArg to calculate the user directory
+    std::filesystem::path ScenarioXMLPath = std::filesystem::current_path() / userName / ("network_xml_" + network_name) / "odscenario.xml";
+    return ScenarioXMLPath;
+}
 
-static std::filesystem::path ModeXMLPath = NetworkXmlFilePath / "mode.xml";
+// Station xml file path
+inline std::string StationXML(const std::string& userName) {
+    // Define the function implementation here
+    // You can use userName and otherArg to calculate the user directory
+    std::filesystem::path StationXMLPath = std::filesystem::current_path() / userName / ("network_xml_" + network_name) / "publicTransit.xml";
+    return StationXMLPath;
+}
 
-static std::filesystem::path StationXMLPath = NetworkXmlFilePath / "publicTransit.xml";
+// Mode xml file path
+inline std::string ModeXML(const std::string& userName) {
+    // Define the function implementation here
+    // You can use userName and otherArg to calculate the user directory
+    std::filesystem::path ModeXMLPath = std::filesystem::current_path() / userName / ("network_xml_" + network_name) / "mode.xml";
+    return ModeXMLPath;
+}
 
-static std::filesystem::path PTlineXMLPath = NetworkXmlFilePath / "ptline.xml";
+// Event xml file path
+inline std::string EventXML(const std::string& userName) {
+    // Define the function implementation here
+    // You can use userName and otherArg to calculate the user directory
+    std::filesystem::path EventXMLPath = std::filesystem::current_path() / userName / ("network_xml_" + network_name) / "eventdata.xml";
+    return EventXMLPath;
+}
 
-static std::filesystem::path RouteJSONPath = NetworkXmlFilePath / "Route.json";
+// PT line xml file path
+inline std::string PTlineXML(const std::string& userName) {
+    // Define the function implementation here
+    // You can use userName and otherArg to calculate the user directory
+    std::filesystem::path PTlineXMLPath = std::filesystem::current_path() / userName / ("network_xml_" + network_name) / "ptline.xml";
+    return PTlineXMLPath;
+}
 
-static std::filesystem::path AgentXMLPath = NetworkXmlFilePath / "agents.xml";
+// Route JSON path
+inline std::string RouteJSON(const std::string& userName) {
+    // Define the function implementation here
+    // You can use userName and otherArg to calculate the user directory
+    std::filesystem::path RouteJSONPath = std::filesystem::current_path() / userName / ("network_xml_" + network_name) / "Route.json";
+    return RouteJSONPath;
+}
 
-static std::filesystem::path AgentOptXMLPath = NetworkXmlFilePath / "agents_opt.xml";
+inline std::string PaxRouteJSON(const std::string& userName) {
+    // Define the function implementation here
+    // You can use userName and otherArg to calculate the user directory
+    std::filesystem::path PaxRouteJSONPath = std::filesystem::current_path() / userName / ("network_xml_" + network_name) / "PaxRoute.json";
+    return PaxRouteJSONPath;
+}
 
-static std::filesystem::path EventXMLPath = NetworkXmlFilePath / "eventdata.xml";
 
-static std::filesystem::path V2XXMLPath = NetworkXmlFilePath / "v2xdata.xml";
+// Agent xml file path
+inline std::string AgentXML(const std::string& userName) {
+    // Define the function implementation here
+    // You can use userName and otherArg to calculate the user directory
+    std::filesystem::path AgentXMLPath = std::filesystem::current_path() / userName / ("network_xml_" + network_name) / "agents.xml";
+    return AgentXMLPath;
+}
 
-static std::filesystem::path PassengerXMLPath = NetworkXmlFilePath / "passenger.xml";
+// Agent opt type xml file path
+inline std::string AgentOptXML(const std::string& userName) {
+    // Define the function implementation here
+    // You can use userName and otherArg to calculate the user directory
+    std::filesystem::path AgentOptXMLPath = std::filesystem::current_path() / userName / ("network_xml_" + network_name) / "agents_opt.xml";
+    return AgentOptXMLPath;
+}
+
+// V2X xml file path
+inline std::string V2XXML(const std::string& userName) {
+    // Define the function implementation here
+    // You can use userName and otherArg to calculate the user directory
+    std::filesystem::path V2XXMLPath = std::filesystem::current_path() / userName / ("network_xml_" + network_name) / "v2xdata.xml";
+    return V2XXMLPath;
+}
+
+// Passenger xml file path
+inline std::string PassengerXML(const std::string& userName) {
+    // Define the function implementation here
+    // You can use userName and otherArg to calculate the user directory
+    std::filesystem::path PassengerXMLPath = std::filesystem::current_path() / userName / ("network_xml_" + network_name) / "passenger.xml";
+    return PassengerXMLPath;
+}
+
+
+static std::filesystem::path RouteJSONPathPrev = std::filesystem::current_path() / ("network_xml_" + network_name) / "Route.json";
+
+static std::filesystem::path PaxRouteJSONPathPrev = std::filesystem::current_path() / ("network_xml_" + network_name) / "PaxRoute.json";
 
 // Parameter xml file path
 static std::filesystem::path AgentTypeXMLPath = ParameterXmlFilePath / "agenttypes.xml";

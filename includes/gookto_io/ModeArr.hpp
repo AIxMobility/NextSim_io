@@ -10,11 +10,11 @@ private:
     std::vector<InputMode> modeArr;
 
 public:
-    ModeArr();
+    ModeArr(const std::string& userName);
     // Creates a vector of Links
 
     // vector check
-    void parseArr();
+    void parseArr(const std::string& userName);
 
     //access function
     std::vector<InputMode> getModeArr()
