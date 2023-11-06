@@ -58,24 +58,29 @@ void AgentsArr::parseAgent(std::string AgentType){
 
                 if (elemName2 == "veh")
                 {
-                    const char *id = e->Attribute("id");
-                    const char *typeId = e->Attribute("type_id");
-                    const char *dpt_time = e->Attribute("dpt_time");
-
-                    if (!id)   throw std::runtime_error ("Element should have 'id' attribute");
-                    if (!typeId)   throw std::runtime_error ("Element should have 'type_id' attribute");
-                    if (!dpt_time)   throw std::runtime_error ("Element should have 'dpt_time' attribute");
+                    int id = std::stoi(e->Attribute("id"));
+                    int type = std::stoi(e->Attribute("type"));
+                    double dpt_time = std::stod(e->Attribute("dpt_time"));
 
                     InputAgents single_veh(
-                        atol(id),
-                        atoi(typeId),
-                        atof(dpt_time));
+                        id, type, dpt_time);
 
-                    std::string link_seq = e->Attribute("link_seq");
-                    std::string node_seq = e->Attribute("node_seq");
+                    TiXmlElement *ee = e->FirstChildElement();
 
-                    single_veh.setLinkSeq(link_seq);
-                    single_veh.setNodeSeq(node_seq);
+                    std::string eName = ee->Value();
+                    if (eName == "link")
+                    {
+                        std::string linkSeq = ee->Attribute("seq");
+                        single_veh.setLinkSeq(linkSeq);
+                    }
+                    
+                    ee = ee->NextSiblingElement();
+                    eName = ee->Value();
+                    if (eName == "node")
+                    {
+                        std::string nodeSeq = ee->Attribute("seq");
+                        single_veh.setNodeSeq(nodeSeq);
+                    }
                     
                     if(AgentType == "Agents")    Agents.push_back(single_veh);
                     else if(AgentType == "Agents_opt") Agents_opt.push_back(single_veh);
@@ -92,26 +97,37 @@ void AgentsArr::parseAgent(std::string AgentType){
 
                 if (elemName2 == "veh")
                 {
-                    const char *id = e->Attribute("id");
-                    const char *typeId = e->Attribute("type_id");
-                    const char *dpt_time = e->Attribute("dpt_time");
-
-                    if (!id)   throw std::runtime_error ("Element should have 'id' attribute");
-                    if (!typeId)   throw std::runtime_error ("Element should have 'type_id' attribute");
-                    if (!dpt_time)   throw std::runtime_error ("Element should have 'dpt_time' attribute");
+                    int id = std::stoi(e->Attribute("id"));
+                    int type = std::stoi(e->Attribute("type"));
+                    double dpt_time = std::stod(e->Attribute("dpt_time"));
 
                     InputAgents single_veh(
-                        atol(id),
-                        atoi(typeId),
-                        atof(dpt_time));
-                        
-                    std::string link_seq = e->Attribute("link_seq");
-                    std::string node_seq = e->Attribute("node_seq");
-                    std::string station_seq = e->Attribute("station_seq");
+                        id, type, dpt_time);
+                    
+                    TiXmlElement *ee = e->FirstChildElement();
 
-                    single_veh.setLinkSeq(link_seq);
-                    single_veh.setNodeSeq(node_seq);
-                    single_veh.setStationSeq(station_seq);
+                    std::string eName = ee->Value();
+                    if (eName == "link")
+                    {
+                        std::string linkSeq = ee->Attribute("seq");
+                        single_veh.setLinkSeq(linkSeq);
+                    }
+                    
+                    ee = ee->NextSiblingElement();
+                    eName = ee->Value();
+                    if (eName == "node")
+                    {
+                        std::string nodeSeq = ee->Attribute("seq");
+                        single_veh.setNodeSeq(nodeSeq);
+                    }
+                    
+                    ee = ee->NextSiblingElement();
+                    eName = ee->Value();
+                    if (eName == "station")
+                    {
+                        std::string stationSeq = ee->Attribute("seq");
+                        single_veh.setStationSeq(stationSeq);
+                    }
 
                     if(AgentType == "Agents")    Agents.push_back(single_veh);
                     else if(AgentType == "Agents_opt") Agents_opt.push_back(single_veh);
