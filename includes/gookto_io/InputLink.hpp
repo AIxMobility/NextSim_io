@@ -68,8 +68,8 @@ public:
     [[nodiscard]] const std::string& GetType() const { return _type; }
     //Free 2d Vectors
 
-    //Haechan Addition
-    int StopLine = 4;
+    // //Haechan Addition
+    // int StopLine = 4;
     //Need to make helper functions for Designating cell-by-cell values
 };
 

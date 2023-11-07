@@ -10,7 +10,6 @@ private:
     int id;
     int link_ref;
     int lane_ref;
-    int lot_size=15;
     double pos;
     int parkingLots;
     std::vector<int> line_list;
@@ -33,10 +32,6 @@ public:
     int getLaneRef()
     {
         return lane_ref;
-    }
-    int getParkingLotSize()
-    {
-        return lot_size;
     }
     double getPos()
     {
