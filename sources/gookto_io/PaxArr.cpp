@@ -55,12 +55,12 @@ PaxArr::PaxArr()
 
                 if (elemName2 == "agent")
                 {
-                    AgentPax demoPax(atol(e->Attribute("origin_link")),
+                    AgentPax demoPax(atol(e->Attribute("id")),
+                                     atol(e->Attribute("origin_link")),
                                      atof(e->Attribute("origin_pos")),
                                      atol(e->Attribute("dest_link")),
                                      atof(e->Attribute("dest_pos")),
-                                     atol(e->Attribute("num_pax")),
-                                     atof(e->Attribute("time")),
+                                     atof(e->Attribute("dpt_time")),
                                      e->Attribute("type"));
 
                     AgentPaxVec.push_back(demoPax);

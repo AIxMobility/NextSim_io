@@ -23,24 +23,24 @@ public:
 class AgentPax
 {
 private:
+    int id;
     int origin_link;
     double origin_pos;
     int dest_link;
     double dest_pos;
-    int num_pax;
-    double time;
+    double dpt_time;
     std::string type;
     
 public:
-    AgentPax(int origin_link, double origin_pos, 
+    AgentPax(int id, int origin_link, double origin_pos, 
              int dest_link, double dest_pos, 
-             int num_pax, double time, std::string type);
+             double dpt_time, std::string type);
 
+    int getId() { return id; }
     int getOriginLink() { return origin_link; }
     double getOriginPos() { return origin_pos; }
     int getDestLink() { return dest_link; }
     double getDestPos() { return dest_pos; }
-    int getNumPax() { return num_pax; }
-    double getTime() { return time; }
-    std::string getType() { return type; }
+    double getDptTime() { return dpt_time; }
+    std::string getReserveType() { return type; }
 };
