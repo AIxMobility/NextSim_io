@@ -56,10 +56,8 @@ PaxArr::PaxArr()
                 if (elemName2 == "agent")
                 {
                     AgentPax demoPax(atol(e->Attribute("id")),
-                                     atol(e->Attribute("origin_link")),
-                                     atof(e->Attribute("origin_pos")),
-                                     atol(e->Attribute("dest_link")),
-                                     atof(e->Attribute("dest_pos")),
+                                     atol(e->Attribute("origin_station")),
+                                     atol(e->Attribute("dest_station")),
                                      atof(e->Attribute("dpt_time")),
                                      e->Attribute("type"));
 

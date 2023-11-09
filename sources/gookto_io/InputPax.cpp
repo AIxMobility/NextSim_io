@@ -7,11 +7,9 @@ ODPax::ODPax(int origin, int dest, int flow, std::string dist) :
 };
 
 
-AgentPax::AgentPax(int id, int origin_link, double origin_pos, 
-                   int dest_link, double dest_pos, 
+AgentPax::AgentPax(int id, int origin_station, int dest_station, 
                    double dpt_time, std::string type) :
-    id(id), origin_link(origin_link), origin_pos(origin_pos),
-    dest_link(dest_link), dest_pos(dest_pos),
-    dpt_time(dpt_time), type(type)
+    id(id), origin_station(origin_station), 
+    dest_station(dest_station), dpt_time(dpt_time), type(type)
 {
 };
