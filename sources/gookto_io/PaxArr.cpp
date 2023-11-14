@@ -56,10 +56,8 @@ PaxArr::PaxArr(const std::string& userName)
                 if (elemName2 == "agent")
                 {
                     AgentPax demoPax(atol(e->Attribute("id")),
-                                     atol(e->Attribute("origin_link")),
-                                     atol(e->Attribute("origin_pos")),
-                                     atol(e->Attribute("dest_link")),
-                                     atol(e->Attribute("dest_pos")),
+                                     atol(e->Attribute("origin_station")),
+                                     atol(e->Attribute("dest_station")),
                                      atof(e->Attribute("dpt_time")),
                                      e->Attribute("type"));
 
