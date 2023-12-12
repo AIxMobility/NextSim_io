@@ -23,6 +23,7 @@ private:
     std::vector<int> link_seq;
     std::vector<int> node_seq;
     std::vector<int> station_seq;
+    std::vector<double> station_distance_seq;
 
 public:
     InputAgents(int id, int typeId, double dpt_time);
@@ -30,6 +31,7 @@ public:
     void setLinkSeq(std::string linkSeq);
     void setNodeSeq(std::string nodeSeq);
     void setStationSeq(std::string stationSeq);
+    void setStationDistanceSeq(std::string stationDistanceSeq);
 
     // access functions
     int getId()
@@ -56,6 +58,10 @@ public:
     std::vector<int> getStationSeq()
     {
         return station_seq;
+    }
+    std::vector<double> getStationDistanceSeq()
+    {
+        return station_distance_seq;
     }
 };
 

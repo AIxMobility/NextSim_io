@@ -69,7 +69,7 @@ public:
     int getNumLink() { return numLinks; }
     bool getV2XActive() { return v2xActive; }
     int getPhaseOffset() { return phaseOffset; }
-
+    
     std::vector<port> getLinks() { return connectedLinks; }
     std::vector<connection> getConnections() { return connectionTable; }
     std::vector<intersectionPhase> getPhaseTable() { return phaseTable; }

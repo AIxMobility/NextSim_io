@@ -127,6 +127,9 @@ void AgentsArr::parseAgent(std::string AgentType){
                     {
                         std::string stationSeq = ee->Attribute("seq");
                         single_veh.setStationSeq(stationSeq);
+
+                        std::string stationDistanceSeq = ee->Attribute("distance");
+                        single_veh.setStationDistanceSeq(stationDistanceSeq);
                     }
 
                     if(AgentType == "Agents")    Agents.push_back(single_veh);
