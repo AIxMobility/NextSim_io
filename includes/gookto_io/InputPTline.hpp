@@ -31,6 +31,7 @@ public:
     void setNodeSeq(std::string nodeSeq);
     void setStationSeq(std::string stationSeq);
     void setStationDistanceSeq(std::string stationDistanceSeq);
+    void setStationDistanceSeq(std::string stationDistanceSeq);
 
     //access function
     int getId() { return id; }
@@ -38,6 +39,7 @@ public:
     std::vector<int> getLinkSeq() { return link_seq; }
     std::vector<int> getNodeSeq() { return node_seq; }
     std::vector<int> getStationSeq() { return station_seq; }
+    std::vector<double> getStationDistanceSeq() { return station_distance_seq; }
     std::vector<double> getStationDistanceSeq() { return station_distance_seq; }
 };
 

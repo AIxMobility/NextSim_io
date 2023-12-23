@@ -57,8 +57,11 @@ void PTlineArr::parseArr(const std::string& userName){
         {
             std::string stationSeq = e->Attribute("seq");
             tPTline.setStationSeq(stationSeq);
+
+            std::string stationDistanceSeq = e->Attribute("distance");
+            tPTline.setStationDistanceSeq(stationDistanceSeq);
         }
-            
+        
         ptlineArr.push_back(tPTline);
     }
 }

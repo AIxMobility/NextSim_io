@@ -33,3 +33,12 @@ void InputPTline::setStationSeq(std::string stationSeq)
     while (ss >> stationid)
         station_seq.push_back(stationid);
 }
+
+void InputPTline::setStationDistanceSeq(std::string stationDistanceSeq)
+{
+    std::stringstream ss(stationDistanceSeq);
+    double stationDistance;
+
+    while (ss >> stationDistance)
+        station_distance_seq.push_back(stationDistance);
+}
