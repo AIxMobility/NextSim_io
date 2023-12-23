@@ -32,7 +32,6 @@ public:
     void setNodeSeq(std::string nodeSeq);
     void setStationSeq(std::string stationSeq);
     void setStationDistanceSeq(std::string stationDistanceSeq);
-    void setStationDistanceSeq(std::string stationDistanceSeq);
 
     // access functions
     int getId()
@@ -59,10 +58,6 @@ public:
     std::vector<int> getStationSeq()
     {
         return station_seq;
-    }
-    std::vector<double> getStationDistanceSeq()
-    {
-        return station_distance_seq;
     }
     std::vector<double> getStationDistanceSeq()
     {
