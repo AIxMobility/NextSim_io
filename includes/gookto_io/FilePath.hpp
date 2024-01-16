@@ -19,6 +19,8 @@ static std::filesystem::path OdMatrixXMLPath = NetworkXmlFilePath / "odmatrix.xm
 
 static std::filesystem::path ScenarioXMLPath = NetworkXmlFilePath / "odscenario.xml";
 
+static std::filesystem::path SignalXMLPath = NetworkXmlFilePath / "signal.xml";
+
 static std::filesystem::path ModeXMLPath = NetworkXmlFilePath / "mode.xml";
 
 static std::filesystem::path StationXMLPath = NetworkXmlFilePath / "publicTransit.xml";

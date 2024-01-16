@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <algorithm>
 
 #include <gookto_io/IntersectionNode.hpp>
 #include <gookto_io/NodeArr.hpp>
@@ -18,14 +19,13 @@ NodeArr::NodeArr()
     TiXmlDocument doc;
 
     doc.LoadFile(STSIO::NetworkXMLPath.string().c_str());
-    // std::cout << "Loading NodeArr" << std::endl;
 
     if (!doc.LoadFile(STSIO::NetworkXMLPath.string().c_str()))
     {
-        std::cout << "Loading failed (NodeArr)" << std::endl;
+        std::cout << "Loading failed (NodeArr-Network.xml)" << std::endl;
         std::cerr << doc.ErrorDesc() << std::endl;
     }
-
+    
     TiXmlElement *root = doc.FirstChildElement();
 
     for (TiXmlElement *e = root->FirstChildElement(); e != NULL;
@@ -118,68 +118,6 @@ NodeArr::NodeArr()
                                 atof(length));
                             single_node.pushConnection(single_connection);
                         }
-
-                        else if (val1 == "phase")
-                        {
-                            const char *phaseId = e3->Attribute("id");
-
-                            if (!phaseId)   throw std::runtime_error ("Element should have 'id' attribute");
-
-                            intersectionPhase single_phase(
-                                atol(phaseId));
-                            for (TiXmlElement *e4 = e3->FirstChildElement();
-                                 e4 != NULL; e4 = e4->NextSiblingElement())
-                            {
-                                std::string val2 = e4->Value();
-                                if (val2 == "connection")
-                                {
-                                    const char *id_ref = e4->Attribute("id_ref");
-                                    const char *priority = e4->Attribute("priority");
-                                    
-                                    if (!id_ref)   throw std::runtime_error ("Element should have 'id_ref' attribute");
-                                    if (!priority)   throw std::runtime_error ("Element should have 'priority' attribute");
-
-                                    single_phase.pushConnectionRef(
-                                        atol(id_ref));
-                                    single_phase.pushPriority(
-                                        atof(priority));
-                                }
-                            }
-                            single_node.pushPhase(single_phase);
-                        }
-
-                        else if (val1 == "signal_plan")
-                        {
-                            const char *phase_length = e3->Attribute("phase_length");
-                            
-                            if (!phase_length)   throw std::runtime_error ("Element should have 'phase_length' attribute");
-
-                            auto iss1 = std::istringstream{ phase_length };
-                            auto str1 = std::string{};
-                            while (iss1 >> str1)
-                            {
-                                single_node.pushPhaseLength(atoi(str1.c_str()));
-                            }
-
-                            const char *order = e3->Attribute("order");
-                            
-                            if (!order)   throw std::runtime_error ("Element should have 'order' attribute");
-
-                            auto iss2 =
-                                std::istringstream{ order };
-                            auto str2 = std::string{};
-                            while (iss2 >> str2)
-                            {
-                                single_node.pushPhaseOrder(atoi(str2.c_str()));
-                            }
-
-                            const char *offset = e3->Attribute("offset");
-                            
-                            if (!offset)   throw std::runtime_error ("Element should have 'offset' attribute");
-
-                            single_node.setPhaseOffset(
-                                atoi(offset));
-                        }
                     }
                     Nodes.push_back(single_node);
                     IntersectionNodes.push_back(single_node);
@@ -254,67 +192,6 @@ NodeArr::NodeArr()
                                 atof(length));
                             single_node.pushConnection(single_connection);
                         }
-                        else if (val1 == "phase")
-                        {
-                            const char *phaseId = e3->Attribute("id");
-
-                            if (!phaseId)   throw std::runtime_error ("Element should have 'id' attribute");
-
-                            intersectionPhase single_phase(
-                                atol(phaseId));
-                            for (TiXmlElement *e4 = e3->FirstChildElement();
-                                 e4 != NULL; e4 = e4->NextSiblingElement())
-                            {
-                                std::string val2 = e4->Value();
-                                if (val2 == "connection")
-                                {
-                                    const char *id_ref = e4->Attribute("id_ref");
-                                    const char *priority = e4->Attribute("priority");
-                                    
-                                    if (!id_ref)   throw std::runtime_error ("Element should have 'id_ref' attribute");
-                                    if (!priority)   throw std::runtime_error ("Element should have 'priority' attribute");
-
-                                    single_phase.pushConnectionRef(
-                                        atol(id_ref));
-                                    single_phase.pushPriority(
-                                        atof(priority));
-                                }
-                            }
-                            single_node.pushPhase(single_phase);
-                        }
-
-                        else if (val1 == "signal_plan")
-                        {
-                            const char *phase_length = e3->Attribute("phase_length");
-                            
-                            if (!phase_length)   throw std::runtime_error ("Element should have 'phase_length' attribute");
-
-                            auto iss1 = std::istringstream{ phase_length };
-                            auto str1 = std::string{};
-                            while (iss1 >> str1)
-                            {
-                                single_node.pushPhaseLength(atoi(str1.c_str()));
-                            }
-
-                            const char *order = e3->Attribute("order");
-                            
-                            if (!order)   throw std::runtime_error ("Element should have 'order' attribute");
-
-                            auto iss2 =
-                                std::istringstream{ order };
-                            auto str2 = std::string{};
-                            while (iss2 >> str2)
-                            {
-                                single_node.pushPhaseOrder(atoi(str2.c_str()));
-                            }
-
-                            const char *offset = e3->Attribute("offset");
-                            
-                            if (!offset)   throw std::runtime_error ("Element should have 'offset' attribute");
-
-                            single_node.setPhaseOffset(
-                                atoi(offset));
-                        }
                     }
                     Nodes.push_back(single_node);
                     NormalNodes.push_back(single_node);
@@ -388,67 +265,6 @@ NodeArr::NodeArr()
                                 atof(priority),
                                 atof(length));
                             single_node.pushConnection(single_connection);
-                        }
-                        else if (val1 == "phase")
-                        {
-                            const char *phaseId = e3->Attribute("id");
-
-                            if (!phaseId)   throw std::runtime_error ("Element should have 'id' attribute");
-
-                            intersectionPhase single_phase(
-                                atol(phaseId));
-                            for (TiXmlElement *e4 = e3->FirstChildElement();
-                                 e4 != NULL; e4 = e4->NextSiblingElement())
-                            {
-                                std::string val2 = e4->Value();
-                                if (val2 == "connection")
-                                {
-                                    const char *id_ref = e4->Attribute("id_ref");
-                                    const char *priority = e4->Attribute("priority");
-                                    
-                                    if (!id_ref)   throw std::runtime_error ("Element should have 'id_ref' attribute");
-                                    if (!priority)   throw std::runtime_error ("Element should have 'priority' attribute");
-
-                                    single_phase.pushConnectionRef(
-                                        atol(id_ref));
-                                    single_phase.pushPriority(
-                                        atof(priority));
-                                }
-                            }
-                            single_node.pushPhase(single_phase);
-                        }
-
-                        else if (val1 == "signal_plan")
-                        {
-                            const char *phase_length = e3->Attribute("phase_length");
-                            
-                            if (!phase_length)   throw std::runtime_error ("Element should have 'phase_length' attribute");
-
-                            auto iss1 = std::istringstream{ phase_length };
-                            auto str1 = std::string{};
-                            while (iss1 >> str1)
-                            {
-                                single_node.pushPhaseLength(atoi(str1.c_str()));
-                            }
-
-                            const char *order = e3->Attribute("order");
-                            
-                            if (!order)   throw std::runtime_error ("Element should have 'order' attribute");
-
-                            auto iss2 =
-                                std::istringstream{ order };
-                            auto str2 = std::string{};
-                            while (iss2 >> str2)
-                            {
-                                single_node.pushPhaseOrder(atoi(str2.c_str()));
-                            }
-
-                            const char *offset = e3->Attribute("offset");
-                            
-                            if (!offset)   throw std::runtime_error ("Element should have 'offset' attribute");
-
-                            single_node.setPhaseOffset(
-                                atoi(offset));
                         }
                     }
                     Nodes.push_back(single_node);
@@ -579,6 +395,82 @@ NodeArr::NodeArr()
         }
     }
     doc.Clear();
+
+    TiXmlDocument doc_signal;
+    doc_signal.LoadFile(STSIO::SignalXMLPath.string().c_str());
+    std::cout << "Loading NodeArr" << std::endl;
+
+    if (!doc_signal.LoadFile(STSIO::SignalXMLPath.string().c_str()))
+    {
+        std::cout << "Loading failed (NodeArr-Signal.xml)" << std::endl;
+        std::cerr << doc_signal.ErrorDesc() << std::endl;
+    }
+
+    TiXmlElement *root_signal = doc_signal.FirstChildElement();
+
+    for (TiXmlElement *e = root_signal->FirstChildElement(); e != NULL;
+         e = e->NextSiblingElement())
+    {
+        const char *nodeId = e->Attribute("id");
+        if (!nodeId)
+            throw std::runtime_error ("Element should have 'id' attribute");
+
+        auto it = std::find_if(
+            Nodes.begin(), Nodes.end(),
+            [&](IntersectionNode const &n) {
+                return n.getId() == atol(nodeId);
+            });
+        IntersectionNode& node = *it;
+
+        const char *offset = e->Attribute("offset");
+        if (!offset)
+            throw std::runtime_error ("Element should have 'offset' attribute");
+        node.setPhaseOffset(atoi(offset));
+
+        const char *order = e->Attribute("order");
+        if (!order)
+            throw std::runtime_error ("Element should have 'order' attribute");
+        auto iss2 = std::istringstream{ order };
+        auto str2 = std::string{};
+        while (iss2 >> str2)
+        {
+            node.pushPhaseOrder(atoi(str2.c_str()));
+        }
+
+        const char *phase_length = e ->Attribute("phase_length");        
+        if (!phase_length)
+            throw std::runtime_error ("Element should have 'phase_length' attribute");
+        auto iss1 = std::istringstream{ phase_length };
+        auto str1 = std::string{};
+        while (iss1 >> str1)
+        {
+            node.pushPhaseLength(atoi(str1.c_str()));
+        }
+
+        for (TiXmlElement *e2 = e->FirstChildElement(); e2 != NULL;
+             e2 = e2->NextSiblingElement())
+        {
+            const char *phaseId = e2->Attribute("id");
+
+            if (!phaseId)   throw std::runtime_error ("Element should have 'id' attribute");
+
+            intersectionPhase phase(atol(phaseId));
+            for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL; 
+                 e3 = e3->NextSiblingElement())
+            {
+                const char *id_ref = e3->Attribute("id_ref");
+                const char *priority = e3->Attribute("priority");
+                
+                if (!id_ref)   throw std::runtime_error ("Element should have 'id_ref' attribute");
+                if (!priority)   throw std::runtime_error ("Element should have 'priority' attribute");
+
+                phase.pushConnectionRef(atol(id_ref));
+                phase.pushPriority(atof(priority));
+            }
+            node.pushPhase(phase);
+        }
+    }
+    doc_signal.Clear();
 };
 
 void NodeArr::showArr()

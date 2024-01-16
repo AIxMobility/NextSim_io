@@ -22,24 +22,12 @@ private:
      */
     int type; 
     int id;
-    int numConnections; //num_connection
-    /**
-     * numConnections: Applicable only for IntersectionNode
-     */
-    int numLinks; //num_port
-    bool v2xActive; // active of v2x
-    std::vector<port> connectedLinks;//port:  linkId, direction, type(in / out)
-    /**
-     * port: Intersection, Terminal
-     */
-    std::vector<connection> connectionTable; //connection:  connectionId (index), to_lane, to_link, from_lane, from_link, length
-    /**
-     * connection: Intersection, Normal
-     */
-    std::vector<intersectionPhase> phaseTable; //intersectionPhase:  ID, connectionId (list), priority(list)
-    /**
-     * intersectionPhase: Intersection
-     */
+    int numConnections;
+    int numLinks;
+    bool v2xActive;
+    std::vector<port> connectedLinks;
+    std::vector<connection> connectionTable;
+    std::vector<intersectionPhase> phaseTable;
 
     std::vector<int> phaseLength;
     std::vector<int> phaseOrder;

@@ -14,6 +14,7 @@ private:
 public:
     InputMode(int id, int scycle);
 
+    InputMode(const InputMode &other) = default;
     // string to vector
     void setMicroLinkArr(std::string linkArr);
     void setMesoLinkArr(std::string linkArr);
