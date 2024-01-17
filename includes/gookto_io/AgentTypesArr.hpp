@@ -20,6 +20,8 @@ public:
     AgentTypesArr();
 
     //access function
+    std::map<int, InputAgentTypes> getAgentTypeMap() { return vehTypes; }
+    
     InputAgentTypes getAgentType(int type) { return vehTypes.find(type)->second; }
 };
 
