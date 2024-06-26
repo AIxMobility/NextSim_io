@@ -16,6 +16,7 @@ private:
     std::vector<IntersectionNode> NormalNodes;
     std::vector<IntersectionNode> IntersectionNodes;
     std::vector<IntersectionNode> DivergingNodes;
+    std::vector<IntersectionNode> MergingNodes;
     std::vector<IntersectionNode> TerminalNodes;
     std::vector<IntersectionNode> GarageNodes;
 
@@ -27,6 +28,7 @@ public:
     std::vector<IntersectionNode> getNormalNodes() { return NormalNodes; }
     std::vector<IntersectionNode> getIntersectionNodes() { return IntersectionNodes; }
     std::vector<IntersectionNode> getDivergingNodes() { return DivergingNodes; }
+    std::vector<IntersectionNode> getMergingNodes() { return MergingNodes; }
     std::vector<IntersectionNode> getTerminalNodes() { return TerminalNodes; }
     std::vector<IntersectionNode> getGarageNodes() { return GarageNodes; }
 

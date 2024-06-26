@@ -26,7 +26,8 @@ void AgentsArr::parseAgent(std::string AgentType){
         if (!doc.LoadFile(STSIO::AgentXMLPath.string().c_str()))
         {
             std::cout << "Loading failed (AgentsArr)" << std::endl;
-            std::cerr << doc.ErrorDesc() << std::endl;
+            // std::cerr << doc.ErrorDesc() << std::endl;
+            return;
         }
     }
     else if(AgentType == "Agents_opt"){
@@ -38,7 +39,8 @@ void AgentsArr::parseAgent(std::string AgentType){
         if (!doc.LoadFile(STSIO::AgentOptXMLPath.string().c_str()))
         {
             std::cout << "Loading failed (AgentsOptArr)" << std::endl;
-            std::cerr << doc.ErrorDesc() << std::endl;
+            // std::cerr << doc.ErrorDesc() << std::endl;
+            return;
         }
     }
 

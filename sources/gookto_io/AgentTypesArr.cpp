@@ -28,7 +28,8 @@ AgentTypesArr::AgentTypesArr()
     if (!doc.LoadFile(STSIO::AgentTypeXMLPath.string().c_str()))
     {
         std::cout << "Loading failed (AgentTypesArr)" << std::endl;
-        std::cerr << doc.ErrorDesc() << std::endl;
+        // std::cerr << doc.ErrorDesc() << std::endl;
+        return;
     }
 
     TiXmlElement *root = doc.FirstChildElement()->FirstChildElement();

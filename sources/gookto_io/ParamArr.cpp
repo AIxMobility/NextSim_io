@@ -25,7 +25,8 @@ ParamArr::ParamArr()
     if (!doc.LoadFile(STSIO::ParamXMLPath.string().c_str()))
     {
         std::cout << "Loading failed (ParamArr)" << std::endl;
-        std::cerr << doc.ErrorDesc() << std::endl;
+        // std::cerr << doc.ErrorDesc() << std::endl;
+        return;
     }
 
     TiXmlElement* root = doc.FirstChildElement();

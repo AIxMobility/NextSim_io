@@ -27,7 +27,8 @@ EventArr::EventArr()
     if (!doc.LoadFile(STSIO::EventXMLPath.string().c_str()))
     {
         std::cout << "Loading failed (EventArr)" << std::endl;
-        std::cerr << doc.ErrorDesc() << std::endl;
+        // std::cerr << doc.ErrorDesc() << std::endl;
+        return;
     }
 
     TiXmlElement *root = doc.FirstChildElement();

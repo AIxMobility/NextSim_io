@@ -18,7 +18,8 @@ Scenario::Scenario()
     if (!doc.LoadFile(STSIO::ScenarioXMLPath.string().c_str()))
     {
         std::cout << "Loading failed (ODScenario)" << std::endl;
-        std::cerr << doc.ErrorDesc() << std::endl;
+        // std::cerr << doc.ErrorDesc() << std::endl;
+        return;
     }
 
     TiXmlElement *root = doc.FirstChildElement();

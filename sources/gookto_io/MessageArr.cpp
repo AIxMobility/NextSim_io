@@ -27,7 +27,8 @@ MessageArr::MessageArr()
     if (!doc.LoadFile(STSIO::V2XXMLPath.string().c_str()))
     {
         std::cout << "Loading failed (MessageArr)" << std::endl;
-        std::cerr << doc.ErrorDesc() << std::endl;
+        // std::cerr << doc.ErrorDesc() << std::endl;
+        return;
     }
 
     TiXmlElement *root = doc.FirstChildElement();

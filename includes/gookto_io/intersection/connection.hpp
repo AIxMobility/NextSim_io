@@ -11,12 +11,16 @@ class connection
     int from_lane;
     int to_link;
     int to_lane;
+    std::string turning;
     double priority;
     double length;
+    double width;
+    double ffspeed;
 
  public:
     connection(int id, int fromLink, int fromLane, int toLink, int toLane,
-               double priority, double length);
+               std::string turning, double priority, 
+               double length, double width, double ffspeed);
 
     // access functions
     int getConnId()

@@ -25,8 +25,8 @@ LinkArr::LinkArr()
     if (!loadOkay)
     {
         std::cout << "Loading failed (LinkArr)" << std::endl;
-        std::cerr << doc.ErrorDesc() << std::endl;
-        exit(0);
+        // std::cerr << doc.ErrorDesc() << std::endl;
+        return;
     }
 
     TiXmlElement* root = doc.FirstChildElement();
@@ -68,10 +68,10 @@ LinkArr::LinkArr()
                     // set the Link 2d, 1d values here.
                     // TODO: add set min max speed
 
-                    const char *ffspeed = e->Attribute("ffspeed");  // km/h
+                    const char *ffspeed = e->Attribute("ff_spd");  // km/h
                     const char *qmax = e->Attribute("qmax");  // veh/hr
-                    const char *waveSpd = e->Attribute("waveSpd");  // km/h
-                    const char *maxVeh = e->Attribute("maxVeh");  // veh/link
+                    const char *waveSpd = e->Attribute("wave_spd");  // km/h
+                    const char *maxVeh = e->Attribute("max_veh");  // veh/link
                     const char *from_node = e->Attribute("from_node");
                     const char *to_node = e->Attribute("to_node");
                     const char *maxSpd = e->Attribute("max_spd");  // km/h
@@ -91,8 +91,7 @@ LinkArr::LinkArr()
                     demoLink.WaveSpeed = std::atof(waveSpd);
                     demoLink.MaxVehicle = std::atoi(maxVeh);
                     demoLink.SetFromNode(
-                        static_cast<std::size_t>(std::atoll(
-                            from_node)));
+                        ((std::size_t)atoll(from_node)));
                     demoLink.SetToNode(
                         ((std::size_t)atoll(to_node)));
                     demoLink.MaxSpeed = std::atof(maxSpd);
@@ -121,16 +120,6 @@ LinkArr::LinkArr()
                                 (std::size_t)atoll(left_lane_id),
                                 (std::size_t)atoll(right_lane_id),
                                 atoi(num_cell));
-                            
-                            const char *fromX = ele->Attribute("fromX");
-                            const char *fromY = ele->Attribute("fromY");
-                            const char *toX = ele->Attribute("toX");
-                            const char *toY = ele->Attribute("toY");
-                            
-                            if (!fromX)   throw std::runtime_error ("Element should have 'fromX' attribute");
-                            if (!fromY)   throw std::runtime_error ("Element should have 'fromY' attribute");
-                            if (!toX)   throw std::runtime_error ("Element should have 'toX' attribute");
-                            if (!toY)   throw std::runtime_error ("Element should have 'toY' attribute");
 
                             for (TiXmlElement* e_lane =
                                      ele->FirstChildElement();

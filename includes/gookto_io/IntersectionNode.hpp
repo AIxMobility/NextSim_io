@@ -31,7 +31,8 @@ private:
 
     std::vector<int> phaseLength;
     std::vector<int> phaseOrder;
-    int phaseOffset;
+    int cycle = 0;
+    int offset = 0;
     
     
     //signalSequence: order(list), phase_length
@@ -40,9 +41,12 @@ private:
 public:
     IntersectionNode(int type, int id, int num_connection, int num_port, bool v2xActive);
 
+    void setType( int _type );
+
     void initPhase(); //set all priority to 0 for all connections;
     void setPhase( int phase ); //set priority according to chosen phase number
-    void setPhaseOffset ( int offset );
+    void setCycle ( int cycle );
+    void setOffset ( int offset );
 
     void pushConnection( connection conn );
     void pushLink( port link );
@@ -56,7 +60,8 @@ public:
     int getNumConn() { return numConnections; }
     int getNumLink() { return numLinks; }
     bool getV2XActive() { return v2xActive; }
-    int getPhaseOffset() { return phaseOffset; }
+    int getCycle() { return cycle; }
+    int getOffset() { return offset; }
     
     std::vector<port> getLinks() { return connectedLinks; }
     std::vector<connection> getConnections() { return connectionTable; }

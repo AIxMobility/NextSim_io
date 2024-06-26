@@ -22,8 +22,9 @@ void PTlineArr::parseArr(){
     
     if (!doc.LoadFile(STSIO::PTlineXMLPath.string().c_str()))
     {
-        std::cout << "Loading failed (PTlineArr)" << std::endl;
-        std::cerr << doc.ErrorDesc() << std::endl;
+        std::cout << "Loading failed (PTLineArr)" << std::endl;
+        // std::cerr << doc.ErrorDesc() << std::endl;
+        return;
     }
 
     TiXmlElement *root = doc.FirstChildElement();

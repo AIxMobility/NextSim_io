@@ -35,12 +35,21 @@ void IntersectionNode::pushPhaseLength(int length)
     phaseLength.push_back(length);
 }
 
-void IntersectionNode::pushPhaseOrder(int order)
+void IntersectionNode::pushPhaseOrder( int order )
 {
     phaseOrder.push_back(order);
 }
 
-void IntersectionNode::setPhaseOffset( int offset )
+void IntersectionNode::setType( int _type )
 {
-    phaseOffset = offset;
+    type = _type;
+}
+void IntersectionNode::setCycle( int _cycle )
+{
+    cycle = _cycle;
+}
+
+void IntersectionNode::setOffset( int _offset )
+{
+    offset = _offset;
 }

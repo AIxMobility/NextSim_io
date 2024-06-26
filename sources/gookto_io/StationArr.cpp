@@ -17,7 +17,8 @@ StationArr::StationArr()
     if (!loadOkay)
     {
         std::cout << "Loading failed (StationArr)" << std::endl;
-        std::cerr << doc.ErrorDesc() << std::endl;
+        // std::cerr << doc.ErrorDesc() << std::endl;
+        return;
     }
 
     TiXmlElement* root = doc.FirstChildElement();

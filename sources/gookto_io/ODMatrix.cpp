@@ -20,7 +20,8 @@ ODMatrix::ODMatrix()
     if (!doc.LoadFile(STSIO::OdMatrixXMLPath.string().c_str()))
     {
         std::cout << "Loading failed (ODMatrix)" << std::endl;
-        std::cerr << doc.ErrorDesc() << std::endl;
+        // std::cerr << doc.ErrorDesc() << std::endl;
+        return;
     }
 
     TiXmlElement *root = doc.FirstChildElement();

@@ -17,7 +17,8 @@ PaxArr::PaxArr()
     if (!loadOkay)
     {
         std::cout << "Loading failed (PaxArr)" << std::endl;
-        std::cerr << doc.ErrorDesc() << std::endl;
+        // std::cerr << doc.ErrorDesc() << std::endl;
+        return;
     }
 
     TiXmlElement* root = doc.FirstChildElement();

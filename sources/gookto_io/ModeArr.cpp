@@ -24,7 +24,8 @@ void ModeArr::parseArr(){
     if (!doc.LoadFile(STSIO::ModeXMLPath.string().c_str()))
     {
         std::cout << "Loading failed (ModeArr)" << std::endl;
-        std::cerr << doc.ErrorDesc() << std::endl;
+        // std::cerr << doc.ErrorDesc() << std::endl;
+        return;
     }
 
     TiXmlElement *root = doc.FirstChildElement();
