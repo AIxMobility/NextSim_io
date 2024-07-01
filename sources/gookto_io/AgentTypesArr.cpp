@@ -32,7 +32,7 @@ AgentTypesArr::AgentTypesArr()
         return;
     }
 
-    TiXmlElement *root = doc.FirstChildElement()->FirstChildElement();
+    TiXmlElement *root = doc.FirstChildElement();
 
     for (TiXmlElement *elem = root->FirstChildElement(); elem != nullptr;
          elem = elem->NextSiblingElement())
