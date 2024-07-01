@@ -1,4 +1,3 @@
-
 # Windows thumbnail cache files
 Thumbs.db
 Thumbs.db:encryptable
@@ -939,9 +938,11 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 
 ##### CMake
+*.cmake
+*.make
 CMakeLists.txt.user
 CMakeCache.txt
-CMakeFiles
+CMakeFiles/
 CMakeScripts
 Testing
 Makefile
@@ -1039,18 +1040,5 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-CMakeLists.txt.user
-CMakeCache.txt
-CMakeFiles
-CMakeScripts
-Testing
-Makefile
-cmake_install.cmake
-install_manifest.txt
-compile_commands.json
-CTestTestfile.cmake
-_deps
 
-# CMake
-*.cmake
-*.make
+sources/gookto_io/CMakeFiles/
