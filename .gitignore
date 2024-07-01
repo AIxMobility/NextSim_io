@@ -1039,6 +1039,3 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-
-
-sources/gookto_io/CMakeFiles/
