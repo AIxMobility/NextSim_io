@@ -1,5 +1,5 @@
 /**
- * STS19 Captain
+ * NextSim Captain
  * @file : EventArr.cpp
  * @version : 1.0
  * @author : Jeyun Kim

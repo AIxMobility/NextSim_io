@@ -1,5 +1,5 @@
 /**
- * STS19 Captain
+ * NextSim Captain
  * @file : InputDistribution.hpp
  * @version : 1.0
  * @author : Jeyun Kim

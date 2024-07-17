@@ -1,4 +1,4 @@
-//! STS19 Captain
+//! NextSim Captain
 //! Copyright (c) 2019 Justin Kim, Kaist
 //! Copying, reproducing and commercial use is not allowed.
 //! We are not conveying any rights to any intellectual property of any third
