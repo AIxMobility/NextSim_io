@@ -4,6 +4,6 @@
 
 ```bash
 cmake .
-cd sources/gookto_io
+cd sources/NextSim_io
 make
 ```

@@ -5,4 +5,4 @@ project(InputXmlParser
         DESCRIPTION "Gookto Input handling Library"
         LANGUAGES CXX)
 
-add_subdirectory(sources/gookto_io)
+add_subdirectory(sources/NextSim_io)
