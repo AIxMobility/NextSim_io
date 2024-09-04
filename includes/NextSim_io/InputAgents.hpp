@@ -12,6 +12,10 @@
 #include <string>
 #include <vector>
 
+/*
+ * @class InputAgents
+ * @brief Class for input agents
+ */
 class InputAgents
 {
 private:
@@ -28,7 +32,10 @@ private:
 public:
     InputAgents(int id, int typeId, double dpt_time);
 
+    /* dfdfdfdf */
     void setLinkSeq(std::string linkSeq);
+
+
     void setNodeSeq(std::string nodeSeq);
     void setStationSeq(std::string stationSeq);
     void setStationDistanceSeq(std::string stationDistanceSeq);
