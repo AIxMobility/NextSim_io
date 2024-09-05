@@ -61,7 +61,6 @@ public:
     */
     void SetWaveSpeed(double val) { wave_speed = val; }
 
-    //access functions
     /**
      * @details Get microscopic vehicle length
      * @return Microscopic vehicle length [m]

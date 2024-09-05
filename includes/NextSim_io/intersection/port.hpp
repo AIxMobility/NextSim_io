@@ -13,7 +13,6 @@ private:
 public:
     port(int id, int dir, int type);
 
-    //access functions
     int getLinkId() { return linkId; }
     int getDir() { return direction; }
     int getType() { return type; }

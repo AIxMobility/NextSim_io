@@ -2,15 +2,15 @@
 #include <sstream>
 #include <string>
 
-#include <NextSim_io/Demand.hpp>
-#include <NextSim_io/DemandInfo.hpp>
-#include <NextSim_io/ODMatrix.hpp>
+#include <NextSim_io/InputFlow.hpp>
+#include <NextSim_io/InputODMatrix.hpp>
+#include <NextSim_io/ODMatrixArr.hpp>
 
 #include <NextSim_io/tinyapi/tinystr.h>
 #include <NextSim_io/tinyapi/tinyxml.h>
 #include <NextSim_io/FilePath.hpp>
 
-ODMatrix::ODMatrix()
+ODMatrixArr::ODMatrixArr()
 {
     TiXmlDocument doc;
 
@@ -37,7 +37,7 @@ ODMatrix::ODMatrix()
             if (!id)
                 throw std::runtime_error("Element should have 'id' attribute");
 
-            std::vector<Demand> demands;
+            std::vector<InputFlow> odmatrix;
 
             for (TiXmlElement *child = elem->FirstChildElement(); child != NULL;
                  child = child->NextSiblingElement())
@@ -74,14 +74,14 @@ ODMatrix::ODMatrix()
                             else if (!strcmp(dist, "Exponential")) dist = "1";
                             else dist = "2"; 
 
-                            Demand single_demand(
+                            InputFlow single_flow(
                                 0,
                                 atoi(flow), 
                                 atoi(sink),
                                 atoi(source), 
                                 atoi(dist));
 
-                            demands.push_back(single_demand);
+                            odmatrix.push_back(single_flow);
                         }
                     }
                 }
@@ -115,14 +115,14 @@ ODMatrix::ODMatrix()
                             else if (!strcmp(dist, "Exponential")) dist = "1";
                             else dist = "2"; 
 
-                            Demand single_demand(
+                            InputFlow single_flow(
                                 1,
                                 atoi(flow), 
                                 atoi(sink),
                                 atoi(source), 
                                 atoi(dist));
 
-                            demands.push_back(single_demand);
+                            odmatrix.push_back(single_flow);
                         }
                     }
                 }
@@ -156,24 +156,24 @@ ODMatrix::ODMatrix()
                             else if (!strcmp(dist, "Exponential")) dist = "1";
                             else dist = "2"; 
 
-                            Demand single_demand(
+                            InputFlow single_flow(
                                 2,
                                 atoi(flow), 
                                 atoi(sink),
                                 atoi(source), 
                                 atoi(dist));
 
-                            demands.push_back(single_demand);
+                            odmatrix.push_back(single_flow);
                         }
                     }
                 }
             }
 
-            DemandInfo demandInfo(
+            InputODMatrix InputODMatrix(
                 atoi(id), 
-                demands);
+                odmatrix);
 
-            ODmatrix.push_back(demandInfo);
+            ODmatrix.push_back(InputODMatrix);
         }
     };
     doc.Clear();

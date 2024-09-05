@@ -65,7 +65,6 @@ public:
     */
     NodeArr();
 
-    //access functions
     /**
      * @details Get sequence of all nodes
      * @return Sequence of all nodes

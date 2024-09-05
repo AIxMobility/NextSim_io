@@ -30,7 +30,6 @@ public:
      */
     Scenario();
     
-    //access function
     /**
      * @details Get origin-destination scenario
      * @return Pair of origin and destination node ID

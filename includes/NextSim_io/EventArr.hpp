@@ -13,26 +13,25 @@
 
 /**
  * @class EventArr
- * @brief Class for whole event from events.xml
+ * @brief Class for event scenario from events.xml
 */
 class EventArr
 {
 private:
     /**
-     * @details Sequence of events
+     * @details Vector of events
     */
     std::vector<InputEvent> Events;
 
 public:
     /**
-     * @details Constructor
+     * @details Constructor (Parse events from eventdata.xml)
      */
     EventArr();
 
-    // access function
     /**
-     * @details Get sequence of events
-     * @return Sequence of events
+     * @details Get vector of events
+     * @return Vector of events
      */
     std::vector<InputEvent> getEvents()  { return Events; }
 };

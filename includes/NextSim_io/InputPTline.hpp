@@ -83,7 +83,6 @@ public:
     */
     void setStationDistanceSeq(std::string stationDistanceSeq);
 
-    //access function
     /**
      * @details Get public transit line ID
      * @return Public transit line ID

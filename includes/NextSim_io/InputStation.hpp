@@ -50,7 +50,6 @@ private:
     std::vector<int> line_list;
 
 public:
-    //Constructors
     /**
      * @details Constructor
      * @param id Station ID

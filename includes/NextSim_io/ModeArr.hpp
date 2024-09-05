@@ -34,7 +34,6 @@ public:
     // ???
     void parseArr();
 
-    //access function
     /**
      * @details Get sequence of simulation modes
      * @return Sequence of simulation modes

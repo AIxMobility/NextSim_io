@@ -69,7 +69,6 @@ public:
     */
     InputMessage(int id, double stime, double etime, int msg_type, int value);
 
-    // access functions
     /**
      * @brief Get message ID
      * @return Message ID

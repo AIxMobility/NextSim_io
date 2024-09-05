@@ -10,40 +10,23 @@
 #include <NextSim_io/tinyapi/tinyxml.h>
 #include <NextSim_io/FilePath.hpp>
 
+namespace NextSimIO
+{
+
 AgentsArr::AgentsArr()
 {
-    parseAgent("Agents");
-    parseAgent("Agents_opt");
-};
-
-void AgentsArr::parseAgent(std::string AgentType){
     TiXmlDocument doc;
 
-    if(AgentType == "Agents"){
-        doc.LoadFile(NextSimIO::AgentXMLPath.string().c_str());
-        // std::cout << "Loading AgentsArr" << std::endl;
+    doc.LoadFile(NextSimIO::AgentXMLPath.string().c_str());
+    // std::cout << "Loading AgentsArr" << std::endl;
 
-        if (!doc.LoadFile(NextSimIO::AgentXMLPath.string().c_str()))
-        {
-            std::cout << "Loading failed (AgentsArr)" << std::endl;
-            // std::cerr << doc.ErrorDesc() << std::endl;
-            return;
-        }
+    if (!doc.LoadFile(NextSimIO::AgentXMLPath.string().c_str()))
+    {
+        std::cout << "Loading failed (AgentsArr)" << std::endl;
+        // std::cerr << doc.ErrorDesc() << std::endl;
+        return;
     }
-    else if(AgentType == "Agents_opt"){
-        if (!std::filesystem::exists(NextSimIO::AgentOptXMLPath.string().c_str()))   return;
-
-        doc.LoadFile(NextSimIO::AgentOptXMLPath.string().c_str());
-        // std::cout << "Loading Optional AgentsArr" << std::endl;
-
-        if (!doc.LoadFile(NextSimIO::AgentOptXMLPath.string().c_str()))
-        {
-            std::cout << "Loading failed (AgentsOptArr)" << std::endl;
-            // std::cerr << doc.ErrorDesc() << std::endl;
-            return;
-        }
-    }
-
+    
     TiXmlElement *root = doc.FirstChildElement();
 
     for (TiXmlElement *elem = root->FirstChildElement(); elem != NULL;
@@ -84,8 +67,7 @@ void AgentsArr::parseAgent(std::string AgentType){
                         single_veh.setNodeSeq(nodeSeq);
                     }
                     
-                    if(AgentType == "Agents")    Agents.push_back(single_veh);
-                    else if(AgentType == "Agents_opt") Agents_opt.push_back(single_veh);
+                    Agents.push_back(single_veh);
                 }
             }
         }
@@ -134,8 +116,7 @@ void AgentsArr::parseAgent(std::string AgentType){
                         single_veh.setStationDistanceSeq(stationDistanceSeq);
                     }
 
-                    if(AgentType == "Agents")    Agents.push_back(single_veh);
-                    else if(AgentType == "Agents_opt") Agents_opt.push_back(single_veh);
+                    Agents.push_back(single_veh);
                 }
             }
         }
@@ -154,3 +135,5 @@ void AgentsArr::showArr()
         std::cout << std::endl;
     }
 };
+
+}  // namespace NextSimIO

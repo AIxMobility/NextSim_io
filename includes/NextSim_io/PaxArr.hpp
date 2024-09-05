@@ -36,7 +36,6 @@ public:
     */
     PaxArr();
 
-    //access functions
     /**
      * @details Get sequence of OD passengers
      * @return Sequence of OD passengers that has origin and destination

@@ -1,32 +1,32 @@
 /**
  * NextSim Captain
- * @file : Demand.hpp
+ * @file : InputFlow.hpp
  * @version : 1.0
  * @author : ???
  */
 
-#ifndef DEMAND_H
-#define DEMAND_H
+#ifndef INPUTFLOW_H
+#define INPUTFLOW_H
 
 #include <vector>
 #include <string>
 #include <iostream>
 
 /**
- * @class Demand
- * @brief Class for each demand (per OD) information from demand.xml
+ * @class InputFlow
+ * @brief Class for each flow (per OD) information from odmatrix.xml
  */
-class Demand
+class InputFlow
 {
 private:
 
     /**
      * @details Vehicle type ID (0: Normal Vehicle, 1: Autonomous Vehicle, 2: Truck)
     */
-    int type;  // 0: NV, 1: AV, 2: TR
+    int type;
 
     /**
-     * @details Demand flow [veh/hr]
+     * @details Flow [veh/hr]
     */
     int flow;
     
@@ -43,7 +43,6 @@ private:
     /**
      * @details Estimated distribution ID of departure time
     */
-    // ??? (0: Normal, 1: LogNormal) 인가 잘 모르겠음
     int dist;
 
 public:
@@ -51,14 +50,13 @@ public:
     /**
      * @details Constructor
      * @param type Vehicle type
-     * @param flow Demand flow
+     * @param flow Flow
      * @param sink Sink node ID
      * @param source Source node ID
      * @param dist Estimated distribution ID of departure time
     */
-    Demand(int type, int flow, int sink, int source, int dist);
+    InputFlow(int type, int flow, int sink, int source, int dist);
 
-    //access functions
 
     /**
      * @details Get vehicle type
@@ -67,7 +65,7 @@ public:
     int getType() { return type; }
 
     /**
-     * @details Get demand flow
+     * @details Get flow
      * @return Flow [veh/hr]
     */
     int getFlow() { return flow; }

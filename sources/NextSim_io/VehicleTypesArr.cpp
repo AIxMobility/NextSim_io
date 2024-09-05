@@ -1,6 +1,6 @@
 /**
  * NextSim Captain
- * @file : AgentTypesArr.cpp
+ * @file : VehicleTypesArr.cpp
  * @version : 1.0
  * @author : Jeyun Kim
  */
@@ -10,24 +10,24 @@
 #include <iostream>
 #include <string>
 
-#include <NextSim_io/AgentTypesArr.hpp>
-#include <NextSim_io/InputAgentTypes.hpp>
+#include <NextSim_io/VehicleTypesArr.hpp>
+#include <NextSim_io/InputVehicleTypes.hpp>
 #include <NextSim_io/InputDistribution.hpp>
 
 #include <NextSim_io/tinyapi/tinystr.h>
 #include <NextSim_io/tinyapi/tinyxml.h>
 #include <NextSim_io/FilePath.hpp>
 
-AgentTypesArr::AgentTypesArr()
+VehicleTypesArr::VehicleTypesArr()
 {
     TiXmlDocument doc;
 
-    doc.LoadFile(NextSimIO::AgentTypeXMLPath.string().c_str());
-    // std::cout << "Loading AgentTypesArr" << std::endl;
+    doc.LoadFile(NextSimIO::VehicleTypeXMLPath.string().c_str());
+    // std::cout << "Loading VehicleTypesArr" << std::endl;
 
-    if (!doc.LoadFile(NextSimIO::AgentTypeXMLPath.string().c_str()))
+    if (!doc.LoadFile(NextSimIO::VehicleTypeXMLPath.string().c_str()))
     {
-        std::cout << "Loading failed (AgentTypesArr)" << std::endl;
+        std::cout << "Loading failed (VehicleTypesArr)" << std::endl;
         // std::cerr << doc.ErrorDesc() << std::endl;
         return;
     }
@@ -257,12 +257,12 @@ AgentTypesArr::AgentTypesArr()
             if (!max_pax)   max_pax = "1";
 
             // TODO: implement v2x on/off
-            InputAgentTypes demoAgentTypes(
+            InputVehicleTypes demoVehicleTypes(
                 name, std::atoi(max_pax), strcmp(v2x, "on") == 0 ? true : false,
                 veh_lenDist, jamgapDist, vfDist, reaction_timeDist, max_accDist,
                 max_decDist, lc_param1Dist, lc_param2Dist, lc_senseDist);
 
-            vehTypes.insert({ std::atoi(id), demoAgentTypes });
+            vehTypes.insert({ std::atoi(id), demoVehicleTypes });
         }
     }
     doc.Clear();

@@ -35,7 +35,6 @@ public:
     */
     StationArr();
 
-    //access functions
     /**
      * @details Get sequence of stations
      * @return Sequence of stations

@@ -1,6 +1,6 @@
 /**
  * NextSim Captain
- * @file : InputAgentTypes.cpp
+ * @file : InputVehicleTypes.cpp
  * @version : 1.0
  * @author : Jeyun Kim
  */
@@ -8,10 +8,10 @@
 #include <string>
 #include <iostream>
 
-#include <NextSim_io/InputAgentTypes.hpp>
+#include <NextSim_io/InputVehicleTypes.hpp>
 #include <NextSim_io/InputDistribution.hpp>
 
-InputAgentTypes::InputAgentTypes(std::string vehType, 
+InputVehicleTypes::InputVehicleTypes(std::string vehType, 
                                  int max_pax, 
                                  bool v2xActive, 
                                  InputDistribution veh_len, 

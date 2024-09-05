@@ -14,7 +14,7 @@
 
 /**
  * @class InputAgents
- * @brief Class for agent vehicles information from agents.xml
+ * @brief Class for information of each agent from agents.xml
  */
 class InputAgents
 {

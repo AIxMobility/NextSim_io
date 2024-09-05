@@ -77,8 +77,6 @@ public:
     */
     InputEvent(int id, std::size_t link_id, double pos, int lane, double stime, double etime, int type, int sern);
 
-    // access functions
-    
     /**
      * @details Get event ID
      * @return Event ID

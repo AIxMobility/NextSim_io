@@ -48,11 +48,12 @@ private:
     double vehsd;
 
 public:
-    // Constructor
+
     /**
      * @details Constructor
     */
     InputDistribution();
+
     /**
      * @details Constructor
      * @param vehdist Distribution type
@@ -91,7 +92,6 @@ public:
         return value;
     }
 
-    // access functions
     /**
      * @details Get distribution type
      * @return Distribution type (Normal, LogNormal) ???

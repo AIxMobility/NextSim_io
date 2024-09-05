@@ -1,12 +1,12 @@
 /**
  * NextSim Captain
- * @file : InputAgentTypes.hpp
+ * @file : InputVehicleTypes.hpp
  * @version : 1.0
  * @author : Jeyun Kim
  */
 
-#ifndef INPUTAGENTTYPES_H
-#define INPUTAGENTTYPES_H
+#ifndef INPUTVEHICLETYPES_H
+#define INPUTVEHICLETYPES_H
 
 #include <iostream>
 #include <string>
@@ -15,10 +15,10 @@
 #include "InputDistribution.hpp"
 
 /**
- * @class InputAgentTypes
+ * @class InputVehicleTypes
  * @brief Class for agent types information from agenttypes.xml
 */
-class InputAgentTypes
+class InputVehicleTypes
 {
 private:
 
@@ -107,7 +107,7 @@ public:
      * @param lc_param2 Lane change parameter 2
      * @param lc_sensitivity Lane change sensitivity
     */
-    InputAgentTypes(std::string vehType, 
+    InputVehicleTypes(std::string vehType, 
                     int max_pax, 
                     bool v2xActive, 
                     InputDistribution veh_len, 
@@ -120,7 +120,6 @@ public:
                     InputDistribution lc_param2,
                     InputDistribution lc_sensitivity);
 
-    // access functions
 
     /**
      * @details Get vehicle type

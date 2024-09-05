@@ -22,7 +22,6 @@ class connection
                std::string turning, double priority, 
                double length, double width, double ffspeed);
 
-    // access functions
     int getConnId()
     {
         return connectionId;

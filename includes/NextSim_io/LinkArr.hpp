@@ -39,7 +39,6 @@ public:
     */
     void showArr();
 
-    //access functions
     /**
      * @details Get sequence of links
      * @return Sequence of links

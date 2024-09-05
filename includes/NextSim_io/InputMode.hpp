@@ -65,7 +65,6 @@ public:
     // ??? 여기서는 string linkArr인데 아래에서는 vector<int> linkArr 인게 이상함
     void setMesoLinkArr(std::string linkArr);
 
-    //access function
     /**
      * @brief Get period ID
      * @return Period ID to change simulation level

@@ -20,45 +20,27 @@ class AgentsArr
 private:
 
     /**
-     * @details Sequence of agents
+     * @details Vector of agents
     */
     std::vector<InputAgents> Agents;
-
-    /**
-     * @details Sequence of optimal ??? optional ??? agents
-    */
-    std::vector<InputAgents> Agents_opt;
 
 public:
     
     /**
-     * @details Constructor
+     * @details Constructor (Parse agents from agents.xml)
      */
     AgentsArr();
 
-    //check
     /**
-     * @details ???
-    */
-    void parseAgent(std::string type);
-
-    /**
-     * @details Show sequence of agents
+     * @details Show vector of agents
     */
     void showArr();
 
-    //access function
     /**
-     * @details Get sequence of agents
-     * @return Sequence of agents
+     * @details Get vector of agents
+     * @return Vector of agents
     */
     std::vector<InputAgents> getAgents() { return Agents; }
-
-    /**
-     * @details Get sequence of optimal ??? agents
-     * @return Sequence of optimal ??? agents
-    */
-    std::vector<InputAgents> getAgentsOpt() { return Agents_opt; }
 
 };
 

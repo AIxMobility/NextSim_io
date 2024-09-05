@@ -36,7 +36,6 @@ public:
     */
     MessageArr();
 
-    // access function
     /**
      * @details Get sequence of region messages
      * @return Sequence of region messages

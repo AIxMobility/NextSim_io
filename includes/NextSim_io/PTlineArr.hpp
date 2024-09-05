@@ -32,8 +32,7 @@ public:
     // vector check
     // ???
     void parseArr();
-
-    //access function
+    
     /**
      * @details Get sequence of public transit lines
      * @return Sequence of public transit lines
