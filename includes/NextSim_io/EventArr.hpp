@@ -11,18 +11,29 @@
 #include <vector>
 #include "InputEvent.hpp"
 
+/**
+ * @class EventArr
+ * @brief Class for whole event from events.xml
+*/
 class EventArr
 {
 private:
+    /**
+     * @details Sequence of events
+    */
     std::vector<InputEvent> Events;
 
 public:
-    EventArr();
     /**
-     * Creates a vector of InputEvent
+     * @details Constructor
      */
+    EventArr();
 
     // access function
+    /**
+     * @details Get sequence of events
+     * @return Sequence of events
+     */
     std::vector<InputEvent> getEvents()  { return Events; }
 };
 
