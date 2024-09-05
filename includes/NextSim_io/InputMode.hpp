@@ -19,23 +19,22 @@ class InputMode
 {
 private:
     /**
-     * @details Period ID to change simulation level
+     * @details Period ID of mode setting application
     */
-    // ??? 변경 주기 id 라는 개념이 약간 애매한듯? 변경 주기 숫자를 의미하는건지?
     int id;
 
     /**
-     * @details Start cycle for applying the corresponding cycle
+     * @details Start cycle for applying the corresponding mode setting
     */
     int scycle;
 
     /**
-     * @details Sequence of microscopic link IDs
+     * @details Vector of microscopic link IDs
     */
     std::vector<int> microLinkArr;
 
     /**
-     * @details Sequence of mesoscopic link IDs
+     * @details Vector of mesoscopic link IDs
     */
     std::vector<int> mesoLinkArr;
 
@@ -44,30 +43,31 @@ public:
     /**
      * @brief Constructor
      * @param id Period ID
-     * @param scycle Start cycle
+     * @param scycle Application Start cycle
     */
     InputMode(int id, int scycle);
 
-    // ???
+    /** @cond EXCLUDE */
+    ~InputMode() = default;
     InputMode(const InputMode &other) = default;
+    InputMode &operator=(const InputMode &other) = default;
+    /** @endcond */
 
-    // string to vector
     /**
-     * @brief Set sequence of micro link IDs
-     * @param linkArr Sequence of microscopic link IDs ("Link1 Link2 Link3 Link4")
+     * @brief Set vector of micro link IDs
+     * @param linkArr Vector of microscopic link IDs ("Link1 Link2 Link3 Link4")
     */
     void setMicroLinkArr(std::string linkArr);
 
     /**
-     * @brief Set sequence of meso link IDs
-     * @param linkArr Sequence of mesoscopic link IDs ("Link1 Link2 Link3 Link4")
+     * @brief Set vector of meso link IDs
+     * @param linkArr Vector of mesoscopic link IDs ("Link1 Link2 Link3 Link4")
     */
-    // ??? 여기서는 string linkArr인데 아래에서는 vector<int> linkArr 인게 이상함
     void setMesoLinkArr(std::string linkArr);
 
     /**
      * @brief Get period ID
-     * @return Period ID to change simulation level
+     * @return Period ID of mode setting application
     */
     int getId()
     {
@@ -76,7 +76,7 @@ public:
 
     /**
      * @brief Get start cycle
-     * @return Start cycle for applying the corresponding cycle
+     * @return Start cycle for applying the corresponding mode setting
     */
     int getScycle()
     {
@@ -84,8 +84,8 @@ public:
     }
 
     /**
-     * @brief Get sequence of micro link IDs
-     * @return Sequence of microscopic link IDs
+     * @brief Get vector of micro link IDs
+     * @return Vector of microscopic link IDs
     */
     std::vector<int> getMicroLinkArr()
     {
@@ -93,8 +93,8 @@ public:
     }
 
     /**
-     * @brief Get sequence of meso link IDs
-     * @return Sequence of mesoscopic link IDs
+     * @brief Get vector of meso link IDs
+     * @return Vector of mesoscopic link IDs
     */
     std::vector<int> getMesoLinkArr()
     {

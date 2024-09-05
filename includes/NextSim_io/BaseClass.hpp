@@ -18,7 +18,6 @@ class MetaData
 {
 
 public:
-
     /** 
      * @details ID of the unit
      */
@@ -69,10 +68,12 @@ public:
      */
     std::size_t MaxVehicle = 0;
 
-    /** 
-     * @details Default constructor
-     */
+    /** @cond EXCLUDE */
     MetaData() = default;
+    virtual ~MetaData() = default;
+    MetaData(const MetaData& metaData) = default;
+    MetaData& operator=(const MetaData& metaData) = default;
+    /** @endcond */
 
     /** 
      * @details Constructor with ID
@@ -149,11 +150,6 @@ public:
 
     {
     }
-    
-    virtual ~MetaData() = default;
-    MetaData(const MetaData& metaData) = default;
-    MetaData& operator=(const MetaData& metaData) = default;
-
 };
 
 

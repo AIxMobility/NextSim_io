@@ -12,8 +12,8 @@
 PaxArr::PaxArr()
 {
     TiXmlDocument doc(NextSimIO::PassengerXMLPath.string().c_str());
+    
     bool loadOkay = doc.LoadFile();
-
     if (!loadOkay)
     {
         std::cout << "Loading failed (PaxArr)" << std::endl;
@@ -37,7 +37,7 @@ PaxArr::PaxArr()
 
                 if (elemName2 == "demand")
                 {
-                    ODPax demoPax(atol(e->Attribute("origin")),
+                    InputODPax demoPax(atol(e->Attribute("origin")),
                                   atol(e->Attribute("dest")),
                                   atol(e->Attribute("flow")),
                                   e->Attribute("dist"));
@@ -56,7 +56,7 @@ PaxArr::PaxArr()
 
                 if (elemName2 == "agent")
                 {
-                    AgentPax demoPax(atol(e->Attribute("id")),
+                    InputAgentPax demoPax(atol(e->Attribute("id")),
                                      atol(e->Attribute("origin_station")),
                                      atol(e->Attribute("dest_station")),
                                      atof(e->Attribute("dpt_time")),

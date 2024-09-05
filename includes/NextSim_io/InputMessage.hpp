@@ -45,20 +45,18 @@ private:
     */
     int value;
 
-    // unique to Region Message
+    // 
     /**
-     * @details Node ID for getting message
+     * @details Node ID for getting message (unique to Region Message)
     */
     int node_id = 0;
 
-    // unique to Vehicle Message
     /**
-     * @details Vehicle ID for getting message
+     * @details Vehicle ID for getting message (unique to Vehicle Message)
     */
     int veh_id = 0;
 
 public:
-    // Constructor
     /**
      * @brief Constructor
      * @param id Message ID
@@ -82,7 +80,6 @@ public:
      * @brief Get start time
      * @return Start time for message operation
     */
-    // ??? 단위
     double getStime()
     {
         return stime;

@@ -17,7 +17,6 @@
  * @class InputODMatrix
  * @brief Class for each OD matrix from odmatrix.xml
 */
-
 class InputODMatrix
 {
 private:

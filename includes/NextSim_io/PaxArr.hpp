@@ -22,17 +22,17 @@ private:
     /**
      * @details Sequence of OD passengers
     */
-    std::vector<ODPax> ODPaxVec;
+    std::vector<InputODPax> ODPaxVec;
 
     /**
      * @details Sequence of agent passengers
     */
-    std::vector<AgentPax> AgentPaxVec;
+    std::vector<InputAgentPax> AgentPaxVec;
 
 public:
 
     /**
-     * @details Constructor
+     * @details Constructor (Parse passenger information from passenger.xml)
     */
     PaxArr();
 
@@ -40,11 +40,11 @@ public:
      * @details Get sequence of OD passengers
      * @return Sequence of OD passengers that has origin and destination
     */
-    std::vector<ODPax> getODPax() { return ODPaxVec; }
+    std::vector<InputODPax> getODPax() { return ODPaxVec; }
 
     /**
      * @details Get sequence of agent passengers
      * @return Sequence of agent passengers that has fixed route
     */
-    std::vector<AgentPax> getAgentPax() { return AgentPaxVec; }
+    std::vector<InputAgentPax> getAgentPax() { return AgentPaxVec; }
 };

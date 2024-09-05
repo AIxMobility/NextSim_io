@@ -18,7 +18,6 @@
 class InputSegment
 {
 private:
-    // <segment block="true" end_point="169.15" ID="20000102240301" init_point="0.0" left_lc="false" right_lc="false"/>
 
     /**
      * @details Whether segment is blocked or not
@@ -43,12 +42,12 @@ private:
     /**
      * @details Whether left lane change is allowed or not
      */
-    bool left_lc;
+    bool left_lc_allowed;
 
     /**
      * @details Whether right lane change is allowed or not
      */
-    bool right_lc; // change the names for better UI
+    bool right_lc_allowed;
 
 public:
 
@@ -66,48 +65,42 @@ public:
     {
         id = id_val;
         blocked = block;
-        left_lc = left_lc_val;
-        right_lc = right_lc_val;
+        left_lc_allowed = left_lc_val;
+        right_lc_allowed = right_lc_val;
         init_point = init_point_val;
         end_point = end_point_val;
     }
 
-    // ???
+    /** @cond EXCLUDE */
     InputSegment() = default;
     InputSegment(const InputSegment& segment) = default;
     InputSegment& operator=(const InputSegment& segment) = default;
     ~InputSegment() = default;
+    /** @endcond */
 
     /**
      * @details Set segment ID
      * @param id_val Segment ID
     */
-    void setID(std::size_t id_val);
+    void setID(std::size_t id_val) { id = id_val; }
 
     /**
      * @details Set whether segment is blocked or not
      * @param block True(blocked) or False(not)
     */
-    void setBlocked(bool block);
-
-    /**
-     * @details Set whether left and right lane change is allowed or not
-     * @param left_lc_val True(left lane change is allowed) or False(not)
-     * @param right_lc_val True(right lane change is allowed) or False(not)
-    */
-    void setLeftRight_lc(bool left_lc_val, bool right_lc_val);
+    void setBlocked(bool block) { block = block; }
 
     /**
      * @details Set start point of segment
      * @param init_point_val Start point of segment (from link start point)
     */
-    void setInitialPoint(double init_point_val);
+    void setInitialPoint(double init_point_val) { init_point = init_point_val; }
 
     /**
      * @details Set end point of segment
      * @param end_point_val End point of segment (from link start point)
     */
-    void setEndPoint(double end_point_val);
+    void setEndPoint(double end_point_val) { end_point = end_point_val; }
 
     /**
      * @details Get segment ID
@@ -122,25 +115,16 @@ public:
     bool getBlocked() const { return blocked; }
 
     /**
-     * @details Get whether left and right lane change is allowed or not
-     * @return Pair of left and right value (True(lane change is allowed) or False(not))
-    */
-    std::pair<bool, bool>  getLeftRight_lc() const
-    {
-        return std::make_pair(left_lc, right_lc);
-    }
-
-    /**
      * @details Get whether left lane change is allowed or not
      * @return True(left lane change is allowed) or False(not)
     */
-    bool getLeft_lc() const { return left_lc; }
+    bool getLeftLCallowed() const { return left_lc_allowed; }
 
     /**
      * @details Get whether right lane change is allowed or not
      * @return True(right lane change is allowed) or False(not)
     */
-    bool getRight_lc() const { return right_lc; }
+    bool getRightLCallowed() const { return right_lc_allowed; }
 
     /**
      * @details Get start point of segment

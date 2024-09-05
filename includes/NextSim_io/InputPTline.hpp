@@ -2,7 +2,7 @@
  * NextSim Captain
  * @file : InputPTline.hpp
  * @version : 1.0
- * @author : Jeyun Kim
+ * @author : Sujae Jeon
  */
 
 #ifndef INPUTPTROUTE_H
@@ -58,7 +58,6 @@ public:
     */
     InputPTline(int id, double interval);
 
-    // string to vector
     /**
      * @details Set sequence of links
      * @param linkSeq Sequence of links that line passes

@@ -25,7 +25,6 @@ private:
     */
     std::size_t m_id;
 
-    // pointers to make them nullptrs if needed
     /**
      * @details Left lane ID
     */
@@ -35,27 +34,31 @@ private:
      * @details Right lane ID
     */
     std::size_t m_rightLaneId = 0;
-    // Lane ID should be more than 0
 
     /**
-     * @details Number of cells
+     * @details Number of cells in lane
     */
     int m_numCell;
 
-    // Arrays of cells and segments;
     /**
-     * @details Sequence of cells
+     * @details Vector of cells in lane
     */
-    // ??? 2D array 인지 1D sequence인지 궁금
-    std::vector<InputCell> CellArr;
+    std::vector<InputCell> m_cellArr;
 
     /**
-     * @details Sequence of segments
+     * @details Vector of segments in lane
     */
-    std::vector<InputSegment> SegmentArr;
+    std::vector<InputSegment> m_segmentArr;
 
 public:
-    //constructors
+
+    /** @cond EXCLUDE */
+    InputLane() = default;
+    ~InputLane() = default;
+    InputLane(const InputLane& lane) = default;
+    InputLane& operator=(const InputLane& lane) = default;
+    /** @endcond */
+    
     /**
      * @details Constructor
      * @param idVal Lane ID
@@ -69,23 +72,17 @@ public:
     /**
      * @details Constructor
      * @param id_val Lane ID
-     * @param left_lane_id_val Left lane ID
-     * @param right_lane_id_val Right lane ID
-     * @param num_cell_val Number of cells
+     * @param leftLaneIdVal Left lane ID
+     * @param rightLaneIdVal Right lane ID
+     * @param numCellVal Number of cells
+     * @param LeftEmpty Whether left lane is empty or not\
      * @param RightEmpty Whether right lane is empty or not
-     * @param LeftEmpty Whether left lane is empty or not
     */
-    // ??? leftLaneIdVal 과 left_lane_id_val 은 다른가..?
-    // ??? right empty는 lane이 비어있는걸 의미? 또는 cell이 비어있는걸 의미?
-    InputLane(std::size_t id_val, std::size_t left_lane_id_val,
-              std::size_t right_lane_id_val, int num_cell_val, bool RightEmpty,
-              bool LeftEmpty);
+    InputLane(std::size_t id_val, std::size_t leftLaneIdVal,
+              std::size_t rightLaneIdVal, int numCellVal, 
+              bool LeftEmpty, bool RightEmpty);
 
-    // ???
-    InputLane() = default;
-    ~InputLane() = default;
-    InputLane(const InputLane& lane) = default;
-    InputLane& operator=(const InputLane& lane) = default;
+    
 
     /**
      * @details Set lane ID
@@ -98,21 +95,21 @@ public:
 
     /**
      * @details Set left lane ID
-     * @param left_lane_id_val Left lane ID
+     * @param leftLaneIdVal Left lane ID
     */
-    void setLeftLaneID(std::size_t left_lane_id_val);
+    void setLeftLaneID(std::size_t leftLaneIdVal);
 
     /**
      * @details Set right lane ID
-     * @param right_lane_id_val Right lane ID
+     * @param rightLaneIdVal Right lane ID
     */
-    void setRightLaneID(std::size_t right_lane_id_val);
+    void setRightLaneID(std::size_t rightLaneIdVal);
 
     /**
      * @details Set number of cells
-     * @param num_cell_val Number of cells
+     * @param numCellVal Number of cells
     */
-    void setNumCell(int num_cell_val);
+    void setNumCell(int numCellVal);
 
     /**
      * @details Add cell into sequence
@@ -151,16 +148,16 @@ public:
     int getNumCell() { return m_numCell; }
 
     /**
-     * @details Get sequence of cells
-     * @return Sequence of cells
+     * @details Get vector of cells
+     * @return Vector of cells
     */
-    const std::vector<InputCell>& GetCellVector() const { return CellArr; }
+    const std::vector<InputCell>& GetCellVector() const { return m_cellArr; }
 
     /**
-     * @details Get sequence of segments
-     * @return Sequence of segments
+     * @details Get vector of segments
+     * @return Vector of segments
     */
-    const std::vector<InputSegment>& GetSegmentVector() const { return SegmentArr; }
+    const std::vector<InputSegment>& GetSegmentVector() const { return m_segmentArr; }
 };
 
 

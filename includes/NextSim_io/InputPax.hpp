@@ -2,7 +2,7 @@
  * NextSim Captain
  * @file : InputPax.hpp
  * @version : 1.0
- * @author : ???
+ * @author : Sujae Jeon
  */
 
 #pragma once
@@ -10,10 +10,10 @@
 #include <string>
 
 /**
- * @class ODPax
+ * @class InputODPax
  * @brief Class for each origin-destination passenger information
  */
-class ODPax
+class InputODPax
 {
 private:
 
@@ -30,11 +30,10 @@ private:
     /**
      * @details Passenger flow [pax/hr]
      */
-    // ??? InputDataTable.xlsx 에는 veh/hr로 되어있음
-    int flow; // pax/hr
+    int flow;
 
     /**
-     * @details Estimated distribution of departure time
+     * @details Estimated distribution of passenger generation
      */
     std::string dist;
     
@@ -44,9 +43,9 @@ public:
      * @param origin Origin station ID
      * @param dest Destination station ID
      * @param flow Passenger flow
-     * @param dist Estimated distribution of departure time
+     * @param dist Estimated distribution of passenger generation
     */
-    ODPax(int origin, int dest, int flow, std::string dist);
+    InputODPax(int origin, int dest, int flow, std::string dist);
 
     /**
      * @details Get origin station ID
@@ -67,28 +66,27 @@ public:
     int getFlow() { return flow; }
 
     /**
-     * @details Get estimated distribution of departure time
-     * @return Estimated distribution of departure time (Normal, Lognormal) ???
+     * @details Get estimated distribution of passenger generation
+     * @return Estimated distribution of passenger generation
     */
     std::string getDist() { return dist; }
 };
 
 /**
- * @class AgentPax
+ * @class InputAgentPax
  * @brief Class for each agent passenger information
  */
-class AgentPax
+class InputAgentPax
 {
 private:
     /**
-     * @details Agent ID
+     * @details Agent Passenger ID
      */
     int id;
 
     /**
      * @details Origin station ID
      */
-    // ??? agent pax인데 OD로 잘못 코드 작성돼있음 (input table 내에는 origin link, pos를 사용)
     int origin_station;
 
     /**
@@ -109,18 +107,18 @@ private:
 public:
     /**
      * @details Constructor
-     * @param id Agent ID
+     * @param id Agent Passenger ID
      * @param origin_station Origin station ID
      * @param dest_station Destination station ID
      * @param dpt_time Departure time
      * @param type Reservation type
     */
-    AgentPax(int id, int origin_station, int dest_station, 
+    InputAgentPax(int id, int origin_station, int dest_station, 
              double dpt_time, std::string type);
 
     /**
-     * @details Get agent ID
-     * @return Agent ID
+     * @details Get agent passenger ID
+     * @return Agent passenger ID
     */
     int getId() { return id; }
 

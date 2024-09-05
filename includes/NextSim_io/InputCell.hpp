@@ -17,13 +17,12 @@
 class InputCell: public MetaData
 {
     private:
-        //Data Members for the cell
         /**
          * @details Location of starting point of cell
         */
         double offset;
+
     public:
-        // Constructor and destructor for the cell
         /**
          * @details Constructor
          * @param id_val Cell ID
@@ -35,10 +34,11 @@ class InputCell: public MetaData
             offset = offset_val;
         }
 
-        //???
+        /** @cond EXCLUDE */
         ~InputCell() = default;
         InputCell(const InputCell& cell) = default;
         InputCell& operator=(const InputCell& cell) = default;
+        /** @endcond */
 
         /**
          * @details Set offset of cell
@@ -51,6 +51,7 @@ class InputCell: public MetaData
          * @return Location of starting point of cell
         */
         const double getOffset() const { return offset; }
+
 };
 
 #endif

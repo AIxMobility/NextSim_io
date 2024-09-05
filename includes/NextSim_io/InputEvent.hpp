@@ -12,10 +12,10 @@
 #include <string>
 #include <vector>
 
-//**
-// * @class InputEvent
-// * @brief Class for event information from events.xml
-// */
+/**
+ * @class InputEvent
+ * @brief Class for event information from eventdata.xml
+*/
 class InputEvent
 {
 private:
@@ -26,28 +26,27 @@ private:
     int id;
 
     /**
-     * @details Link ID for event operation
+     * @details Link ID of event occurrence
     */
     std::size_t link_id;
 
     /**
-     * @details Offset for event operation (from link start point)
+     * @details Position of event occurrence (from link start point)
     */
-    // ??? start 아니면 end 부터 offset인지
     double pos;
 
     /**
-     * @details Lane ID for event operation
+     * @details Lane ID of event occurrence
     */
     int lane;
 
     /**
-     * @details Start time for event operation
+     * @details Start time of event occurrence
     */
     double stime;
 
     /**
-     * @details End time for event operation
+     * @details End time of event
     */
     double etime;
 
@@ -57,9 +56,8 @@ private:
     int type;
 
     /**
-     * @details Event seriousness
+     * @details Event seriousness (severity)
     */
-    // ??? 심각도로 쓸거면 severity 가 더 맞는 표현이라고 나옴
     int sern;
 
 public:
@@ -73,7 +71,7 @@ public:
      * @param stime Start time
      * @param etime End time
      * @param type Event type
-     * @param sern Event seriousness
+     * @param sern Event seriousness (severity)
     */
     InputEvent(int id, std::size_t link_id, double pos, int lane, double stime, double etime, int type, int sern);
 
@@ -88,7 +86,7 @@ public:
 
     /**
      * @details Get link ID
-     * @return Link ID for event operation
+     * @return Link ID of event occurrence
     */
     std::size_t getLinkId()
     {
@@ -96,8 +94,8 @@ public:
     }
 
     /**
-     * @details Get offset
-     * @return Offset for event operation (from link start point)
+     * @details Get position 
+     * @return Position of event occurrence (from link start point)
     */
     double getPos()
     {
@@ -106,7 +104,7 @@ public:
 
     /**
      * @details Get lane ID
-     * @return Lane ID for event operation
+     * @return Lane ID of event occurrence
     */
     int getLane()
     {
@@ -115,7 +113,7 @@ public:
 
     /**
      * @details Get start time
-     * @return Start time for event operation
+     * @return Start time of event occurrence
     */
     double getStime()
     {
@@ -124,7 +122,7 @@ public:
 
     /**
      * @details Get end time
-     * @return End time for event operation
+     * @return End time of event occurrence
     */
     double getEtime()
     {
@@ -141,8 +139,8 @@ public:
     }
 
     /**
-     * @details Get event seriousness
-     * @return Event seriousness
+     * @details Get event seriousness (severity)
+     * @return Event seriousness (severity)
     */
     int getSern()
     {

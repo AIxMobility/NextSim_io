@@ -16,14 +16,14 @@
 
 /**
  * @class InputDistribution
- * @brief Class for each distribution information
+ * @brief Class for distribution information for each vehicle characteristic
  */
 class InputDistribution
 {
 private:
 
     /**
-     * @details Distribution type (Normal, LogNormal) ???
+     * @details Distribution type (Normal, LogNormal)
      */
     std::string vehdist;
 
@@ -66,7 +66,7 @@ public:
 
     /**
      * @details Generate a random value based on the distribution
-     * @return Random value
+     * @return Random characteristic value
     */
     double genValue(){
         std::random_device rd;
@@ -94,7 +94,7 @@ public:
 
     /**
      * @details Get distribution type
-     * @return Distribution type (Normal, LogNormal) ???
+     * @return Distribution type (Normal, LogNormal)
     */
     std::string getdist()
     {
@@ -102,7 +102,7 @@ public:
     }
 
     /**
-     * @details Get maximum value
+     * @details Get maximum value of the distribution
      * @return Maximum value
     */
     double getmax()
@@ -111,7 +111,7 @@ public:
     }
 
     /**
-     * @details Get mean value
+     * @details Get mean value of the distribution
      * @return Mean value
     */
     double getmean()
@@ -120,7 +120,7 @@ public:
     }
 
     /**
-     * @details Get minimum value
+     * @details Get minimum value of the distribution
      * @return Minimum value
     */
     double getmin()
@@ -129,7 +129,7 @@ public:
     }
 
     /**
-     * @details Get standard deviation
+     * @details Get standard deviation of the distribution
      * @return Standard deviation
     */
     double getsd()
@@ -147,7 +147,7 @@ public:
     }
 
     /**
-     * @details Set maximum value
+     * @details Set maximum value of the distribution
      * @param newmax Maximum value
     */
     void setmax(double newmax)
@@ -156,7 +156,7 @@ public:
     }
 
     /**
-     * @details Set mean value
+     * @details Set mean value of the distribution
      * @param newmean Mean value
     */
     void setmean(double newmean)
@@ -165,7 +165,7 @@ public:
     }
 
     /**
-     * @details Set minimum value
+     * @details Set minimum value of the distribution
      * @param newmin Minimum value
     */
     void setmin(double newmin)
@@ -174,7 +174,7 @@ public:
     }
 
     /**
-     * @details Set standard deviation
+     * @details Set standard deviation of the distribution
      * @param newsd Standard deviation
     */
     void setsd(double newsd)
