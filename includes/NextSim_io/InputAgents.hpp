@@ -26,27 +26,27 @@ private:
     int id;
 
     /**
-     * @details Agent Type ID
+     * @details Agent type ID
      */
     int typeId;
 
     /**
-     * @details Departure time
+     * @details Departure time [s]
      */
     double dpt_time;
 
     /**
-     * @details Sequence of links that the agent will pass
+     * @details Sequence of links that agent passes
      */
     std::vector<int> link_seq;
 
     /**
-     * @details Sequence of nodes that the agent will pass
+     * @details Sequence of nodes that agent passes
      */
     std::vector<int> node_seq;
 
     /**
-     * @details Sequence of stations that the agent will pass
+     * @details Sequence of stations that agent passes
      */
     std::vector<int> station_seq;
 
@@ -59,37 +59,37 @@ public:
     /**
      * @details Constructor
      * @param id Agent ID
-     * @param type Agent Type ID
+     * @param type Agent type ID
      * @param dpt_time Departure time
      */
     InputAgents(int id, int typeId, double dpt_time);
 
     /**
-     * @details Set link sequence
+     * @details Set sequence of links
      * @param linkSeq Sequence of links
      */
     void setLinkSeq(std::string linkSeq);
 
     /**
-     * @details Set node sequence
+     * @details Set sequence of nodes
      * @param nodeSeq Sequence of nodes
      */
     void setNodeSeq(std::string nodeSeq);
 
     /**
-     * @details Set station sequence
+     * @details Set sequence of stations
      * @param stationSeq Sequence of stations
      */
     void setStationSeq(std::string stationSeq);
 
     /**
-     * @details Set station distance sequence
+     * @details Set sequence of distance between stations
      * @param stationDistanceSeq Sequence of distance between stations
      */
     void setStationDistanceSeq(std::string stationDistanceSeq);
 
     /**
-     * @details Get Agent ID
+     * @details Get agent ID
      * @return Agent ID
      */
     int getId()
@@ -98,8 +98,8 @@ public:
     }
 
     /**
-     * @details Get Agent Type ID
-     * @return Agent Type ID
+     * @details Get agent type ID
+     * @return Agent type ID
      */
     int getTypeId()
     {
@@ -108,7 +108,7 @@ public:
 
     /**
      * @details Get Departure time
-     * @return Departure time
+     * @return Departure time [s]
      */
     double getDepTime()
     {
@@ -116,8 +116,8 @@ public:
     }
 
     /**
-     * @details Get link sequence
-     * @return Sequence of links
+     * @details Get sequence of links
+     * @return Sequence of links that agent passes
      */
     std::vector<int> getLinkSeq()
     {
@@ -125,8 +125,8 @@ public:
     }
 
     /**
-     * @details Get node sequence
-     * @return Sequence of nodes
+     * @details Get sequence of nodes
+     * @return Sequence of nodes that agent passes
      */
     std::vector<int> getNodeSeq()
     {
@@ -134,8 +134,8 @@ public:
     }
 
     /**
-     * @details Get station sequence
-     * @return Sequence of stations
+     * @details Get sequence of stations
+     * @return Sequence of stations that agent passes
      */
     std::vector<int> getStationSeq()
     {
@@ -143,7 +143,7 @@ public:
     }
 
     /**
-     * @details Get station distance sequence
+     * @details Get sequence of distance between stations
      * @return Sequence of distance between stations
      */
     std::vector<double> getStationDistanceSeq()
