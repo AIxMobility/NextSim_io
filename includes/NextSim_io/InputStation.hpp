@@ -36,11 +36,10 @@ private:
     /**
      * @details Position of station (from link start point)
     */
-    // ??? lane start point부터인지? offset 이라고 적는게 나은지?
     double pos;
 
     /**
-     * @details Number of parking lots
+     * @details Number of parking lots in the station
     */
     int parkingLots;
 
@@ -60,7 +59,6 @@ public:
      */
     InputStation(int id, int link_ref, int lane_ref, double pos, int parkingLots);
 
-    // string to vector
     /**
      * @details Set sequence of line IDs
      * @param line_list_str Sequence of line IDs that pass the station
@@ -151,7 +149,6 @@ private:
     std::pair<double, double> pos_range;
 
 public:
-    //Constructors
     /**
      * @details Constructor
      * @param id DRT station ID
@@ -160,7 +157,6 @@ public:
     */
     InputDRTStation(int id, int link_ref, int lane_ref);
 
-    // string to vector
     /**
      * @details Set position range of DRT station
      * @param pos_range_str Pair of start and end position (from link start point)

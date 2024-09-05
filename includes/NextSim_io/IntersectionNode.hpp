@@ -57,12 +57,12 @@ private:
     bool v2xActive;
 
     /**
-     * @details Sequence of connected links
+     * @details Vector of connected links
     */
     std::vector<port> connectedLinks;
 
     /**
-     * @details Sequence of connections between links
+     * @details Vector of connections between links
     */
     std::vector<connection> connectionTable;
 
@@ -90,10 +90,6 @@ private:
      * @details Signal offset [s]
     */
     int offset = 0;
-    
-    
-    //signalSequence: order(list), phase_length
-    //may have to make this into a Pointer Loop
 
 public:
     /**
@@ -104,68 +100,76 @@ public:
      * @param num_port Number of connected links
      * @param v2xActive Whether V2X is active or not
     */
-    IntersectionNode(int type, int id, int num_connection, int num_port, bool v2xActive);
+    IntersectionNode(int type, int id, int num_connection, 
+                     int num_port, bool v2xActive): 
+        type(type), id(id), numConnections(num_connection), 
+        numLinks(num_port), v2xActive(v2xActive)
+    {
+    }
 
     /**
      * @details Set node type
      * @param _type Node type (0: Intersection, 1: Normal, 2: Diverging, 3: Terminal, 4: Garage)
     */
-    void setType( int _type );
-
-    /**
-     * @details Initiate signal phase
-    */
-    void initPhase(); //set all priority to 0 for all connections;
-
-    /**
-     * @details Set current signal phase
-     * @param phase Signal phase ID
-    */
-    void setPhase( int phase ); //set priority according to chosen phase number
+    void setType( int _type ) { type = _type; }
 
     /**
      * @details Set signal cycle
      * @param cycle Signal cycle [s]
     */
-    void setCycle ( int cycle );
+    void setCycle ( int _cycle ) { cycle = _cycle; }
 
     /**
      * @details Set signal offset
      * @param offset Signal offset [s]
     */
-    void setOffset ( int offset );
+    void setOffset ( int _offset ) { offset = _offset; }
 
     /**
      * @details Add connection between links into sequence
      * @param conn Connection between links
     */
-    void pushConnection( connection conn );
+    void pushConnection( connection conn )
+    {
+        connectionTable.push_back(conn);
+    };
 
     /**
      * @details Add connected link into sequence
      * @param link Connected link
     */
-    void pushLink( port link );
+    void pushLink( port link )
+    {
+        connectedLinks.push_back(link);
+    };
 
     /**
      * @details Add signal phase into sequence
      * @param phase Signal phase
     */
-    void pushPhase ( intersectionPhase phase );
+    void pushPhase ( intersectionPhase phase )
+    {
+        phaseTable.push_back(phase);
+    };
 
     /**
      * @details Add signal phase length into sequence
      * @param length Signal phase length
     */
-    void pushPhaseLength ( int length );
+    void pushPhaseLength ( int length )
+    {
+        phaseLength.push_back(length);
+    }
 
     /**
      * @details Add signal phase order into sequence
      * @param order Signal phase order
     */
-    void pushPhaseOrder ( int order );
+    void pushPhaseOrder ( int order )
+    {
+        phaseOrder.push_back(order);
+    }
 
-    //Check Functions
     /**
      * @details Get node ID
      * @return Node ID

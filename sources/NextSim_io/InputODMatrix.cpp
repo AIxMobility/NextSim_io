@@ -6,5 +6,5 @@
 #include <NextSim_io/tinyapi/tinyxml.h>
 #include <NextSim_io/tinyapi/tinystr.h>
 
-InputODMatrix::InputODMatrix(int id, std::vector<Demand> demands)
-    : id(id), demands(demands) {};
+InputODMatrix::InputODMatrix(int id, std::vector<InputFlow> odmatrix)
+    : id(id), odmatrix(odmatrix) {};

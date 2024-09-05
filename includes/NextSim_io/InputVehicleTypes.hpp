@@ -45,13 +45,11 @@ private:
     /**
      * @details Jam gap [m]
     */
-    // ??? (차간 최소 거리) 같은거 적을지
     InputDistribution jamgap;
 
     /**
      * @details Free flow speed [km/h]
     */
-    // ??? InputDataTable.xlsx 에는 최대 속도라고 적혀있는데 ff 대신 최대 속도라고 적어야 할지
     InputDistribution vf;
 
     /**
@@ -83,6 +81,7 @@ private:
      * @details Lane change sensitivity [.]
     */
     InputDistribution lc_sensitivity;
+
     // InputDistribution delta_jamgap;
     // InputDistribution b1;
     // InputDistribution b2;
@@ -119,7 +118,6 @@ public:
                     InputDistribution lc_param1,
                     InputDistribution lc_param2,
                     InputDistribution lc_sensitivity);
-
 
     /**
      * @details Get vehicle type
@@ -168,7 +166,7 @@ public:
 
     /**
      * @details Generate free flow speed
-     * @return Free flow speed [km/h]
+     * @return Free flow speed [m/s]
     */
     double genvf()
     {
@@ -221,6 +219,7 @@ public:
     {
         return lc_sensitivity.genValue();
     }
+    
     // double gendelta_jamgap()
     // {
     //     return delta_jamgap.genValue();

@@ -61,10 +61,10 @@ void InputLane::setNumCell(int numCellVal)
 
 void InputLane::pushCell(InputCell cell)
 {
-    CellArr.emplace_back(cell);
+    m_cellArr.emplace_back(cell);
 }
 
 void InputLane::pushSegment(InputSegment segment)
 {
-    SegmentArr.emplace_back(segment);
+    m_segmentArr.emplace_back(segment);
 }
