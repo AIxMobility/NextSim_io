@@ -11,6 +11,8 @@
 #include <NextSim_io/InputVehicleTypes.hpp>
 #include <NextSim_io/InputDistribution.hpp>
 
+namespace NextSimIO
+{
 InputVehicleTypes::InputVehicleTypes(std::string vehType, 
                                  int max_pax, 
                                  bool v2xActive, 
@@ -35,3 +37,4 @@ InputVehicleTypes::InputVehicleTypes(std::string vehType,
                                    lc_param1 { lc_param1 },
                                    lc_param2 { lc_param2 },
                                    lc_sensitivity { lc_sensitivity } {};
+} // namespace NextSimIO

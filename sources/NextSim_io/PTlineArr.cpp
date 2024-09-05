@@ -10,6 +10,8 @@
 #include <NextSim_io/tinyapi/tinyxml.h>
 #include <NextSim_io/FilePath.hpp>
 
+namespace NextSimIO
+{
 PTlineArr::PTlineArr()
 {
     parseArr();
@@ -66,3 +68,4 @@ void PTlineArr::parseArr(){
         ptlineArr.push_back(tPTline);
     }
 }
+} // namespace NextSimIO

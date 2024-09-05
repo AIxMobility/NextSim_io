@@ -9,6 +9,8 @@
 #include <vector>
 #include <string>
 
+namespace NextSimIO
+{
 /**
  * @class InputODPax
  * @brief Class for each origin-destination passenger information
@@ -146,3 +148,4 @@ public:
     */
     std::string getReserveType() { return type; }
 };
+} // namespace NextSimIO

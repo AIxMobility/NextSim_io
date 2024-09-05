@@ -4,6 +4,8 @@
 #include <string>
 #include <cmath>
 
+namespace NextSimIO
+{
 InputLink::InputLink(std::size_t id, int lane, double length, double width, double stopline)
     : MetaData(id, length, width, stopline), m_numLane(lane)
 {
@@ -115,3 +117,4 @@ std::vector<std::vector<size_t>> InputLink::Get2DMaxVehicle()  // veh/lane
     }
     return matrix;
 }
+} // namespace NextSimIO

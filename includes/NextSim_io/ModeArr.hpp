@@ -11,6 +11,8 @@
 #include <vector>
 #include "InputMode.hpp"
 
+namespace NextSimIO
+{
 /**
  * @class ModeArr
  * @brief Class for whole simulation modes from mode.xml
@@ -43,5 +45,6 @@ public:
         return modeArr;
     }
 };
+} // namespace NextSimIO
 
 #endif

@@ -5,6 +5,8 @@
 
 #include <NextSim_io/InputMode.hpp>
 
+namespace NextSimIO
+{
 InputMode::InputMode(int id, int scycle) : id(id), scycle(scycle){};
 
 void InputMode::setMicroLinkArr(std::string linkArr)
@@ -24,3 +26,4 @@ void InputMode::setMesoLinkArr(std::string linkArr)
     while (ss >> mesoid)
         mesoLinkArr.push_back(mesoid);
 }
+} // namespace NextSimIO

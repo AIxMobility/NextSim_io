@@ -3,6 +3,8 @@
 
 #include <NextSim_io/intersection/connection.hpp>
 
+namespace NextSimIO
+{
 connection::connection(int id, int fromLink, int fromLane, 
                        int toLink, int toLane, 
                        std::string turning, double priority, 
@@ -17,3 +19,4 @@ connection::connection(int id, int fromLink, int fromLane,
       length(length),
       width(width),
       ffspeed(ffspeed){};
+} // namespace NextSimIO

@@ -11,6 +11,8 @@
 #include <vector>
 #include <string>
 
+namespace NextSimIO
+{
 /**
  * @class InputMode
  * @brief Class for each simulation mode information
@@ -101,5 +103,6 @@ public:
         return mesoLinkArr;
     }
 };
+} // namespace NextSimIO
 
 #endif

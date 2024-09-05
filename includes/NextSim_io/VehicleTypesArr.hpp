@@ -11,6 +11,8 @@
 #include <map>
 #include "InputVehicleTypes.hpp"
 
+namespace NextSimIO
+{
 /**
  * @class VehicleTypesArr
  * @brief Class for whole vehicle types from vehicleTypes.xml
@@ -45,6 +47,6 @@ public:
     // ??? InputVehicleTypes 타입 자체를 적어줘야 할지 vehicle type이라고 적어야 할지 모르겠음
     InputVehicleTypes getVehicleType(int type) { return vehTypes.find(type)->second; }
 };
-
+} // namespace NextSimIO
 
 #endif

@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+namespace NextSimIO
+{
 class connection
 {
  private:
@@ -56,3 +58,4 @@ class connection
         return to_lane < other.to_lane;
     }
 };
+}  // namespace NextSimIO

@@ -10,6 +10,8 @@
 
 #include "BaseClass.hpp"
 
+namespace NextSimIO
+{
 /**
  * @class InputCell
  * @brief Class for each cell information
@@ -53,5 +55,6 @@ class InputCell: public MetaData
         const double getOffset() const { return offset; }
 
 };
+} // namespace NextSimIO
 
 #endif

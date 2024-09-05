@@ -12,6 +12,8 @@
 #include <string>
 #include <vector>
 
+namespace NextSimIO
+{
 /**
  * @class InputPTline
  * @brief Class for each public transit line information
@@ -118,5 +120,6 @@ public:
     */
     std::vector<double> getStationDistanceSeq() { return station_distance_seq; }
 };
+} // namespace NextSimIO
 
 #endif

@@ -24,6 +24,8 @@ using namespace std;
 	The main file has to be in the same directory as the simple_network.xml
 */
 
+namespace NextSimIO
+{
 int main(int argc, char* argv[])
 {
 
@@ -51,3 +53,4 @@ int main(int argc, char* argv[])
 
     return 0;
 }
+} // namespace NextSimIO

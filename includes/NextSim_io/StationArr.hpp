@@ -11,6 +11,8 @@
 #include <vector>
 #include "InputStation.hpp"
 
+namespace NextSimIO
+{
 /**
  * @class StationArr
  * @brief Class for whole station information
@@ -47,5 +49,6 @@ public:
     */
     std::vector<InputDRTStation> getDRTStations() { return DRTStations; }
 };
+} // namespace NextSimIO
 
 #endif

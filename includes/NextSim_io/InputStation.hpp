@@ -11,6 +11,8 @@
 #include <vector>
 #include <string>
 
+namespace NextSimIO
+{
 /**
  * @class InputStation
  * @brief Class for each public transit station information
@@ -199,4 +201,6 @@ public:
         return pos_range;
     }
 };
+} // namespace NextSimIO
+
 #endif

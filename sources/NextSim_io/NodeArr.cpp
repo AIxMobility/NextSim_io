@@ -14,6 +14,8 @@
 #include <NextSim_io/tinyapi/tinyxml.h>
 #include <NextSim_io/FilePath.hpp>
 
+namespace NextSimIO
+{
 NodeArr::NodeArr()
 {
     TiXmlDocument doc;
@@ -629,3 +631,4 @@ void NodeArr::showArr()
                   << std::endl;
     }
 }
+} // namespace NextSimIO

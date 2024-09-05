@@ -9,6 +9,8 @@
 
 #include <NextSim_io/FilePath.hpp>
 
+namespace NextSimIO
+{
 PaxArr::PaxArr()
 {
     TiXmlDocument doc(NextSimIO::PassengerXMLPath.string().c_str());
@@ -69,3 +71,4 @@ PaxArr::PaxArr()
     }
     doc.Clear();
 };
+} // namespace NextSimIO

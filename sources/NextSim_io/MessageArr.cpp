@@ -17,6 +17,8 @@
 #include <NextSim_io/tinyapi/tinyxml.h>
 #include <NextSim_io/FilePath.hpp>
 
+namespace NextSimIO
+{
 MessageArr::MessageArr()
 {
     TiXmlDocument doc;
@@ -119,3 +121,4 @@ MessageArr::MessageArr()
     }
     doc.Clear();
 };
+} // namespace NextSimIO

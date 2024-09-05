@@ -14,6 +14,8 @@
 #include <random>
 #include <math.h>
 
+namespace NextSimIO
+{
 /**
  * @class InputDistribution
  * @brief Class for distribution information for each vehicle characteristic
@@ -182,5 +184,6 @@ public:
         vehsd = newsd;
     }
 };
+} // namespace NextSimIO
 
 #endif

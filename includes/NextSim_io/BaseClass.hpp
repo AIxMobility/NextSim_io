@@ -10,6 +10,8 @@
 
 #include <vector>
 
+namespace NextSimIO
+{
 /**
  * @class MetaData
  * @brief Class for metadata of network units
@@ -151,6 +153,6 @@ public:
     {
     }
 };
-
+} // namespace NextSimIO
 
 #endif

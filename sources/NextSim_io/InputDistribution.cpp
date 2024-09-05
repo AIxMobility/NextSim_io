@@ -10,5 +10,8 @@
 
 #include <NextSim_io/InputDistribution.hpp>
 
+namespace NextSimIO
+{
 InputDistribution::InputDistribution() {};
 InputDistribution::InputDistribution(std::string vehdist, double vehmax, double vehmean, double vehmin, double vehsd): vehdist{vehdist}, vehmax(vehmax), vehmean(vehmean), vehmin(vehmin), vehsd(vehsd) {};
+} // namespace NextSimIO

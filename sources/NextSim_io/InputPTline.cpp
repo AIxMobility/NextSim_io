@@ -5,6 +5,8 @@
 
 #include <NextSim_io/InputPTline.hpp>
 
+namespace NextSimIO
+{
 InputPTline::InputPTline(int id, double interval) : id(id), interval(interval) {};
 
 void InputPTline::setLinkSeq(std::string linkSeq)
@@ -42,3 +44,4 @@ void InputPTline::setStationDistanceSeq(std::string stationDistanceSeq)
     while (ss >> stationDistance)
         station_distance_seq.push_back(stationDistance);
 }
+} // namespace NextSimIO

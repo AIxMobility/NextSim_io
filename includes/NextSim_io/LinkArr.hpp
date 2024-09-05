@@ -11,6 +11,8 @@
 #include <vector>
 #include "InputLink.hpp"
 
+namespace NextSimIO
+{
 /**
  * @class LinkArr
  * @brief Class for whole link information
@@ -45,5 +47,6 @@ public:
     */
     std::vector<InputLink> getLinks() { return Links; }
 };
+} // namespace NextSimIO
 
 #endif

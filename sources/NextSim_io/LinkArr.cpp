@@ -8,6 +8,8 @@
 #include <NextSim_io/LinkArr.hpp>
 #include <NextSim_io/includes/NextSim_io/FilePath.hpp>
 
+namespace NextSimIO
+{
 // tool functions
 void SetCellAttrs(const InputLink& parentLink, InputCell& cell);
 bool a_to_bool(const char* val);
@@ -217,3 +219,4 @@ void SetCellAttrs(const InputLink& parentLink, InputCell& cell)
     cell.WaveSpeed = parentLink.WaveSpeed;
     cell.Width = -1;
 }
+}  // namespace NextSimIO
