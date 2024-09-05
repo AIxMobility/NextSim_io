@@ -11,6 +11,8 @@
 #include <vector>
 #include "InputEvent.hpp"
 
+namespace NextSimIO
+{
 /**
  * @class EventArr
  * @brief Class for event scenario from events.xml
@@ -35,5 +37,6 @@ public:
      */
     std::vector<InputEvent> getEvents()  { return Events; }
 };
+} // namespace NextSimIO
 
 #endif

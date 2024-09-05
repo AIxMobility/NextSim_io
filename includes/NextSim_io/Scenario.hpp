@@ -10,6 +10,8 @@
 
 #include <vector>
 
+namespace NextSimIO
+{
 /**
  * @class Scenario
  * @brief Class for each origin-destination scenario information from odscenario.xml
@@ -36,5 +38,6 @@ public:
     */
     std::vector<std::pair<int, int>> getScenario() { return ODscenario; }
 };
+} // namespace NextSimIO
 
 #endif

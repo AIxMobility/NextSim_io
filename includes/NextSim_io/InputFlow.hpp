@@ -12,6 +12,8 @@
 #include <string>
 #include <iostream>
 
+namespace NextSimIO
+{
 /**
  * @class InputFlow
  * @brief Class for each flow (per OD) information from odmatrix.xml
@@ -88,4 +90,6 @@ public:
     */
     int getDist() { return dist; }
 };
+} // namespace NextSimIO
+
 #endif

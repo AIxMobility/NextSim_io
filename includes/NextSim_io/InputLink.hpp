@@ -13,6 +13,8 @@
 #include "BaseClass.hpp"
 #include "InputLane.hpp"
 
+namespace NextSimIO
+{
 /**
  * @class InputLink
  * @brief Class for each link information
@@ -207,5 +209,6 @@ public:
     //Free 2d Vectors
     //Need to make helper functions for Designating cell-by-cell values
 };
+} // namespace NextSimIO
 
 #endif

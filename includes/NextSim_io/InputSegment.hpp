@@ -11,6 +11,8 @@
 #include "InputSegment.hpp"
 #include <utility>
 
+namespace NextSimIO
+{
 /**
  * @class InputSegment
  * @brief Class for each segment information
@@ -138,6 +140,6 @@ public:
     */
     double getEndPoint() const { return end_point; }
 };
-
+} // namespace NextSimIO
 
 #endif

@@ -8,6 +8,8 @@
 #include <NextSim_io/tinyapi/tinyxml.h>
 #include <NextSim_io/FilePath.hpp>
 
+namespace NextSimIO
+{
 Scenario::Scenario()
 {
     TiXmlDocument doc;
@@ -45,3 +47,4 @@ Scenario::Scenario()
     };
     doc.Clear();
 }
+} // namespace NextSimIO

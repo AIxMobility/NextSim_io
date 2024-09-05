@@ -11,6 +11,8 @@
 #include <vector>
 #include "InputMessage.hpp"
 
+namespace NextSimIO
+{
 /**
  * @class MessageArr
  * @brief Class for whole message information
@@ -48,5 +50,6 @@ public:
     */
     std::vector<InputMessage> getVehMessage()  { return VehMessage; }
 };
+} // namespace NextSimIO
 
 #endif

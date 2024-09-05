@@ -12,6 +12,8 @@
 #include <string>
 #include <vector>
 
+namespace NextSimIO
+{
 /**
  * @class InputEvent
  * @brief Class for event information from eventdata.xml
@@ -147,5 +149,6 @@ public:
         return sern;
     }
 };
+} // namespace NextSimIO
 
 #endif

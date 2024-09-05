@@ -18,6 +18,8 @@
 #include <NextSim_io/tinyapi/tinyxml.h>
 #include <NextSim_io/FilePath.hpp>
 
+namespace NextSimIO
+{
 VehicleTypesArr::VehicleTypesArr()
 {
     TiXmlDocument doc;
@@ -267,3 +269,4 @@ VehicleTypesArr::VehicleTypesArr()
     }
     doc.Clear();
 };
+} // namespace NextSimIO

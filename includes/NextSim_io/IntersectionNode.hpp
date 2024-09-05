@@ -15,6 +15,8 @@
 
 #pragma once
 
+namespace NextSimIO
+{
 /**
  * @class IntersectionNode
  * @brief Class for each intersection node information
@@ -251,3 +253,4 @@ public:
     */
     bool hasPhase() {return !phaseTable.empty();}
 };
+} // namespace NextSimIO

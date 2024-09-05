@@ -11,6 +11,8 @@
 #include <vector>
 #include "InputPTline.hpp"
 
+namespace NextSimIO
+{
 /**
  * @class PTlineArr
  * @brief Class for whole public transit line information from ptline.xml
@@ -42,5 +44,6 @@ public:
         return ptlineArr;
     }
 };
+} // namespace NextSimIO
 
 #endif

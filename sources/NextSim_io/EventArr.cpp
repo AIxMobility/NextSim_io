@@ -17,6 +17,8 @@
 #include <NextSim_io/tinyapi/tinyxml.h>
 #include <NextSim_io/FilePath.hpp>
 
+namespace NextSimIO
+{
 EventArr::EventArr()
 {
     TiXmlDocument doc;
@@ -74,3 +76,4 @@ EventArr::EventArr()
     }
     doc.Clear();
 };
+} // namespace NextSimIO

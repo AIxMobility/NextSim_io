@@ -3,8 +3,8 @@
 
 
 // InputLane methods
-
-
+namespace NextSimIO
+{
 InputLane::InputLane(std::size_t idVal, std::size_t leftLaneIdVal,
                      std::size_t rightLaneIdVal, int numCellVal)
     : m_id(idVal),
@@ -68,3 +68,4 @@ void InputLane::pushSegment(InputSegment segment)
 {
     SegmentArr.emplace_back(segment);
 }
+} // namespace NextSimIO

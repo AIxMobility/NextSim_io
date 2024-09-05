@@ -12,6 +12,8 @@
 #include <string>
 #include <vector>
 
+namespace NextSimIO
+{
 /**
  * @class InputAgents
  * @brief Class for information of each agent from agents.xml
@@ -151,5 +153,6 @@ public:
         return station_distance_seq;
     }
 };
+} // namespace NextSimIO
 
 #endif

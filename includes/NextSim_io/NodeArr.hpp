@@ -15,6 +15,8 @@
 #include "intersection/connection.hpp"
 #include "intersection/intersectionPhase.hpp"
 
+namespace NextSimIO
+{
 /**
  * @class NodeArr
  * @brief Class for whole node information
@@ -110,5 +112,6 @@ public:
     //check
     void showArr();
 };
+} // namespace NextSimIO
 
 #endif

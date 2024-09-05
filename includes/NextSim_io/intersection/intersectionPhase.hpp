@@ -3,6 +3,8 @@
 #include <string>
 #include <iostream>
 
+namespace NextSimIO
+{
 class intersectionPhase
 {
 private:
@@ -25,3 +27,4 @@ public:
 
 
 };
+} // namespace NextSimIO

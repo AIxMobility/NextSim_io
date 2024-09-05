@@ -12,6 +12,8 @@
 #include <string>
 #include <vector>
 
+namespace NextSimIO
+{
 /**
  * @class InputMessage
  * @brief Class for each message information
@@ -148,5 +150,6 @@ public:
         veh_id = nveh_id;
     }
 };
+} // namespace NextSimIO
 
 #endif

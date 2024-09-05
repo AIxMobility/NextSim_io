@@ -12,6 +12,8 @@
 #include "InputCell.hpp"
 #include "InputSegment.hpp"
 
+namespace NextSimIO
+{
 /**
  * @class InputLane
  * @brief Class for each lane information
@@ -159,6 +161,6 @@ public:
     */
     const std::vector<InputSegment>& GetSegmentVector() const { return m_segmentArr; }
 };
-
+} // namespace NextSimIO
 
 #endif

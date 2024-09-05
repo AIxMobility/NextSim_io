@@ -14,6 +14,8 @@
 
 #include "InputDistribution.hpp"
 
+namespace NextSimIO
+{
 /**
  * @class InputVehicleTypes
  * @brief Class for agent types information from agenttypes.xml
@@ -246,5 +248,6 @@ public:
     //     return c3.genValue();
     // }
 };
+} // namespace NextSimIO
 
 #endif

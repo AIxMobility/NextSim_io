@@ -3,6 +3,8 @@
 #include <string>
 #include <iostream>
 
+namespace NextSimIO
+{
 class port
 {
 private:
@@ -22,3 +24,4 @@ public:
      */
 
 };
+} // namespace NextSimIO

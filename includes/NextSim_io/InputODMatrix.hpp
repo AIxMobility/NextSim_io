@@ -13,6 +13,8 @@
 #include <iostream>
 #include "InputFlow.hpp"
 
+namespace NextSimIO
+{
 /**
  * @class InputODMatrix
  * @brief Class for each OD matrix from odmatrix.xml
@@ -53,5 +55,6 @@ public:
     */
     std::vector<InputFlow> getODmatrix() { return odmatrix; }
 };
+} // namespace NextSimIO
 
 #endif

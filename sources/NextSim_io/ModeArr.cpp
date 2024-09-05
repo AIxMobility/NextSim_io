@@ -10,6 +10,8 @@
 #include <NextSim_io/tinyapi/tinyxml.h>
 #include <NextSim_io/FilePath.hpp>
 
+namespace NextSimIO
+{
 ModeArr::ModeArr()
 {
     parseArr();
@@ -66,3 +68,4 @@ void ModeArr::parseArr(){
         modeArr.push_back(tMode);
     }
 }
+} // namespace NextSimIO

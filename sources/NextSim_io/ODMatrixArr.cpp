@@ -10,6 +10,8 @@
 #include <NextSim_io/tinyapi/tinyxml.h>
 #include <NextSim_io/FilePath.hpp>
 
+namespace NextSimIO
+{
 ODMatrixArr::ODMatrixArr()
 {
     TiXmlDocument doc;
@@ -178,3 +180,4 @@ ODMatrixArr::ODMatrixArr()
     };
     doc.Clear();
 }
+} // namespace NextSimIO

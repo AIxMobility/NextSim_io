@@ -9,6 +9,8 @@
 #include <NextSim_io/InputStation.hpp>
 #include <NextSim_io/FilePath.hpp>
 
+namespace NextSimIO
+{
 StationArr::StationArr()
 {
     TiXmlDocument doc(NextSimIO::StationXMLPath.string().c_str());
@@ -75,3 +77,4 @@ StationArr::StationArr()
     }
     doc.Clear();
 }
+} // namespace NextSimIO

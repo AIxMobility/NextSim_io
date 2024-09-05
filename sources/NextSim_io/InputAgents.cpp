@@ -11,6 +11,8 @@
 
 #include <NextSim_io/InputAgents.hpp>
 
+namespace NextSimIO
+{
 InputAgents::InputAgents(int id, int type, double dpt_time) 
                          : id(id), typeId(type), dpt_time(dpt_time){};
 
@@ -49,3 +51,4 @@ void InputAgents::setStationDistanceSeq(std::string stationDistanceSeq)
     while (ss >> stationDistance)
         station_distance_seq.push_back(stationDistance);
 }
+} // namespace NextSimIO

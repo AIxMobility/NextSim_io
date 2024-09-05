@@ -3,6 +3,8 @@
 
 #include <NextSim_io/intersection/intersectionPhase.hpp>
 
+namespace NextSimIO
+{
 intersectionPhase::intersectionPhase(int id) :
 id(id)
 {};
@@ -16,3 +18,4 @@ void intersectionPhase::pushPriority(double val)
 {
     priority.push_back(val);
 };
+} // namespace NextSimIO

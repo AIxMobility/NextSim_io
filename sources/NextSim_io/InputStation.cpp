@@ -4,6 +4,8 @@
 
 #include <NextSim_io/InputStation.hpp>
 
+namespace NextSimIO
+{
 InputStation::InputStation(int id, int link_ref, int lane_ref, double pos, int parkingLots) : 
     id(id), link_ref(link_ref), lane_ref(lane_ref), pos(pos), parkingLots(parkingLots){};
 
@@ -33,3 +35,4 @@ void InputDRTStation::setPosRange(std::string pos_range_str)
     if (delim == '-')
         pos_range = std::make_pair(start_pos, end_pos);
 }
+} // namespace NextSimIO

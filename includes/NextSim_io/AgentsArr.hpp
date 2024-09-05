@@ -11,6 +11,8 @@
 #include <vector>
 #include "InputAgents.hpp"
 
+namespace NextSimIO
+{
 /**
  * @class AgentsArr
  * @brief Class for whole agents from agents.xml
@@ -43,6 +45,6 @@ public:
     std::vector<InputAgents> getAgents() { return Agents; }
 
 };
-
+} // namespace NextSimIO
 
 #endif

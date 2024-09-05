@@ -11,6 +11,8 @@
 
 #include "InputPax.hpp"
 
+namespace NextSimIO
+{
 /**
  * @class PaxArr
  * @brief Class for whole passenger information from passenger.xml
@@ -48,3 +50,4 @@ public:
     */
     std::vector<InputAgentPax> getAgentPax() { return AgentPaxVec; }
 };
+} // namespace NextSimIO

@@ -9,6 +9,8 @@
 #include <vector>
 #include <string>
 
+namespace NextSimIO
+{
 /**
  * @class ParamArr
  * @brief Class for whole parameter from param.xml
@@ -172,3 +174,4 @@ private:
     */
     double wave_speed;
 };
+} // namespace NextSimIO

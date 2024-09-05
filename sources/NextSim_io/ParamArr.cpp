@@ -8,6 +8,8 @@
 #include <NextSim_io/tinyapi/tinystr.h>
 #include <NextSim_io/FilePath.hpp>
 
+namespace NextSimIO
+{
 // intialize with the meso params
 ParamArr::ParamArr()
     : micro_veh_len(3),
@@ -207,3 +209,4 @@ void ParamArr::SetModel(const char* model, const char* str)
         max_dec[2] = val;
     }
 };
+} // namespace NextSimIO
