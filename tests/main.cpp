@@ -6,17 +6,17 @@
 #include <iostream>
 #include <string>
 
-#include <NextSim_io/InputLink.hpp>
+#include <NextSim_io/inputdata/InputLink.hpp>
 
-#include <NextSim_io/InputAgents.hpp>
-#include <NextSim_io/LinkArr.hpp>
-#include <NextSim_io/NodeArr.hpp>
-#include <NextSim_io/AgentsArr.hpp>
-#include <NextSim_io/ParamArr.hpp>
+#include <NextSim_io/inputdata/InputAgents.hpp>
+#include <NextSim_io/parser/LinkArr.hpp>
+#include <NextSim_io/parser/NodeArr.hpp>
+#include <NextSim_io/parser/AgentsArr.hpp>
+#include <NextSim_io/parser/ParamArr.hpp>
 
-#include <NextSim_io/intersection/port.hpp>
-#include <NextSim_io/intersection/connection.hpp>
-#include <NextSim_io/intersection/intersectionPhase.hpp>
+#include <NextSim_io/inputdata/intersection/port.hpp>
+#include <NextSim_io/inputdata/intersection/connection.hpp>
+#include <NextSim_io/inputdata/intersection/intersectionPhase.hpp>
 
 using namespace std;
 
