@@ -19,10 +19,10 @@ ParamArr::ParamArr()
 {
     TiXmlDocument doc;
 
-    doc.LoadFile(STSIO::ParamXMLPath.string().c_str());
+    doc.LoadFile(NextSimIO::ParamXMLPath.string().c_str());
     // std::cout << "Loading ParamArr" << std::endl;
 
-    if (!doc.LoadFile(STSIO::ParamXMLPath.string().c_str()))
+    if (!doc.LoadFile(NextSimIO::ParamXMLPath.string().c_str()))
     {
         std::cout << "Loading failed (ParamArr)" << std::endl;
         // std::cerr << doc.ErrorDesc() << std::endl;

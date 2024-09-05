@@ -11,7 +11,7 @@
 
 PaxArr::PaxArr()
 {
-    TiXmlDocument doc(STSIO::PassengerXMLPath.string().c_str());
+    TiXmlDocument doc(NextSimIO::PassengerXMLPath.string().c_str());
     bool loadOkay = doc.LoadFile();
 
     if (!loadOkay)

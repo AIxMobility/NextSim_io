@@ -3,7 +3,7 @@
 
 #include <filesystem>
 
-namespace STSIO
+namespace NextSimIO
 {
 static std::string network_name = "bucheon";
 static std::filesystem::path currentPath = std::filesystem::current_path();

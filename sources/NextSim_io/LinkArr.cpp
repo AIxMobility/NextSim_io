@@ -19,7 +19,7 @@ bool a_to_bool(const char* val);
 LinkArr::LinkArr()
 {
     TiXmlDocument doc("");
-    bool loadOkay = doc.LoadFile(STSIO::NetworkXMLPath.string().c_str());
+    bool loadOkay = doc.LoadFile(NextSimIO::NetworkXMLPath.string().c_str());
     // std::cout << "Loading LinkArr" << std::endl;
 
     if (!loadOkay)

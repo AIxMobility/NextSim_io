@@ -1,9 +1,2 @@
-# NextSim Input/Output Handler
+# NextSim I/O Handler
 
-# Build
-
-```bash
-cmake .
-cd sources/NextSim_io
-make
-```

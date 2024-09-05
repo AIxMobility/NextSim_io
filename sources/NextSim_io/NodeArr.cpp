@@ -18,9 +18,9 @@ NodeArr::NodeArr()
 {
     TiXmlDocument doc;
 
-    doc.LoadFile(STSIO::NetworkXMLPath.string().c_str());
+    doc.LoadFile(NextSimIO::NetworkXMLPath.string().c_str());
 
-    if (!doc.LoadFile(STSIO::NetworkXMLPath.string().c_str()))
+    if (!doc.LoadFile(NextSimIO::NetworkXMLPath.string().c_str()))
     {
         std::cout << "Loading failed (NodeArr-Network.xml)" << std::endl;
         // std::cerr << doc.ErrorDesc() << std::endl;
@@ -534,10 +534,10 @@ NodeArr::NodeArr()
     doc.Clear();
 
     TiXmlDocument doc_signal;
-    doc_signal.LoadFile(STSIO::SignalXMLPath.string().c_str());
+    doc_signal.LoadFile(NextSimIO::SignalXMLPath.string().c_str());
     // std::cout << "Loading NodeArr" << std::endl;
 
-    if (!doc_signal.LoadFile(STSIO::SignalXMLPath.string().c_str()))
+    if (!doc_signal.LoadFile(NextSimIO::SignalXMLPath.string().c_str()))
     {
         std::cout << "Loading failed (NodeArr-Signal.xml)" << std::endl;
         // std::cerr << doc_signal.ErrorDesc() << std::endl;

@@ -11,7 +11,7 @@
 
 StationArr::StationArr()
 {
-    TiXmlDocument doc(STSIO::StationXMLPath.string().c_str());
+    TiXmlDocument doc(NextSimIO::StationXMLPath.string().c_str());
     bool loadOkay = doc.LoadFile();
 
     if (!loadOkay)

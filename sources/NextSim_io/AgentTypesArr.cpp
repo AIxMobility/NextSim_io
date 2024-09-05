@@ -22,10 +22,10 @@ AgentTypesArr::AgentTypesArr()
 {
     TiXmlDocument doc;
 
-    doc.LoadFile(STSIO::AgentTypeXMLPath.string().c_str());
+    doc.LoadFile(NextSimIO::AgentTypeXMLPath.string().c_str());
     // std::cout << "Loading AgentTypesArr" << std::endl;
 
-    if (!doc.LoadFile(STSIO::AgentTypeXMLPath.string().c_str()))
+    if (!doc.LoadFile(NextSimIO::AgentTypeXMLPath.string().c_str()))
     {
         std::cout << "Loading failed (AgentTypesArr)" << std::endl;
         // std::cerr << doc.ErrorDesc() << std::endl;

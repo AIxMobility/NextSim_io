@@ -18,10 +18,10 @@ ModeArr::ModeArr()
 void ModeArr::parseArr(){
     TiXmlDocument doc;
 
-    doc.LoadFile(STSIO::ModeXMLPath.string().c_str());
+    doc.LoadFile(NextSimIO::ModeXMLPath.string().c_str());
     // std::cout << "Loading ModeArr" << std::endl;
     
-    if (!doc.LoadFile(STSIO::ModeXMLPath.string().c_str()))
+    if (!doc.LoadFile(NextSimIO::ModeXMLPath.string().c_str()))
     {
         std::cout << "Loading failed (ModeArr)" << std::endl;
         // std::cerr << doc.ErrorDesc() << std::endl;

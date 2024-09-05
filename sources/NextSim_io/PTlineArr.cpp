@@ -18,9 +18,9 @@ PTlineArr::PTlineArr()
 void PTlineArr::parseArr(){
     TiXmlDocument doc;
 
-    doc.LoadFile(STSIO::PTlineXMLPath.string().c_str());
+    doc.LoadFile(NextSimIO::PTlineXMLPath.string().c_str());
     
-    if (!doc.LoadFile(STSIO::PTlineXMLPath.string().c_str()))
+    if (!doc.LoadFile(NextSimIO::PTlineXMLPath.string().c_str()))
     {
         std::cout << "Loading failed (PTLineArr)" << std::endl;
         // std::cerr << doc.ErrorDesc() << std::endl;

@@ -20,10 +20,10 @@ void AgentsArr::parseAgent(std::string AgentType){
     TiXmlDocument doc;
 
     if(AgentType == "Agents"){
-        doc.LoadFile(STSIO::AgentXMLPath.string().c_str());
+        doc.LoadFile(NextSimIO::AgentXMLPath.string().c_str());
         // std::cout << "Loading AgentsArr" << std::endl;
 
-        if (!doc.LoadFile(STSIO::AgentXMLPath.string().c_str()))
+        if (!doc.LoadFile(NextSimIO::AgentXMLPath.string().c_str()))
         {
             std::cout << "Loading failed (AgentsArr)" << std::endl;
             // std::cerr << doc.ErrorDesc() << std::endl;
@@ -31,12 +31,12 @@ void AgentsArr::parseAgent(std::string AgentType){
         }
     }
     else if(AgentType == "Agents_opt"){
-        if (!std::filesystem::exists(STSIO::AgentOptXMLPath.string().c_str()))   return;
+        if (!std::filesystem::exists(NextSimIO::AgentOptXMLPath.string().c_str()))   return;
 
-        doc.LoadFile(STSIO::AgentOptXMLPath.string().c_str());
+        doc.LoadFile(NextSimIO::AgentOptXMLPath.string().c_str());
         // std::cout << "Loading Optional AgentsArr" << std::endl;
 
-        if (!doc.LoadFile(STSIO::AgentOptXMLPath.string().c_str()))
+        if (!doc.LoadFile(NextSimIO::AgentOptXMLPath.string().c_str()))
         {
             std::cout << "Loading failed (AgentsOptArr)" << std::endl;
             // std::cerr << doc.ErrorDesc() << std::endl;
