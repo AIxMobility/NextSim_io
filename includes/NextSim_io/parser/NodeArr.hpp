@@ -8,11 +8,7 @@
 #ifndef NODEARR_H
 #define NODEARR_H
 
-#include <vector>
-#include <NextSim_io/inputdata/intersection/IntersectionNode.hpp>
-#include <NextSim_io/inputdata/intersection/port.hpp>
-#include <NextSim_io/inputdata/intersection/connection.hpp>
-#include <NextSim_io/inputdata/intersection/intersectionPhase.hpp>
+#include <NextSim_io/inputclass/InputNode.hpp>
 
 namespace NextSimIO
 {
@@ -27,37 +23,37 @@ private:
     /**
      * @details Vector of all nodes
     */
-    std::vector<IntersectionNode> Nodes;
+    std::vector<InputNode> Nodes;
 
     /**
      * @details Vector of normal nodes
     */
-    std::vector<IntersectionNode> NormalNodes;
+    std::vector<InputNode> NormalNodes;
 
     /**
      * @details Vector of intersection nodes
     */
-    std::vector<IntersectionNode> IntersectionNodes;
+    std::vector<InputNode> IntersectionNodes;
 
     /**
      * @details Vector of diverging nodes
     */
-    std::vector<IntersectionNode> DivergingNodes;
+    std::vector<InputNode> DivergingNodes;
 
     /**
      * @details Vector of merging nodes
     */
-    std::vector<IntersectionNode> MergingNodes;
+    std::vector<InputNode> MergingNodes;
 
     /**
      * @details Vector of terminal nodes
     */
-    std::vector<IntersectionNode> TerminalNodes;
+    std::vector<InputNode> TerminalNodes;
 
     /**
      * @details Vector of garage nodes
     */
-    std::vector<IntersectionNode> GarageNodes;
+    std::vector<InputNode> GarageNodes;
 
 public:
 
@@ -70,43 +66,43 @@ public:
      * @details Get vector of all nodes
      * @return Vector of all nodes
     */
-    std::vector<IntersectionNode> getNodes() { return Nodes; }
+    std::vector<InputNode> getNodes() { return Nodes; }
 
     /**
      * @details Get vector of normal nodes
      * @return Vector of normal nodes (node between connected two links)
     */
-    std::vector<IntersectionNode> getNormalNodes() { return NormalNodes; }
+    std::vector<InputNode> getNormalNodes() { return NormalNodes; }
 
     /**
      * @details Get vector of intersection nodes
      * @return Vector of intersection nodes (node with signal)
     */
-    std::vector<IntersectionNode> getIntersectionNodes() { return IntersectionNodes; }
+    std::vector<InputNode> getIntersectionNodes() { return IntersectionNodes; }
 
     /**
      * @details Get vector of diverging nodes
      * @return Vector of diverging nodes (node with multiple outgoing links)
     */
-    std::vector<IntersectionNode> getDivergingNodes() { return DivergingNodes; }
+    std::vector<InputNode> getDivergingNodes() { return DivergingNodes; }
 
     /**
      * @details Get vector of merging nodes
      * @return Vector of merging nodes (node with multiple incoming links)
     */
-    std::vector<IntersectionNode> getMergingNodes() { return MergingNodes; }
+    std::vector<InputNode> getMergingNodes() { return MergingNodes; }
 
     /**
      * @details Get vector of terminal nodes
      * @return Vector of terminal nodes (source, sink node)
     */
-    std::vector<IntersectionNode> getTerminalNodes() { return TerminalNodes; }
+    std::vector<InputNode> getTerminalNodes() { return TerminalNodes; }
 
     /**
      * @details Get vector of garage nodes
      * @return Vector of garage nodes (node with public transit garage)
     */
-    std::vector<IntersectionNode> getGarageNodes() { return GarageNodes; }
+    std::vector<InputNode> getGarageNodes() { return GarageNodes; }
 
     /**
      * @details Show vector of total nodes

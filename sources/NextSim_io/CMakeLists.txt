@@ -1,13 +1,14 @@
 set(includes_dir ${InputXmlParser_SOURCE_DIR}/includes/NextSim_io)
 
 file(GLOB_RECURSE headers
-        ${includes_dir}/*.hpp
-        ${includes_dir}/intersection/*.hpp
+        ${includes_dir}/parser/*.hpp
+        ${includes_dir}/inputclass/*.hpp
+        ${includes_dir}/inputclass/intersection/*.hpp
         ${includes_dir}/tinyapi/*.h)
 
 file(GLOB_RECURSE sources
-        ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/intersection/*.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/parser/*.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/inputclass/*.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/tinyapi/*.cpp)
 
 

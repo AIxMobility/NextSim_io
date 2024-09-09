@@ -9,7 +9,7 @@
 #define EVENTARR_H
 
 #include <vector>
-#include <NextSim_io/inputdata/InputEvent.hpp>
+#include <NextSim_io/inputclass/InputEvent.hpp>
 
 namespace NextSimIO
 {

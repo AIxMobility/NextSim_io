@@ -1,11 +1,19 @@
+/**
+ * NextSim Captain
+ * @file : LinkArr.cpp
+ * @version : 1.0
+ * @author : Jeyun Kim
+ */
+
 #include <filesystem>
 #include <iostream>
 #include <string>
 #include <cstdlib>
 
+#include <NextSim_io/parser/LinkArr.hpp>
+
 #include <NextSim_io/tinyapi/tinystr.h>
 #include <NextSim_io/tinyapi/tinyxml.h>
-#include <NextSim_io/parser/LinkArr.hpp>
 #include <NextSim_io/FilePath.hpp>
 
 namespace NextSimIO

@@ -9,7 +9,7 @@
 #define VEHICLETYPESARR_H
 
 #include <map>
-#include <NextSim_io/inputdata/InputVehicleTypes.hpp>
+#include <NextSim_io/inputclass/InputVehicleTypes.hpp>
 
 namespace NextSimIO
 {

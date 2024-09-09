@@ -9,7 +9,7 @@
 #define MODEARR_H
 
 #include <vector>
-#include <NextSim_io/inputdata/InputMode.hpp>
+#include <NextSim_io/inputclass/InputMode.hpp>
 
 namespace NextSimIO
 {

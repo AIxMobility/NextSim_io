@@ -1,10 +1,16 @@
+/**
+ * NextSim Captain
+ * @file : AgentsArr.cpp
+ * @version : 1.0
+ * @author : Jeyun Kim
+ */
+
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <filesystem>
 
 #include <NextSim_io/parser/AgentsArr.hpp>
-#include <NextSim_io/inputdata/InputAgents.hpp>
 
 #include <NextSim_io/tinyapi/tinystr.h>
 #include <NextSim_io/tinyapi/tinyxml.h>

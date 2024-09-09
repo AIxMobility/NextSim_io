@@ -9,7 +9,7 @@
 #define ODMATRIXARR_H
 
 #include <vector>
-#include <NextSim_io/inputdata/InputODMatrix.hpp>
+#include <NextSim_io/inputclass/InputODMatrix.hpp>
 
 namespace NextSimIO
 {

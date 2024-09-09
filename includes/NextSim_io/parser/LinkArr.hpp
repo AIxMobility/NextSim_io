@@ -9,7 +9,7 @@
 #define LINKARR_H
 
 #include <vector>
-#include <NextSim_io/inputdata/InputLink.hpp>
+#include <NextSim_io/inputclass/InputLink.hpp>
 
 namespace NextSimIO
 {

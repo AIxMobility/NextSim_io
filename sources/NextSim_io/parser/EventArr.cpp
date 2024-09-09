@@ -11,7 +11,6 @@
 #include <cstdlib>
 
 #include <NextSim_io/parser/EventArr.hpp>
-#include <NextSim_io/inputdata/InputEvent.hpp>
 
 #include <NextSim_io/tinyapi/tinystr.h>
 #include <NextSim_io/tinyapi/tinyxml.h>

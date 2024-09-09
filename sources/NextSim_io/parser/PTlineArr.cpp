@@ -1,10 +1,16 @@
+/**
+ * NextSim Captain
+ * @file : PTLineArr.cpp
+ * @version : 1.0
+ * @author : Sujae Jeon
+ */
+
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <filesystem>
 
 #include <NextSim_io/parser/PTlineArr.hpp>
-#include <NextSim_io/inputdata/InputPTline.hpp>
 
 #include <NextSim_io/tinyapi/tinystr.h>
 #include <NextSim_io/tinyapi/tinyxml.h>

@@ -1,13 +1,16 @@
+/**
+ * NextSim Captain
+ * @file : NodeArr.cpp
+ * @version : 1.0
+ * @author : Jeyun Kim
+ */
+
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <algorithm>
 
 #include <NextSim_io/parser/NodeArr.hpp>
-#include <NextSim_io/inputdata/intersection/IntersectionNode.hpp>
-#include <NextSim_io/inputdata/intersection/connection.hpp>
-#include <NextSim_io/inputdata/intersection/intersectionPhase.hpp>
-#include <NextSim_io/inputdata/intersection/port.hpp>
 
 #include <NextSim_io/tinyapi/tinystr.h>
 #include <NextSim_io/tinyapi/tinyxml.h>
@@ -55,8 +58,8 @@ NodeArr::NodeArr()
                 
                 if (!strcmp (nodeType, "normal"))
                 {
-                    // create single IntersectionNode instance here
-                    IntersectionNode single_node(
+                    // create single InputNode instance here
+                    InputNode single_node(
                         0, 
                         atol(nodeId), 
                         -1,
@@ -71,7 +74,7 @@ NodeArr::NodeArr()
                         if (val1 == "port")
                         {
                             // create port instance + pushLink to
-                            // IntersectionNode
+                            // InputNode
                             int temp = -1;
 
                             const char *link_id = e3->Attribute("link_id");
@@ -141,8 +144,8 @@ NodeArr::NodeArr()
 
                 else if (!strcmp (nodeType, "intersection"))
                 {
-                    // create single IntersectionNode instance here
-                    IntersectionNode single_node(
+                    // create single InputNode instance here
+                    InputNode single_node(
                         1,
                         atol(nodeId),
                         atoi(num_connection),
@@ -156,7 +159,7 @@ NodeArr::NodeArr()
                         if (val1 == "port")
                         {
                             // create port instance + pushLink to
-                            // IntersectionNode
+                            // InputNode
                             int temp = -1;
 
                             const char *link_id = e3->Attribute("link_id");
@@ -227,8 +230,8 @@ NodeArr::NodeArr()
                 
                 else if (!strcmp (nodeType, "merging"))
                 {
-                    // create single IntersectionNode instance here
-                    IntersectionNode single_node(
+                    // create single InputNode instance here
+                    InputNode single_node(
                         2, 
                         atol(nodeId),
                         atoi(num_connection),
@@ -243,7 +246,7 @@ NodeArr::NodeArr()
                         if (val1 == "port")
                         {
                             // create port instance + pushLink to
-                            // IntersectionNode
+                            // InputNode
                             int temp = -1;
 
                             const char *link_id = e3->Attribute("link_id");
@@ -314,8 +317,8 @@ NodeArr::NodeArr()
 
                 else if (!strcmp (nodeType, "diverging"))
                 {
-                    // create single IntersectionNode instance here
-                    IntersectionNode single_node(
+                    // create single InputNode instance here
+                    InputNode single_node(
                         3,
                         atol(nodeId),
                         atoi(num_connection),
@@ -330,7 +333,7 @@ NodeArr::NodeArr()
                         if (val1 == "port")
                         {
                             // create port instance + pushLink to
-                            // IntersectionNode
+                            // InputNode
                             int temp = -1;
 
                             const char *link_id = e3->Attribute("link_id");
@@ -401,8 +404,8 @@ NodeArr::NodeArr()
 
                 else if (!strcmp (nodeType, "terminal"))
                 {
-                    // create single IntersectionNode instance here
-                    IntersectionNode single_node(
+                    // create single InputNode instance here
+                    InputNode single_node(
                         4, 
                         atol(nodeId), 
                         -1,
@@ -417,7 +420,7 @@ NodeArr::NodeArr()
                         if (val1 == "port")
                         {
                             // create port instance + pushLink to
-                            // IntersectionNode
+                            // InputNode
                             int temp = -1;
 
                             const char *link_id = e3->Attribute("link_id");
@@ -447,8 +450,8 @@ NodeArr::NodeArr()
 
                 else if (!strcmp (nodeType, "garage"))
                 {
-                    // create single IntersectionNode instance here
-                    IntersectionNode single_node(
+                    // create single InputNode instance here
+                    InputNode single_node(
                         5, 
                         atol(nodeId), 
                         -1,
@@ -463,7 +466,7 @@ NodeArr::NodeArr()
                         if (val1 == "port")
                         {
                             // create port instance + pushLink to
-                            // IntersectionNode
+                            // InputNode
                             int temp = -1;
 
                             const char *link_id = e3->Attribute("link_id");
@@ -555,10 +558,10 @@ NodeArr::NodeArr()
 
         auto it = std::find_if(
             Nodes.begin(), Nodes.end(),
-            [&](IntersectionNode const &n) {
+            [&](InputNode const &n) {
                 return n.getId() == atol(nodeId);
             });
-        IntersectionNode& node = *it;
+        InputNode& node = *it;
         
         const char *cycle = e->Attribute("cycle");
         const char *offset = e->Attribute("offset");

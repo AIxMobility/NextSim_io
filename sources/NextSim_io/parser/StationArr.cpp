@@ -11,7 +11,6 @@
 #include <cstdlib>
 
 #include <NextSim_io/parser/StationArr.hpp>
-#include <NextSim_io/inputdata/InputStation.hpp>
 
 #include <NextSim_io/tinyapi/tinystr.h>
 #include <NextSim_io/tinyapi/tinyxml.h>

@@ -9,7 +9,7 @@
 #define STATIONARR_H
 
 #include <vector>
-#include <NextSim_io/inputdata/InputStation.hpp>
+#include <NextSim_io/inputclass/InputStation.hpp>
 
 namespace NextSimIO
 {

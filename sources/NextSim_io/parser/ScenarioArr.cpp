@@ -1,3 +1,10 @@
+/**
+ * NextSim Captain
+ * @file : ScenarioArr.cpp
+ * @version : 1.0
+ * @author : Sujae Jeon
+ */
+
 #include <iostream>
 #include <sstream>
 #include <string>

@@ -1,3 +1,10 @@
+/**
+ * NextSim Captain
+ * @file : PaxArr.cpp
+ * @version : 1.0
+ * @author : Sujae Jeon
+ */
+
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -6,7 +13,6 @@
 
 #include <NextSim_io/tinyapi/tinyxml.h>
 #include <NextSim_io/tinyapi/tinystr.h>
-
 #include <NextSim_io/FilePath.hpp>
 
 namespace NextSimIO

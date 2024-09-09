@@ -11,7 +11,6 @@
 #include <string>
 
 #include <NextSim_io/parser/VehicleTypesArr.hpp>
-#include <NextSim_io/inputdata/InputVehicleTypes.hpp>
 
 #include <NextSim_io/tinyapi/tinystr.h>
 #include <NextSim_io/tinyapi/tinyxml.h>

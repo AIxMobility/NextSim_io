@@ -1,9 +1,14 @@
+/**
+ * NextSim Captain
+ * @file : ODMatrixArr.cpp
+ * @version : 1.0
+ * @author : Jeyun Kim
+ */
+
 #include <iostream>
 #include <sstream>
 #include <string>
 
-#include <NextSim_io/inputdata/InputFlow.hpp>
-#include <NextSim_io/inputdata/InputODMatrix.hpp>
 #include <NextSim_io/parser/ODMatrixArr.hpp>
 
 #include <NextSim_io/tinyapi/tinystr.h>

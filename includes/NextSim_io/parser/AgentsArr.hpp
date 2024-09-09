@@ -9,7 +9,7 @@
 #define AGENTSARR_H
 
 #include <vector>
-#include <NextSim_io/inputdata/InputAgents.hpp>
+#include <NextSim_io/inputclass/InputAgents.hpp>
 
 namespace NextSimIO
 {

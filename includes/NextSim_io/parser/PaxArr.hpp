@@ -9,7 +9,7 @@
 #include <vector>
 #include <string>
 
-#include <NextSim_io/inputdata/InputPax.hpp>
+#include <NextSim_io/inputclass/InputPax.hpp>
 
 namespace NextSimIO
 {

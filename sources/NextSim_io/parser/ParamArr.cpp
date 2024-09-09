@@ -1,3 +1,10 @@
+/**
+ * NextSim Captain
+ * @file : ParamArr.cpp
+ * @version : 1.0
+ * @author : Jeyun Kim
+ */
+
 #include <iostream>
 #include <string>
 #include <sstream>

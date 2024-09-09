@@ -9,7 +9,7 @@
 #define PTROUTEARR_H
 
 #include <vector>
-#include <NextSim_io/inputdata/InputPTline.hpp>
+#include <NextSim_io/inputclass/InputPTline.hpp>
 
 namespace NextSimIO
 {

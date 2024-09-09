@@ -9,7 +9,7 @@
 #define MESSAGEARR_H
 
 #include <vector>
-#include <NextSim_io/inputdata/InputMessage.hpp>
+#include <NextSim_io/inputclass/InputMessage.hpp>
 
 namespace NextSimIO
 {
