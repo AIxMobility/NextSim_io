@@ -21,24 +21,14 @@ class InputSegment
 private:
 
     /**
-     * @details Whether segment is blocked or not
-     */
-    bool blocked;
-
-    /**
      * @details Segment ID
      */
     std::size_t id;
 
     /**
-     * @details Start point of segment (from link start point)
+     * @details Whether segment is blocked or not
      */
-    double init_point;
-
-    /**
-     * @details End point of segment (from link start point)
-     */
-    double end_point;
+    bool blocked;
 
     /**
      * @details Whether left lane change is allowed or not
@@ -49,6 +39,16 @@ private:
      * @details Whether right lane change is allowed or not
      */
     bool right_lc_allowed;
+
+    /**
+     * @details Start point of segment (from link start point)
+     */
+    double init_point;
+
+    /**
+     * @details End point of segment (from link start point)
+     */
+    double end_point;
 
 public:
 
