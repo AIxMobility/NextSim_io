@@ -6,6 +6,8 @@
  */
 
 #pragma once
+#ifndef CONNECTION_H
+#define CONNECTION_H
 
 #include <string>
 #include <vector>
@@ -18,59 +20,7 @@ namespace NextSimIO
  */
 class connection
 {
- private:
-    
-    /**
-     * @details Connection ID
-    */
-    int connectionId;
-
-    /**
-     * @details Link ID that the connection is from
-    */
-    int from_link;
-
-    /**
-     * @details Lane ID that the connection is from
-    */
-    int from_lane;
-
-    /**
-     * @details Link ID that the connection is to
-    */
-    int to_link;
-
-    /**
-     * @details Lane ID that the connection is to
-    */
-    int to_lane;
-
-    /**
-     * @details Turning information (L(left turn), R(right turn), S(straight))
-    */
-    std::string turning;
-
-    /**
-     * @details Priority of the connection (0.1: R, 0.5: L, 1: S)
-    */
-    double priority;
-
-    /**
-     * @details Length [m]
-    */
-    double length;
-
-    /**
-     * @details Width [m]
-    */
-    double width;
-
-    /**
-     * @details Free flow speed [km/h]
-    */
-    double ffspeed;
-
- public:
+public:
     /** 
      * @details Constructor
      * @param id Connection ID
@@ -82,58 +32,111 @@ class connection
      * @param priority Priority of the connection
      * @param length Length
      * @param width Width
-     * @param ffspeed Free flow speed
+     * @param ffSpeed Free flow speed
      */
     connection(int id, int fromLink, int fromLane, int toLink, int toLane,
                std::string turning, double priority, 
-               double length, double width, double ffspeed);
+               double length, double width, double ffSpeed);
 
     /**
      * @details Get connection ID
      * @return Connection ID
      */
-    int getConnId() { return connectionId; }
+    int GetConnId() { return m_connectionId; }
     /**
      * @details Get link ID that the connection is from
      * @return Link ID
      */
-    int getFromLink() { return from_link; }
+    int GetFromLink() { return m_fromLink; }
     
     /**
      * @details Get lane ID that the connection is from
      * @return Lane ID
      */
-    int getFromLane() { return from_lane; }
+    int GetFromLane() { return m_fromLane; }
     
     /**
      * @details Get link ID that the connection is to
      * @return Link ID
      */
-    int getToLink() { return to_link; }
+    int GetToLink() { return m_toLink; }
     
     /**
      * @details Get lane ID that the connection is to
      * @return Lane ID
      */
-    int getToLane() { return to_lane; }
+    int GetToLane() { return m_toLane; }
 
     /**
      * @details Get turning information
      * @return Turning information (L(left turn), R(right turn), S(straight))
      */
-    double getPriority() { return priority; }
+    double GetPriority() { return m_priority; }
 
     /**
      * @details Get priority of the connection
      * @return Priority (0.1: R, 0.5: L, 1: S)
      */
-    double getLength() { return length; }
+    double GetLength() { return m_length; }
 
     /** @cond EXCLUDE */
     bool operator< (const connection& other) const
     {
-        return to_lane < other.to_lane;
+        return m_toLane < other.m_toLane;
     }
     /** @endcond */
+
+private:
+    /**
+     * @details Connection ID
+    */
+    int m_connectionId;
+
+    /**
+     * @details Link ID that the connection is from
+    */
+    int m_fromLink;
+
+    /**
+     * @details Lane ID that the connection is from
+    */
+    int m_fromLane;
+
+    /**
+     * @details Link ID that the connection is to
+    */
+    int m_toLink;
+
+    /**
+     * @details Lane ID that the connection is to
+    */
+    int m_toLane;
+
+    /**
+     * @details Turning information (L(left turn), R(right turn), S(straight))
+    */
+    std::string m_turning;
+
+    /**
+     * @details Priority of the connection (0.1: R, 0.5: L, 1: S)
+    */
+    double m_priority;
+
+    /**
+     * @details Length [m]
+    */
+    double m_length;
+
+    /**
+     * @details Width [m]
+    */
+    double m_width;
+
+    /**
+     * @details Free flow speed [km/h]
+    */
+    double m_ffSpeed;
 };
 }  // namespace NextSimIO
+
+#endif

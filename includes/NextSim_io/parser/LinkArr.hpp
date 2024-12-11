@@ -19,34 +19,28 @@ namespace NextSimIO
  */
 class LinkArr
 {
-private:
-    /**
-     * @details Vector of links
-    */
-    std::vector<InputLink> Links;
-
 public:
     /**
      * @details Constructor (Parse link information from network.xml)
      */
     LinkArr();
 
-    /** @cond EXCLUDE */
-    ~LinkArr() = default;
-    LinkArr(const LinkArr &link) = default;
-    LinkArr &operator=(const LinkArr &link) = default;
-    /** @endcond */
-
     /**
      * @details Show vector of links
     */
-    void showArr();
+    void ShowArr();
 
     /**
      * @details Get vector of links
      * @return Vector of links
     */
-    std::vector<InputLink> getLinks() { return Links; }
+    std::vector<InputLink> GetLinks() { return m_links; }
+
+private:
+    /**
+     * @details Vector of links
+    */
+    std::vector<InputLink> m_links;
 };
 } // namespace NextSimIO
 

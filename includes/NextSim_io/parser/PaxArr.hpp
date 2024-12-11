@@ -19,18 +19,6 @@ namespace NextSimIO
  */
 class PaxArr
 {
-private:
-
-    /**
-     * @details Vector of OD passengers
-    */
-    std::vector<InputODPax> ODPaxVec;
-
-    /**
-     * @details Vector of agent passengers
-    */
-    std::vector<InputAgentPax> AgentPaxVec;
-
 public:
 
     /**
@@ -42,12 +30,25 @@ public:
      * @details Get vector of OD passengers
      * @return Vector of OD passengers that has origin and destination
     */
-    std::vector<InputODPax> getODPax() { return ODPaxVec; }
+    std::vector<InputODPax> GetODPax() { return m_odPax; }
 
     /**
      * @details Get vector of agent passengers
      * @return Vector of agent passengers that has fixed route
     */
-    std::vector<InputAgentPax> getAgentPax() { return AgentPaxVec; }
+    std::vector<InputAgentPax> GetAgentPax() { return m_agentPax; }
+
+private:
+
+    /**
+     * @details Vector of OD passengers
+    */
+    std::vector<InputODPax> m_odPax;
+
+    /**
+     * @details Vector of agent passengers
+    */
+    std::vector<InputAgentPax> m_agentPax;
+
 };
 } // namespace NextSimIO

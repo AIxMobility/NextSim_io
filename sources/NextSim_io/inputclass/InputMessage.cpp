@@ -9,8 +9,8 @@
 
 namespace NextSimIO
 {
-InputMessage::InputMessage(int id, double stime, double etime, 
-                           int msg_type, int value) 
-    : id(id), stime(stime), etime(etime), 
-      msg_type(msg_type), value(value) {};
+InputMessage::InputMessage(int id, double sTime, double eTime, 
+                           int msgType, int value) 
+    : m_id(id), m_sTime(sTime), m_eTime(eTime), 
+      m_msgType(msgType), m_value(value) {}
 } // namespace NextSimIO

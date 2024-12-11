@@ -10,5 +10,5 @@
 namespace NextSimIO
 {
 port::port(int id, int dir, int type) 
-    : linkId(id), direction(dir), type(type) {};
+    : m_linkId(id), m_direction(dir), m_type(type) {};
 } // namespace NextSimIO

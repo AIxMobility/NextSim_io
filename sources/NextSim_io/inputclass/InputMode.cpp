@@ -11,23 +11,23 @@
 
 namespace NextSimIO
 {
-InputMode::InputMode(int id, int scycle) : id(id), scycle(scycle){};
+InputMode::InputMode(int id, int sCycle) : m_id(id), m_sCycle(sCycle){};
 
-void InputMode::setMicroLinkArr(std::string linkArr)
+void InputMode::SetMicroLinkVector(std::string linkVector)
 {
-    std::stringstream ss(linkArr);
+    std::stringstream ss(linkVector);
     int microid;
 
     while (ss >> microid)
-        microLinkArr.push_back(microid);
+        m_microLinkVector.push_back(microid);
 }
 
-void InputMode::setMesoLinkArr(std::string linkArr)
+void InputMode::SetMesoLinkVector(std::string linkVector)
 {
-    std::stringstream ss(linkArr);
+    std::stringstream ss(linkVector);
     int mesoid;
 
     while (ss >> mesoid)
-        mesoLinkArr.push_back(mesoid);
+        m_mesoLinkVector.push_back(mesoid);
 }
 } // namespace NextSimIO

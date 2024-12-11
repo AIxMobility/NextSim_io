@@ -19,20 +19,7 @@ namespace NextSimIO
  */
 class MessageArr
 {
-private:
-
-    /**
-     * @details Vector of region messages
-    */
-    std::vector<InputMessage> RegionMessage;
-
-    /**
-     * @details Vector of vehicle messages
-    */
-    std::vector<InputMessage> VehMessage;
-
 public:
-
     /**
      * @details Constructor (Parse message information from v2xdata.xml)
     */
@@ -42,13 +29,24 @@ public:
      * @details Get vector of region messages
      * @return Vector of region messages
     */
-    std::vector<InputMessage> getRegionMessage()  { return RegionMessage; }
+    std::vector<InputMessage> GetRegionMessage()  { return m_regionMessage; }
 
     /**
      * @details Get vector of vehicle messages
      * @return Vector of vehicle messages
     */
-    std::vector<InputMessage> getVehMessage()  { return VehMessage; }
+    std::vector<InputMessage> GetVehMessage()  { return m_vehMessage; }
+
+private:
+    /**
+     * @details Vector of region messages
+    */
+    std::vector<InputMessage> m_regionMessage;
+
+    /**
+     * @details Vector of vehicle messages
+    */
+    std::vector<InputMessage> m_vehMessage;
 };
 } // namespace NextSimIO
 

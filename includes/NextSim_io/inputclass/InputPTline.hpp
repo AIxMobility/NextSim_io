@@ -5,6 +5,7 @@
  * @author : Sujae Jeon
  */
 
+#pragma once
 #ifndef INPUTPTROUTE_H
 #define INPUTPTROUTE_H
 
@@ -19,38 +20,6 @@ namespace NextSimIO
  */
 class InputPTline
 {
-private:
-
-    /**
-     * @details Public transit line ID
-    */
-    int id;
-
-    /**
-     * @details Dispatch interval [min]
-    */
-    double interval;
-
-    /**
-     * @details Sequence of links that line passes
-    */
-    std::vector<int> link_seq;
-
-    /**
-     * @details Sequence of nodes that line passes
-    */
-    std::vector<int> node_seq;
-
-    /**
-     * @details Sequence of stations that line passes
-    */
-    std::vector<int> station_seq;
-
-    /**
-     * @details Sequence of distance between stations
-    */
-    std::vector<double> station_distance_seq;
-    
 public:
     /**
      * @details Constructor
@@ -63,61 +32,93 @@ public:
      * @details Set sequence of links
      * @param linkSeq Sequence of links that line passes
     */
-    void setLinkSeq(std::string linkSeq);
+    void SetLinkSeq(std::string linkSeq);
 
     /**
      * @details Set sequence of nodes
      * @param nodeSeq Sequence of nodes that line passes
     */
-    void setNodeSeq(std::string nodeSeq);
+    void SetNodeSeq(std::string nodeSeq);
 
     /**
      * @details Set sequence of stations
      * @param stationSeq Sequence of stations that line passes
     */
-    void setStationSeq(std::string stationSeq);
+    void SetStationSeq(std::string stationSeq);
 
     /**
      * @details Set sequence of distance between stations
      * @param stationDistanceSeq Sequence of distance between stations
     */
-    void setStationDistanceSeq(std::string stationDistanceSeq);
+    void SetStationDistanceSeq(std::string stationDistanceSeq);
 
     /**
      * @details Get public transit line ID
      * @return Public transit line ID
     */
-    int getId() { return id; }
+    int GetId() { return m_id; }
 
     /**
      * @details Get dispatch interval
      * @return Dispatch interval [min]
     */
-    int getInterval() { return interval; }
+    int GetInterval() { return m_interval; }
 
     /**
      * @details Get sequence of links
      * @return Sequence of links that line passes
     */
-    std::vector<int> getLinkSeq() { return link_seq; }
+    std::vector<int> GetLinkSeq() { return m_linkSeq; }
 
     /**
      * @details Get sequence of nodes
      * @return Sequence of nodes that line passes
     */
-    std::vector<int> getNodeSeq() { return node_seq; }
+    std::vector<int> GetNodeSeq() { return m_nodeSeq; }
 
     /**
      * @details Get sequence of stations
      * @return Sequence of stations that line passes
     */
-    std::vector<int> getStationSeq() { return station_seq; }
+    std::vector<int> GetStationSeq() { return m_stationSeq; }
 
     /**
      * @details Get sequence of distance between stations
      * @return Sequence of distance between stations
     */
-    std::vector<double> getStationDistanceSeq() { return station_distance_seq; }
+    std::vector<double> GetStationDistanceSeq() { return m_stationDistanceSeq; }
+
+private:
+
+    /**
+     * @details Public transit line ID
+    */
+    int m_id;
+
+    /**
+     * @details Dispatch interval [min]
+    */
+    double m_interval;
+
+    /**
+     * @details Sequence of links that line passes
+    */
+    std::vector<int> m_linkSeq;
+
+    /**
+     * @details Sequence of nodes that line passes
+    */
+    std::vector<int> m_nodeSeq;
+
+    /**
+     * @details Sequence of stations that line passes
+    */
+    std::vector<int> m_stationSeq;
+
+    /**
+     * @details Sequence of distance between stations
+    */
+    std::vector<double> m_stationDistanceSeq;
 };
 } // namespace NextSimIO
 

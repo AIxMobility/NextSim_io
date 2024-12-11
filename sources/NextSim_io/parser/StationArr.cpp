@@ -54,9 +54,9 @@ StationArr::StationArr()
                                       
                     auto ee = e->FirstChildElement();
                     auto line_list = ee->Attribute("list");
-                    demo.setLineList(line_list);
+                    demo.SetLineList(line_list);
                     
-                    Stations.push_back(demo);
+                    m_stations.push_back(demo);
                 }
             }
         }
@@ -75,9 +75,9 @@ StationArr::StationArr()
                                          atol(e->Attribute("lane_ref")));
                     
                     std::string pos_range = e->Attribute("pos_range");
-                    demo.setPosRange(pos_range);
+                    demo.SetPosRange(pos_range);
                     
-                    DRTStations.push_back(demo);
+                    m_drtStations.push_back(demo);
                 }
             }
         }

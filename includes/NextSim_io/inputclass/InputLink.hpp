@@ -5,6 +5,7 @@
  * @author : Jae Hwan Jung, Justin Kim
 */
 
+#pragma once
 #ifndef INPUTLINK_H
 #define INPUTLINK_H
 
@@ -21,48 +22,6 @@ namespace NextSimIO
 */
 class InputLink : public MetaData
 {
-private:
-
-    /**
-     * @details To node ID (connected with link end point)
-    */
-    std::size_t m_toNode = 0;
-
-    /**
-     * @details From node ID (connected with link start point)
-    */
-    std::size_t m_fromNode = 0;
-
-    /**
-     * @details Number of lanes in link
-    */
-    int m_numLane;
-
-    /**
-     * @details Link type (straight, curve)
-    */
-    std::string m_type;
-    
-    /**
-     * @details Simulation type (micro, meso)
-    */
-    std::string m_sim_type;
-
-    /**
-     * @details Vector of lanes in order
-    */
-    std::vector<InputLane> m_laneArr;
-
-    /**
-     * @details Vector of lane IDs in order
-    */
-    std::vector<std::size_t> m_laneIds;
-
-    /**
-     * @details Vector of number of cells of each lane in order
-    */
-    std::vector<int> m_laneNumCellVector;
-
 public:
     /**
      * @details Constructor
@@ -70,10 +29,10 @@ public:
      * @param lane Lane ID
      * @param length Link length
      * @param width Link width
-     * @param stopline Position of stop line
+     * @param stopLine Position of stop line
     */
     InputLink(std::size_t id, int lane, double length, 
-              double width, double stopline);
+              double width, double stopLine);
 
     /** @cond EXCLUDE */
     ~InputLink() = default;
@@ -121,19 +80,19 @@ public:
      * @details Get vector of lane IDs
      * @return Vector of lane IDs
     */
-    [[nodiscard]] const std::vector<std::size_t>& GetLaneIds() const { return m_laneIds; }
+    [[nodiscard]] const std::vector<std::size_t>& GetLaneIdVector() const { return m_laneIdVector; }
 
     /**
      * @details Get vector of lanes
      * @return Vector of lanes
     */
-    [[nodiscard]] const std::vector<InputLane>& GetLaneArr() const { return m_laneArr; }
+    [[nodiscard]] const std::vector<InputLane>& GetLaneVector() const { return m_laneVector; }
 
     /**
      * @details Get link ID
      * @return Link ID
     */
-    [[nodiscard]] std::size_t GetID() const { return ID; }
+    [[nodiscard]] std::size_t GetID() const { return id; }
 
     /**
      * @details Get vector of number of cells of each lane in order
@@ -157,7 +116,7 @@ public:
      * @details Add lane into vector
      * @param lane_id Lane
     */
-    void pushLaneId(InputLane lane);
+    void PushLaneId(InputLane lane);
 
     /**
      * @details Set from node ID
@@ -187,13 +146,13 @@ public:
      * @details Set simulation type
      * @param val Simulation type (micro, meso)
     */
-    void SetSimType(const std::string& val) { m_sim_type = val; }
+    void SetSimType(const std::string& val) { m_simType = val; }
 
     /**
      * @details Get simulation type
      * @return Simulation type (micro, meso)
     */
-    const std::string& GetSimType() const { return m_sim_type; }
+    const std::string& GetSimType() const { return m_simType; }
 
     /**
      * @details Set link type
@@ -207,8 +166,47 @@ public:
     */
     const std::string& GetType() const { return m_type; }
 
-    //Free 2d Vectors
-    //Need to make helper functions for Designating cell-by-cell values
+private:
+
+    /**
+     * @details To node ID (connected with link end point)
+    */
+    std::size_t m_toNode = 0;
+
+    /**
+     * @details From node ID (connected with link start point)
+    */
+    std::size_t m_fromNode = 0;
+
+    /**
+     * @details Number of lanes in link
+    */
+    int m_numLane;
+
+    /**
+     * @details Link type (straight, curve)
+    */
+    std::string m_type;
+    
+    /**
+     * @details Simulation type (micro, meso)
+    */
+    std::string m_simType;
+
+    /**
+     * @details Vector of lanes in order
+    */
+    std::vector<InputLane> m_laneVector;
+
+    /**
+     * @details Vector of lane IDs in order
+    */
+    std::vector<std::size_t> m_laneIdVector;
+
+    /**
+     * @details Vector of number of cells of each lane in order
+    */
+    std::vector<int> m_laneNumCellVector;
 };
 } // namespace NextSimIO
 

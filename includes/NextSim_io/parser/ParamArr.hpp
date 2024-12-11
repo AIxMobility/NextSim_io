@@ -48,19 +48,19 @@ public:
      * @details Set maximum flow
      * @param val Maximum flow [veh/hr]
     */
-    void SetMaxFlow(double val) { max_flow = val; }
+    void SetMaxFlow(double val) { m_maxFlow = val; }
 
     /**
      * @details Set mesoscopic vehicle length
      * @param val Mesoscopic vehicle length [m]
     */
-    void SetMesoVehLen(double val) { meso_veh_len = val; }
+    void SetMesoVehLen(double val) { m_mesoVehLen = val; }
 
     /**
      * @details Set wave speed
      * @param val Wave speed [km/h]
     */
-    void SetWaveSpeed(double val) { wave_speed = val; }
+    void SetWaveSpeed(double val) { m_waveSpeed = val; }
 
     /**
      * @details Get microscopic vehicle length
@@ -68,16 +68,16 @@ public:
     */
     [[nodiscard]] const std::vector<double>& GetMicroVehLen() const
     {
-        return micro_veh_len;
+        return m_microVehLen;
     }
 
     /**
      * @details Get jam gap
      * @return Jam gap [m]
     */
-    [[nodiscard]] const std::vector<double>& GetJamGap() const
+    [[nodiscard]] const std::vector<double>& GetJamgap() const
     {
-        return jam_gap;
+        return m_jamgap;
     }
 
     /**
@@ -86,89 +86,89 @@ public:
     */
     [[nodiscard]] const std::vector<double>& GetFFSpeed() const
     {
-        return ff_speed;
+        return m_ffSpeed;
     }
 
     /**
      * @details Get reaction time
      * @return Reaction time [s]
     */
-    [[nodiscard]] const std::vector<double>& GetReactionTime() const { return reaction_time; }
+    [[nodiscard]] const std::vector<double>& GetReactionTime() const { return m_reactionTime; }
 
     /**
      * @details Get maximum acceleration
      * @return Maximum acceleration [m/s^2]
     */
-    [[nodiscard]] const std::vector<double>& GetMaxAcc() const { return max_acc; }
+    [[nodiscard]] const std::vector<double>& GetMaxAcc() const { return m_maxAcc; }
 
     /**
      * @details Get maximum deceleration
      * @return Maximum deceleration [m/s^2]
     */
-    [[nodiscard]] const std::vector<double>& GetMaxDec() const { return max_dec; }
+    [[nodiscard]] const std::vector<double>& GetMaxDec() const { return m_maxDec; }
 
     /**
      * @details Get maximum flow
      * @return Maximum flow [veh/hr]
     */
-    [[nodiscard]] double GetMaxFlow() const { return max_flow; }
+    [[nodiscard]] double GetMaxFlow() const { return m_maxFlow; }
 
     /**
      * @details Get mesoscopic vehicle length
      * @return Mesoscopic vehicle length [m]
     */
-    [[nodiscard]] double GetMesoVehLen() const { return meso_veh_len; }
+    [[nodiscard]] double GetMesoVehLen() const { return m_mesoVehLen; }
 
     /**
      * @details Get wave speed
      * @return Wave speed [km/h]
     */
-    [[nodiscard]] double GetWaveSpeed() const { return wave_speed; }
+    [[nodiscard]] double GetWaveSpeed() const { return m_waveSpeed; }
 
 private:
     /**
      * @brief Microscopic vehicle length [m] (for microscopic simulation)
     */
-    std::vector<double> micro_veh_len;
+    std::vector<double> m_microVehLen;
 
     /**
      * @brief Jam gap [m] (for microscopic simulation)
     */
-    std::vector<double> jam_gap;
+    std::vector<double> m_jamgap;
 
     /**
      * @brief Free flow speed [km/h] (for microscopic simulation)
     */
-    std::vector<double> ff_speed;
+    std::vector<double> m_ffSpeed;
 
     /**
      * @brief Reaction time [s] (for microscopic simulation)
     */
-    std::vector<double> reaction_time;
+    std::vector<double> m_reactionTime;
 
     /**
      * @brief Maximum acceleration [m/s^2] (for microscopic simulation)
     */
-    std::vector<double> max_acc;
+    std::vector<double> m_maxAcc;
 
     /**
      * @brief Maximum deceleration [m/s^2] (for microscopic simulation)
     */
-    std::vector<double> max_dec;
+    std::vector<double> m_maxDec;
 
     /**
      * @brief Maximum flow [veh/hr] (for mesoscopic simulation)
     */
-    double max_flow;
+    double m_maxFlow;
 
     /**
      * @brief Mesoscopic vehicle length [m] (for mesoscopic simulation)
     */
-    double meso_veh_len;
+    double m_mesoVehLen;
 
     /**
      * @brief Wave speed [km/h] (for mesoscopic simulation)
     */
-    double wave_speed;
+    double m_waveSpeed;
 };
 } // namespace NextSimIO

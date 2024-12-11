@@ -9,8 +9,8 @@
 
 namespace NextSimIO
 {
-InputSegment::InputSegment(std::size_t id, bool block, bool left_lc, bool right_lc,
-                 double init_point, double end_point)
-    : id(id), blocked(block), left_lc_allowed(left_lc), right_lc_allowed(right_lc),
-      init_point(init_point), end_point(end_point) {};
+InputSegment::InputSegment(std::size_t id, bool blocked, bool leftLc, bool rightLc,
+                 double initPoint, double endPoint)
+    : m_id(id), m_blocked(blocked), m_leftLcAllowed(leftLc), m_rightLcAllowed(rightLc),
+      m_initPoint(initPoint), m_endPoint(endPoint) {};
 } // namespace NextSimIO

@@ -9,9 +9,9 @@
 
 namespace NextSimIO
 {
-InputCell::InputCell(std::size_t id_val, double offset_val, double length_val) 
-    : MetaData(id_val, length_val)
+InputCell::InputCell(std::size_t id, double offset, double length) 
+    : MetaData(id, length)
 {
-    offset = offset_val;
+    m_offset = offset;
 }
 } // namespace NextSimIO

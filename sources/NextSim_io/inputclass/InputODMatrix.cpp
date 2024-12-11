@@ -9,6 +9,6 @@
 
 namespace NextSimIO
 {
-InputODMatrix::InputODMatrix(int id, std::vector<InputFlow> odmatrix)
-    : id(id), odmatrix(odmatrix) {};
+InputODMatrix::InputODMatrix(int id, std::vector<InputFlow> odMatrix)
+    : m_id(id), m_odMatrix(odMatrix) {};
 } // namespace NextSimIO

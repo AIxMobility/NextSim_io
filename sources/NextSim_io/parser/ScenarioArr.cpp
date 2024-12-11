@@ -49,7 +49,7 @@ ScenarioArr::ScenarioArr()
                 throw std::runtime_error("Element should have 'od_matrix_id' attribute");
             
 
-            ODscenario.emplace_back(std::make_pair(atoi(id), atoi(od_id)));
+            m_odScenarios.emplace_back(std::make_pair(atoi(id), atoi(od_id)));
         }
     };
     doc.Clear();

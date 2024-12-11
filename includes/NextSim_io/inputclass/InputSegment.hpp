@@ -5,6 +5,7 @@
  * @author : ???
  */
 
+#pragma once
 #ifndef INPUTSEGMENT_H
 #define INPUTSEGMENT_H
 
@@ -18,38 +19,6 @@ namespace NextSimIO
  */
 class InputSegment
 {
-private:
-
-    /**
-     * @details Segment ID
-     */
-    std::size_t id;
-
-    /**
-     * @details Whether segment is blocked or not
-     */
-    bool blocked;
-
-    /**
-     * @details Whether left lane change is allowed or not
-     */
-    bool left_lc_allowed;
-
-    /**
-     * @details Whether right lane change is allowed or not
-     */
-    bool right_lc_allowed;
-
-    /**
-     * @details Start point of segment (from link start point)
-     */
-    double init_point;
-
-    /**
-     * @details End point of segment (from link start point)
-     */
-    double end_point;
-
 public:
 
     /**
@@ -73,63 +42,95 @@ public:
 
     /**
      * @details Set segment ID
-     * @param id_val Segment ID
+     * @param id Segment ID
     */
-    void setID(std::size_t id_val) { id = id_val; }
+    void SetID(std::size_t id) { m_id = id; }
 
     /**
      * @details Set whether segment is blocked or not
      * @param block True(blocked) or False(not)
     */
-    void setBlocked(bool block) { block = block; }
+    void SetBlocked(bool block) { m_blocked = block; }
 
     /**
      * @details Set start point of segment
-     * @param init_point_val Start point of segment (from link start point)
+     * @param initPoint Start point of segment (from link start point)
     */
-    void setInitialPoint(double init_point_val) { init_point = init_point_val; }
+    void SetInitialPoint(double initPoint) { m_initPoint = initPoint; }
 
     /**
      * @details Set end point of segment
-     * @param end_point_val End point of segment (from link start point)
+     * @param endPoint End point of segment (from link start point)
     */
-    void setEndPoint(double end_point_val) { end_point = end_point_val; }
+    void SetEndPoint(double endPoint) { m_endPoint = endPoint; }
 
     /**
      * @details Get segment ID
      * @return Segment ID
     */
-    std::size_t getID() const { return id; }
+    std::size_t GetID() const { return m_id; }
 
     /**
      * @details Get whether segment is blocked or not
      * @return True(blocked) or False(not)
     */
-    bool getBlocked() const { return blocked; }
+    bool GetBlocked() const { return m_blocked; }
 
     /**
      * @details Get whether left lane change is allowed or not
      * @return True(left lane change is allowed) or False(not)
     */
-    bool getLeftLCallowed() const { return left_lc_allowed; }
+    bool GetLeftLCallowed() const { return m_leftLcAllowed; }
 
     /**
      * @details Get whether right lane change is allowed or not
      * @return True(right lane change is allowed) or False(not)
     */
-    bool getRightLCallowed() const { return right_lc_allowed; }
+    bool GetRightLCallowed() const { return m_rightLcAllowed; }
 
     /**
      * @details Get start point of segment
      * @return Start point of segment (from link start point)
     */
-    double getInitialPoint() const { return init_point; }
+    double GetInitialPoint() const { return m_initPoint; }
 
     /**
      * @details Get end point of segment
      * @return End point of segment (from link start point)
     */
-    double getEndPoint() const { return end_point; }
+    double GetEndPoint() const { return m_endPoint; }
+
+private:
+
+    /**
+     * @details Segment ID
+     */
+    std::size_t m_id;
+
+    /**
+     * @details Whether segment is blocked or not
+     */
+    bool m_blocked;
+
+    /**
+     * @details Whether left lane change is allowed or not
+     */
+    bool m_leftLcAllowed;
+
+    /**
+     * @details Whether right lane change is allowed or not
+     */
+    bool m_rightLcAllowed;
+
+    /**
+     * @details Start point of segment (from link start point)
+     */
+    double m_initPoint;
+
+    /**
+     * @details End point of segment (from link start point)
+     */
+    double m_endPoint;
 };
 } // namespace NextSimIO
 

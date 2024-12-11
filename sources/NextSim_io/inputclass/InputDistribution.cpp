@@ -15,25 +15,24 @@ namespace NextSimIO
 
 InputDistribution::InputDistribution(std::string vehdist, double vehmax, 
                       double vehmean, double vehmin, double vehsd)
-    : vehdist{vehdist}, vehmax(vehmax), 
-      vehmean(vehmean), vehmin(vehmin), vehsd(vehsd) {};
+    : m_vehDist(vehdist), m_vehMax(vehmax), m_vehMean(vehmean), m_vehMin(vehmin), m_vehSD(vehsd) {}
 
-double InputDistribution::genValue(){
+double InputDistribution::GenValue(){
     std::random_device rd;
     std::mt19937 gen(rd());
     double value = -1;
 
-    if (vehdist == "Normal")
+    if (m_vehDist == "Normal")
     {
-        std::normal_distribution<double> Ndist(vehmean, vehsd);
-        while (value < vehmin || vehmax < value) {
+        std::normal_distribution<double> Ndist(m_vehMean, m_vehSD);
+        while (value < m_vehMin || m_vehMax < value) {
             value = Ndist(gen);
         }
     }
-    else if (vehdist == "LogNormal")
+    else if (m_vehDist == "LogNormal")
     {
-        std::lognormal_distribution<double> LNdist(vehmean, vehsd);
-        while (value < vehmin || vehmax < value) {
+        std::lognormal_distribution<double> LNdist(m_vehMean, m_vehSD);
+        while (value < m_vehMin || m_vehMax < value) {
             value = LNdist(gen);
             value = log (value);
         }

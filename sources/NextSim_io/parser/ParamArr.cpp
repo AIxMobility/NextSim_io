@@ -18,12 +18,12 @@
 namespace NextSimIO
 {
 ParamArr::ParamArr()
-    : micro_veh_len(3),
-      jam_gap(3),
-      ff_speed(3),
-      reaction_time(3),
-      max_acc(3),
-      max_dec(3)
+    : m_microVehLen(3),
+      m_jamgap(3),
+      m_ffSpeed(3),
+      m_reactionTime(3),
+      m_maxAcc(3),
+      m_maxDec(3)
 {
     TiXmlDocument doc;
 
@@ -104,27 +104,27 @@ void ParamArr::SetMean(double val, std::string param)
 {
     if (param == "veh_len")
     {
-        micro_veh_len[0] = val;
+        m_microVehLen[0] = val;
     }
     else if (param == "jam_gap")
     {
-        jam_gap[0] = val;
+        m_jamgap[0] = val;
     }
     else if (param == "ff_speed")
     {
-        ff_speed[0] = val;
+        m_ffSpeed[0] = val;
     }
     else if (param == "reaction_time")
     {
-        reaction_time[0] = val;
+        m_reactionTime[0] = val;
     }
     else if (param == "max_acc")
     {
-        max_acc[0] = val;
+        m_maxAcc[0] = val;
     }
     else if (param == "max_dec")
     {
-        max_dec[0] = val;
+        m_maxDec[0] = val;
     }
 };
 
@@ -132,27 +132,27 @@ void ParamArr::SetSd(double val, std::string param)
 {
     if (param == "veh_len")
     {
-        micro_veh_len[1] = val;
+        m_microVehLen[1] = val;
     }
     else if (param == "jam_gap")
     {
-        jam_gap[1] = val;
+        m_jamgap[1] = val;
     }
     else if (param == "ff_speed")
     {
-        ff_speed[1] = val;
+        m_ffSpeed[1] = val;
     }
     else if (param == "reaction_time")
     {
-        reaction_time[1] = val;
+        m_reactionTime[1] = val;
     }
     else if (param == "max_acc")
     {
-        max_acc[1] = val;
+        m_maxAcc[1] = val;
     }
     else if (param == "max_dec")
     {
-        max_dec[1] = val;
+        m_maxDec[1] = val;
     }
 };
 
@@ -175,27 +175,27 @@ void ParamArr::SetModel(std::string model, std::string param)
 
     if (param == "veh_len")
     {
-        micro_veh_len[2] = val;
+        m_microVehLen[2] = val;
     }
     else if (param == "jam_gap")
     {
-        jam_gap[2] = val;
+        m_jamgap[2] = val;
     }
     else if (param == "ff_speed")
     {
-        ff_speed[2] = val;
+        m_ffSpeed[2] = val;
     }
     else if (param == "reaction_time")
     {
-        reaction_time[2] = val;
+        m_reactionTime[2] = val;
     }
     else if (param == "max_acc")
     {
-        max_acc[2] = val;
+        m_maxAcc[2] = val;
     }
     else if (param == "max_dec")
     {
-        max_dec[2] = val;
+        m_maxDec[2] = val;
     }
 };
 } // namespace NextSimIO

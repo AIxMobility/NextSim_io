@@ -5,6 +5,7 @@
  * @author : Jeyun Kim
  */
 
+#pragma once
 #ifndef INPUTDISTRIBUTION_H
 #define INPUTDISTRIBUTION_H
 
@@ -19,33 +20,6 @@ namespace NextSimIO
  */
 class InputDistribution
 {
-private:
-
-    /**
-     * @details Distribution type (Normal, LogNormal)
-     */
-    std::string vehdist;
-
-    /**
-     * @details Maximum value
-     */
-    double vehmax;
-
-    /**
-     * @details Mean value
-     */
-    double vehmean;
-
-    /**
-     * @details Minimum value
-     */
-    double vehmin;
-
-    /**
-     * @details Standard deviation
-     */
-    double vehsd;
-
 public:
 
     /**
@@ -68,67 +42,94 @@ public:
      * @details Generate a random value based on the distribution
      * @return Random characteristic value
     */
-    double genValue();
+    double GenValue();
 
     /**
      * @details Get distribution type
      * @return Distribution type (Normal, LogNormal)
     */
-    std::string getdist() { return vehdist; }
+    std::string GetDist() { return m_vehDist; }
 
     /**
      * @details Get maximum value of the distribution
      * @return Maximum value
     */
-    double getmax() { return vehmax; }
+    double GetMax() { return m_vehMax; }
 
     /**
      * @details Get mean value of the distribution
      * @return Mean value
     */
-    double getmean() { return vehmean; }
+    double GetMean() { return m_vehMean; }
 
     /**
      * @details Get minimum value of the distribution
      * @return Minimum value
     */
-    double getmin() { return vehmin; }
+    double GetMin() { return m_vehMin; }
 
     /**
      * @details Get standard deviation of the distribution
      * @return Standard deviation
     */
-    double getsd() { return vehsd; }
+    double GetSD() { return m_vehSD; }
 
     /**
      * @details Set distribution type
      * @param newdist Distribution type (Normal, LogNormal)
     */
-    void setdist(std::string newdist) { vehdist = newdist; }
+    void SetDist(std::string newdist) { m_vehDist = newdist; }
 
     /**
      * @details Set maximum value of the distribution
      * @param newmax Maximum value
     */
-    void setmax(double newmax) { vehmax = newmax; }
+    void SetMax(double newmax) { m_vehMax = newmax; }
 
     /**
      * @details Set mean value of the distribution
      * @param newmean Mean value
     */
-    void setmean(double newmean) { vehmean = newmean; }
+    void SetMean(double newmean) { m_vehMean = newmean; }
 
     /**
      * @details Set minimum value of the distribution
      * @param newmin Minimum value
     */
-    void setmin(double newmin) { vehmin = newmin; }
+    void SetMin(double newmin) { m_vehMin = newmin; }
 
     /**
      * @details Set standard deviation of the distribution
      * @param newsd Standard deviation
     */
-    void setsd(double newsd) { vehsd = newsd; }
+    void SetSD(double newsd) { m_vehSD = newsd; }
+
+private:
+
+    /**
+     * @details Distribution type (Normal, LogNormal)
+     */
+    std::string m_vehDist;
+
+    /**
+     * @details Maximum value
+     */
+    double m_vehMax;
+
+    /**
+     * @details Mean value
+     */
+    double m_vehMean;
+
+    /**
+     * @details Minimum value
+     */
+    double m_vehMin;
+
+    /**
+     * @details Standard deviation
+     */
+    double m_vehSD;
 };
 } // namespace NextSimIO
 

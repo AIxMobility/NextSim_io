@@ -51,13 +51,13 @@ ModeArr::ModeArr()
             if (eName == "micro")
             {
                 std::string microArr = e->Attribute("linkid");
-                tMode.setMicroLinkArr(microArr);
+                tMode.SetMicroLinkVector(microArr);
                 getMicro = true;
             }
             else if (eName == "meso")
             {
                 std::string mesoArr = e->Attribute("linkid");
-                tMode.setMesoLinkArr(mesoArr);
+                tMode.SetMesoLinkVector(mesoArr);
                 getMeso = true;
             }
 
@@ -67,7 +67,7 @@ ModeArr::ModeArr()
             e = e->NextSiblingElement();
         }
 
-        modeArr.push_back(tMode);
+        m_modes.push_back(tMode);
     }
 }
 } // namespace NextSimIO

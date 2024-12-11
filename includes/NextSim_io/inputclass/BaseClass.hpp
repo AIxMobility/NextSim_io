@@ -5,6 +5,7 @@
  * @author : Jae Hwan Jung, Justin Kim
  */
 
+#pragma once
 #ifndef BASECLASS_HPP
 #define BASECLASS_HPP
 
@@ -20,56 +21,6 @@ class MetaData
 {
 
 public:
-    /** 
-     * @details ID of the unit
-     */
-    std::size_t ID = 0;
-
-    /** 
-     * @details Free flow speed of the unit [km/h]
-     */
-    double FreeFlowSpeed = 0;
-    
-    /** 
-     * @details Maximum speed of the unit [km/h]
-     */
-    double MaxSpeed = 0;
-    
-    /** 
-     * @details Minimum speed of the unit [km/h]
-     */
-    double MinSpeed = 0;
-    
-    /** 
-     * @details Wave speed of the unit [km/h]
-     */
-    double WaveSpeed = 0;
-
-    /** 
-     * @details Length of the unit [m]
-     */
-    double Length = 0;
-    
-    /** 
-     * @details Width of the unit [m]
-     */
-    double Width = 0;
-    
-    /** 
-     * @details Stop line distance of the unit [m]
-     */
-    double StopLine = 0;
-
-    /** 
-     * @details Maximum flow of the unit [veh/h]
-     */
-    double Qmax = 0;
-
-    /** 
-     * @details Maximum number of vehicles of the unit [veh]
-     */
-    std::size_t MaxVehicle = 0;
-
     /** @cond EXCLUDE */
     MetaData() = default;
     virtual ~MetaData() = default;
@@ -123,6 +74,56 @@ public:
     MetaData(std::size_t id, double length, double freeFlowSpeed,
                  double maxSpeed, double minSpeed, double waveSpeed,
                  std::size_t maxVehicle, double qMax);
+
+    /** 
+     * @details ID of the unit
+     */
+    std::size_t id = 0;
+
+    /** 
+     * @details Free flow speed of the unit [km/h]
+     */
+    double freeFlowSpeed = 0;
+    
+    /** 
+     * @details Maximum speed of the unit [km/h]
+     */
+    double maxSpeed = 0;
+    
+    /** 
+     * @details Minimum speed of the unit [km/h]
+     */
+    double minSpeed = 0;
+    
+    /** 
+     * @details Wave speed of the unit [km/h]
+     */
+    double waveSpeed = 0;
+
+    /** 
+     * @details Length of the unit [m]
+     */
+    double length = 0;
+    
+    /** 
+     * @details Width of the unit [m]
+     */
+    double width = 0;
+    
+    /** 
+     * @details Stop line distance of the unit [m]
+     */
+    double stopLine = 0;
+
+    /** 
+     * @details Maximum flow of the unit [veh/h]
+     */
+    double qMax = 0;
+
+    /** 
+     * @details Maximum number of vehicles of the unit [veh]
+     */
+    std::size_t maxVehicle = 0;
 };
 } // namespace NextSimIO
 

@@ -5,6 +5,7 @@
  * @author : Sujae Jeon
  */
 
+#pragma once
 #ifndef INPUTSTATION_H
 #define INPUTSTATION_H
 
@@ -19,89 +20,89 @@ namespace NextSimIO
  */
 class InputStation
 {
-private:
-    /**
-     * @details Station ID
-    */
-    int id;
-
-    /**
-     * @details Link ID that station is located
-    */
-    int link_ref;
-
-    /**
-     * @details Lane ID that station is located
-    */
-    int lane_ref;
-
-    /**
-     * @details Position of station (from link start point)
-    */
-    double pos;
-
-    /**
-     * @details Number of parking lots in the station
-    */
-    int parkingLots;
-
-    /**
-     * @details Sequence of line IDs that pass the station
-    */
-    std::vector<int> line_list;
-
 public:
     /**
      * @details Constructor
      * @param id Station ID
-     * @param link_ref Link ID
-     * @param lane_ref Lane ID
+     * @param link Link ID
+     * @param lane Lane ID
      * @param pos Position of station
      * @param parkingLots Number of parking lots
      */
-    InputStation(int id, int link_ref, int lane_ref, double pos, int parkingLots);
+    InputStation(int id, int link, int lane, double pos, int parkingLots);
 
     /**
      * @details Set sequence of line IDs
-     * @param line_list_str Sequence of line IDs that pass the station
+     * @param lineList Sequence of line IDs that pass the station
     */
-    void setLineList(std::string line_list_str);
+    void SetLineList(std::string lineList);
 
     /**
      * @details Get station ID
      * @return Station ID
     */
-    int getId() const { return id; }
+    int GetId() const { return m_id; }
 
     /**
      * @details Get link ID
      * @return Link ID that station is located
     */
-    int getLinkRef() const { return link_ref; }
+    int GetLink() const { return m_link; }
 
     /**
      * @details Get lane ID
      * @return Lane ID that station is located
     */
-    int getLaneRef() const { return lane_ref; }
+    int GetLane() const { return m_lane; }
 
     /**
      * @details Get position of station
      * @return Position of station (from link start point)
     */
-    double getPos() const { return pos; }
+    double GetPos() const { return m_pos; }
 
     /**
      * @details Get number of parking lots
      * @return Number of parking lots
     */
-    int getParkingLotSize() const { return parkingLots; }
+    int GetParkingLotSize() const { return m_parkingLots; }
 
     /**
      * @details Get sequence of line IDs
      * @return Sequence of line IDs that pass the station
     */
-    std::vector<int> getLineList() const { return line_list; }
+    std::vector<int> GetLineList() const { return m_lineList; }
+
+private:
+    /**
+     * @details Station ID
+    */
+    int m_id;
+
+    /**
+     * @details Link ID that station is located
+    */
+    int m_link;
+
+    /**
+     * @details Lane ID that station is located
+    */
+    int m_lane;
+
+    /**
+     * @details Position of station (from link start point)
+    */
+    double m_pos;
+
+    /**
+     * @details Number of parking lots in the station
+    */
+    int m_parkingLots;
+
+    /**
+     * @details Sequence of line IDs that pass the station
+    */
+    std::vector<int> m_lineList;
 };
 
 /**
@@ -110,65 +111,66 @@ public:
  */
 class InputDRTStation
 {
-private:
-
-    /**
-     * @details DRT station ID
-    */
-    int id;
-
-    /**
-     * @details Link ID that station is located
-    */
-    int link_ref;
-
-    /**
-     * @details Lane ID that station is located
-    */
-    int lane_ref;
-
-    /**
-     * @details Position range of DRT station
-    */
-    std::pair<double, double> pos_range;
-
 public:
     /**
      * @details Constructor
      * @param id DRT station ID
-     * @param link_ref Link ID
-     * @param lane_ref Lane ID
+     * @param link Link ID
+     * @param lane Lane ID
     */
-    InputDRTStation(int id, int link_ref, int lane_ref);
+    InputDRTStation(int id, int link, int lane);
 
     /**
      * @details Set position range of DRT station
-     * @param pos_range_str Pair of start and end position (from link start point)
+     * @param posRange Pair of start and end position (from link start point)
     */
-    void setPosRange(std::string pos_range_str);
+    void SetPosRange(std::string posRange);
 
     /**
      * @details Get DRT station ID
      * @return DRT station ID
     */
-    int getId() const { return id; }
+    int GetId() const { return m_id; }
     
     /**
      * @details Get link ID
      * @return Link ID that station is located
     */
-    int getLinkRef() const { return link_ref; }
+    int GetLink() const { return m_link; }
     /**
      * @details Get lane ID
      * @return Lane ID that station is located
     */
-    int getLaneRef() const { return lane_ref; }
+    int GetLane() const { return m_lane; }
 
     /**
      * @details Get position range of DRT station
      * @return Pair of start and end position (from link start point)
     */
-    std::pair<double, double> getPosRange() { return pos_range; }
+    std::pair<double, double> GetPosRange() { return m_posRange; }
+
+private:
+
+    /**
+     * @details DRT station ID
+    */
+    int m_id;
+
+    /**
+     * @details Link ID that station is located
+    */
+    int m_link;
+
+    /**
+     * @details Lane ID that station is located
+    */
+    int m_lane;
+
+    /**
+     * @details Position range of DRT station
+    */
+    std::pair<double, double> m_posRange;
+
 };
 } // namespace NextSimIO
 

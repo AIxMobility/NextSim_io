@@ -70,7 +70,7 @@ EventArr::EventArr()
                 atoi(type),
                 atoi(sern));
 
-            Events.push_back(demoEvent);
+            m_events.push_back(demoEvent);
         }
     }
     doc.Clear();

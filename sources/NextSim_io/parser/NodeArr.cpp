@@ -45,17 +45,16 @@ NodeArr::NodeArr()
             {
                 const char *nodeId = e2->Attribute("id");
                 const char *nodeType = e2->Attribute("type");
-                const char *num_connection = e2->Attribute("num_connection");
-                const char *num_port = e2->Attribute("num_port");
+                const char *numConnection = e2->Attribute("num_connection");
+                const char *numPort = e2->Attribute("num_port");
                 const char *v2x = e2->Attribute("v2x");
 
                 if (!nodeId)   throw std::runtime_error ("Element should have 'id' attribute");
                 if (!nodeType)   throw std::runtime_error ("Element should have 'type' attribute");
-                // if (!num_connection)   throw std::runtime_error ("Element should have 'num_connection' attribute");
-                if (!num_port)   throw std::runtime_error ("Element should have 'num_port' attribute");
+                // if (!numConnection)   throw std::runtime_error ("Element should have 'num_connection' attribute");
+                if (!numPort)   throw std::runtime_error ("Element should have 'num_port' attribute");
                 if (!v2x)   v2x = "off";
 
-                
                 if (!strcmp (nodeType, "normal"))
                 {
                     // create single InputNode instance here
@@ -63,14 +62,13 @@ NodeArr::NodeArr()
                         0, 
                         atol(nodeId), 
                         -1,
-                        atoi(num_port),
+                        atoi(numPort),
                         strcmp(v2x, "on") == 0 ? true : false);
 
                     for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
                          e3 = e3->NextSiblingElement())
                     {
                         std::string val1 = e3->Value();
-                        // port should be the same for normal
                         if (val1 == "port")
                         {
                             // create port instance + pushLink to
@@ -89,10 +87,12 @@ NodeArr::NodeArr()
                             {
                                 temp = 1;
                             }
+
                             port single_link(
                                 atol(link_id),
                                 atoi(direction),
                                 temp);
+
                             single_node.pushLink(single_link);
                         }
                         else if (val1 == "connection")
@@ -134,12 +134,12 @@ NodeArr::NodeArr()
                             single_node.pushConnection(single_connection);
                         }
                     }
-                    Nodes.push_back(single_node);
-                    NormalNodes.push_back(single_node);
+                    m_nodes.push_back(single_node);
+                    m_normalNodes.push_back(single_node);
 
-                    single_node.freeConnectedLinks();
-                    single_node.freeConnectedTable();
-                    single_node.freePhaseTable();
+                    single_node.FreeConnectedLinks();
+                    single_node.FreeConnectedTable();
+                    single_node.FreePhaseTable();
                 }
 
                 else if (!strcmp (nodeType, "intersection"))
@@ -148,8 +148,8 @@ NodeArr::NodeArr()
                     InputNode single_node(
                         1,
                         atol(nodeId),
-                        atoi(num_connection),
-                        atoi(num_port),
+                        atoi(numConnection),
+                        atoi(numPort),
                         strcmp(v2x, "on") == 0 ? true : false);
 
                     for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
@@ -180,7 +180,6 @@ NodeArr::NodeArr()
                                 temp);
                             single_node.pushLink(single_link);
                         }
-
                         else if (val1 == "connection")
                         {
                             const char *connectionId = e3->Attribute("id");
@@ -220,12 +219,12 @@ NodeArr::NodeArr()
                             single_node.pushConnection(single_connection);
                         }
                     }
-                    Nodes.push_back(single_node);
-                    IntersectionNodes.push_back(single_node);
+                    m_nodes.push_back(single_node);
+                    m_intersectionNodes.push_back(single_node);
 
-                    single_node.freeConnectedLinks();
-                    single_node.freeConnectedTable();
-                    single_node.freePhaseTable();
+                    single_node.FreeConnectedLinks();
+                    single_node.FreeConnectedTable();
+                    single_node.FreePhaseTable();
                 }
                 
                 else if (!strcmp (nodeType, "merging"))
@@ -234,8 +233,8 @@ NodeArr::NodeArr()
                     InputNode single_node(
                         2, 
                         atol(nodeId),
-                        atoi(num_connection),
-                        atoi(num_port),
+                        atoi(numConnection),
+                        atoi(numPort),
                         strcmp(v2x, "on") == 0 ? true : false);
 
                     for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
@@ -306,13 +305,13 @@ NodeArr::NodeArr()
                             single_node.pushConnection(single_connection);
                         }
                     }
-                    Nodes.push_back(single_node);
-                    IntersectionNodes.push_back(single_node);
-                    MergingNodes.push_back(single_node);
+                    m_nodes.push_back(single_node);
+                    m_intersectionNodes.push_back(single_node);
+                    m_mergingNodes.push_back(single_node);
 
-                    single_node.freeConnectedLinks();
-                    single_node.freeConnectedTable();
-                    single_node.freePhaseTable();
+                    single_node.FreeConnectedLinks();
+                    single_node.FreeConnectedTable();
+                    single_node.FreePhaseTable();
                 }
 
                 else if (!strcmp (nodeType, "diverging"))
@@ -321,8 +320,8 @@ NodeArr::NodeArr()
                     InputNode single_node(
                         3,
                         atol(nodeId),
-                        atoi(num_connection),
-                        atoi(num_port),
+                        atoi(numConnection),
+                        atoi(numPort),
                         strcmp(v2x, "on") == 0 ? true : false);
 
                     for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
@@ -393,13 +392,13 @@ NodeArr::NodeArr()
                             single_node.pushConnection(single_connection);
                         }
                     }
-                    Nodes.push_back(single_node);
-                    IntersectionNodes.push_back(single_node);
-                    DivergingNodes.push_back(single_node);
+                    m_nodes.push_back(single_node);
+                    m_intersectionNodes.push_back(single_node);
+                    m_divergingNodes.push_back(single_node);
 
-                    single_node.freeConnectedLinks();
-                    single_node.freeConnectedTable();
-                    single_node.freePhaseTable();
+                    single_node.FreeConnectedLinks();
+                    single_node.FreeConnectedTable();
+                    single_node.FreePhaseTable();
                 }
 
                 else if (!strcmp (nodeType, "terminal"))
@@ -409,7 +408,7 @@ NodeArr::NodeArr()
                         4, 
                         atol(nodeId), 
                         -1,
-                        atoi(num_port),
+                        atoi(numPort),
                         strcmp(v2x, "on") == 0 ? true : false);
 
                     for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
@@ -442,10 +441,10 @@ NodeArr::NodeArr()
                             single_node.pushLink(single_link);
                         }
                     }
-                    Nodes.push_back(single_node);
-                    TerminalNodes.push_back(single_node);
+                    m_nodes.push_back(single_node);
+                    m_terminalNodes.push_back(single_node);
                     
-                    single_node.freeConnectedLinks();
+                    single_node.FreeConnectedLinks();
                 }
 
                 else if (!strcmp (nodeType, "garage"))
@@ -455,7 +454,7 @@ NodeArr::NodeArr()
                         5, 
                         atol(nodeId), 
                         -1,
-                        atoi(num_port),
+                        atoi(numPort),
                         strcmp(v2x, "on") == 0 ? true : false);
 
                     for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
@@ -526,11 +525,11 @@ NodeArr::NodeArr()
                             single_node.pushConnection(single_connection);
                         }
                     }
-                    Nodes.push_back(single_node);
-                    GarageNodes.push_back(single_node);
+                    m_nodes.push_back(single_node);
+                    m_garageNodes.push_back(single_node);
 
-                    single_node.freeConnectedLinks();
-                    single_node.freeConnectedTable();
+                    single_node.FreeConnectedLinks();
+                    single_node.FreeConnectedTable();
                 }
             }
         }
@@ -557,9 +556,9 @@ NodeArr::NodeArr()
         if (!nodeId)   throw std::runtime_error ("Element should have 'id' attribute");
 
         auto it = std::find_if(
-            Nodes.begin(), Nodes.end(),
+            m_nodes.begin(), m_nodes.end(),
             [&](InputNode const &n) {
-                return n.getId() == atol(nodeId);
+                return n.GetId() == atol(nodeId);
             });
         InputNode& node = *it;
         
@@ -573,8 +572,8 @@ NodeArr::NodeArr()
         if (!order)   throw std::runtime_error ("Element should have 'order' attribute");
         if (!phase_length)   throw std::runtime_error ("Element should have 'phase_length' attribute");
         
-        node.setCycle(atoi(cycle));
-        node.setOffset(atoi(offset));
+        node.SetCycle(atoi(cycle));
+        node.SetOffset(atoi(offset));
         auto iss2 = std::istringstream{ order };
         auto str2 = std::string{};
         while (iss2 >> str2)
@@ -605,31 +604,31 @@ NodeArr::NodeArr()
                 if (!id_ref)   throw std::runtime_error ("Element should have 'id_ref' attribute");
                 if (!priority)   throw std::runtime_error ("Element should have 'priority' attribute");
 
-                phase.pushConnectionRef(atol(id_ref));
-                phase.pushPriority(atof(priority));
+                phase.PushConnection(atol(id_ref));
+                phase.PushPriority(atof(priority));
             }
             node.pushPhase(phase);
         }
 
-        node.setType(-1);  // signalized normal node
+        node.SetType(-1);  // signalized normal node
     }
     doc_signal.Clear();
 };
 
-void NodeArr::showArr()
+void NodeArr::ShowArr()
 {
-    if (Nodes.size() == 0)
+    if (m_nodes.size() == 0)
     {
         std::cout << "ITS EMPTY" << std::endl;
     }
 
-    for (size_t i = 0; i < Nodes.size(); i++)
+    for (size_t i = 0; i < m_nodes.size(); i++)
     {
-        std::cout << Nodes[i].getId() << " " << Nodes[i].getNumConn() << " "
-                  << Nodes[i].getNumLink() << std::endl;
+        std::cout << m_nodes[i].GetId() << " " << m_nodes[i].GetNumConn() << " "
+                  << m_nodes[i].GetNumLink() << std::endl;
 
-        // Example:: getting the first connection ID of each intersection
-        std::cout << "connID :" << Nodes[i].getConnections()[0].getConnId()
+        // Example:: Getting the first connection ID of each intersection
+        std::cout << "connID :" << m_nodes[i].GetConnections()[0].GetConnId()
                   << std::endl;
     }
 }

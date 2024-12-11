@@ -19,12 +19,6 @@ namespace NextSimIO
  */
 class ModeArr
 {
-private:
-    /**
-     * @details Vector of simulation modes
-    */
-    std::vector<InputMode> modeArr;
-
 public:
     /**
      * @details Constructor (Parse simulation mode information from mode.xml)
@@ -35,10 +29,16 @@ public:
      * @details Get vector of simulation modes
      * @return Vector of simulation modes
     */
-    std::vector<InputMode> getModeArr()
+    std::vector<InputMode> GetModes()
     {
-        return modeArr;
+        return m_modes;
     }
+
+private:
+    /**
+     * @details Vector of simulation modes
+    */
+    std::vector<InputMode> m_modes;
 };
 } // namespace NextSimIO
 

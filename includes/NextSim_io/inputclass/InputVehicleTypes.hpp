@@ -5,6 +5,7 @@
  * @author : Jeyun Kim
  */
 
+#pragma once
 #ifndef INPUTVEHICLETYPES_H
 #define INPUTVEHICLETYPES_H
 
@@ -21,199 +22,198 @@ namespace NextSimIO
 */
 class InputVehicleTypes
 {
-private:
-
-    /**
-     * @details Vehicle type (NV: Normal Vehicle, AV: Autonomous Vehicle, TR: Truck)
-    */
-    std::string vehType;
-
-    /**
-     * @details Maximum number of passengers
-    */
-    int max_pax;
-
-    /**
-     * @details Whether V2X is active or not
-    */
-    bool v2xActive;
-
-    /**
-     * @details Vehicle length [m]
-    */
-    InputDistribution veh_len;
-
-    /**
-     * @details Jam gap [m]
-    */
-    InputDistribution jamgap;
-
-    /**
-     * @details Free flow speed [km/h]
-    */
-    InputDistribution vf;
-
-    /**
-     * @details Reaction time [s]
-    */
-    InputDistribution reaction_time;
-
-    /**
-     * @details Maximum acceleration [m/s^2]
-    */
-    InputDistribution max_acc;
-
-    /**
-     * @details Maximum deceleration [m/s^2]
-    */
-    InputDistribution max_dec;
-
-    /**
-     * @details Lane change parameter 1 [m/veh]
-    */
-    InputDistribution lc_param1;
-
-    /**
-     * @details Lane change parameter 2 [s/m]
-    */
-    InputDistribution lc_param2;
-
-    /**
-     * @details Lane change sensitivity [.]
-    */
-    InputDistribution lc_sensitivity;
-
-    // InputDistribution delta_jamgap;
-    // InputDistribution b1;
-    // InputDistribution b2;
-    // InputDistribution c1;
-    // InputDistribution c2;
-    // InputDistribution c3;
-
 public:
     /**
      * @details Constructor
      * @param vehType Vehicle type
-     * @param max_pax Maximum number of passengers
+     * @param maxPax Maximum number of passengers
      * @param v2xActive Whether V2X is active or not
-     * @param veh_len Vehicle length
+     * @param vehLen Vehicle length
      * @param jamgap Jam gap
      * @param vf Free flow speed
-     * @param reaction_time Reaction time
-     * @param max_acc Maximum acceleration
-     * @param max_dec Maximum deceleration
-     * @param lc_param1 Lane change parameter 1
-     * @param lc_param2 Lane change parameter 2
-     * @param lc_sensitivity Lane change sensitivity
+     * @param reactionTime Reaction time
+     * @param maxAcc Maximum acceleration
+     * @param maxDec Maximum deceleration
+     * @param lcParam1 Lane change parameter 1
+     * @param lcParam2 Lane change parameter 2
+     * @param lcSensitivity Lane change sensitivity
     */
     InputVehicleTypes(
         std::string vehType, 
-        int max_pax, 
+        int maxPax, 
         bool v2xActive, 
-        InputDistribution veh_len, 
+        InputDistribution vehLen, 
         InputDistribution jamgap, 
         InputDistribution vf, 
-        InputDistribution reaction_time, 
-        InputDistribution max_acc, 
-        InputDistribution max_dec,
-        InputDistribution lc_param1,
-        InputDistribution lc_param2,
-        InputDistribution lc_sensitivity);
+        InputDistribution reactionTime, 
+        InputDistribution maxAcc, 
+        InputDistribution maxDec,
+        InputDistribution lcParam1,
+        InputDistribution lcParam2,
+        InputDistribution lcSensitivity);
 
     /**
      * @details Get vehicle type
      * @return Vehicle type (NV: Normal Vehicle, AV: Autonomous Vehicle, TR: Truck)
     */
-    std::string getvehType() { return vehType; }
+    std::string GetVehType() { return m_vehType; }
 
     /**
      * @details Get maximum number of passengers
      * @return Maximum number of passengers
     */
-    int getmax_pax() { return max_pax; }
+    int GetMaxPax() { return m_maxPax; }
 
     /**
      * @details Get whether V2X is active or not
      * @return True(active) or False(not active)
     */
-    bool getv2xActive() { return v2xActive; }
+    bool GetV2xActive() { return m_v2xActive; }
 
     /**
      * @details Generate vehicle length
      * @return Vehicle length [m]
     */
-    double genveh_len() { return veh_len.genValue(); }
+    double GenVehLen() { return m_vehLen.GenValue(); }
 
     /**
      * @details Generate jam gap
      * @return Jam gap [m]
     */
-    double genjamgap() { return jamgap.genValue(); }
+    double GenJamgap() { return m_jamgap.GenValue(); }
 
     /**
      * @details Generate free flow speed
      * @return Free flow speed [m/s]
     */
-    double genvf() { return vf.genValue() / 3.6; }
+    double GenVf() { return m_vf.GenValue() / 3.6; }
     
     /**
      * @details Generate reaction time
      * @return Reaction time [s]
     */
-    double genreaction_time() { return reaction_time.genValue(); }
+    double GenReactionTime() { return m_reactionTime.GenValue(); }
 
     /**
      * @details Generate maximum acceleration
      * @return Maximum acceleration [m/s^2]
     */
-    double genmax_acc() { return max_acc.genValue(); }
+    double GenMaxAcc() { return m_maxAcc.GenValue(); }
 
     /**
      * @details Generate maximum deceleration
      * @return Maximum deceleration [m/s^2]
     */
-    double genmax_dec() { return max_dec.genValue(); }
+    double GenMaxDec() { return m_maxDec.GenValue(); }
 
     /**
      * @details Generate lane change parameter 1 and 2
      * @return Pair of lane change parameter 1 and 2 [m/veh, s/m]
     */
-    std::pair<double, double> genLCparam()
+    std::pair<double, double> GenLcParam()
     {
         return std::make_pair(
-            lc_param1.genValue(), lc_param2.genValue());
+            m_lcParam1.GenValue(), m_lcParam2.GenValue());
     }
 
     /**
      * @details Generate lane change sensitivity
      * @return Lane change sensitivity [.]
     */
-    double genLCsensitivity() { return lc_sensitivity.genValue(); }
+    double GenLcSensitivity() { return m_lcSensitivity.GenValue(); }
     
-    // double gendelta_jamgap()
+    // double GenDeltaJamgap()
     // {
-    //     return delta_jamgap.genValue();
+    //     return m_deltaJamgap.GenValue();
     // }
-    // double genb1()
+    // double Genb1()
     // {
-    //     return b1.genValue();
+    //     return m_b1.GenValue();
     // }
-    // double genb2()
+    // double Genb2()
     // {
-    //     return b2.genValue();
+    //     return m_b2.GenValue();
     // }
-    // double genc1()
+    // double Genc1()
     // {
-    //     return c1.genValue();
+    //     return m_c1.GenValue();
     // }
-    // double genc2()
+    // double Genc2()
     // {
-    //     return c2.genValue();
+    //     return m_c2.GenValue();
     // }
-    // double genc3()
+    // double Genc3()
     // {
-    //     return c3.genValue();
+    //     return m_c3.GenValue();
     // }
+
+private:
+    /**
+     * @details Vehicle type (NV: Normal Vehicle, AV: Autonomous Vehicle, TR: Truck)
+    */
+    std::string m_vehType;
+
+    /**
+     * @details Maximum number of passengers
+    */
+    int m_maxPax;
+
+    /**
+     * @details Whether V2X is active or not
+    */
+    bool m_v2xActive;
+
+    /**
+     * @details Vehicle length [m]
+    */
+    InputDistribution m_vehLen;
+
+    /**
+     * @details Jam gap [m]
+    */
+    InputDistribution m_jamgap;
+
+    /**
+     * @details Free flow speed [km/h]
+    */
+    InputDistribution m_vf;
+
+    /**
+     * @details Reaction time [s]
+    */
+    InputDistribution m_reactionTime;
+
+    /**
+     * @details Maximum acceleration [m/s^2]
+    */
+    InputDistribution m_maxAcc;
+
+    /**
+     * @details Maximum deceleration [m/s^2]
+    */
+    InputDistribution m_maxDec;
+
+    /**
+     * @details Lane change parameter 1 [m/veh]
+    */
+    InputDistribution m_lcParam1;
+
+    /**
+     * @details Lane change parameter 2 [s/m]
+    */
+    InputDistribution m_lcParam2;
+
+    /**
+     * @details Lane change sensitivity [.]
+    */
+    InputDistribution m_lcSensitivity;
+
+    // InputDistribution m_deltaJamgap;
+    // InputDistribution m_b1;
+    // InputDistribution m_b2;
+    // InputDistribution m_c1;
+    // InputDistribution m_c2;
+    // InputDistribution m_c3;
 };
 } // namespace NextSimIO
 

@@ -10,5 +10,5 @@
 namespace NextSimIO
 {
 InputFlow::InputFlow(int type, int flow, int sink, int source, int dist) : 
-    type(type), flow(flow), sink(sink), source(source), dist(dist) {};
+    m_type(type), m_flow(flow), m_sink(sink), m_source(source), m_dist(dist) {}
 } // namespace NextSimIO

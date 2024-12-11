@@ -23,11 +23,11 @@ InputLane::InputLane(std::size_t idVal, std::size_t leftLaneIdVal,
     m_rightLaneId = rightLaneIdVal;
 }
 
-InputLane::InputLane(std::size_t id_val, std::size_t leftLaneIdVal,
+InputLane::InputLane(std::size_t idVal, std::size_t leftLaneIdVal,
                      std::size_t rightLaneIdVal, int numCellVal,
                      bool LeftEmpty, bool RightEmpty)
 {
-    m_id = id_val;
+    m_id = idVal;
     m_numCell = numCellVal;
     if (RightEmpty)
     {
@@ -48,13 +48,13 @@ InputLane::InputLane(std::size_t id_val, std::size_t leftLaneIdVal,
     }
 }
 
-void InputLane::pushCell(InputCell cell)
+void InputLane::PushCell(InputCell cell)
 {
-    m_cellArr.emplace_back(cell);
+    m_cellVector.emplace_back(cell);
 }
 
-void InputLane::pushSegment(InputSegment segment)
+void InputLane::PushSegment(InputSegment segment)
 {
-    m_segmentArr.emplace_back(segment);
+    m_segmentVector.emplace_back(segment);
 }
 } // namespace NextSimIO

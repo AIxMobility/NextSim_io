@@ -70,11 +70,11 @@ VehicleTypesArr::VehicleTypesArr()
                     if (!min)   throw std::runtime_error ("Element should have 'min' attribute");
                     if (!sd)   throw std::runtime_error ("Element should have 'sd' attribute");
 
-                    veh_lenDist.setdist(dist);
-                    veh_lenDist.setmax(atof(max));
-                    veh_lenDist.setmean(atof(mean));
-                    veh_lenDist.setmin(atof(min));
-                    veh_lenDist.setsd(atof(sd));
+                    veh_lenDist.SetDist(dist);
+                    veh_lenDist.SetMax(atof(max));
+                    veh_lenDist.SetMean(atof(mean));
+                    veh_lenDist.SetMin(atof(min));
+                    veh_lenDist.SetSD(atof(sd));
                 }
 
                 else if (elemName2 == "jamgap")
@@ -91,11 +91,11 @@ VehicleTypesArr::VehicleTypesArr()
                     if (!min)   throw std::runtime_error ("Element should have 'min' attribute");
                     if (!sd)   throw std::runtime_error ("Element should have 'sd' attribute");
 
-                    jamgapDist.setdist(dist);
-                    jamgapDist.setmax(atof(max));
-                    jamgapDist.setmean(atof(mean));
-                    jamgapDist.setmin(atof(min));
-                    jamgapDist.setsd(atof(sd));
+                    jamgapDist.SetDist(dist);
+                    jamgapDist.SetMax(atof(max));
+                    jamgapDist.SetMean(atof(mean));
+                    jamgapDist.SetMin(atof(min));
+                    jamgapDist.SetSD(atof(sd));
                 }
 
                 else if (elemName2 == "vf")
@@ -112,11 +112,11 @@ VehicleTypesArr::VehicleTypesArr()
                     if (!min)   throw std::runtime_error ("Element should have 'min' attribute");
                     if (!sd)   throw std::runtime_error ("Element should have 'sd' attribute");
 
-                    vfDist.setdist(dist);
-                    vfDist.setmax(atof(max));
-                    vfDist.setmean(atof(mean));
-                    vfDist.setmin(atof(min));
-                    vfDist.setsd(atof(sd));
+                    vfDist.SetDist(dist);
+                    vfDist.SetMax(atof(max));
+                    vfDist.SetMean(atof(mean));
+                    vfDist.SetMin(atof(min));
+                    vfDist.SetSD(atof(sd));
                 }
 
                 else if (elemName2 == "reaction_time")
@@ -133,11 +133,11 @@ VehicleTypesArr::VehicleTypesArr()
                     if (!min)   throw std::runtime_error ("Element should have 'min' attribute");
                     if (!sd)   throw std::runtime_error ("Element should have 'sd' attribute");
 
-                    reaction_timeDist.setdist(dist);
-                    reaction_timeDist.setmax(atof(max));
-                    reaction_timeDist.setmean(atof(mean));
-                    reaction_timeDist.setmin(atof(min));
-                    reaction_timeDist.setsd(atof(sd));
+                    reaction_timeDist.SetDist(dist);
+                    reaction_timeDist.SetMax(atof(max));
+                    reaction_timeDist.SetMean(atof(mean));
+                    reaction_timeDist.SetMin(atof(min));
+                    reaction_timeDist.SetSD(atof(sd));
                 }
 
                 else if (elemName2 == "max_acc")
@@ -154,11 +154,11 @@ VehicleTypesArr::VehicleTypesArr()
                     if (!min)   throw std::runtime_error ("Element should have 'min' attribute");
                     if (!sd)   throw std::runtime_error ("Element should have 'sd' attribute");
 
-                    max_accDist.setdist(dist);
-                    max_accDist.setmax(atof(max));
-                    max_accDist.setmean(atof(mean));
-                    max_accDist.setmin(atof(min));
-                    max_accDist.setsd(atof(sd));
+                    max_accDist.SetDist(dist);
+                    max_accDist.SetMax(atof(max));
+                    max_accDist.SetMean(atof(mean));
+                    max_accDist.SetMin(atof(min));
+                    max_accDist.SetSD(atof(sd));
                 }
 
                 else if (elemName2 == "max_dec")
@@ -175,11 +175,11 @@ VehicleTypesArr::VehicleTypesArr()
                     if (!min)   throw std::runtime_error ("Element should have 'min' attribute");
                     if (!sd)   throw std::runtime_error ("Element should have 'sd' attribute");
 
-                    max_decDist.setdist(dist);
-                    max_decDist.setmax(atof(max));
-                    max_decDist.setmean(atof(mean));
-                    max_decDist.setmin(atof(min));
-                    max_decDist.setsd(atof(sd));
+                    max_decDist.SetDist(dist);
+                    max_decDist.SetMax(atof(max));
+                    max_decDist.SetMean(atof(mean));
+                    max_decDist.SetMin(atof(min));
+                    max_decDist.SetSD(atof(sd));
                 }
 
                 else if (elemName2 == "lc_param1")
@@ -196,11 +196,11 @@ VehicleTypesArr::VehicleTypesArr()
                     if (!min)   throw std::runtime_error ("Element should have 'min' attribute");
                     if (!sd)   throw std::runtime_error ("Element should have 'sd' attribute");
 
-                    lc_param1Dist.setdist(dist);
-                    lc_param1Dist.setmax(atof(max));
-                    lc_param1Dist.setmean(atof(mean));
-                    lc_param1Dist.setmin(atof(min));
-                    lc_param1Dist.setsd(atof(sd));
+                    lc_param1Dist.SetDist(dist);
+                    lc_param1Dist.SetMax(atof(max));
+                    lc_param1Dist.SetMean(atof(mean));
+                    lc_param1Dist.SetMin(atof(min));
+                    lc_param1Dist.SetSD(atof(sd));
                 }
 
                 else if (elemName2 == "lc_param2")
@@ -217,11 +217,11 @@ VehicleTypesArr::VehicleTypesArr()
                     if (!min)   throw std::runtime_error ("Element should have 'min' attribute");
                     if (!sd)   throw std::runtime_error ("Element should have 'sd' attribute");
 
-                    lc_param2Dist.setdist(dist);
-                    lc_param2Dist.setmax(atof(max));
-                    lc_param2Dist.setmean(atof(mean));
-                    lc_param2Dist.setmin(atof(min));
-                    lc_param2Dist.setsd(atof(sd));
+                    lc_param2Dist.SetDist(dist);
+                    lc_param2Dist.SetMax(atof(max));
+                    lc_param2Dist.SetMean(atof(mean));
+                    lc_param2Dist.SetMin(atof(min));
+                    lc_param2Dist.SetSD(atof(sd));
                 }
 
                 else if (elemName2 == "lc_sensitivity")
@@ -238,11 +238,11 @@ VehicleTypesArr::VehicleTypesArr()
                     if (!min)   throw std::runtime_error ("Element should have 'min' attribute");
                     if (!sd)   throw std::runtime_error ("Element should have 'sd' attribute");
 
-                    lc_senseDist.setdist(dist);
-                    lc_senseDist.setmax(atof(max));
-                    lc_senseDist.setmean(atof(mean));
-                    lc_senseDist.setmin(atof(min));
-                    lc_senseDist.setsd(atof(sd));
+                    lc_senseDist.SetDist(dist);
+                    lc_senseDist.SetMax(atof(max));
+                    lc_senseDist.SetMean(atof(mean));
+                    lc_senseDist.SetMin(atof(min));
+                    lc_senseDist.SetSD(atof(sd));
                 }
             }
 
@@ -262,7 +262,7 @@ VehicleTypesArr::VehicleTypesArr()
                 veh_lenDist, jamgapDist, vfDist, reaction_timeDist, max_accDist,
                 max_decDist, lc_param1Dist, lc_param2Dist, lc_senseDist);
 
-            vehTypes.insert({ std::atoi(id), demoVehicleTypes });
+            m_vehTypes.insert({ std::atoi(id), demoVehicleTypes });
         }
     }
     doc.Clear();

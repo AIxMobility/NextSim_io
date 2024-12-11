@@ -9,15 +9,15 @@
 
 namespace NextSimIO
 {
-intersectionPhase::intersectionPhase(int id) : id(id) {};
+intersectionPhase::intersectionPhase(int id) : m_id(id) {};
 
-void intersectionPhase::pushConnectionRef(int conn)
+void intersectionPhase::PushConnection(int conn)
 {
-    connectionRef.push_back(conn);
+    m_connectionVector.push_back(conn);
 };
 
-void intersectionPhase::pushPriority(double priority)
+void intersectionPhase::PushPriority(double priority)
 {
-    connectionRef.push_back(priority);
+    m_priorityVector.push_back(priority);
 };
 } // namespace NextSimIO

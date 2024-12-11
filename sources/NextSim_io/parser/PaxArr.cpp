@@ -50,7 +50,7 @@ PaxArr::PaxArr()
                                   atol(e->Attribute("flow")),
                                   e->Attribute("dist"));
 
-                    ODPaxVec.push_back(demoPax);
+                    m_odPax.push_back(demoPax);
                 }
             }
         }
@@ -70,7 +70,7 @@ PaxArr::PaxArr()
                                      atof(e->Attribute("dpt_time")),
                                      e->Attribute("type"));
 
-                    AgentPaxVec.push_back(demoPax);
+                    m_agentPax.push_back(demoPax);
                 }
             }
         }

@@ -18,12 +18,6 @@ namespace NextSimIO
  */
 class ScenarioArr
 {
-private:
-    /**
-     * @details Pair of simulation Iter ID and OD matrix ID
-     */
-    std::vector<std::pair<int, int>> ODscenario;
-
 public:
     /**
      * @details Constructor (Parse OD scenario information from odscenario.xml)
@@ -34,7 +28,14 @@ public:
      * @details Get origin-destination scenario
      * @return OD scenario (Pair of simulation Iter ID and OD matrix ID)
     */
-    std::vector<std::pair<int, int>> getScenario() { return ODscenario; }
+    std::vector<std::pair<int, int>> GetScenarios() { return m_odScenarios; }
+
+private:
+    /**
+     * @details Pair of simulation Iter ID and OD matrix ID
+     */
+    std::vector<std::pair<int, int>> m_odScenarios;
+
 };
 } // namespace NextSimIO
 

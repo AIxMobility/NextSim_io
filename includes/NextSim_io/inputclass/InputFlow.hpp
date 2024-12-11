@@ -5,6 +5,7 @@
  * @author : ???
  */
 
+#pragma once
 #ifndef INPUTFLOW_H
 #define INPUTFLOW_H
 
@@ -19,33 +20,6 @@ namespace NextSimIO
  */
 class InputFlow
 {
-private:
-
-    /**
-     * @details Vehicle type ID (0: Normal Vehicle, 1: Autonomous Vehicle, 2: Truck)
-    */
-    int type;
-
-    /**
-     * @details Flow [veh/hr]
-    */
-    int flow;
-    
-    /**
-     * @details Sink node ID (destination)
-    */
-    int sink;
-
-    /**
-     * @details Source node ID (origin)
-    */
-    int source;
-
-    /**
-     * @details Estimated distribution ID of departure time
-    */
-    int dist;
-
 public:
 
     /**
@@ -62,31 +36,58 @@ public:
      * @details Get vehicle type
      * @return Vehicle type ID (0: Normal Vehicle, 1: Autonomous Vehicle, 2: Truck)
     */
-    int getType() { return type; }
+    int GetType() { return m_type; }
 
     /**
      * @details Get flow
      * @return Flow [veh/hr]
     */
-    int getFlow() { return flow; }
+    int GetFlow() { return m_flow; }
 
     /**
      * @details Get sink node ID
      * @return Sink node ID (destination)
     */
-    int getSink() { return sink; }
+    int GetSink() { return m_sink; }
 
     /**
      * @details Get source node ID
      * @return Source node ID (origin)
     */
-    int getSource() { return source; }
+    int GetSource() { return m_source; }
 
     /**
      * @details Get estimated distribution ID of departure time
      * @return Estimated distribution ID of departure time
     */
-    int getDist() { return dist; }
+    int GetDist() { return m_dist; }
+    
+private:
+
+    /**
+     * @details Vehicle type ID (0: Normal Vehicle, 1: Autonomous Vehicle, 2: Truck)
+    */
+    int m_type;
+
+    /**
+     * @details Flow [veh/hr]
+    */
+    int m_flow;
+    
+    /**
+     * @details Sink node ID (destination)
+    */
+    int m_sink;
+
+    /**
+     * @details Source node ID (origin)
+    */
+    int m_source;
+
+    /**
+     * @details Estimated distribution ID of departure time
+    */
+    int m_dist;
 };
 } // namespace NextSimIO
 

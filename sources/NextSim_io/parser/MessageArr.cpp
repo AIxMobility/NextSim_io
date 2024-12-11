@@ -71,9 +71,9 @@ MessageArr::MessageArr()
 
                     if (!node_id)   throw std::runtime_error ("Element should have 'node_id' attribute");
 
-                    demoMessage.setNode_id (std::atoi(node_id));
+                    demoMessage.SetNodeID(std::atoi(node_id));
 
-                    RegionMessage.push_back (demoMessage);
+                    m_regionMessage.push_back(demoMessage);
                 }
             }
         }
@@ -111,9 +111,9 @@ MessageArr::MessageArr()
 
                     if (!veh_id)   throw std::runtime_error ("Element should have 'veh_id' attribute");
 
-                    demoMessage.setVeh_id (std::atoi(veh_id));
+                    demoMessage.SetVehID(std::atoi(veh_id));
 
-                    VehMessage.push_back (demoMessage);
+                    m_vehMessage.push_back(demoMessage);
                 }
             }
         }

@@ -19,12 +19,6 @@ namespace NextSimIO
 */
 class EventArr
 {
-private:
-    /**
-     * @details Vector of events
-    */
-    std::vector<InputEvent> Events;
-
 public:
     /**
      * @details Constructor (Parse events from eventdata.xml)
@@ -35,7 +29,13 @@ public:
      * @details Get vector of events
      * @return Vector of events
      */
-    std::vector<InputEvent> getEvents()  { return Events; }
+    std::vector<InputEvent> GetEvents()  { return m_events; }
+
+private:
+    /**
+     * @details Vector of events
+    */
+    std::vector<InputEvent> m_events;
 };
 } // namespace NextSimIO
 

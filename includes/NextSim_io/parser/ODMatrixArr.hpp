@@ -19,12 +19,6 @@ namespace NextSimIO
  */
 class ODMatrixArr
 {
-private:
-    /**
-     * @details Vector of OD matrix
-    */
-    std::vector<InputODMatrix> ODmatrix;
-
 public:
     /**
      * @details Constructor (Parse OD matrix from odmatrix.xml)
@@ -35,7 +29,14 @@ public:
      * @details Get vector of OD matrix
      * @return Vector of OD matrix
     */
-    std::vector<InputODMatrix> getODmatrix() { return ODmatrix; }
+    std::vector<InputODMatrix> GetODMatrix() { return m_odMatrix; }
+
+private:
+    /**
+     * @details Vector of OD matrix
+    */
+    std::vector<InputODMatrix> m_odMatrix;
+
 };
 } // namespace NextSimIO
 

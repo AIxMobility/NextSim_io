@@ -45,7 +45,7 @@ PTlineArr::PTlineArr()
         if (eName == "link")
         {
             std::string linkSeq = e->Attribute("seq");
-            tPTline.setLinkSeq(linkSeq);
+            tPTline.SetLinkSeq(linkSeq);
         }
         
         e = e->NextSiblingElement();
@@ -53,7 +53,7 @@ PTlineArr::PTlineArr()
         if (eName == "node")
         {
             std::string nodeSeq = e->Attribute("seq");
-            tPTline.setNodeSeq(nodeSeq);
+            tPTline.SetNodeSeq(nodeSeq);
         }
         
         e = e->NextSiblingElement();
@@ -61,13 +61,13 @@ PTlineArr::PTlineArr()
         if (eName == "station")
         {
             std::string stationSeq = e->Attribute("seq");
-            tPTline.setStationSeq(stationSeq);
+            tPTline.SetStationSeq(stationSeq);
 
             std::string stationDistanceSeq = e->Attribute("distance");
-            tPTline.setStationDistanceSeq(stationDistanceSeq);
+            tPTline.SetStationDistanceSeq(stationDistanceSeq);
         }
         
-        ptlineArr.push_back(tPTline);
+        m_ptLines.push_back(tPTline);
     }
 }
 } // namespace NextSimIO

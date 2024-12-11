@@ -96,16 +96,16 @@ LinkArr::LinkArr()
                     if (!maxSpd)   throw std::runtime_error ("Element should have 'max_spd' attribute");
                     if (!minSpd)   throw std::runtime_error ("Element should have 'min_spd' attribute");
 
-                    demoLink.FreeFlowSpeed = std::atof(ffspeed);
-                    demoLink.Qmax = std::atof(qmax);
-                    demoLink.WaveSpeed = std::atof(waveSpd);
-                    demoLink.MaxVehicle = std::atoi(maxVeh);
+                    demoLink.freeFlowSpeed = std::atof(ffspeed);
+                    demoLink.qMax = std::atof(qmax);
+                    demoLink.waveSpeed = std::atof(waveSpd);
+                    demoLink.maxVehicle = std::atoi(maxVeh);
                     demoLink.SetFromNode(
                         ((std::size_t)atoll(from_node)));
                     demoLink.SetToNode(
                         ((std::size_t)atoll(to_node)));
-                    demoLink.MaxSpeed = std::atof(maxSpd);
-                    demoLink.MinSpeed = std::atof(minSpd);
+                    demoLink.maxSpeed = std::atof(maxSpd);
+                    demoLink.minSpeed = std::atof(minSpd);
 
                     // save lane infos for each link
                     // int lane_num = 0;
@@ -152,7 +152,7 @@ LinkArr::LinkArr()
                                         atof(offset),
                                         atof(cellLength));
                                     SetCellAttrs(demoLink, demoCell);
-                                    demoLane.pushCell(demoCell);
+                                    demoLane.PushCell(demoCell);
                                 }
 
                                 else if (elementName == "segment")
@@ -182,15 +182,15 @@ LinkArr::LinkArr()
                                         right_lc_bool,
                                         atof(init_point),
                                         atof(end_point));
-                                    demoLane.pushSegment(demoSegment);
+                                    demoLane.PushSegment(demoSegment);
                                 }
                             }
 
-                            demoLink.pushLaneId(demoLane);
+                            demoLink.PushLaneId(demoLane);
                         }
                     }
 
-                    Links.push_back(demoLink);
+                    m_links.push_back(demoLink);
                     // perhaps need to free pointers here
                 }
             }
@@ -219,12 +219,12 @@ bool a_to_bool(const char* val)
 
 void SetCellAttrs(const InputLink& parentLink, InputCell& cell)
 {
-    cell.FreeFlowSpeed = parentLink.FreeFlowSpeed;
-    cell.MaxSpeed = parentLink.MaxSpeed;
-    cell.MinSpeed = parentLink.MinSpeed;
-    cell.MaxVehicle = parentLink.MaxVehicle;
-    cell.Qmax = parentLink.Qmax;
-    cell.WaveSpeed = parentLink.WaveSpeed;
-    cell.Width = -1;
+    cell.freeFlowSpeed = parentLink.freeFlowSpeed;
+    cell.maxSpeed = parentLink.maxSpeed;
+    cell.minSpeed = parentLink.minSpeed;
+    cell.maxVehicle = parentLink.maxVehicle;
+    cell.qMax = parentLink.qMax;
+    cell.waveSpeed = parentLink.waveSpeed;
+    cell.width = -1;
 }
 }  // namespace NextSimIO

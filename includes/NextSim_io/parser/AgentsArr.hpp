@@ -19,12 +19,6 @@ namespace NextSimIO
  */
 class AgentsArr
 {
-private:
-
-    /**
-     * @details Vector of agents
-    */
-    std::vector<InputAgents> Agents;
 
 public:
     
@@ -36,14 +30,20 @@ public:
     /**
      * @details Show vector of agents
     */
-    void showArr();
+    void ShowArr();
 
     /**
      * @details Get vector of agents
      * @return Vector of agents
     */
-    std::vector<InputAgents> getAgents() { return Agents; }
+    std::vector<InputAgents> GetAgents() { return m_agents; }
 
+private:
+
+    /**
+     * @details Vector of agents
+    */
+    std::vector<InputAgents> m_agents;
 };
 } // namespace NextSimIO
 

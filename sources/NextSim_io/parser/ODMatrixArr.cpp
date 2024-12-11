@@ -180,7 +180,7 @@ ODMatrixArr::ODMatrixArr()
                 atoi(id), 
                 odmatrix);
 
-            ODmatrix.push_back(InputODMatrix);
+            m_odMatrix.push_back(InputODMatrix);
         }
     };
     doc.Clear();

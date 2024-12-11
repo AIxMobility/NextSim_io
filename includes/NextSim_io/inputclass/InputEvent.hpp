@@ -5,6 +5,7 @@
  * @author : Jeyun Kim
  */
 
+#pragma once
 #ifndef INPUTEVENT_H
 #define INPUTEVENT_H
 
@@ -19,112 +20,113 @@ namespace NextSimIO
 */
 class InputEvent
 {
-private:
-
-    /**
-     * @details Event ID
-    */
-    int id;
-
-    /**
-     * @details Link ID of event occurrence
-    */
-    std::size_t link_id;
-
-    /**
-     * @details Position of event occurrence (from link start point)
-    */
-    double pos;
-
-    /**
-     * @details Lane ID of event occurrence
-    */
-    int lane;
-
-    /**
-     * @details Start time of event occurrence
-    */
-    double stime;
-
-    /**
-     * @details End time of event
-    */
-    double etime;
-
-    /**
-     * @details Event type
-    */
-    int type;
-
-    /**
-     * @details Event seriousness (severity)
-    */
-    int sern;
-
 public:
     // Constructor
     /**
      * @details Constructor
      * @param id Event ID
-     * @param link_id Link ID
+     * @param linkID Link ID
      * @param pos Offset
      * @param lane Lane ID
-     * @param stime Start time
-     * @param etime End time
+     * @param sTime Start time
+     * @param eTime End time
      * @param type Event type
      * @param sern Event seriousness (severity)
     */
-    InputEvent(int id, std::size_t link_id, double pos, 
-               int lane, double stime, double etime, 
+    InputEvent(int id, std::size_t linkID, double pos, 
+               int lane, double sTime, double eTime, 
                int type, int sern);
 
     /**
      * @details Get event ID
      * @return Event ID
     */
-    int getId() { return id; }
+    int GetId() { return m_id; }
 
     /**
      * @details Get link ID
      * @return Link ID of event occurrence
     */
-    std::size_t getLinkId() { return link_id; }
+    std::size_t GetLinkId() { return m_linkID; }
 
     /**
      * @details Get position 
      * @return Position of event occurrence (from link start point)
     */
-    double getPos() { return pos; }
+    double GetPos() { return m_pos; }
 
     /**
      * @details Get lane ID
      * @return Lane ID of event occurrence
     */
-    int getLane() { return lane; }
+    int GetLane() { return m_lane; }
 
     /**
      * @details Get start time
      * @return Start time of event occurrence
     */
-    double getStime() { return stime; }
+    double GetStime() { return m_sTime; }
 
     /**
      * @details Get end time
      * @return End time of event occurrence
     */
-    double getEtime() { return etime; }
+    double GetEtime() { return m_eTime; }
 
     /**
      * @details Get event type
      * @return Event type
     */
-    int getType() { return type; }
+    int GetType() { return m_type; }
 
     /**
      * @details Get event seriousness (severity)
      * @return Event seriousness (severity)
     */
-    int getSern() { return sern; }
+    int GetSern() { return m_sern; }
+
+private:
+
+    /**
+     * @details Event ID
+    */
+    int m_id;
+
+    /**
+     * @details Link ID of event occurrence
+    */
+    std::size_t m_linkID;
+
+    /**
+     * @details Position of event occurrence (from link start point)
+    */
+    double m_pos;
+
+    /**
+     * @details Lane ID of event occurrence
+    */
+    int m_lane;
+
+    /**
+     * @details Start time of event occurrence
+    */
+    double m_sTime;
+
+    /**
+     * @details End time of event
+    */
+    double m_eTime;
+
+    /**
+     * @details Event type
+    */
+    int m_type;
+
+    /**
+     * @details Event seriousness (severity)
+    */
+    int m_sern;
+
 };
 } // namespace NextSimIO
 

@@ -12,41 +12,41 @@
 namespace NextSimIO
 {
 InputAgents::InputAgents(int id, int type, double dpt_time) 
-                         : id(id), typeId(type), dpt_time(dpt_time){};
+                         : m_id(id), m_typeID(type), m_dptTime(dpt_time){};
 
-void InputAgents::setLinkSeq(std::string linkSeq)
+void InputAgents::SetLinkSeq(std::string linkSeq)
 {
     std::stringstream ss(linkSeq);
     int linkid;
 
     while (ss >> linkid)
-        link_seq.push_back(linkid);
+        m_linkSeq.push_back(linkid);
 }
 
-void InputAgents::setNodeSeq(std::string nodeSeq)
+void InputAgents::SetNodeSeq(std::string nodeSeq)
 {
     std::stringstream ss(nodeSeq);
     int nodeid;
 
     while (ss >> nodeid)
-        node_seq.push_back(nodeid);
+        m_nodeSeq.push_back(nodeid);
 }
 
-void InputAgents::setStationSeq(std::string stationSeq)
+void InputAgents::SetStationSeq(std::string stationSeq)
 {
     std::stringstream ss(stationSeq);
     int stationid;
 
     while (ss >> stationid)
-        station_seq.push_back(stationid);
+        m_stationSeq.push_back(stationid);
 }
 
-void InputAgents::setStationDistanceSeq(std::string stationDistanceSeq)
+void InputAgents::SetStationDistanceSeq(std::string stationDistanceSeq)
 {
     std::stringstream ss(stationDistanceSeq);
     double stationDistance;
 
     while (ss >> stationDistance)
-        station_distance_seq.push_back(stationDistance);
+        m_stationDistanceSeq.push_back(stationDistance);
 }
 } // namespace NextSimIO

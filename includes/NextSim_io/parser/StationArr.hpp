@@ -19,17 +19,6 @@ namespace NextSimIO
  */
 class StationArr
 {
-private:
-
-    /**
-     * @details Vector of stations
-    */
-    std::vector<InputStation> Stations;
-
-    /**
-     * @details Vector of DRT stations
-    */
-    std::vector<InputDRTStation> DRTStations;
 
 public:
     /**
@@ -41,13 +30,25 @@ public:
      * @details Get vector of stations
      * @return Vector of stations
     */
-    std::vector<InputStation> getStations() { return Stations; }
+    std::vector<InputStation> GetStations() { return m_stations; }
 
     /**
      * @details Get vector of DRT stations
      * @return Vector of DRT stations
     */
-    std::vector<InputDRTStation> getDRTStations() { return DRTStations; }
+    std::vector<InputDRTStation> GetDRTStations() { return m_drtStations; }
+
+private:
+    /**
+     * @details Vector of stations
+    */
+    std::vector<InputStation> m_stations;
+
+    /**
+     * @details Vector of DRT stations
+    */
+    std::vector<InputDRTStation> m_drtStations;
+
 };
 } // namespace NextSimIO
 

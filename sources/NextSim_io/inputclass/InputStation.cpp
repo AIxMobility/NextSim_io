@@ -11,33 +11,33 @@
 
 namespace NextSimIO
 {
-InputStation::InputStation(int id, int link_ref, int lane_ref, double pos, int parkingLots) : 
-    id(id), link_ref(link_ref), lane_ref(lane_ref), pos(pos), parkingLots(parkingLots){};
+InputStation::InputStation(int id, int link, int lane, double pos, int parkingLots) : 
+    m_id(id), m_link(link), m_lane(lane), m_pos(pos), m_parkingLots(parkingLots) {};
 
-void InputStation::setLineList(std::string line_list_str)
+void InputStation::SetLineList(std::string lineList)
 {
-    std::stringstream ss(line_list_str);
+    std::stringstream ss(lineList);
     int line_id;
 
     while (ss >> line_id)
-        line_list.push_back(line_id);
+        m_lineList.push_back(line_id);
 }
 
 
-InputDRTStation::InputDRTStation(int id, int link_ref, int lane_ref) : 
-    id(id), link_ref(link_ref), lane_ref(lane_ref) {};
+InputDRTStation::InputDRTStation(int id, int link, int lane) : 
+    m_id(id), m_link(link), m_lane(lane) {};
 
-void InputDRTStation::setPosRange(std::string pos_range_str)
+void InputDRTStation::SetPosRange(std::string posRange)
 {
     double start_pos;
     double end_pos;
 
-    std::stringstream ss(pos_range_str);
+    std::stringstream ss(posRange);
     char delim;
 
     ss >> start_pos >> delim >> end_pos;
 
     if (delim == '-')
-        pos_range = std::make_pair(start_pos, end_pos);
+        m_posRange = std::make_pair(start_pos, end_pos);
 }
 } // namespace NextSimIO

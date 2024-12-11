@@ -5,6 +5,7 @@
  * @author : Jeyun Kim
  */
 
+#pragma once
 #ifndef INPUTMESSAGE_H
 #define INPUTMESSAGE_H
 
@@ -19,108 +20,107 @@ namespace NextSimIO
 */
 class InputMessage
 {
-private:
-
-    /**
-     * @details Message ID
-    */
-    int id;
-
-    /**
-     * @details Start time for message operation
-    */
-    double stime;
-
-    /**
-     * @details End time for message operation
-    */
-    double etime;
-
-    /**
-     * @details Message type (1: speed recommendation, 2: warning)
-    */
-    int msg_type;
-
-    /**
-     * @details Speed value for speed recommendation message [km/h]
-    */
-    int value;
-
-    /**
-     * @details Node ID for getting message (unique to Region Message)
-    */
-    int node_id = 0;
-
-    /**
-     * @details Vehicle ID for getting message (unique to Vehicle Message)
-    */
-    int veh_id = 0;
-
 public:
     /**
      * @brief Constructor
      * @param id Message ID
-     * @param stime Start time
-     * @param etime End time
-     * @param msg_type Message type
+     * @param sTime Start time
+     * @param eTime End time
+     * @param msgType Message type
      * @param value Speed value
     */
-    InputMessage(int id, double stime, double etime, 
-                 int msg_type, int value);
+    InputMessage(int id, double sTime, double eTime, 
+                 int msgType, int value);
 
     /**
      * @brief Get message ID
      * @return Message ID
     */
-    int getId() { return id;}
+    int GetID() { return m_id;}
 
     /**
      * @brief Get start time
      * @return Start time for message operation
     */
-    double getStime() { return stime;}
+    double GetStartTime() { return m_sTime;}
     
     /**
      * @brief Get end time
      * @return End time for message operation
     */
-    double getEtime() { return etime;}
+    double GetEndTime() { return m_eTime;}
 
     /**
      * @brief Get message type
      * @return Message type (1: speed recommendation, 2: warning)
     */
-    int getMsg_type() { return msg_type;}
+    int GetMsgType() { return m_msgType;}
 
     /**
      * @brief Get speed value
      * @return Speed value for speed recommendation message [km/h]
     */
-    int getvalue() { return value;}
+    int GetValue() { return m_value;}
 
     /**
      * @brief Get node ID
      * @return Node ID for getting message
     */
-    int getNode_id() { return node_id;}
+    int GetNodeID() { return m_nodeID;}
 
     /**
      * @brief Get vehicle ID
      * @return Vehicle ID for getting message
     */
-    int getVeh_id() { return veh_id;}
+    int GetVehID() { return m_vehID;}
 
     /**
      * @brief Set node ID
-     * @param nnode_id Node ID for getting message
+     * @param nodeID Node ID for getting message
     */
-    void setNode_id (int nnode_id) { node_id = nnode_id; }
+    void SetNodeID (int nodeID) { m_nodeID = nodeID; }
 
     /**
      * @brief Set vehicle ID
-     * @param nveh_id Vehicle ID for getting message
+     * @param vehID Vehicle ID for getting message
     */
-    void setVeh_id (int nveh_id) { veh_id = nveh_id; }
+    void SetVehID (int vehID) { m_vehID = vehID; }
+
+private:
+    /**
+     * @details Message ID
+    */
+    int m_id;
+
+    /**
+     * @details Start time for message operation
+    */
+    double m_sTime;
+
+    /**
+     * @details End time for message operation
+    */
+    double m_eTime;
+
+    /**
+     * @details Message type (1: speed recommendation, 2: warning)
+    */
+    int m_msgType;
+
+    /**
+     * @details Speed value for speed recommendation message [km/h]
+    */
+    int m_value;
+
+    /**
+     * @details Node ID for getting message (unique to Region Message)
+    */
+    int m_nodeID = 0;
+
+    /**
+     * @details Vehicle ID for getting message (unique to Vehicle Message)
+    */
+    int m_vehID = 0;
 };
 } // namespace NextSimIO
 
