@@ -51,17 +51,18 @@ NodeArr::NodeArr()
 
                 if (!nodeId)   throw std::runtime_error ("Element should have 'id' attribute");
                 if (!nodeType)   throw std::runtime_error ("Element should have 'type' attribute");
-                // if (!numConnection)   throw std::runtime_error ("Element should have 'num_connection' attribute");
+                if (!numConnection)   throw std::runtime_error ("Element should have 'num_connection' attribute");
                 if (!numPort)   throw std::runtime_error ("Element should have 'num_port' attribute");
                 if (!v2x)   v2x = "off";
 
                 if (!strcmp (nodeType, "normal"))
                 {
+
                     // create single InputNode instance here
                     InputNode single_node(
                         0, 
                         atol(nodeId), 
-                        -1,
+                        atoi(numConnection),
                         atoi(numPort),
                         strcmp(v2x, "on") == 0 ? true : false);
 
@@ -610,7 +611,8 @@ NodeArr::NodeArr()
             node.pushPhase(phase);
         }
 
-        node.SetType(-1);  // signalized normal node
+        if (node.GetType() == 0)
+            node.SetType(-1);  // signalized normal node
     }
     doc_signal.Clear();
 };
