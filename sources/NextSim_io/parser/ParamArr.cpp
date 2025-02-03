@@ -26,11 +26,9 @@ ParamArr::ParamArr()
       m_maxDec(3)
 {
     TiXmlDocument doc;
+    bool loadSuccess = doc.LoadFile(NextSimIO::ParamXMLPath.string().c_str());
 
-    doc.LoadFile(NextSimIO::ParamXMLPath.string().c_str());
-    // std::cout << "Loading ParamArr" << std::endl;
-
-    if (!doc.LoadFile(NextSimIO::ParamXMLPath.string().c_str()))
+    if (!loadSuccess)
     {
         std::cout << "Loading failed (ParamArr)" << std::endl;
         // std::cerr << doc.ErrorDesc() << std::endl;

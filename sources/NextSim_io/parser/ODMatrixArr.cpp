@@ -20,11 +20,9 @@ namespace NextSimIO
 ODMatrixArr::ODMatrixArr()
 {
     TiXmlDocument doc;
+    bool loadSuccess = doc.LoadFile(NextSimIO::OdMatrixXMLPath.string().c_str());
 
-    doc.LoadFile(NextSimIO::OdMatrixXMLPath.string().c_str());
-    // std::cout << "Loading ODMatrix" << std::endl;
-
-    if (!doc.LoadFile(NextSimIO::OdMatrixXMLPath.string().c_str()))
+    if (!loadSuccess)
     {
         std::cout << "Loading failed (ODMatrix)" << std::endl;
         // std::cerr << doc.ErrorDesc() << std::endl;

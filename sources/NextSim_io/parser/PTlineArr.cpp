@@ -21,10 +21,9 @@ namespace NextSimIO
 PTlineArr::PTlineArr()
 {
     TiXmlDocument doc;
+    bool loadSuccess = doc.LoadFile(NextSimIO::PTlineXMLPath.string().c_str());
 
-    doc.LoadFile(NextSimIO::PTlineXMLPath.string().c_str());
-    
-    if (!doc.LoadFile(NextSimIO::PTlineXMLPath.string().c_str()))
+    if (!loadSuccess)
     {
         std::cout << "Loading failed (PTLineArr)" << std::endl;
         // std::cerr << doc.ErrorDesc() << std::endl;

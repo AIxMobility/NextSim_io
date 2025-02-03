@@ -20,10 +20,10 @@ namespace NextSimIO
 {
 StationArr::StationArr()
 {
-    TiXmlDocument doc(NextSimIO::StationXMLPath.string().c_str());
-    bool loadOkay = doc.LoadFile();
+    TiXmlDocument doc;
+    bool loadSuccess = doc.LoadFile(NextSimIO::StationXMLPath.string().c_str());
 
-    if (!loadOkay)
+    if (!loadSuccess)
     {
         std::cout << "Loading failed (StationArr)" << std::endl;
         // std::cerr << doc.ErrorDesc() << std::endl;

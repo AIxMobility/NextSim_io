@@ -20,11 +20,9 @@ namespace NextSimIO
 OutputMetricsArr::OutputMetricsArr()
 {
     TiXmlDocument doc;
+    bool loadSuccess = doc.LoadFile(NextSimIO::OutputMetricsXMLPath.string().c_str());
 
-    doc.LoadFile(NextSimIO::OutputMetricsXMLPath.string().c_str());
-    // std::cout << "Loading ODScenario" << std::endl;
-
-    if (!doc.LoadFile(NextSimIO::OutputMetricsXMLPath.string().c_str()))
+    if (!loadSuccess)
     {
         std::cout << "Loading failed (OutputMetrics)" << std::endl;
         // std::cerr << doc.ErrorDesc() << std::endl;

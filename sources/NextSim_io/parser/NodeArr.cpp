@@ -21,13 +21,11 @@ namespace NextSimIO
 NodeArr::NodeArr()
 {
     TiXmlDocument doc;
+    bool loadSuccess = doc.LoadFile(NextSimIO::NetworkXMLPath.string().c_str());
 
-    doc.LoadFile(NextSimIO::NetworkXMLPath.string().c_str());
-
-    if (!doc.LoadFile(NextSimIO::NetworkXMLPath.string().c_str()))
+    if (!loadSuccess)
     {
         std::cout << "Loading failed (NodeArr-Network.xml)" << std::endl;
-        // std::cerr << doc.ErrorDesc() << std::endl;
         return;
     }
     
@@ -538,10 +536,9 @@ NodeArr::NodeArr()
     doc.Clear();
 
     TiXmlDocument doc_signal;
-    doc_signal.LoadFile(NextSimIO::SignalXMLPath.string().c_str());
-    // std::cout << "Loading NodeArr" << std::endl;
+    loadSuccess = doc_signal.LoadFile(NextSimIO::SignalXMLPath.string().c_str());
 
-    if (!doc_signal.LoadFile(NextSimIO::SignalXMLPath.string().c_str()))
+    if (!loadSuccess)
     {
         std::cout << "Loading failed (NodeArr-Signal.xml)" << std::endl;
         // std::cerr << doc_signal.ErrorDesc() << std::endl;

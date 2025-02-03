@@ -21,11 +21,9 @@ namespace NextSimIO
 MessageArr::MessageArr()
 {
     TiXmlDocument doc;
+    bool loadSuccess = doc.LoadFile(NextSimIO::V2XXMLPath.string().c_str());
 
-    doc.LoadFile(NextSimIO::V2XXMLPath.string().c_str());
-    // std::cout << "Loading Message" << std::endl;
-
-    if (!doc.LoadFile(NextSimIO::V2XXMLPath.string().c_str()))
+    if (!loadSuccess)
     {
         std::cout << "Loading failed (MessageArr)" << std::endl;
         // std::cerr << doc.ErrorDesc() << std::endl;
