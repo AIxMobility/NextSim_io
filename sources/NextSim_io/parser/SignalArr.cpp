@@ -102,5 +102,48 @@ SignalArr::SignalArr()
         m_signals.push_back(singleSignal);
     }
     doc.Clear();
+
+    TiXmlDocument doc_signal;
+    loadSuccess = doc_signal.LoadFile(NextSimIO::SignalTODXMLPath.string().c_str());
+
+    if (!loadSuccess)
+    {
+        std::cout << "Loading failed (SignalTOD)" << std::endl;
+        return;
+    }
+
+    TiXmlElement *root_signal = doc_signal.FirstChildElement();
+
+    for (TiXmlElement *elem = root_signal->FirstChildElement(); elem != NULL;
+         elem = elem->NextSiblingElement())
+    {
+        int nodeId = atoi(elem->Attribute("id"));
+
+        std::vector<table> todTable;
+        for (TiXmlElement *e = elem->FirstChildElement(); e != NULL;
+             e = e->NextSiblingElement())
+        {
+            const char *planId = e->Attribute("planId");
+            const char *startTime = e->Attribute("startTime");
+            const char *endTime = e->Attribute("endTime");
+
+            if (!planId)
+                throw std::runtime_error("Element should have 'planId' attribute");
+            if (!startTime)
+                throw std::runtime_error("Element should have 'startTime' attribute");
+            if (!endTime)
+                throw std::runtime_error("Element should have 'endTime' attribute");
+
+            table singleTable(atoi(planId), atoi(startTime), atoi(endTime));
+
+            todTable.push_back(singleTable);
+        }
+
+        InputTOD singleTOD(nodeId, todTable);
+
+        m_signalTODs.push_back(singleTOD);
+    }
+
+    doc_signal.Clear();
 };
 } // namespace NextSimIO

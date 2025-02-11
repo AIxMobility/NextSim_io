@@ -9,6 +9,7 @@
 #define SIGNALARR_H
 
 #include <NextSim_io/inputclass/InputSignal.hpp>
+#include <NextSim_io/inputclass/InputTOD.hpp>
 
 namespace NextSimIO
 {
@@ -30,11 +31,22 @@ public:
     */
     std::vector<InputSignal> GetSignals() { return m_signals; }
 
+    /**
+     * @details Get vector of all signal TODs
+     * @return Vector of all signal TODs
+    */
+    std::vector<InputTOD> GetSignalTODs() { return m_signalTODs; }
+
 private:
     /**
      * @details Vector of all signal plans
     */
     std::vector<InputSignal> m_signals;
+
+    /**
+     * @details Vector of all signal TODs
+    */
+    std::vector<InputTOD> m_signalTODs;
 };
 } // namespace NextSimIO
 
