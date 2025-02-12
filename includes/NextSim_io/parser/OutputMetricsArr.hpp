@@ -9,22 +9,34 @@
 #define OUTPUTMETRICSARR_H
 
 #include <vector>
+#include <NextSim_io/inputclass/InputRecordMode.hpp>
 
 namespace NextSimIO
 {
+/**
+ * @class OutputMetricsArr
+ * @brief Class for output metrics array
+ */
 class OutputMetricsArr
 {
-
 public:
+    /**
+     * @details Constructor
+     * @param recordMode Record mode information
+     */
     OutputMetricsArr();
     
-    std::vector<std::pair<std::string, bool>> GetRecordMode() { return RecordMode; }
-
-    void SetRecordMode(std::vector<std::pair<std::string, bool>> recordMode) 
-        { RecordMode = recordMode; }
+    /**
+     * @details Get record mode information
+     * @return Record mode information
+     */
+    std::vector<InputRecordMode> GetRecordMode() { return m_recordModes; }
 
 private:
-    std::vector<std::pair<std::string, bool>> RecordMode;
+    /**
+     * @details Record mode information
+     */
+    std::vector<InputRecordMode> m_recordModes;
 };
 } // namespace NextSimIO
 

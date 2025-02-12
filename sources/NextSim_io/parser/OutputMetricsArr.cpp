@@ -10,7 +10,6 @@
 #include <string>
 
 #include <NextSim_io/parser/OutputMetricsArr.hpp>
-
 #include <NextSim_io/tinyapi/tinystr.h>
 #include <NextSim_io/tinyapi/tinyxml.h>
 #include <NextSim_io/FilePath.hpp>
@@ -30,44 +29,65 @@ OutputMetricsArr::OutputMetricsArr()
     }
 
     TiXmlElement *root = doc.FirstChildElement();
+    
+    // SimulationEvent
+    TiXmlElement *eSimulationEvent = root->FirstChildElement("SimulationEvent");
 
-    for (TiXmlElement *elem = root->FirstChildElement(); elem != NULL;
-         elem = elem->NextSiblingElement())
-    {
-        std::string elemName = elem->Value();
+    bool activated = std::string(eSimulationEvent->Attribute("active")) == "t";
+    InputRecordMode recordMode(-1, activated);
+    m_recordModes.emplace_back(recordMode);
 
-        if (elemName == "VehicleEvent")
-        {
-            std::vector<std::pair<std::string, bool>> recordMode;
-            for (TiXmlElement* e = elem->FirstChildElement(); e != NULL;
-                 e = e->NextSiblingElement())
-            {
-                std::string elemName2 = e->Value();
-                if (elemName2 == "Debugging" || elemName2 == "Visualizer" || elemName2 == "Statistics")
-                {
-                    for (TiXmlElement* m = e->FirstChildElement(); m != NULL;
-                         m = m->NextSiblingElement())
-                    {
-                        std::string mName = m->Value();
-                        if (mName == "record_mode")
-                        {
-                            const char *RecordMode = m->Attribute("output");
-                            if (!RecordMode)
-                                throw std::runtime_error("Element should have 'record_mode' attribute");
-                            
-                            recordMode.emplace_back(std::pair<std::string, bool> (elemName2, (std::string(RecordMode) == "t")));
-                        }
-                        // else // need to change (for variables export true or false)
-                        // {
-                        // }
-                    }
-                    
-                }
-            }
-            SetRecordMode(recordMode);
 
-        }
-    }
+    // VehicleEvent (Debugging, Visualizer, Statistics)
+    TiXmlElement *eVehicleEvent = root->FirstChildElement("VehicleEvent");
+
+    TiXmlElement *eDebugging = eVehicleEvent->FirstChildElement("Debugging");
+    bool activatedDebugging = std::string(eDebugging->Attribute("record_mode")) == "t";
+    InputRecordMode recordModeDebugging(0, activatedDebugging);
+    m_recordModes.emplace_back(recordModeDebugging);
+
+    TiXmlElement *eVisualizer = eVehicleEvent->FirstChildElement("Visualizer");
+    bool activatedVisualizer = std::string(eVisualizer->Attribute("record_mode")) == "t";
+    InputRecordMode recordModeVisualizer(1, activatedVisualizer);
+    m_recordModes.emplace_back(recordModeVisualizer);
+
+    TiXmlElement *eStatistics = eVehicleEvent->FirstChildElement("Statistics");
+    bool activatedStatistics = std::string(eStatistics->Attribute("record_mode")) == "t";
+    InputRecordMode recordModeStatistics(2, activatedStatistics);
+    m_recordModes.emplace_back(recordModeStatistics);
+
+
+    // PassengerEvent
+    TiXmlElement *ePassengerEvent = root->FirstChildElement("PassengerEvent");
+
+    bool activatedPassengerEvent = std::string(ePassengerEvent->Attribute("active")) == "t";
+    InputRecordMode recordModePassengerEvent(3, activatedPassengerEvent);
+    m_recordModes.emplace_back(recordModePassengerEvent);
+
+
+    // UniformEvent
+    TiXmlElement *eUniformEvent = root->FirstChildElement("UniformEvent");
+
+    bool activatedUniformEvent = std::string(eUniformEvent->Attribute("active")) == "t";
+    InputRecordMode recordModeUniformEvent(4, activatedUniformEvent);
+    m_recordModes.emplace_back(recordModeUniformEvent);
+
+
+    // StationEvent
+    TiXmlElement *eStationEvent = root->FirstChildElement("StationEvent");
+
+    bool activatedStationEvent = std::string(eStationEvent->Attribute("active")) == "t";
+    InputRecordMode recordModeStationEvent(5, activatedStationEvent);
+    m_recordModes.emplace_back(recordModeStationEvent);
+
+
+    // SinkEvent
+    TiXmlElement *eSinkEvent = root->FirstChildElement("SinkEvent");
+
+    bool activatedSinkEvent = std::string(eSinkEvent->Attribute("active")) == "t";
+    InputRecordMode recordModeSinkEvent(6, activatedSinkEvent);
+    m_recordModes.emplace_back(recordModeSinkEvent);
+    
     doc.Clear();
 };
 } // namespace NextSimIO
