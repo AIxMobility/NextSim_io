@@ -30,29 +30,21 @@ OutputMetricsArr::OutputMetricsArr()
 
     TiXmlElement *root = doc.FirstChildElement();
     
-    // SimulationEvent
-    TiXmlElement *eSimulationEvent = root->FirstChildElement("SimulationEvent");
-
-    bool activated = std::string(eSimulationEvent->Attribute("active")) == "t";
-    InputRecordMode recordMode(-1, activated);
-    m_recordModes.emplace_back(recordMode);
-
-
     // VehicleEvent (Debugging, Visualizer, Statistics)
     TiXmlElement *eVehicleEvent = root->FirstChildElement("VehicleEvent");
 
     TiXmlElement *eDebugging = eVehicleEvent->FirstChildElement("Debugging");
-    bool activatedDebugging = std::string(eDebugging->Attribute("record_mode")) == "t";
+    bool activatedDebugging = std::string(eDebugging->Attribute("active")) == "t";
     InputRecordMode recordModeDebugging(0, activatedDebugging);
     m_recordModes.emplace_back(recordModeDebugging);
 
     TiXmlElement *eVisualizer = eVehicleEvent->FirstChildElement("Visualizer");
-    bool activatedVisualizer = std::string(eVisualizer->Attribute("record_mode")) == "t";
+    bool activatedVisualizer = std::string(eVisualizer->Attribute("active")) == "t";
     InputRecordMode recordModeVisualizer(1, activatedVisualizer);
     m_recordModes.emplace_back(recordModeVisualizer);
 
     TiXmlElement *eStatistics = eVehicleEvent->FirstChildElement("Statistics");
-    bool activatedStatistics = std::string(eStatistics->Attribute("record_mode")) == "t";
+    bool activatedStatistics = std::string(eStatistics->Attribute("active")) == "t";
     InputRecordMode recordModeStatistics(2, activatedStatistics);
     m_recordModes.emplace_back(recordModeStatistics);
 

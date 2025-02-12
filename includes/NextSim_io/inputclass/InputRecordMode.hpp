@@ -27,8 +27,10 @@ public:
     InputRecordMode(int id, bool activated);
     
     /**
-     * @details Get record mode name
-     * @return Record mode name
+     * @details Get record mode ID
+     * @return Record mode ID \
+    *  (0: VehicleDebugging, 1: VehicleVisualizer, 2: VehicleStatistics, 
+    *   3: Passenger, 4: Uniform, 5: Station, 6: Sink)
     */
     int GetID() { return m_id; }
 
