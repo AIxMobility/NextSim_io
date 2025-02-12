@@ -1,6 +1,6 @@
 /**
  * NextSim Captain
- * @file : OutputMetricsArr.cpp
+ * @file : RecordModeArr.cpp
  * @version : 1.0
  * @author : Chaemin Na
  */
@@ -9,21 +9,21 @@
 #include <sstream>
 #include <string>
 
-#include <NextSim_io/parser/OutputMetricsArr.hpp>
+#include <NextSim_io/parser/RecordModeArr.hpp>
 #include <NextSim_io/tinyapi/tinystr.h>
 #include <NextSim_io/tinyapi/tinyxml.h>
 #include <NextSim_io/FilePath.hpp>
 
 namespace NextSimIO
 {
-OutputMetricsArr::OutputMetricsArr()
+RecordModeArr::RecordModeArr()
 {
     TiXmlDocument doc;
-    bool loadSuccess = doc.LoadFile(NextSimIO::OutputMetricsXMLPath.string().c_str());
+    bool loadSuccess = doc.LoadFile(NextSimIO::RecordModeXMLPath.string().c_str());
 
     if (!loadSuccess)
     {
-        std::cout << "Loading failed (OutputMetrics)" << std::endl;
+        std::cout << "Loading failed (RecordModes)" << std::endl;
         // std::cerr << doc.ErrorDesc() << std::endl;
         return;
     }

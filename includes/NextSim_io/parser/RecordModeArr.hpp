@@ -1,6 +1,6 @@
 /**
  * NextSim Captain
- * @file : OutputMetricsArr.hpp
+ * @file : RecordModeArr.hpp
  * @version : 1.0
  * @author : Chaemin Na
  */
@@ -14,23 +14,23 @@
 namespace NextSimIO
 {
 /**
- * @class OutputMetricsArr
+ * @class RecordModeArr
  * @brief Class for output metrics array
  */
-class OutputMetricsArr
+class RecordModeArr
 {
 public:
     /**
      * @details Constructor
      * @param recordMode Record mode information
      */
-    OutputMetricsArr();
+    RecordModeArr();
     
     /**
      * @details Get record mode information
      * @return Record mode information
      */
-    std::vector<InputRecordMode> GetRecordMode() { return m_recordModes; }
+    std::vector<InputRecordMode> GetRecordModes() { return m_recordModes; }
 
 private:
     /**
