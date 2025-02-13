@@ -12,7 +12,7 @@
 
 namespace NextSimIO
 {
-static std::string network_name = "bucheon";
+static std::string network_name = "intersection2";
 
 static std::filesystem::path currentPath = std::filesystem::current_path();
 
@@ -54,6 +54,8 @@ static std::filesystem::path EventXMLPath = NetworkXmlFilePath / "eventdata.xml"
 static std::filesystem::path V2XXMLPath = NetworkXmlFilePath / "v2xdata.xml";
 
 static std::filesystem::path PassengerXMLPath = NetworkXmlFilePath / "passenger.xml";
+
+static std::filesystem::path BackgroundTrafficXMLPath = NetworkXmlFilePath / "backgroundTraffic.xml";
 
 // Parameter xml file path
 static std::filesystem::path VehicleTypeXMLPath = ParameterXmlFilePath / "vehicletypes.xml";
