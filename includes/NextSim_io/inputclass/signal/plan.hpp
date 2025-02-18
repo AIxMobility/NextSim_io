@@ -53,7 +53,7 @@ public:
      * @details Get sequence of phase
      * @return Sequence of phase
      */
-    std::vector<phase> GetPhaseSeq() const { return m_phaseSeq; }
+    std::vector<phase> GetPhaseSeq() const { return m_phaseList; }
 
 private:
     /**
@@ -72,9 +72,9 @@ private:
     int m_offset;
 
     /**
-     * @details Sequence of phase
+     * @details List of phase
      */
-    std::vector<phase> m_phaseSeq;
+    std::vector<phase> m_phaseList;
 };
 } // namespace NextSimIO
 

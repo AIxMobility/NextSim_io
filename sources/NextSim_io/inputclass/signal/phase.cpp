@@ -11,8 +11,8 @@
 
 namespace NextSimIO
 {
-phase::phase(int id, int green, int yellow) 
-    : m_id(id), m_greenTime(green), m_yellowTime(yellow) {};
+phase::phase(int id, int duration) 
+    : m_id(id), m_duration(duration) {};
 
 void phase::SetTurnList(std::string turnString)
 {

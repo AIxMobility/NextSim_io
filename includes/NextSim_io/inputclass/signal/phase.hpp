@@ -24,10 +24,9 @@ public:
     /**
      * @details Constructor
      * @param id phase ID
-     * @param green green time of the phase
-     * @param yellow yellow time of the phase
+     * @param duration duration of the phase
      */
-    phase(int id, int green, int yellow);
+    phase(int id, int duration);
 
     /**
      * @details Get phase ID
@@ -36,16 +35,10 @@ public:
     int GetId() { return m_id; }
 
     /**
-     * @details Get green time of the phase
-     * @return green time of the phase
+     * @details Get duration of the phase
+     * @return duration of the phase
      */
-    int GetGreenTime() { return m_greenTime; }
-
-    /**
-     * @details Get yellow time of the phase
-     * @return yellow time of the phase
-     */
-    int GetYellowTime() { return m_yellowTime; }
+    int GetDuration() { return m_duration; }
 
     /**
      * @details Get turn list
@@ -66,14 +59,9 @@ private:
     int m_id;
     
     /**
-     * @details green time of the phase
+     * @details duration of the phase
     */
-    int m_greenTime;
-
-    /**
-     * @details yellow time of the phase
-    */
-    int m_yellowTime;
+    int m_duration;
 
     /**
      * @details turn list

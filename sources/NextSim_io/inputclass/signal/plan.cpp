@@ -9,6 +9,6 @@
 
 namespace NextSimIO
 {
-plan::plan(int id, int cycle, int offset, std::vector<phase> phaseSeq) 
-    : m_id(id), m_cycle(cycle), m_offset(offset), m_phaseSeq(phaseSeq) {};
+plan::plan(int id, int cycle, int offset, std::vector<phase> phaseList) 
+    : m_id(id), m_cycle(cycle), m_offset(offset), m_phaseList(phaseList) {};
 } // namespace NextSimIO

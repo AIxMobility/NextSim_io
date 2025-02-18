@@ -41,19 +41,19 @@ SignalArr::SignalArr()
         
         InputSignal singleSignal(id);
 
-        TiXmlElement *tTurnList = e->FirstChildElement("turnList");
+        TiXmlElement *tTurnList = e->FirstChildElement("turn_list");
         for (TiXmlElement *tTurn = tTurnList->FirstChildElement(); tTurn != NULL;
              tTurn = tTurn->NextSiblingElement())
         {
             const char *turnId = tTurn->Attribute("id");
             const char *turning = tTurn->Attribute("turning");
             const char *type = tTurn->Attribute("type");
-            const char *connList = tTurn->Attribute("connList");
+            const char *connList = tTurn->Attribute("conn_list");
             
             if (!turnId)   throw std::runtime_error ("Element should have 'id' attribute");
             if (!turning)   throw std::runtime_error ("Element should have 'turning' attribute");
             if (!type)   throw std::runtime_error ("Element should have 'type' attribute");
-            if (!connList)   throw std::runtime_error ("Element should have 'connList' attribute");
+            if (!connList)   throw std::runtime_error ("Element should have 'conn_list' attribute");
 
             turn singleTurn(std::atoi(turnId), std::atoi(turning), type);
             singleTurn.SetConnList(connList);
@@ -61,7 +61,7 @@ SignalArr::SignalArr()
             singleSignal.PushTurn(singleTurn);
         }
 
-        TiXmlElement *tPlanList = e->FirstChildElement("planList");
+        TiXmlElement *tPlanList = e->FirstChildElement("plan_list");
         for (TiXmlElement *tPlan = tPlanList->FirstChildElement(); tPlan != NULL;
              tPlan = tPlan->NextSiblingElement())
         {
@@ -78,17 +78,15 @@ SignalArr::SignalArr()
                 tPhase = tPhase->NextSiblingElement())
             {
                 const char *phaseId = tPhase->Attribute("id");
-                const char *greenTime = tPhase->Attribute("greenTime");
-                const char *yellowTime = tPhase->Attribute("yellowTime");
-                const char *turnList = tPhase->Attribute("turnList");
+                const char *duration = tPhase->Attribute("duration");
+                const char *turnList = tPhase->Attribute("turn_list");
 
                 
                 if (!phaseId)   throw std::runtime_error ("Element should have 'id' attribute");
-                if (!greenTime)   throw std::runtime_error ("Element should have 'greenTime' attribute");
-                if (!yellowTime)   throw std::runtime_error ("Element should have 'yellowTime' attribute");
-                if (!turnList)   throw std::runtime_error ("Element should have 'turnList' attribute");
+                if (!duration)   throw std::runtime_error ("Element should have 'duration' attribute");
+                if (!turnList)   throw std::runtime_error ("Element should have 'turn_list' attribute");
 
-                phase singlePhase(std::atoi(phaseId), std::atoi(greenTime), std::atoi(yellowTime));
+                phase singlePhase(std::atoi(phaseId), std::atoi(duration));
                 singlePhase.SetTurnList(turnList);
 
                 phaseSeq.push_back(singlePhase);
