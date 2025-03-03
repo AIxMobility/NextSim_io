@@ -22,12 +22,6 @@ class ArcCost
 public:
     /**
      * @details Constructor
-     * @param length Length of the arc
-     */
-    ArcCost(double length);
-
-    /**
-     * @details Constructor
      * @param timeCost Time to pass the arc with freeflow speed
      * @param distanceCost Length of the arc
      * @param financialCost Financial cost of the arc
@@ -58,6 +52,24 @@ public:
      * @return Traffic cost
      */
     double GetTrafficCost() { return m_trafficCost; }
+
+    /**
+     * @details Set time cost
+     * @param timeCost calculated time cost
+     */
+    void SetTimeCost(double timeCost) { m_timeCost = timeCost; }
+
+    /**
+     * @details Set distance cost
+     * @param distanceCost calculated distance cost
+     */
+    void SetDistanceCost(double distanceCost) { m_distanceCost = distanceCost; }
+
+    /**
+     * @details Set financial cost
+     * @param financialCost calculated financial cost
+     */
+    void SetFinancialCost(double financialCost) { m_financialCost = financialCost; }
 
     /**
      * @details Set traffic cost

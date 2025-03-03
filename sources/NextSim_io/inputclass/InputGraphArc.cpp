@@ -9,9 +9,6 @@
 
 namespace NextSimIO
 {
-ArcCost::ArcCost(double length)
-    : m_distanceCost(length) {}
-
 ArcCost::ArcCost(double timeCost, double distanceCost, double financialCost, double trafficCost)
     : m_timeCost(timeCost), m_distanceCost(distanceCost), m_financialCost(financialCost), m_trafficCost(trafficCost) {}
 // class ArcCost

@@ -72,6 +72,11 @@ public:
      */
     std::vector<port> GetLinks() { return m_connectedLinks; }
 
+    /**
+     * @details Free connected links vector
+     */
+    void FreeLinks() { std::vector<port>().swap(m_connectedLinks); }
+
 private:
     /**
      * @details Vertex ID
