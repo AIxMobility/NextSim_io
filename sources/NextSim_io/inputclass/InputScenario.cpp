@@ -11,6 +11,6 @@
 
 namespace NextSimIO
 {
-InputScenario::InputScenario(int id, int startTime, int duration, int odID, int todID)
-    : m_id(id), m_startTime(startTime), m_duration(duration), m_odID(odID), m_todID(todID) {};
+InputScenario::InputScenario(int id, std::string startTime, int duration, int odID, int todID)
+    : m_id(id), m_startTime(std::move(startTime)), m_duration(duration), m_odID(odID), m_todID(todID) {};
 } // namespace NextSimIO
