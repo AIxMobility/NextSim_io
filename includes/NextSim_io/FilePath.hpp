@@ -12,7 +12,7 @@
 
 namespace NextSimIO
 {
-static std::string network_name = "intersection2";
+static std::string network_name = "public";
 
 static std::filesystem::path currentPath = std::filesystem::current_path();
 
@@ -39,7 +39,7 @@ static std::filesystem::path SignalNewXMLPath = NetworkXmlFilePath / "signal_new
 
 static std::filesystem::path ModeXMLPath = NetworkXmlFilePath / "mode.xml";
 
-static std::filesystem::path StationXMLPath = NetworkXmlFilePath / "publicTransit.xml";
+static std::filesystem::path StationXMLPath = NetworkXmlFilePath / "station.xml";
 
 static std::filesystem::path PTlineXMLPath = NetworkXmlFilePath / "ptline.xml";
 

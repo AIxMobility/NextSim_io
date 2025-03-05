@@ -26,8 +26,6 @@ SignalArr::SignalArr()
     if (!loadSuccess)
     {
         std::cout << "Loading failed (SignalArr)" << std::endl;
-        std::cout << "Error description: " << doc.ErrorDesc() << std::endl;
-        std::cout << "Error ID: " << doc.ErrorId() << std::endl;
         return;
     }
 
