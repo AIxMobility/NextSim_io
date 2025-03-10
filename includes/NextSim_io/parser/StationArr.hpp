@@ -11,7 +11,6 @@
 #include <vector>
 #include <string>
 #include <NextSim_io/inputclass/InputStation.hpp>
-#include <NextSim_io/util/XMLParser.hpp> // Include XML parser utility
 
 namespace NextSimIO
 {
