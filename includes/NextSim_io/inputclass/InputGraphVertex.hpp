@@ -16,6 +16,56 @@
 namespace NextSimIO
 {
 /**
+ * @class VertexCord
+ * @brief Class for each vertex coordinate information
+ */
+class VertexCoord
+{
+public:
+    /**
+     * @details Constructor
+     * @param x X coordinate of the vertex
+     * @param y Y coordinate of the vertex
+     */
+    VertexCoord(float x, float y);
+
+    /**
+     * @details Set X coordinate of the vertex
+     * @param x X coordinate of the vertex
+     */
+    void SetX(float x) { m_x = x; }
+
+    /**
+     * @details Set Y coordinate of the vertex
+     * @param y Y coordinate of the vertex
+     */
+    void SetY(float y) { m_y = y; }
+
+    /**
+     * @details Get X coordinate of the vertex
+     * @return X coordinate of the vertex
+     */
+    float GetX() { return m_x; }
+
+    /**
+     * @details Get Y coordinate of the vertex
+     * @return Y coordinate of the vertex
+     */
+    float GetY() { return m_y; }
+
+private:
+    /**
+     * @details X coordinate of the vertex
+     */
+    float m_x;
+
+    /**
+     * @details Y coordinate of the vertex
+     */
+    float m_y;
+}; // class VertexCoord
+
+/**
  * @class InputGraphVertex
  * @brief Class for each graph vertex information
  */
@@ -29,6 +79,12 @@ public:
      * @param rank Rank of the vertex
      */
     InputGraphVertex(int id, float heuristic, int rank);
+
+    /**
+     * @details Set physical coordinates of the vertex
+     * @param coordinates Physical coordinates of the vertex
+     */
+    void SetCoordinates(std::vector<VertexCoord> coordinates) { m_coordinates = coordinates; }
 
     /**
      * @details Set Heuristic value of the vertex
@@ -54,6 +110,12 @@ public:
      */
     int GetId() { return m_id; }
 
+    /**
+     * @details Get physical coordinates of the vertex
+     * @return Physical coordinates of the vertex
+     */
+    std::vector<VertexCoord> GetCoordinates() { return m_coordinates; }
+    
     /**
      * @details Get Heuristic value of the vertex
      * @return Heuristic value of the vertex
@@ -82,6 +144,11 @@ private:
      * @details Vertex ID
      */
     int m_id; 
+
+    /**
+     * @details Physical coordinates of the vertex
+     */
+    std::vector<VertexCoord> m_coordinates;
 
     /**
      * @details Heuristic value of the vertex (used for A* algorithm)

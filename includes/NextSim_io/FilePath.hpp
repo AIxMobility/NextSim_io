@@ -12,7 +12,7 @@
 
 namespace NextSimIO
 {
-static std::string network_name = "intersection2";
+static std::string network_name = "bucheon";
 
 static std::filesystem::path currentPath = std::filesystem::current_path();
 

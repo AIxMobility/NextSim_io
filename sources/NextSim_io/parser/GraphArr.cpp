@@ -115,48 +115,21 @@ ArcArr::ArcArr()
                     const char *vertexId = e->Attribute("id");
                     const char *fromNode = e->Attribute("from_node");
                     const char *toNode = e->Attribute("to_node");
+                    const char *arc_length = e->Attribute("length");
 
                     if (!vertexId)   throw std::runtime_error ("Element should have 'id' attribute");
                     if (!fromNode)   throw std::runtime_error ("Element should have 'from_node' attribute");
                     if (!toNode)   throw std::runtime_error ("Element should have 'to_node' attribute");
+                    if (!arc_length)   throw std::runtime_error ("Element should have 'length' attribute");
 
                     InputGraphArc demoArc(
                         static_cast<std::size_t>(atoll(vertexId)),
                         static_cast<std::size_t>(atoll(fromNode)),
                         static_cast<std::size_t>(atoll(toNode)));
                     
-                    for (TiXmlElement* ele = e->FirstChildElement();
-                        ele != nullptr; ele = ele->NextSiblingElement())
-                    {
-                        std::string elemName3 = ele->Value();
-                        if (elemName3 == "lane")
-                        {
-                            float arc_length = 0;
-                        
-                            for (TiXmlElement* e_lane =
-                                ele->FirstChildElement();
-                            e_lane != nullptr;
-                            e_lane = e_lane->NextSiblingElement())
-                            {
-                                std::string elementName = e_lane->Value();
-                                if (elementName == "cell")
-                                {
-                                    const char *cellLength = e_lane->Attribute("length");
-                                    if (!cellLength)   throw std::runtime_error ("Element should have 'length' attribute");
-                                    arc_length += atof(cellLength);
+                    demoArc.PushArcCost(ArcCost(0, atof(arc_length), 0, 0));
 
-                                    break;
-                                }
-                            }
-
-                            demoArc.PushArcCost(ArcCost(0, arc_length, 0, 0));
-
-                            m_arcs.push_back(demoArc);
-                        }
-
-                    }
-
-                    
+                    m_arcs.push_back(demoArc);
                 }
             }
         }
