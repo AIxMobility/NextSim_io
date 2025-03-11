@@ -11,6 +11,7 @@
 #include <vector>
 
 #include <NextSim_io/inputclass/InputTOD.hpp>
+#include <NextSim_io/inputclass/InputScenario.hpp>
 
 namespace NextSimIO
 {
@@ -27,27 +28,16 @@ public:
     ScenarioArr();
     
     /**
-     * @details Get origin-destination scenario
-     * @return OD scenario (Pair of simulation Iter ID and OD matrix ID)
+     * @details Get scenario information
+     * @return Scenario information (Vector of InputScenario)
     */
-    std::vector<std::pair<int, int>> GetODScenarios() { return m_odScenarios; }
-
-    /**
-     * @details Get signal TOD information
-     * @return Signal TOD information
-    */
-    std::vector<InputTOD> GetSignalTOD() { return m_signalTODs; }
+    std::vector<InputScenario> GetScenarios() { return m_scenarios; }
 
 private:
     /**
-     * @details Pair of simulation Iter ID and OD matrix ID
+     * @details Vector of scenario information
      */
-    std::vector<std::pair<int, int>> m_odScenarios;
-
-    /**
-     * @details Vector of signal TOD information
-     */
-    std::vector<InputTOD> m_signalTODs;
+    std::vector<InputScenario> m_scenarios;
 };
 } // namespace NextSimIO
 

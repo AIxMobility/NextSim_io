@@ -19,18 +19,18 @@ namespace NextSimIO
 {
 ScenarioArr::ScenarioArr()
 {
-    TiXmlDocument doc_OD;
-    bool loadSuccess = doc_OD.LoadFile(NextSimIO::OdScenarioXMLPath.string().c_str());
+    TiXmlDocument doc;
+    bool loadSuccess = doc.LoadFile(NextSimIO::ScenarioXMLPath.string().c_str());
 
     if (!loadSuccess)
     {
-        std::cout << "Loading failed (ODScenario)" << std::endl;
+        std::cout << "Loading failed (Scenario)" << std::endl;
         return;
     }
 
-    TiXmlElement *root_OD = doc_OD.FirstChildElement();
+    TiXmlElement *root = doc.FirstChildElement();
 
-    for (TiXmlElement *elem = root_OD->FirstChildElement(); elem != NULL;
+    for (TiXmlElement *elem = root->FirstChildElement(); elem != NULL;
          elem = elem->NextSiblingElement())
     {
         std::string elemName = elem->Value();
@@ -38,61 +38,29 @@ ScenarioArr::ScenarioArr()
         if (elemName == "Scenario")
         {
             const char *id = elem->Attribute("id");
-            const char *od_id = elem->Attribute("od_matrix_id");
+            const char *startTime = elem->Attribute("startTime");
+            const char *duration = elem->Attribute("duration");
+            const char *odID = elem->Attribute("odMatrixID");
+            const char *todID = elem->Attribute("todID");
 
             if (!id)
                 throw std::runtime_error("Element should have 'id' attribute");
-            if (!od_id)
-                throw std::runtime_error("Element should have 'od_matrix_id' attribute");
-            
-
-            m_odScenarios.emplace_back(std::make_pair(atoi(id), atoi(od_id)));
-        }
-    }
-    doc_OD.Clear();
-
-
-    TiXmlDocument doc_signal;
-    loadSuccess = doc_signal.LoadFile(NextSimIO::SignalTODXMLPath.string().c_str());
-
-    if (!loadSuccess)
-    {
-        std::cout << "Loading failed (SignalTOD)" << std::endl;
-        return;
-    }
-
-    TiXmlElement *root_signal = doc_signal.FirstChildElement();
-
-    for (TiXmlElement *elem = root_signal->FirstChildElement(); elem != NULL;
-         elem = elem->NextSiblingElement())
-    {
-        int nodeId = atoi(elem->Attribute("id"));
-
-        std::vector<table> todTable;
-        for (TiXmlElement *e = elem->FirstChildElement(); e != NULL;
-             e = e->NextSiblingElement())
-        {
-            const char *planId = e->Attribute("planId");
-            const char *startTime = e->Attribute("startTime");
-            const char *endTime = e->Attribute("endTime");
-
-            if (!planId)
-                throw std::runtime_error("Element should have 'planId' attribute");
             if (!startTime)
                 throw std::runtime_error("Element should have 'startTime' attribute");
-            if (!endTime)
-                throw std::runtime_error("Element should have 'endTime' attribute");
+            if (!duration)
+                throw std::runtime_error("Element should have 'duration' attribute");
+            if (!odID)
+                throw std::runtime_error("Element should have 'odMatrixID' attribute");
+            if (!todID)
+                throw std::runtime_error("Element should have 'todID' attribute");
+            
+            InputScenario singleScenario(
+                atoi(id), startTime, atoi(duration), atoi(odID), atoi(todID));
 
-            table singleTable(atoi(planId), atoi(startTime), atoi(endTime));
-
-            todTable.push_back(singleTable);
+            m_scenarios.emplace_back(singleScenario);
         }
-
-        InputTOD singleTOD(nodeId, todTable);
-
-        m_signalTODs.push_back(singleTOD);
     }
 
-    doc_signal.Clear();
+    doc.Clear();
 }
 } // namespace NextSimIO
