@@ -21,14 +21,11 @@ namespace NextSimIO
 EventArr::EventArr()
 {
     TiXmlDocument doc;
+    bool loadSuccess = doc.LoadFile(NextSimIO::EventXMLPath.string().c_str());
 
-    doc.LoadFile(NextSimIO::EventXMLPath.string().c_str());
-    // std::cout << "Loading EventArr" << std::endl;
-
-    if (!doc.LoadFile(NextSimIO::EventXMLPath.string().c_str()))
+    if (!loadSuccess)
     {
         std::cout << "Loading failed (EventArr)" << std::endl;
-        // std::cerr << doc.ErrorDesc() << std::endl;
         return;
     }
 

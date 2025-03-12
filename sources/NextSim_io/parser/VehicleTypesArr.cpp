@@ -21,11 +21,9 @@ namespace NextSimIO
 VehicleTypesArr::VehicleTypesArr()
 {
     TiXmlDocument doc;
+    bool loadSuccess = doc.LoadFile(NextSimIO::VehicleTypeXMLPath.string().c_str());
 
-    doc.LoadFile(NextSimIO::VehicleTypeXMLPath.string().c_str());
-    // std::cout << "Loading VehicleTypesArr" << std::endl;
-
-    if (!doc.LoadFile(NextSimIO::VehicleTypeXMLPath.string().c_str()))
+    if (!loadSuccess)
     {
         std::cout << "Loading failed (VehicleTypesArr)" << std::endl;
         // std::cerr << doc.ErrorDesc() << std::endl;

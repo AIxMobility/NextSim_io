@@ -21,14 +21,11 @@ namespace NextSimIO
 ModeArr::ModeArr()
 {    
     TiXmlDocument doc;
+    bool loadSuccess = doc.LoadFile(NextSimIO::ModeXMLPath.string().c_str());
 
-    doc.LoadFile(NextSimIO::ModeXMLPath.string().c_str());
-    // std::cout << "Loading ModeArr" << std::endl;
-    
-    if (!doc.LoadFile(NextSimIO::ModeXMLPath.string().c_str()))
+    if (!loadSuccess)
     {
         std::cout << "Loading failed (ModeArr)" << std::endl;
-        // std::cerr << doc.ErrorDesc() << std::endl;
         return;
     }
 

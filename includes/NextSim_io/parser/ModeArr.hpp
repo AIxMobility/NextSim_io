@@ -29,10 +29,7 @@ public:
      * @details Get vector of simulation modes
      * @return Vector of simulation modes
     */
-    std::vector<InputMode> GetModes()
-    {
-        return m_modes;
-    }
+    std::vector<InputMode> GetModes() { return m_modes; }
 
 private:
     /**

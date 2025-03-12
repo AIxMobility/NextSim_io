@@ -21,13 +21,11 @@ namespace NextSimIO
 NodeArr::NodeArr()
 {
     TiXmlDocument doc;
+    bool loadSuccess = doc.LoadFile(NextSimIO::NetworkXMLPath.string().c_str());
 
-    doc.LoadFile(NextSimIO::NetworkXMLPath.string().c_str());
-
-    if (!doc.LoadFile(NextSimIO::NetworkXMLPath.string().c_str()))
+    if (!loadSuccess)
     {
         std::cout << "Loading failed (NodeArr-Network.xml)" << std::endl;
-        // std::cerr << doc.ErrorDesc() << std::endl;
         return;
     }
     
@@ -51,17 +49,18 @@ NodeArr::NodeArr()
 
                 if (!nodeId)   throw std::runtime_error ("Element should have 'id' attribute");
                 if (!nodeType)   throw std::runtime_error ("Element should have 'type' attribute");
-                // if (!numConnection)   throw std::runtime_error ("Element should have 'num_connection' attribute");
+                if (!numConnection)   throw std::runtime_error ("Element should have 'num_connection' attribute");
                 if (!numPort)   throw std::runtime_error ("Element should have 'num_port' attribute");
                 if (!v2x)   v2x = "off";
 
                 if (!strcmp (nodeType, "normal"))
                 {
+
                     // create single InputNode instance here
                     InputNode single_node(
                         0, 
                         atol(nodeId), 
-                        -1,
+                        atoi(numConnection),
                         atoi(numPort),
                         strcmp(v2x, "on") == 0 ? true : false);
 
@@ -537,10 +536,9 @@ NodeArr::NodeArr()
     doc.Clear();
 
     TiXmlDocument doc_signal;
-    doc_signal.LoadFile(NextSimIO::SignalXMLPath.string().c_str());
-    // std::cout << "Loading NodeArr" << std::endl;
+    loadSuccess = doc_signal.LoadFile(NextSimIO::SignalXMLPath.string().c_str());
 
-    if (!doc_signal.LoadFile(NextSimIO::SignalXMLPath.string().c_str()))
+    if (!loadSuccess)
     {
         std::cout << "Loading failed (NodeArr-Signal.xml)" << std::endl;
         // std::cerr << doc_signal.ErrorDesc() << std::endl;
@@ -610,7 +608,8 @@ NodeArr::NodeArr()
             node.pushPhase(phase);
         }
 
-        node.SetType(-1);  // signalized normal node
+        if (node.GetType() == 0)
+            node.SetType(-1);  // signalized normal node
     }
     doc_signal.Clear();
 };

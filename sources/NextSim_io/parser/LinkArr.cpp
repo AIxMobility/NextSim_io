@@ -28,11 +28,10 @@ bool a_to_bool(const char* val);
 // LinkArr Constructor
 LinkArr::LinkArr()
 {
-    TiXmlDocument doc("");
-    bool loadOkay = doc.LoadFile(NextSimIO::NetworkXMLPath.string().c_str());
-    // std::cout << "Loading LinkArr" << std::endl;
+    TiXmlDocument doc;
+    bool loadSuccess = doc.LoadFile(NextSimIO::NetworkXMLPath.string().c_str());
 
-    if (!loadOkay)
+    if (!loadSuccess)
     {
         std::cout << "Loading failed (LinkArr)" << std::endl;
         // std::cerr << doc.ErrorDesc() << std::endl;
