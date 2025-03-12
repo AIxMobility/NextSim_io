@@ -12,6 +12,9 @@ namespace NextSimIO
 InputGraphVertex::InputGraphVertex(int id, float heuristic, int rank)
     : m_id(id), m_heuristic(heuristic), m_rank(rank) {};
 
+ConnectionInfo::ConnectionInfo(int fromLink, int toLink, double length)
+    : m_fromLink(fromLink), m_toLink(toLink), m_length(length) {};
+
 void InputGraphVertex::pushLink(port link)
 {
     m_connectedLinks.emplace_back(link);

@@ -76,6 +76,41 @@ VertexArr::VertexArr()
 
                         single_vertex.pushLink(single_link);
                     }
+
+                    else if (val1 == "connection")
+                    {
+                        const char *fromLink = e3->Attribute("from_link");
+                        const char *toLink = e3->Attribute("to_link");
+                        const char *arc_length = e3->Attribute("length");
+
+                        if (!fromLink)   throw std::runtime_error ("Element should have 'from_link' attribute");
+                        if (!toLink)   throw std::runtime_error ("Element should have 'to_link' attribute");
+                        if (!arc_length)   throw std::runtime_error ("Element should have 'length' attribute");
+
+                        ConnectionInfo NewconnectionInfo(
+                            atol(fromLink),
+                            atol(toLink),
+                            atof(arc_length));
+                        
+                        std::vector<ConnectionInfo> connections = single_vertex.GetConnectionInfo();
+                        bool duplicate = false;
+
+                        for (auto &connection : connections)
+                        {
+                            if (connection.GetFromLink() == NewconnectionInfo.GetFromLink() &&
+                                connection.GetToLink() == NewconnectionInfo.GetToLink())
+                            {
+                                duplicate = true;
+                                break;
+                            }
+                        }
+
+                        if (!duplicate)
+                        {
+                            single_vertex.pushConnectionInfo(NewconnectionInfo);
+                        }
+                        
+                    }
                 }
                 m_vertices.push_back(single_vertex);
 

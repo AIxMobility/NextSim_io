@@ -66,6 +66,56 @@ private:
 }; // class VertexCoord
 
 /**
+ * @class ConnectionInfo
+ * @brief Class for link connection information
+ */
+class ConnectionInfo
+{
+public:
+    /**
+     * @details Constructor
+     * @param fromLink Link ID that the connection is from
+     * @param toLink Link ID that the connection is to
+     * @param length Length of the subArc
+     */
+    ConnectionInfo(int fromLink, int toLink, double length);
+
+    /**
+     * @details Get link ID that the connection is from
+     * @return Link ID
+     */
+    int GetFromLink() { return m_fromLink; }
+
+    /**
+     * @details Get link ID that the connection is to
+     * @return Link ID
+     */
+    int GetToLink() { return m_toLink; }
+
+    /**
+     * @details Get length of the subArc
+     * @return Length of the subArc
+     */
+    double GetLength() { return m_length; }
+
+private:
+    /**
+     * @details Link ID that the connection is from
+     */
+    int m_fromLink;
+
+    /**
+     * @details Link ID that the connection is to
+     */
+    int m_toLink;
+
+    /**
+     * @details length of the subArc [m]
+     */
+    double m_length;
+}; // class ConnectionInfo
+
+/**
  * @class InputGraphVertex
  * @brief Class for each graph vertex information
  */
@@ -105,6 +155,12 @@ public:
     void pushLink(port link);
 
     /**
+     * @details Add connection information into vector
+     * @param connectionInfo Connection information
+     */
+    void pushConnectionInfo(ConnectionInfo connectionInfo) { m_connectionInfo.push_back(connectionInfo); }
+
+    /**
      * @details Get vertex ID
      * @return vertex ID
      */
@@ -133,6 +189,12 @@ public:
      * @return Vector of connected links
      */
     std::vector<port> GetLinks() { return m_connectedLinks; }
+
+    /**
+     * @details Get connection information
+     * @return Vector of connection information
+     */
+    std::vector<ConnectionInfo> GetConnectionInfo() { return m_connectionInfo; }
 
     /**
      * @details Free connected links vector
@@ -164,6 +226,11 @@ private:
      * @details Vector of connected links
     */
     std::vector<port> m_connectedLinks;
+
+    /**
+     * @details Vector of connection information
+     */
+    std::vector<ConnectionInfo> m_connectionInfo;
 
 };
 } // namespace NextSimIO
