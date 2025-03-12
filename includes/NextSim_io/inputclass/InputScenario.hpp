@@ -25,12 +25,12 @@ public:
     /**
      * @brief Constructor
      * @param id Scenario ID
-     * @param startTime Start time of scenario (24 hours 기준)
+     * @param startTime Start time of scenario
      * @param duration Duration of scenario [min]
      * @param odID OD matrix ID
      * @param todID TOD matrix ID
     */
-    InputScenario(int id, int startTime, int duration, int odID, int todID);
+    InputScenario(int id, std::string startTime, int duration, int odID, int todID);
 
     /** @cond EXCLUDE */
     ~InputScenario() = default;
@@ -46,9 +46,9 @@ public:
 
     /**
      * @brief Get start time
-     * @return Start time of scenario (24 hours 기준)
+     * @return Start time of scenario
     */
-    int GetStartTime() { return m_startTime; }
+    std::string GetStartTime() { return m_startTime; }
 
     /**
      * @brief Get duration
@@ -78,7 +78,7 @@ private:
     /**
      * @details Start time of scenario (24 hours 기준)
     */
-    int m_startTime;
+    std::string m_startTime;
 
     /**
      * @details Duration of scenario [min]

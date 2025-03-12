@@ -54,7 +54,8 @@ ScenarioArr::ScenarioArr()
             if (!todID)
                 throw std::runtime_error("Element should have 'todID' attribute");
             
-            InputScenario singleScenario(atoi(id), atoi(startTime), atoi(duration), atoi(odID), atoi(todID));
+            InputScenario singleScenario(
+                atoi(id), startTime, atoi(duration), atoi(odID), atoi(todID));
 
             m_scenarios.emplace_back(singleScenario);
         }
