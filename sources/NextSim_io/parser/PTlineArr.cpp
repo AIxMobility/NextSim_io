@@ -21,7 +21,7 @@ namespace NextSimIO
 PTlineArr::PTlineArr()
 {
     TiXmlDocument doc;
-    bool loadSuccess = doc.LoadFile(NextSimIO::PTlineXMLPath.string().c_str());
+    bool loadSuccess = doc.LoadFile(NextSimIO::RoadPTlineXMLPath.string().c_str());
 
     if (!loadSuccess)
     {

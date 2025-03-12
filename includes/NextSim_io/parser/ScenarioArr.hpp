@@ -17,13 +17,13 @@ namespace NextSimIO
 {
 /**
  * @class ScenarioArr
- * @brief Class for origin-destination scenario information from odscenario.xml
+ * @brief Class for scenario information from scenario.xml
  */
 class ScenarioArr
 {
 public:
     /**
-     * @details Constructor (Parse OD scenario information from odscenario.xml)
+     * @details Constructor
      */
     ScenarioArr();
     

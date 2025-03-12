@@ -21,7 +21,7 @@ namespace NextSimIO
 StationArr::StationArr()
 {
     TiXmlDocument doc;
-    bool loadSuccess = doc.LoadFile(NextSimIO::StationXMLPath.string().c_str());
+    bool loadSuccess = doc.LoadFile(NextSimIO::RoadStationXMLPath.string().c_str());
 
     if (!loadSuccess)
     {
