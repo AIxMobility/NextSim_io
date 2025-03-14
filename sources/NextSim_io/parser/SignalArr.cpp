@@ -119,16 +119,16 @@ SignalArr::SignalArr()
         for (TiXmlElement *e = elem->FirstChildElement(); e != NULL;
              e = e->NextSiblingElement())
         {
-            const char *planId = e->Attribute("planId");
-            const char *startTime = e->Attribute("startTime");
-            const char *endTime = e->Attribute("endTime");
+            const char *planId = e->Attribute("plan_id");
+            const char *startTime = e->Attribute("start_time");
+            const char *endTime = e->Attribute("end_time");
 
             if (!planId)
-                throw std::runtime_error("Element should have 'planId' attribute");
+                throw std::runtime_error("Element should have 'plan_id' attribute");
             if (!startTime)
-                throw std::runtime_error("Element should have 'startTime' attribute");
+                throw std::runtime_error("Element should have 'start_time' attribute");
             if (!endTime)
-                throw std::runtime_error("Element should have 'endTime' attribute");
+                throw std::runtime_error("Element should have 'end_time' attribute");
 
             table singleTable(atoi(planId), atoi(startTime), atoi(endTime));
 
