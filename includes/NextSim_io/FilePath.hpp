@@ -59,6 +59,10 @@ static std::filesystem::path V2XXMLPath = NetworkXmlFilePath / "v2xdata.xml";
 
 static std::filesystem::path BackgroundTrafficXMLPath = NetworkXmlFilePath / "backgroundTraffic.xml";
 
+static std::filesystem::path RailStationNewXMLPath = NetworkXmlFilePath / "railStation.xml";
+
+static std::filesystem::path RailLineNewXMLPath = NetworkXmlFilePath / "railLine.xml";
+
 // Parameter xml file path
 static std::filesystem::path VehicleTypeXMLPath = ParameterXmlFilePath / "vehicletypes.xml";
 
