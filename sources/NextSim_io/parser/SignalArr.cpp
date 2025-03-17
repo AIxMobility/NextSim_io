@@ -130,7 +130,7 @@ SignalArr::SignalArr()
             if (!endTime)
                 throw std::runtime_error("Element should have 'end_time' attribute");
 
-            table singleTable(atoi(planId), atoi(startTime), atoi(endTime));
+            table singleTable(atoi(planId), startTime, endTime);
 
             todTable.push_back(singleTable);
         }

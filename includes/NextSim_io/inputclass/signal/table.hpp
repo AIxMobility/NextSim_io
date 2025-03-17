@@ -24,7 +24,11 @@ public:
      * @param startTime Start time
      * @param endTime End time
     */
-    table(int planId, int startTime, int endTime);
+    table(int planId, std::string startTime, std::string endTime);
+
+    ~table() = default;
+    table(const table &other) = default;
+    table &operator=(const table &other) = default;
 
     /**
      * @details Get Plan ID
@@ -36,13 +40,13 @@ public:
      * @details Get start time
      * @return Start time
     */
-    int GetStartTime() const { return m_startTime; }
+    std::string GetStartTime() const { return m_startTime; }
 
     /**
      * @details Get end time
      * @return End time
     */
-    int GetEndTime() const { return m_endTime; }
+    std::string GetEndTime() const { return m_endTime; }
 
 private:
     /**
@@ -53,12 +57,12 @@ private:
     /**
      * @details Start time
     */
-    int m_startTime;
+    std::string m_startTime;
 
     /**
      * @details End time
     */
-    int m_endTime;
+    std::string m_endTime;
 };
 } // namespace NextSimIO
 
