@@ -125,10 +125,11 @@ public:
     /**
      * @details Constructor
      * @param id Vertex ID
+     * @param type Node type
      * @param heuristic Heuristic value of the vertex
      * @param rank Rank of the vertex
      */
-    InputGraphVertex(int id, float heuristic, int rank);
+    InputGraphVertex(int id, int type, float heuristic, int rank);
 
     /**
      * @details Set physical coordinates of the vertex
@@ -165,6 +166,12 @@ public:
      * @return vertex ID
      */
     int GetId() { return m_id; }
+
+    /**
+     * @details Get node type
+     * @return Node type 
+     */
+    int GetType() { return m_type; }
 
     /**
      * @details Get physical coordinates of the vertex
@@ -206,6 +213,11 @@ private:
      * @details Vertex ID
      */
     int m_id; 
+
+    /**
+     * @details Node type (0: Intersection, 1: Normal, 2: Diverging, 3: Terminal, 4: Garage)
+     */
+    int m_type;
 
     /**
      * @details Physical coordinates of the vertex

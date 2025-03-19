@@ -8,6 +8,7 @@
 #ifndef GRAPHARR_H
 #define GRAPHARR_H
 
+#include <unordered_map>
 #include <NextSim_io/inputclass/InputGraphVertex.hpp>
 #include <NextSim_io/inputclass/InputGraphArc.hpp>
 
@@ -61,6 +62,34 @@ private:
     std::vector<InputGraphArc> m_arcs;
     
 }; // class ArcArr
+
+/**
+ * @class Graph
+ * @brief Class for graph used in route generation
+ */
+class Graph
+{
+public:
+    /**
+     * @details Constructor
+     * @param arcArr Arc vectors
+     * @param vertexArr Vertex vectors
+     */
+    Graph(ArcArr arcArr, VertexArr vertexArr);
+
+private:
+    /**
+     * @details . 
+     */
+    std::unordered_map<int, std::vector<int>> m_vertexToArc;
+
+    /**
+     * @details .
+     */
+    std::unordered_map<int, int> m_arcToVertex;
+
+}; // class Graph
+
 } // namespace NextSimIO
 
 #endif

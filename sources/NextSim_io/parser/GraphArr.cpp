@@ -42,11 +42,21 @@ VertexArr::VertexArr()
             e2 = e2->NextSiblingElement())
             {
                 const char *vertexid = e2->Attribute("id");
+                const char *type = e2->Attribute("type");
+                const char *xcoord = e2->Attribute("x_coord");
+                const char *ycoord = e2->Attribute("y_coord");
 
                 InputGraphVertex single_vertex(
                     atol(vertexid),
+                    atoi(type),
                     0.0,
                     0);
+
+                VertexCoord single_coord(
+                    atof(xcoord),
+                    atof(ycoord));
+
+                single_vertex.SetCoordinates({single_coord});
 
                 for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
                     e3 = e3->NextSiblingElement())
@@ -171,5 +181,34 @@ ArcArr::ArcArr()
     }
     doc.Clear();
 }; // ArcArr::ArcArr
+
+Graph::Graph(ArcArr arcArr, VertexArr vertexArr)
+{
+    std::vector<InputGraphArc> arcs = arcArr.GetArcs();
+    std::vector<InputGraphVertex> vertices = vertexArr.GetVertices();
+
+    for (auto &vertex : vertices)
+    {
+        std::vector<port> connectedlinks = vertex.GetLinks();
+        std::size_t vertexID = vertex.GetId();
+
+        for (auto &link : connectedlinks)
+        {
+            if (link.GetType() == -1)
+            {
+                std::size_t connectedLinkID = link.GetLinkId();
+                m_vertexToArc[vertexID].emplace_back(connectedLinkID);
+            }
+        }
+    }
+
+    for (auto &arc : arcs)
+    {
+        std::size_t arcID = arc.GetID();
+        std::size_t toNode = arc.GetToNode();
+
+        m_arcToVertex[arcID]= toNode;
+    }
+}; // Graph::Graph
 
 } // namespace NextSimIO
