@@ -208,6 +208,14 @@ public:
      */
     void FreeLinks() { std::vector<port>().swap(m_connectedLinks); }
 
+    /**
+     * @details calculate heuristic value
+     * @param departVertex Departure vertex
+     * @param destVertex Destination vertex
+     * @return Heuristic value
+     */
+    float CalHeuristic (InputGraphVertex departVertex, InputGraphVertex destVertex);
+
 private:
     /**
      * @details Vertex ID

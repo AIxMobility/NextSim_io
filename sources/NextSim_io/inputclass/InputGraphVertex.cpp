@@ -5,6 +5,7 @@
  * @author Dongheon Lee
  */
 
+#include <math.h>
 #include <NextSim_io/inputclass/InputGraphVertex.hpp>
 
 namespace NextSimIO
@@ -22,4 +23,20 @@ void InputGraphVertex::pushLink(port link)
 {
     m_connectedLinks.emplace_back(link);
 }
+
+float InputGraphVertex::CalHeuristic(InputGraphVertex departVertex, InputGraphVertex destVertex)
+{
+    std::vector<VertexCoord> departCoord = departVertex.GetCoordinates();
+    std::vector<VertexCoord> destCoord = destVertex.GetCoordinates();
+
+    float x_depart = departCoord[0].GetX();
+    float y_depart = departCoord[0].GetY();
+    float x_dest = destCoord[0].GetX();
+    float y_dest = destCoord[0].GetY();
+
+    float heuristic = sqrt(pow(x_dest - x_depart, 2) + pow(y_dest - y_depart, 2));
+
+    return heuristic;
+}
+
 } // namespace NextSimIO

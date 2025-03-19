@@ -189,6 +189,7 @@ Graph::Graph(ArcArr arcArr, VertexArr vertexArr)
 
     for (auto &vertex : vertices)
     {
+        // vertexToArc
         std::vector<port> connectedlinks = vertex.GetLinks();
         std::size_t vertexID = vertex.GetId();
 
@@ -199,6 +200,16 @@ Graph::Graph(ArcArr arcArr, VertexArr vertexArr)
                 std::size_t connectedLinkID = link.GetLinkId();
                 m_vertexToArc[vertexID].emplace_back(connectedLinkID);
             }
+        }
+
+        //arcToArc
+        std::vector<ConnectionInfo> linkConnections = vertex.GetConnectionInfo();
+        for (auto &conn : linkConnections)
+        {
+            std::size_t fromLink = conn.GetFromLink();
+            std::size_t toLink = conn.GetToLink();
+
+            m_arcToArc[fromLink].emplace_back(toLink);
         }
     }
 

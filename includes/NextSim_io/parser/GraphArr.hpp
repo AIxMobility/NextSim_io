@@ -88,6 +88,11 @@ private:
      */
     std::unordered_map<int, int> m_arcToVertex;
 
+    /**
+     * @details .
+     */
+    std::unordered_map<int, std::vector<int>> m_arcToArc;
+
 }; // class Graph
 
 } // namespace NextSimIO
