@@ -124,6 +124,11 @@ class InputGraphVertex
 public:
     /**
      * @details Constructor
+     */
+    InputGraphVertex();
+
+    /**
+     * @details Constructor
      * @param id Vertex ID
      * @param type Node type
      * @param heuristic Heuristic value of the vertex
@@ -215,6 +220,15 @@ public:
      * @return Heuristic value
      */
     float CalHeuristic (InputGraphVertex departVertex, InputGraphVertex destVertex);
+
+    /**
+     * @details Get vertex Length with connectionInfo
+     * @param fromLink Link ID that the connection is from
+     * @param toLink Link ID that the connection is to
+     * @return Length of the subArc
+     */
+    double GetVertexLength(int fromLink, int toLink);
+
 
 private:
     /**

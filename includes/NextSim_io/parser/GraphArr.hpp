@@ -31,11 +31,32 @@ public:
      */
     std::vector<InputGraphVertex> GetVertices() { return m_vertices; }
 
+    /**
+     * @details Get vector of sink terminals
+     */
+    std::vector<int> GetSinkTerminals() { return m_sinkTerminals; }
+
+    /**
+     * @details Get vector of source terminals
+     */
+    std::vector<int> GetSourceTerminals() { return m_sourceTerminals; }
+
 private:
     /**
      * @details Vector of vertices
      */
     std::vector<InputGraphVertex> m_vertices;
+
+    /**
+     * @details Vector of sink terminal ids
+     */
+    std::vector<int> m_sinkTerminals;
+
+    /**
+     * @details Vector of source terminal ids
+     */
+    std::vector<int> m_sourceTerminals;
+
 }; // class VertexArr
 
 /**
@@ -77,16 +98,24 @@ public:
      */
     Graph(ArcArr arcArr, VertexArr vertexArr);
 
+    /**
+     * @details Get vertex to arc map
+     * @return Vertex to arc map
+     */
+    std::unordered_map<int, std::vector<int>> GetVertexToArc() { return m_vertexToArc; }
+    
+    /**
+     * @details Get arc to arc map
+     * @return Arc to arc map
+     */
+    std::unordered_map<int, std::vector<int>> GetArcToArc() { return m_arcToArc; }
+
+
 private:
     /**
      * @details . 
      */
     std::unordered_map<int, std::vector<int>> m_vertexToArc;
-
-    /**
-     * @details .
-     */
-    std::unordered_map<int, int> m_arcToVertex;
 
     /**
      * @details .

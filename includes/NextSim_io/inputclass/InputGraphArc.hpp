@@ -109,6 +109,11 @@ class InputGraphArc
 public:
     /**
      * @details Constructor
+     */
+    InputGraphArc();
+
+    /**
+     * @details Constructor
      * @param id Arc ID
      * @param fromNode From node ID (connected with arc start point)
      * @param toNode To node ID (connected with arc end point)

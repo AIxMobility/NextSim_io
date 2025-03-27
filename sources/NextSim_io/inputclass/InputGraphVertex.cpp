@@ -10,6 +10,9 @@
 
 namespace NextSimIO
 {
+InputGraphVertex::InputGraphVertex()
+    : m_id(0), m_type(0), m_heuristic(0), m_rank(0) {};
+
 InputGraphVertex::InputGraphVertex(int id, int type, float heuristic, int rank)
     : m_id(id), m_type(type), m_heuristic(heuristic), m_rank(rank) {};
 
@@ -37,6 +40,21 @@ float InputGraphVertex::CalHeuristic(InputGraphVertex departVertex, InputGraphVe
     float heuristic = sqrt(pow(x_dest - x_depart, 2) + pow(y_dest - y_depart, 2));
 
     return heuristic;
+}
+
+double InputGraphVertex::GetVertexLength(int fromLink, int toLink)
+{
+    std::vector<ConnectionInfo> connections = GetConnectionInfo();
+
+    for (auto &connection : connections)
+    {
+        if (connection.GetFromLink() == fromLink && connection.GetToLink() == toLink)
+        {
+            return connection.GetLength();
+        }
+    }
+
+    return 0;
 }
 
 } // namespace NextSimIO

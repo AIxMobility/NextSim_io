@@ -46,9 +46,32 @@ VertexArr::VertexArr()
                 const char *xcoord = e2->Attribute("x_coord");
                 const char *ycoord = e2->Attribute("y_coord");
 
+                int nodeType;
+                if (!strcmp(type, "normal")){
+                    nodeType = 0;
+                }
+                else if (!strcmp(type, "intersection")){
+                    nodeType = 1;
+                }
+                else if (!strcmp(type, "merging")){
+                    nodeType = 2;
+                }
+                else if (!strcmp(type, "diverging")){
+                    nodeType = 3;
+                }
+                else if (!strcmp(type, "terminal")){
+                    nodeType = 4;
+                }
+                else if (!strcmp(type, "garage")){
+                    nodeType = 5;
+                }
+                else{
+                    throw std::runtime_error ("Invalid node type");
+                }
+
                 InputGraphVertex single_vertex(
                     atol(vertexid),
-                    atoi(type),
+                    nodeType,
                     0.0,
                     0);
 
@@ -128,6 +151,22 @@ VertexArr::VertexArr()
             }
         }
     }
+
+    for (auto &vertex : m_vertices)
+    {
+        if (vertex.GetType() == 4)
+        {
+            if (vertex.GetLinks()[0].GetType() == -1)
+            {
+                m_sourceTerminals.emplace_back(vertex.GetId());
+            }
+            else if (vertex.GetLinks()[0].GetType() == 1)
+            {
+                m_sinkTerminals.emplace_back(vertex.GetId());
+            }
+        }
+    }
+
     doc.Clear();
 }; // VertexArr::VertexArr
 
@@ -213,13 +252,6 @@ Graph::Graph(ArcArr arcArr, VertexArr vertexArr)
         }
     }
 
-    for (auto &arc : arcs)
-    {
-        std::size_t arcID = arc.GetID();
-        std::size_t toNode = arc.GetToNode();
-
-        m_arcToVertex[arcID]= toNode;
-    }
 }; // Graph::Graph
 
 } // namespace NextSimIO
