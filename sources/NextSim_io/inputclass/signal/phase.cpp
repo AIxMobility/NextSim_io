@@ -20,6 +20,6 @@ void phase::SetTurnList(std::string turnString)
     int turnId;
 
     while (ss >> turnId)
-        m_turnList.push_back(turnId);
+        m_turnIdList.push_back(turnId);
 }
 } // namespace NextSimIO

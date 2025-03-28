@@ -44,7 +44,7 @@ public:
      * @details Get turn list
      * @return turn List
      */
-    std::vector<int> GetTurnList() { return m_turnList; }
+    std::vector<int> GetTurnIdList() { return m_turnIdList; }
 
     /**
      * @brief Set list of turn ids 
@@ -66,7 +66,7 @@ private:
     /**
      * @details turn list
     */
-    std::vector<int> m_turnList;
+    std::vector<int> m_turnIdList;
 };
 } // namespace NextSimIO
 
