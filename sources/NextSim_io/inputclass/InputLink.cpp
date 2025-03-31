@@ -5,6 +5,8 @@
  * @author : Jae Hwan Jung, Justin Kim
 */
 
+#include <cmath>
+
 #include <NextSim_io/inputclass/InputLink.hpp>
 
 namespace NextSimIO
@@ -102,7 +104,8 @@ std::vector<std::vector<size_t>> InputLink::Get2DMaxVehicle()  // veh/lane
         matrix[i].resize(m_laneNumCellVector[i]);
         for (int j = 0; j < m_laneNumCellVector[i]; j++)
         {
-            matrix[i][j] = static_cast<int>(m_laneVector[i].GetCellVector()[j].length) / 7;
+            matrix[i][j] = static_cast<int>(
+                std::round(m_laneVector[i].GetCellVector()[j].length / 7.0));
         }
     }
     return matrix;
