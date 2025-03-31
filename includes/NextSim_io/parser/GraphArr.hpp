@@ -113,7 +113,8 @@ public:
 
 private:
     /**
-     * @details . 
+     * @details .
+     * @note does not used in route generation, it could be deleted
      */
     std::unordered_map<int, std::vector<int>> m_vertexToArc;
 
