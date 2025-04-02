@@ -21,7 +21,7 @@
  PTlineArr::PTlineArr()
  {
      TiXmlDocument doc;
-     bool loadSuccess = doc.LoadFile(NextSimIO::PTlineXMLPath.string().c_str());
+     bool loadSuccess = doc.LoadFile(NextSimIO::RoadPTlineXMLPath.string().c_str());
  
      if (!loadSuccess)
      {
@@ -29,13 +29,7 @@
          return;
      }
  
-     TiXmlElement* root = doc.FirstChildElement();
-     if (!root)
-     {
-         std::cerr << "Error: Missing root element in PTline XML file" << std::endl;
-         return;
-     }
- 
+     TiXmlElement* root = doc.FirstChildElement(); 
      for (TiXmlElement* elem = root->FirstChildElement(); elem != nullptr; elem = elem->NextSiblingElement())
      {
          // Get required attributes: id & interval

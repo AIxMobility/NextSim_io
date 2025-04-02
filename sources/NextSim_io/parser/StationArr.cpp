@@ -21,9 +21,9 @@
  {
  StationArr::StationArr()
  {
-    std::cout << "Looking for Station XML at: " << NextSimIO::StationXMLPath.string() << std::endl;
+    std::cout << "Looking for Station XML at: " << NextSimIO::RoadStationXMLPath.string() << std::endl;
      TiXmlDocument doc;
-     bool loadSuccess = doc.LoadFile(NextSimIO::StationXMLPath.string().c_str());
+     bool loadSuccess = doc.LoadFile(NextSimIO::RoadStationXMLPath.string().c_str());
  
      if (!loadSuccess)
      {
