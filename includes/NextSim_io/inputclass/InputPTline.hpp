@@ -23,10 +23,10 @@
  public:
      /**
       * @details Constructor
-      * @param id Public transit line ID
+      * @param id Public transit line ID (string)
       * @param interval Dispatch interval
      */
-     InputPTline(int id, double interval);
+     InputPTline(std::string id, double interval);
  
      /**
       * @details Set sequence of links
@@ -74,8 +74,7 @@
       * @details Get public transit line ID
       * @return Public transit line ID
      */
-     int GetId() { return m_id; }
- 
+     std::string GetID() { return m_id; }
      /**
       * @details Get dispatch interval
       * @return Dispatch interval [min]
@@ -128,7 +127,7 @@
      /**
       * @details Public transit line ID
      */
-     int m_id;
+     std::string m_id;
  
      /**
       * @details Dispatch interval [min]
@@ -173,4 +172,3 @@
  } // namespace NextSimIO
  
  #endif
- 

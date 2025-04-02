@@ -2,14 +2,13 @@
  * NextSim Captain
  * @file : StationArr.hpp
  * @version : 1.0
- * @author : 
+ * @author : ???
 */
 
 #ifndef STATIONARR_H
 #define STATIONARR_H
 
 #include <vector>
-#include <string>
 #include <NextSim_io/inputclass/InputStation.hpp>
 
 namespace NextSimIO
@@ -23,31 +22,21 @@ class StationArr
 
 public:
     /**
-     * @details Constructor (Parses station information from publictransit.xml)
-     * @param filename Path to the publictransit.xml file
+     * @details Constructor (Parse station information from publictransit.xml)
     */
-    explicit StationArr(const std::string& filename)
-    {
-        ParseXML(filename);
-    }
+    StationArr();
 
     /**
      * @details Get vector of stations
      * @return Vector of stations
     */
-    std::vector<InputStation> GetStations() const
-    {
-        return m_stations;
-    }
+    std::vector<InputStation> GetStations() { return m_stations; }
 
     /**
      * @details Get vector of DRT stations
      * @return Vector of DRT stations
     */
-    std::vector<InputDRTStation> GetDRTStations() const
-    {
-        return m_drtStations;
-    }
+    std::vector<InputDRTStation> GetDRTStations() { return m_drtStations; }
 
 private:
     /**
@@ -60,15 +49,6 @@ private:
     */
     std::vector<InputDRTStation> m_drtStations;
 
-    /**
-     * @details Parses station information from an XML file
-     * @param filename Path to the publictransit.xml file
-    */
-    void ParseXML(const std::string& filename)
-    {
-        // Use XML parser utility to load station and DRT station data
-        XMLParser::ParseStations(filename, m_stations, m_drtStations);
-    }
 };
 } // namespace NextSimIO
 

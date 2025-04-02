@@ -80,10 +80,10 @@
      int GetParkingLots() const { return m_parkingLots; }
  
      /**
-      * @details Get sequence of line IDs
-      * @return Sequence of line IDs that pass the station
+      * @details Get sequence of transit lines passing through this station
+      * @return Vector of transit line names
      */
-     std::vector<int> GetLineList() const { return m_lineList; }
+     std::vector<std::string> GetLineList() const { return m_lineList; }
  
      /**
       * @details Get sequence of garage IDs (for rail transit)
@@ -120,7 +120,7 @@
      /**
       * @details Sequence of line IDs that pass the station
      */
-     std::vector<int> m_lineList;
+     std::vector<std::string> m_lineList;
  
      /**
       * @details Sequence of garage IDs linked to this station (for rail transit)
