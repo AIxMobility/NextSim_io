@@ -15,13 +15,13 @@
  {
  /**
   * @class PTlineArr
-  * @brief Class for whole public transit line information from ptline.xml
+  * @brief Class for whole public transit line information from roadptline.xml
  */
  class PTlineArr
  {
  public:
      /**
-      * @details Constructor (Parse public transit line information from ptline.xml)
+      * @details Constructor (Parse public transit line information from roadptline.xml)
      */
      PTlineArr();
      
