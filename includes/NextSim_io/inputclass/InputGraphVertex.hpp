@@ -76,9 +76,10 @@ public:
      * @details Constructor
      * @param fromLink Link ID that the connection is from
      * @param toLink Link ID that the connection is to
+     * @param fromLane Lane ID
      * @param length Length of the subArc
      */
-    ConnectionInfo(int fromLink, int toLink, double length);
+    ConnectionInfo(int fromLink, int toLink, int fromLane, double length);
 
     /**
      * @details Get link ID that the connection is from
@@ -91,6 +92,12 @@ public:
      * @return Link ID
      */
     int GetToLink() { return m_toLink; }
+
+    /**
+     * @details Get from Lane ID
+     * @return Lane ID
+     */
+    int GetFromLane() { return m_fromLane; }
 
     /**
      * @details Get length of the subArc
@@ -108,6 +115,11 @@ private:
      * @details Link ID that the connection is to
      */
     int m_toLink;
+
+    /**
+     * @details from Lane ID
+     */
+    int m_fromLane;
 
     /**
      * @details length of the subArc [m]

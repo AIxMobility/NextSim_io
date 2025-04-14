@@ -114,35 +114,21 @@ VertexArr::VertexArr()
                     {
                         const char *fromLink = e3->Attribute("from_link");
                         const char *toLink = e3->Attribute("to_link");
+                        const char *fromLane = e3->Attribute("from_lane");
                         const char *arc_length = e3->Attribute("length");
 
                         if (!fromLink)   throw std::runtime_error ("Element should have 'from_link' attribute");
                         if (!toLink)   throw std::runtime_error ("Element should have 'to_link' attribute");
+                        if (!fromLane)   throw std::runtime_error ("Element should have 'from_lane' attribute");
                         if (!arc_length)   throw std::runtime_error ("Element should have 'length' attribute");
 
                         ConnectionInfo NewconnectionInfo(
                             atol(fromLink),
                             atol(toLink),
+                            atol(fromLane),
                             atof(arc_length));
                         
-                        std::vector<ConnectionInfo> connections = single_vertex.GetConnectionInfo();
-                        bool duplicate = false;
-
-                        for (auto &connection : connections)
-                        {
-                            if (connection.GetFromLink() == NewconnectionInfo.GetFromLink() &&
-                                connection.GetToLink() == NewconnectionInfo.GetToLink())
-                            {
-                                duplicate = true;
-                                break;
-                            }
-                        }
-
-                        if (!duplicate)
-                        {
-                            single_vertex.pushConnectionInfo(NewconnectionInfo);
-                        }
-                        
+                        single_vertex.pushConnectionInfo(NewconnectionInfo);
                     }
                 }
                 m_vertices.push_back(single_vertex);
@@ -248,7 +234,10 @@ Graph::Graph(ArcArr arcArr, VertexArr vertexArr)
             std::size_t fromLink = conn.GetFromLink();
             std::size_t toLink = conn.GetToLink();
 
-            m_arcToArc[fromLink].emplace_back(toLink);
+            if(std::find(m_arcToArc[fromLink].begin(), m_arcToArc[fromLink].end(), toLink) == m_arcToArc[fromLink].end())
+            {
+                m_arcToArc[fromLink].emplace_back(toLink);
+            }
         }
     }
 
