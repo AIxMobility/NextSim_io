@@ -29,7 +29,6 @@
          return;
      }
 
-     std::cout << "PTLine XML file loaded successfully: " << NextSimIO::RoadPTlineXMLPath.string() << std::endl;
  
      TiXmlElement* root = doc.FirstChildElement(); 
      for (TiXmlElement* elem = root->FirstChildElement(); elem != nullptr; elem = elem->NextSiblingElement())
@@ -45,14 +44,12 @@
  
          InputPTline tPTline(id, interval);
          
-         std::cout << "Processing PT line: " << id << ", interval: " << interval << std::endl;
  
          // Parse <link>
          TiXmlElement* e = elem->FirstChildElement("link");
          if (e && e->Attribute("seq"))
          {
              tPTline.SetLinkSeq(e->Attribute("seq"));
-             std::cout << "  Link sequence parsed: " << e->Attribute("seq") << std::endl;
          }
  
          // Parse <node>
@@ -60,7 +57,6 @@
          if (e && e->Attribute("seq"))
          {
              tPTline.SetNodeSeq(e->Attribute("seq"));
-             std::cout << "  Node sequence parsed: " << e->Attribute("seq") << std::endl;
          }
  
          // Parse <station>
@@ -68,10 +64,7 @@
          if (e)
          {
              if (e->Attribute("seq"))
-             {
                  tPTline.SetStationSeq(e->Attribute("seq"));
-                 std::cout << "  Station sequence parsed: " << e->Attribute("seq") << std::endl;
-             }
  
              if (e->Attribute("distance"))
                  tPTline.SetStationDistanceSeq(e->Attribute("distance"));
@@ -85,12 +78,10 @@
              if (e->Attribute("id"))
              {
                  tPTline.SetGarageSeq(e->Attribute("id"));
-                 std::cout << "  Garage sequence parsed (id): " << e->Attribute("id") << std::endl;
              }
              else if (e->Attribute("seq"))
              {
                  tPTline.SetGarageSeq(e->Attribute("seq"));
-                 std::cout << "  Garage sequence parsed (seq): " << e->Attribute("seq") << std::endl;
              }
              else
              {
@@ -101,7 +92,6 @@
          m_ptLines.push_back(tPTline);
      }
      
-     std::cout << "Total PT lines loaded: " << m_ptLines.size() << std::endl;
  }
  
  } // namespace NextSimIO

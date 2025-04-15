@@ -52,17 +52,6 @@
      */
      void SetStationDistanceSeq(std::string stationDistanceSeq);
  
-     /**
-      * @details Set sequence of lane references for stations
-      * @param laneRefSeq Sequence of lane references for stations
-     */
-     void SetLaneRefSeq(std::string laneRefSeq);
- 
-     /**
-      * @details Set sequence of station positions along the link
-      * @param stationPosSeq Sequence of station positions (meters along link)
-     */
-     void SetStationPosSeq(std::string stationPosSeq);
  
      /**
       * @details Set sequence of garages for rail transit
@@ -106,18 +95,6 @@
      std::vector<double> GetStationDistanceSeq() { return m_stationDistanceSeq; }
  
      /**
-      * @details Get sequence of lane references for stations
-      * @return Sequence of lane references for stations
-     */
-     std::vector<int> GetLaneRefSeq() { return m_laneRefSeq; }
- 
-     /**
-      * @details Get sequence of station positions along the link
-      * @return Sequence of station positions
-     */
-     std::vector<double> GetStationPosSeq() { return m_stationPosSeq; }
- 
-     /**
       * @details Get sequence of garages for rail transit
       * @return Sequence of garage IDs
      */
@@ -153,17 +130,7 @@
       * @details Sequence of distance between stations
      */
      std::vector<double> m_stationDistanceSeq;
- 
-     /**
-      * @details Sequence of lane references for stations
-     */
-     std::vector<int> m_laneRefSeq;
- 
-     /**
-      * @details Sequence of station positions along the link
-     */
-     std::vector<double> m_stationPosSeq;
- 
+
      /**
       * @details Sequence of garage IDs for rail transit
      */
