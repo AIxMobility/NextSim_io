@@ -49,7 +49,7 @@ AgentsArr::AgentsArr()
                 {
                     int id = std::stoi(e->Attribute("id"));
                     int type = std::stoi(e->Attribute("type"));
-                    double dpt_time = std::stod(e->Attribute("dpt_time"));
+                    double dpt_time = std::stod(e->Attribute("dptTime"));
 
                     InputAgents single_veh(
                         id, type, dpt_time);
@@ -87,7 +87,7 @@ AgentsArr::AgentsArr()
                 {
                     int id = std::stoi(e->Attribute("id"));
                     int type = std::stoi(e->Attribute("type"));
-                    double dpt_time = std::stod(e->Attribute("dpt_time"));
+                    double dpt_time = std::stod(e->Attribute("dptTime"));
 
                     InputAgents single_veh(
                         id, type, dpt_time);

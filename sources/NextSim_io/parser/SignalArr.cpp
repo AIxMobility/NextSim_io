@@ -22,7 +22,6 @@ SignalArr::SignalArr()
 {
     TiXmlDocument doc;
     bool loadSuccess = doc.LoadFile(NextSimIO::SignalNewXMLPath.string().c_str());
-
     if (!loadSuccess)
     {
         std::cout << "Loading failed (SignalArr)" << std::endl;

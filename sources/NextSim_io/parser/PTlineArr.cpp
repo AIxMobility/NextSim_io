@@ -9,9 +9,9 @@
 #include <sstream>
 #include <string>
 #include <filesystem>
+#include <vector>
 
 #include <NextSim_io/parser/PTlineArr.hpp>
-
 #include <NextSim_io/tinyapi/tinystr.h>
 #include <NextSim_io/tinyapi/tinyxml.h>
 #include <NextSim_io/FilePath.hpp>
@@ -25,48 +25,61 @@ PTlineArr::PTlineArr()
 
     if (!loadSuccess)
     {
-        std::cout << "Loading failed (PTLineArr)" << std::endl;
-        // std::cerr << doc.ErrorDesc() << std::endl;
+        std::cerr << "Loading failed (PTLineArr)" << std::endl;
         return;
     }
 
-    TiXmlElement *root = doc.FirstChildElement();
 
-    for(TiXmlElement *elem = root->FirstChildElement() ; elem != NULL ; elem = elem->NextSiblingElement())
+    TiXmlElement* root = doc.FirstChildElement(); 
+    for (TiXmlElement* elem = root->FirstChildElement(); elem != nullptr; elem = elem->NextSiblingElement())
     {
-        int id = std::stoi(elem->Attribute("id"));
-        int interval = std::stoi(elem->Attribute("interval"));
+        // Get required attributes: id & interval
+        std::string id;
+        int interval = 0;
 
-        TiXmlElement *e = elem->FirstChildElement();
-        InputPTline tPTline = InputPTline(id, interval);
+        if (elem->Attribute("id"))
+            id = elem->Attribute("id");
+        if (elem->Attribute("interval"))
+            interval = std::stoi(elem->Attribute("interval"));
 
-        std::string eName = e->Value();
-        if (eName == "link")
-        {
-            std::string linkSeq = e->Attribute("seq");
-            tPTline.SetLinkSeq(linkSeq);
-        }
+        InputPTline tPTline(id, interval);
         
-        e = e->NextSiblingElement();
-        eName = e->Value();
-        if (eName == "node")
-        {
-            std::string nodeSeq = e->Attribute("seq");
-            tPTline.SetNodeSeq(nodeSeq);
-        }
-        
-        e = e->NextSiblingElement();
-        eName = e->Value();
-        if (eName == "station")
-        {
-            std::string stationSeq = e->Attribute("seq");
-            tPTline.SetStationSeq(stationSeq);
 
-            std::string stationDistanceSeq = e->Attribute("distance");
-            tPTline.SetStationDistanceSeq(stationDistanceSeq);
+        TiXmlElement* e = elem->FirstChildElement("link");
+        if (e && e->Attribute("seq"))
+        {
+            tPTline.SetLinkSeq(e->Attribute("seq"));
         }
-        
+
+        e = elem->FirstChildElement("node");
+        if (e && e->Attribute("seq"))
+        {
+            tPTline.SetNodeSeq(e->Attribute("seq"));
+        }
+
+        e = elem->FirstChildElement("station");
+        if (e && e->Attribute("seq"))
+        {
+            tPTline.SetStationSeq(e->Attribute("seq"));
+        }
+
+        e = elem->FirstChildElement("garage");
+        if (e)
+        {
+            if (e->Attribute("id"))
+            {
+                tPTline.SetGarageSeq(e->Attribute("id"));
+            }
+            else if (e->Attribute("seq"))
+            {
+                tPTline.SetGarageSeq(e->Attribute("seq"));
+            }
+        }
+
         m_ptLines.push_back(tPTline);
     }
+    
 }
+
 } // namespace NextSimIO
+ 
