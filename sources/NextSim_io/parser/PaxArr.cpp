@@ -56,25 +56,34 @@ PaxArr::PaxArr()
         }
 
         else if (elemName == "agent_pax")
-        {
-            for (TiXmlElement* e = elem->FirstChildElement(); e != NULL;
-                 e = e->NextSiblingElement())
-            {
-                std::string elemName2 = e->Value();
-
-                if (elemName2 == "agent")
-                {
-                    InputAgentPax demoPax(atol(e->Attribute("id")),
-                                     atol(e->Attribute("origin_station")),
-                                     atol(e->Attribute("dest_station")),
-                                     atof(e->Attribute("dpt_time")),
-                                     e->Attribute("type"));
-
-                    m_agentPax.push_back(demoPax);
-                }
-            }
-        }
-    }
-    doc.Clear();
-};
-} // namespace NextSimIO
+         {
+             for (TiXmlElement* e = elem->FirstChildElement(); e != NULL;
+                  e = e->NextSiblingElement())
+             {
+                 std::string elemName2 = e->Value();
+ 
+                 if (elemName2 == "agent")
+                 {
+                     InputAgentPax demoPax(atol(e->Attribute("originLink")),
+                                      atol(e->Attribute("originOffset")),
+                                      atol(e->Attribute("destLink")),
+                                      atol(e->Attribute("destOffset")),
+                                      atof(e->Attribute("time")),
+                                      e->Attribute("type"));
+ 
+                     for (TiXmlElement* tripElem = e->FirstChildElement("trip"); tripElem != NULL;
+                     tripElem = tripElem->NextSiblingElement("trip"))
+                     {
+                         demoPax.AddTrip(atol(tripElem->Attribute("origin")),
+                                     atol(tripElem->Attribute("dest")),
+                                     tripElem->Attribute("mode"));
+                     }
+ 
+                     m_agentPax.push_back(demoPax);
+                 }
+             }
+         }
+     }
+     doc.Clear();
+ };
+ } // namespace NextSimIO

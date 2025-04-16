@@ -81,76 +81,158 @@ private:
  * @class InputAgentPax
  * @brief Class for each agent passenger information
  */
-class InputAgentPax
-{
-public:
-    /**
-     * @details Constructor
-     * @param id Agent Passenger ID
-     * @param originStation Origin station ID
-     * @param destStation Destination station ID
-     * @param dptTime Departure time
-     * @param type Reservation type
-    */
-    InputAgentPax(int id, int origin_station, int destStation, 
-                  double dptTime, std::string type);
-
-    /**
-     * @details Get agent passenger ID
-     * @return Agent passenger ID
-    */
-    int GetId() { return m_id; }
-
-    /**
-     * @details Get origin station ID
-     * @return Origin station ID
-    */
-    int GetOriginStation() { return m_originStation; }
-
-    /**
-     * @details Get destination station ID
-     * @return Destination station ID
-    */
-    int GetDestStation() { return m_destStation; }
-
-    /**
-     * @details Get departure time
-     * @return Departure time
-    */
-    double GetDptTime() { return m_dptTime; }
-
-    /**
-     * @details Get reservation type
-     * @return Reservation type
-    */
-    std::string GetReserveType() { return m_type; }
-
-private:
-    /**
-     * @details Agent Passenger ID
+class InputAgentPaxTrip 
+ {
+ public:
+     /**
+      * @details Constructor
+      * @param origin Origin ID
+      * @param dest Destination ID
+      * @param mode Transportation mode
      */
-    int m_id;
-
-    /**
-     * @details Origin station ID
+    InputAgentPaxTrip(int origin, int dest, std::string mode)
+         : m_origin(origin), m_dest(dest), m_mode(mode) {}
+ 
+     /**
+      * @details Get origin ID
+      * @return Origin ID
      */
-    int m_originStation;
-
-    /**
-     * @details Destination station ID
+     int GetOrigin() const { return m_origin; }
+ 
+     /**
+      * @details Get destination ID
+      * @return Destination ID
      */
-    int m_destStation;
-
-    /**
-     * @details Departure time
+     int GetDest() const { return m_dest; }
+ 
+     /**
+      * @details Get transportation mode
+      * @return Transportation mode
      */
-    double m_dptTime;
-
-    /**
-     * @details Reservation type
+     std::string GetMode() const { return m_mode; }
+ 
+ private:
+     /**
+      * @details Origin ID
+      */
+     int m_origin;
+ 
+     /**
+      * @details Destination ID
+      */
+     int m_dest;
+ 
+     /**
+      * @details Transportation mode
+      */
+     std::string m_mode;
+ };
+ 
+ /**
+  * @class InputAgentPax
+  * @brief Class for each agent passenger information
+  */
+ class InputAgentPax
+ {
+     public:
+     /**
+      * @details Constructor
+      * @param originLink Origin link ID
+      * @param originOffset Origin offset
+      * @param destLink Destination link ID
+      * @param destOffset Destination offset
+      * @param time Departure time
+      * @param type Agent type
      */
-    std::string m_type;
-};
-} // namespace NextSimIO
-
-#endif
+     InputAgentPax(int originLink, int originOffset, int destLink, int destOffset,
+                   double time, std::string type);
+ 
+     /**
+      * @details Get origin link ID
+      * @return Origin link ID
+     */
+     int GetOriginLink() const { return m_originLink; }
+ 
+     /**
+      * @details Get origin offset
+      * @return Origin offset
+     */
+     int GetOriginOffset() const { return m_originOffset; }
+ 
+     /**
+      * @details Get destination link ID
+      * @return Destination link ID
+     */
+     int GetDestLink() const { return m_destLink; }
+ 
+     /**
+      * @details Get destination offset
+      * @return Destination offset
+     */
+     int GetDestOffset() const { return m_destOffset; }
+ 
+     /**
+      * @details Get time
+      * @return Time
+     */
+     double GetTime() const { return m_time; }
+ 
+     /**
+      * @details Get agent type
+      * @return Agent type
+     */
+     std::string GetType() const { return m_type; }
+ 
+     /**
+      * @details Add a trip to this agent
+      * @param origin Origin ID
+      * @param dest Destination ID
+      * @param mode Transportation mode
+     */
+     void AddTrip(int origin, int dest, std::string mode);
+ 
+     /**
+      * @details Get all trips
+      * @return Vector of trips
+     */
+     const std::vector<InputAgentPaxTrip>& GetTrips() const { return m_trips; }
+ 
+ private:
+     /**
+      * @details Origin link ID
+      */
+     int m_originLink;
+ 
+     /**
+      * @details Origin offset
+      */
+     int m_originOffset;
+ 
+     /**
+      * @details Destination link ID
+      */
+     int m_destLink;
+ 
+     /**
+      * @details Destination offset
+      */
+     int m_destOffset;
+ 
+     /**
+      * @details Time
+      */
+     double m_time;
+ 
+     /**
+      * @details Agent type
+      */
+     std::string m_type;
+ 
+     /**
+      * @details Vector of trips
+      */
+     std::vector<InputAgentPaxTrip> m_trips;
+ };
+ } // namespace NextSimIO
+ 
+ #endif
