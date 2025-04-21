@@ -85,25 +85,25 @@ public:
      * @details Get link ID that the connection is from
      * @return Link ID
      */
-    int GetFromLink() { return m_fromLink; }
+    int GetFromLink() const { return m_fromLink; }
 
     /**
      * @details Get link ID that the connection is to
      * @return Link ID
      */
-    int GetToLink() { return m_toLink; }
+    int GetToLink() const { return m_toLink; }
 
     /**
      * @details Get from Lane ID
      * @return Lane ID
      */
-    int GetFromLane() { return m_fromLane; }
+    int GetFromLane() const { return m_fromLane; }
 
     /**
      * @details Get length of the subArc
      * @return Length of the subArc
      */
-    double GetLength() { return m_length; }
+    double GetLength() const { return m_length; }
 
 private:
     /**
@@ -182,43 +182,43 @@ public:
      * @details Get vertex ID
      * @return vertex ID
      */
-    int GetId() { return m_id; }
+    int GetId() const { return m_id; }
 
     /**
      * @details Get node type
      * @return Node type 
      */
-    int GetType() { return m_type; }
+    int GetType() const { return m_type; }
 
     /**
      * @details Get physical coordinates of the vertex
      * @return Physical coordinates of the vertex
      */
-    std::vector<VertexCoord> GetCoordinates() { return m_coordinates; }
+    std::vector<VertexCoord> GetCoordinates() const { return m_coordinates; }
     
     /**
      * @details Get Heuristic value of the vertex
      * @return Heuristic value of the vertex
      */
-    float GetHeuristic() { return m_heuristic; }
+    float GetHeuristic() const { return m_heuristic; }
 
     /**
      * @details Get Rank of the vertex
      * @return Rank of the vertex
      */
-    int GetRank() { return m_rank; }
+    int GetRank() const { return m_rank; }
 
     /**
      * @details Get connected links
      * @return Vector of connected links
      */
-    std::vector<port> GetLinks() { return m_connectedLinks; }
+    std::vector<port> GetLinks() const { return m_connectedLinks; }
 
     /**
      * @details Get connection information
      * @return Vector of connection information
      */
-    std::vector<ConnectionInfo> GetConnectionInfo() { return m_connectionInfo; }
+    std::vector<ConnectionInfo> GetConnectionInfo() const { return m_connectionInfo; }
 
     /**
      * @details Free connected links vector

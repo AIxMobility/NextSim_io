@@ -5,14 +5,14 @@
  * @author : ???
  */
 
-#ifndef GOOKTOIO_FILEPATH_HPP
-#define GOOKTOIO_FILEPATH_HPP
+#ifndef NEXTSIMIO_FILEPATH_HPP
+#define NEXTSIMIO_FILEPATH_HPP
 
 #include <filesystem>
 
 namespace NextSimIO
 {
-static std::string network_name = "bucheon";
+static std::string network_name = "public";
 
 static std::filesystem::path currentPath = std::filesystem::current_path();
 
