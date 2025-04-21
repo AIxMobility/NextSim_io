@@ -89,7 +89,7 @@ public:
 
     /**
      * @details Get node type
-     * @return Node type (0: Intersection, 1: Normal, 2: Diverging, 3: Terminal, 4: Garage)
+     * @return Node type (0: Normal, 1: Intersection, 2: Merging, 3: Diverging, 4: Terminal, 5: Garage)
     */
     int GetType() { return m_type; }
 
