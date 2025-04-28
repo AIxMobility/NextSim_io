@@ -27,11 +27,13 @@ public:
      * @param id Station ID
      * @param seq Sequence of station 
     */
-   InputRailLine(std::string id, std::vector<int> seq);
+   InputRailLine(std::string name, int id, std::vector<int> seq);
 
-   std::string GetId() { return m_id; }
+   std::string GetName() { return m_name; }
 
-   std::vector<int> GetTrailStatuinSeq() { return m_seq; }
+   int GetId() { return m_id; }
+
+   std::vector<int> GetTrailStationSeq() { return m_seq; }
 
 
 
@@ -39,7 +41,12 @@ private:
  /**
      * @details Line ID
     */
-   std::string m_id;
+   std::string m_name;
+
+ /**
+     * @details Line ID
+    */
+   int m_id;   
 
  /**
      * @details Line sequence of station

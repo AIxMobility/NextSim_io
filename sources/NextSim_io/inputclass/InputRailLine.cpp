@@ -9,6 +9,6 @@
 
  namespace NextSimIO
 {
-InputRailLine::InputRailLine(std::string id, std::vector<int> seq) : 
-    m_id(id), m_seq(seq) {};
+InputRailLine::InputRailLine(std::string name, int id, std::vector<int> seq) : 
+    m_name(name), m_id(id), m_seq(seq) {};
 }

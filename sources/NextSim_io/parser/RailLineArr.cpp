@@ -20,7 +20,7 @@ namespace NextSimIO
 RailLineArr::RailLineArr()
 {
     TiXmlDocument doc;
-    bool loadSuccess = doc.LoadFile(NextSimIO::RailStationNewXMLPath.string().c_str());
+    bool loadSuccess = doc.LoadFile(NextSimIO::RailLineNewXMLPath.string().c_str());
 
     if (!loadSuccess)
     {
@@ -36,7 +36,9 @@ RailLineArr::RailLineArr()
              routeElem != nullptr;
              routeElem = routeElem->NextSiblingElement("route"))
     {
-        std::string routeId = routeElem->Attribute("id");
+        std::string routeName = routeElem->Attribute("name");
+        const char* idAttr = routeElem->Attribute("id");
+        int routeId = std::stoi(idAttr); 
         std::string stationSeqStr = routeElem->Attribute("railStationSeq");
 
         std::vector<int> stationSeq;
@@ -47,7 +49,7 @@ RailLineArr::RailLineArr()
             stationSeq.push_back(station);
         }
 
-        InputRailLine route(routeId, stationSeq);
+        InputRailLine route(routeName, routeId, stationSeq);
         m_railline.push_back(route);
     }
     doc.Clear();
