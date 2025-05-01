@@ -16,8 +16,8 @@ InputGraphVertex::InputGraphVertex()
 InputGraphVertex::InputGraphVertex(int id, int type, float heuristic, int rank)
     : m_id(id), m_type(type), m_heuristic(heuristic), m_rank(rank) {};
 
-ConnectionInfo::ConnectionInfo(int fromLink, int toLink, int fromLane, double length)
-    : m_fromLink(fromLink), m_toLink(toLink), m_fromLane(fromLane), m_length(length) {};
+ConnectionInfo::ConnectionInfo(int fromLink, int toLink, int fromLane, int toLane, double length)
+    : m_fromLink(fromLink), m_toLink(toLink), m_fromLane(fromLane), m_toLane(toLane), m_length(length) {};
 
 VertexCoord::VertexCoord(float x, float y)
     : m_x(x), m_y(y) {};

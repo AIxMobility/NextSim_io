@@ -115,17 +115,20 @@ VertexArr::VertexArr()
                         const char *fromLink = e3->Attribute("from_link");
                         const char *toLink = e3->Attribute("to_link");
                         const char *fromLane = e3->Attribute("from_lane");
+                        const char *toLane = e3->Attribute("to_lane");
                         const char *arc_length = e3->Attribute("length");
 
                         if (!fromLink)   throw std::runtime_error ("Element should have 'from_link' attribute");
                         if (!toLink)   throw std::runtime_error ("Element should have 'to_link' attribute");
                         if (!fromLane)   throw std::runtime_error ("Element should have 'from_lane' attribute");
+                        if (!toLane)   throw std::runtime_error ("Element should have 'to_lane' attribute");
                         if (!arc_length)   throw std::runtime_error ("Element should have 'length' attribute");
 
                         ConnectionInfo NewconnectionInfo(
                             atol(fromLink),
                             atol(toLink),
                             atol(fromLane),
+                            atol(toLane),
                             atof(arc_length));
                         
                         single_vertex.pushConnectionInfo(NewconnectionInfo);
@@ -185,17 +188,21 @@ ArcArr::ArcArr()
                     const char *vertexId = e->Attribute("id");
                     const char *fromNode = e->Attribute("from_node");
                     const char *toNode = e->Attribute("to_node");
+                    const char *numLane = e->Attribute("num_lane");
                     const char *arc_length = e->Attribute("length");
 
                     if (!vertexId)   throw std::runtime_error ("Element should have 'id' attribute");
                     if (!fromNode)   throw std::runtime_error ("Element should have 'from_node' attribute");
                     if (!toNode)   throw std::runtime_error ("Element should have 'to_node' attribute");
+                    if (!numLane)   throw std::runtime_error ("Element should have 'num_lane' attribute");
                     if (!arc_length)   throw std::runtime_error ("Element should have 'length' attribute");
 
                     InputGraphArc demoArc(
                         static_cast<std::size_t>(atoll(vertexId)),
                         static_cast<std::size_t>(atoll(fromNode)),
-                        static_cast<std::size_t>(atoll(toNode)));
+                        static_cast<std::size_t>(atoll(toNode)),
+                        static_cast<std::size_t>(atoll(numLane))
+                    );
                     
                     demoArc.PushArcCost(ArcCost(0, atof(arc_length), 0, 0));
 

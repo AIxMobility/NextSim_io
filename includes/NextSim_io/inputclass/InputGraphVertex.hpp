@@ -77,9 +77,10 @@ public:
      * @param fromLink Link ID that the connection is from
      * @param toLink Link ID that the connection is to
      * @param fromLane Lane ID
+     * @param toLane Lane ID
      * @param length Length of the subArc
      */
-    ConnectionInfo(int fromLink, int toLink, int fromLane, double length);
+    ConnectionInfo(int fromLink, int toLink, int fromLane, int toLane, double length);
 
     /**
      * @details Get link ID that the connection is from
@@ -98,6 +99,12 @@ public:
      * @return Lane ID
      */
     int GetFromLane() const { return m_fromLane; }
+
+    /**
+     * @details Get to Lane ID
+     * @return Lane ID
+     */
+    int GetToLane() const { return m_toLane; }
 
     /**
      * @details Get length of the subArc
@@ -120,6 +127,11 @@ private:
      * @details from Lane ID
      */
     int m_fromLane;
+
+    /**
+     * @details to Lane ID
+     */
+    int m_toLane;
 
     /**
      * @details length of the subArc [m]
@@ -249,7 +261,7 @@ private:
     int m_id; 
 
     /**
-     * @details Node type (0: Intersection, 1: Normal, 2: Diverging, 3: Terminal, 4: Garage)
+     * @details Node type (0: Normal, 1: Intersection, 2: Merging, 3: Diverging, 4: Terminal, 5: Garage)
      */
     int m_type;
 

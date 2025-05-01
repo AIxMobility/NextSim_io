@@ -15,8 +15,8 @@ ArcCost::ArcCost(double timeCost, double distanceCost, double financialCost, dou
 
 InputGraphArc::InputGraphArc() : m_id(0), m_fromNode(0), m_toNode(0) {}
 
-InputGraphArc::InputGraphArc(std::size_t id, std::size_t fromNode, std::size_t toNode)
-    : m_id(id), m_fromNode(fromNode), m_toNode(toNode) {}
+InputGraphArc::InputGraphArc(std::size_t id, std::size_t fromNode, std::size_t toNode, std::size_t numLane)
+    : m_id(id), m_fromNode(fromNode), m_toNode(toNode), m_numLane(numLane) {}
 
 void InputGraphArc::PushArcCost(ArcCost arcCost)
 {

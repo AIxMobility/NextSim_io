@@ -117,8 +117,9 @@ public:
      * @param id Arc ID
      * @param fromNode From node ID (connected with arc start point)
      * @param toNode To node ID (connected with arc end point)
+     * @param numLane Number of lanes in the arc
      */
-    InputGraphArc(std::size_t id, std::size_t fromNode, std::size_t toNode);
+    InputGraphArc(std::size_t id, std::size_t fromNode, std::size_t toNode, std::size_t numLane);
 
     /**
      * @details Set arc ID
@@ -137,6 +138,12 @@ public:
      * @param toNode To node ID
      */
     void SetToNode(std::size_t toNode) { m_toNode = toNode; }
+
+    /**
+     * @details Set numlane
+     * @param numLane Number of lanes in the arc
+     */
+    void SetNumLane(std::size_t numLane) { m_numLane = numLane; }
 
     /**
      * @details Add arc cost into vector
@@ -163,6 +170,12 @@ public:
     std::size_t GetToNode() { return m_toNode; }
 
     /**
+     * @details Get number of lanes in the arc
+     * @return number of lanes in the arc
+     */
+    std::size_t GetNumLane() { return m_numLane; }
+
+    /**
      * @details Get vector of arc cost
      * @return Vector of arc cost
      */
@@ -183,6 +196,11 @@ private:
      * @details To node ID (connected with arc end point)
      */
     std::size_t m_toNode;
+
+    /**
+     * @details Number of lanes in the arc
+     */
+    std::size_t m_numLane;
 
     /**
      * @details Vector of arc cost
