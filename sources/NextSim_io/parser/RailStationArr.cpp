@@ -62,6 +62,8 @@ RailStationArr::RailStationArr()
         {
             std::string dayOfWeek = timetableElem->Attribute("dayOfWeek");
             std::string routeId = timetableElem->Attribute("routeId");
+            int Id = std::stoi(routeId);
+            std::string type = timetableElem->Attribute("type");
             std::vector<std::string> times;
 
             std::istringstream timeStream(timetableElem->Attribute("time"));
@@ -70,7 +72,7 @@ RailStationArr::RailStationArr()
             {
                 times.push_back(time);
             }
-            Timetable timetable(dayOfWeek, routeId, times);
+            Timetable timetable(dayOfWeek, Id, type, times);
 
             station.Pushtimetable(timetable);
         }

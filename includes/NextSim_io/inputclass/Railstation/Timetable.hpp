@@ -25,27 +25,34 @@
       * @details Constructor
       * @param dayOfWeek 
       * @param routeId
+      * @param type
       * @param time
       */
-    Timetable(std::string dayOfWeek, std::string routeId, std::vector<std::string> time);
+    Timetable(std::string dayOfWeek, int routeId, std::string type, std::vector<std::string> time);
  
      /**
       * @details 
       * @return 
       */
-    std::string GetDayOfWeek() { return m_dayOfweek; }
+    std::string GetDayOfWeek() const { return m_dayOfweek; }
 
      /**
       * @details 
       * @return 
       */
-    std::string GetrouteId() { return m_routeId; }
+    int GetrouteId() const { return m_routeId; }
+
+     /**
+      * @details 
+      * @return 
+      */
+    std::string GetType() const { return m_type; }
 
       /**
       * @details 
       * @return 
       */
-    std::vector<std::string> GetTime() { return m_time; }
+    std::vector<std::string> GetTime() const { return m_time; }
 
  private:
      /**
@@ -56,7 +63,12 @@
      /**
       * @details 
      */
-    std::string m_routeId;
+    int m_routeId;
+
+     /**
+      * @details 
+     */
+    std::string m_type;
 
      /**
       * @details 
