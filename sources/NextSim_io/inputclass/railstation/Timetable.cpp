@@ -1,6 +1,6 @@
 /**
  * NextSim Captain
- * @file : Exit.cpp
+ * @file : Timetable.cpp
  * @version : 1.0
  * @author : Yuseock Hwang
  */
