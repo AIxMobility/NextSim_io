@@ -21,7 +21,7 @@ namespace NextSimIO
 SignalArr::SignalArr()
 {
     TiXmlDocument doc;
-    bool loadSuccess = doc.LoadFile(NextSimIO::SignalNewXMLPath.string().c_str());
+    bool loadSuccess = doc.LoadFile(NextSimIO::SignalXMLPath.string().c_str());
 
     if (!loadSuccess)
     {
