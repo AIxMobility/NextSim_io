@@ -31,8 +31,6 @@ static std::filesystem::path SignalTODXMLPath = NetworkXmlFilePath / "signalTOD.
 
 static std::filesystem::path SignalXMLPath = NetworkXmlFilePath / "signal.xml";
 
-static std::filesystem::path SignalNewXMLPath = NetworkXmlFilePath / "signal_new.xml";
-
 static std::filesystem::path OdMatrixXMLPath = NetworkXmlFilePath / "odmatrix.xml";
 
 static std::filesystem::path AgentXMLPath = NetworkXmlFilePath / "agents.xml";
