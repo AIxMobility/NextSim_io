@@ -77,7 +77,7 @@ RailStationArr::RailStationArr()
             station.Pushtimetable(timetable);
         }
 
-        m_railstation.push_back(station);
+        m_railstations.push_back(station);
 
 
     }

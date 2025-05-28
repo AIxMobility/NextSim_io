@@ -28,7 +28,7 @@ public:
      * @details Get vector of all signal plans
      * @return Vector of all signal plans
     */
-   std::vector<InputRailStation> GetRailStation() { return m_railstation; }
+   std::vector<InputRailStation> GetRailStations() { return m_railstations; }
 
 
 private:
@@ -36,7 +36,7 @@ private:
     /**
      * @details Vector of all signal plans
     */
-   std::vector<InputRailStation> m_railstation;
+   std::vector<InputRailStation> m_railstations;
 
 };
 } // namespace NextSimIO
