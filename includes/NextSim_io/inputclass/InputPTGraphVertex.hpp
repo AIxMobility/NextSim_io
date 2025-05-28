@@ -12,9 +12,19 @@
  #include <vector>
  #include <string>
  #include <utility>
+ #include <memory>
 
 namespace NextSimIO
 {
+/**
+ * @enum StopType
+ * @brief Enum to classify stop types (e.g., road or rail)
+ */
+enum class StopType {
+    Road,
+    Rail
+};
+
 /**
  * @class Stop
  * @brief Class for each stop information
@@ -24,20 +34,32 @@ class Stop {
         /**
          * @brief Constructor
          * @param stopId Unique ID of the stop
+         * @param type Type of the stop
          */
-        Stop(int stopId);
+        Stop(int stopId, StopType type);
     
         /**
          * @brief Get stop ID
          * @return Stop ID
          */
         int GetStopId() const;
+
+        /**
+         * @brief Get the type of the stop
+         * @return Stop type (Road or Rail)
+         */
+        StopType GetStopType() const;
     
     private:
         /**
          * @details Stop ID
          */
         int m_stopId;
+        
+        /**
+         * @details Stop type
+         */
+        StopType m_stopType;
     };
     
 /**
@@ -129,7 +151,7 @@ public:
      * @param stop The stop associated with this vertex.
      * @param trip The trip associated with this vertex.
      */
-    InputPTGraphVertex(const Stop& stop, const Trip& trip);
+    InputPTGraphVertex(const Stop& stop, std::shared_ptr<Trip> trip = nullptr);
 
     /**
      * @details Get the stop associated with this vertex.
@@ -139,9 +161,9 @@ public:
 
     /**
      * @details Get the trip associated with this vertex.
-     * @return A constant reference to the Trip object.
+     * @return A shared pointer to the Trip object.
      */
-    const Trip& GetTrip() const;
+    std::shared_ptr<Trip> GetTrip() const;
 
     /**
      * @details Add a connection from this vertex to another.
@@ -164,7 +186,7 @@ private:
     /**
      * @brief The trip associated with this vertex.
      */
-    const Trip& m_trip;
+    std::shared_ptr<Trip> m_trip;
 
     /**
      * @brief List of connections originating from this vertex.

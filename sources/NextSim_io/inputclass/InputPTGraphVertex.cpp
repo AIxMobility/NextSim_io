@@ -11,11 +11,15 @@
 namespace NextSimIO
 {
 
-Stop::Stop(int stopId)
-    : m_stopId(stopId) {}
+Stop::Stop(int stopId, StopType type)
+    : m_stopId(stopId), m_stopType(type) {}
 
     int Stop::GetStopId() const {
         return m_stopId;
+    }
+
+    StopType Stop::GetStopType() const {
+    return m_stopType;
     }
 
 Trip::Trip(int tripId, const std::vector<int> &stops, const std::vector<int> &arrivalTimes, const std::vector<int> &departureTimes)
@@ -37,19 +41,19 @@ Trip::Trip(int tripId, const std::vector<int> &stops, const std::vector<int> &ar
         return m_departureTimes;
     }
 
-InputPTGraphVertex::InputPTGraphVertex(const Stop& stop, const Trip& trip)
-    : m_stop(stop), m_trip(trip) {}
+InputPTGraphVertex::InputPTGraphVertex(const Stop& stop, std::shared_ptr<Trip> trip)
+    : m_stop(stop), m_trip(std::move(trip)) {}
 
     const Stop& InputPTGraphVertex::GetStop() const {
         return m_stop;
     }
 
-    const Trip& InputPTGraphVertex::GetTrip() const {
+    std::shared_ptr<Trip> InputPTGraphVertex::GetTrip() const {
         return m_trip;
     }
 
     void InputPTGraphVertex::AddConnection(ConnectionInfo connectionInfo) {
-        m_connections.push_back(connectionInfo);
+        m_connections.push_back(std::move(connectionInfo));
     }
 
     const std::vector<ConnectionInfo>& InputPTGraphVertex::GetConnections() const {
