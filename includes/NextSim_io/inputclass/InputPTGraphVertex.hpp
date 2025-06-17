@@ -66,25 +66,25 @@ class Stop {
  * @class Trip
  * @brief Class for each trip information
  */
-class Trip {
+class Line {
 public:
     /**
      * @brief Constructor
-     * @param tripId Trip ID
-     * @param stops List of stop IDs included in the trip
+     * @param lineId Line ID
+     * @param stops List of stop IDs included in the line
      * @param arrivalTimes List of arrival times at each stop
      * @param departureTimes List of departure times from each stop
      */
-    Trip(int tripId, const std::vector<int> &stops, const std::vector<int> &arrivalTimes, const std::vector<int> &departureTimes);
+    Line(int lineId, const std::vector<int> &stops, const std::vector<int> &arrivalTimes, const std::vector<int> &departureTimes);
 
     /**
-     * @brief Get trip ID
-     * @return Trip ID.
+     * @brief Get line ID
+     * @return Line ID.
      */
-    int GetTripId() const;
+    int GetLineId() const;
 
     /**
-     * @brief Get list of stops in the trip
+     * @brief Get list of stops in the line
      * @return Constant reference to the list of stop IDs
      */
     const std::vector<int>& GetStops() const;
@@ -103,11 +103,11 @@ public:
 
 private:
     /**
-     * @details Trip ID
+     * @details line ID
      */
-    int m_tripId;
+    int m_lineId;
     /**
-     * @details List of stops in the trip
+     * @details List of stops in the line
      */
     std::vector<int> m_stops;
     /**
@@ -121,25 +121,6 @@ private:
 };
 
 /**
- * @brief Structure to hold connection information between graph vertices.
- */
-struct ConnectionInfo {
-    InputPTGraphVertex* toVertex;
-    std::string type; // "trip", "transfer", "footpath"
-    int arrivalTime = -1;   // trip
-    int departureTime = -1; // trip
-    int tripId = -1;        // trip, transfer
-    int duration = -1;      // trip?, transfer, footpath
-
-    /**
-     * @details Constructor for ConnectionInfo.
-     * @param toVertex The destination vertex of the connection.
-     * @param type The type of the connection ("trip", "transfer", "footpath").
-     */
-    ConnectionInfo(InputPTGraphVertex* toVertex, std::string type): toVertex(toVertex), type(type) {};
-};
-
-/**
  * @class InputPTGraphVertex
  * @brief Represents a vertex in the public transport graph.
  */
@@ -149,9 +130,9 @@ public:
     /**
      * @details Constructor for InputPTGraphVertex.
      * @param stop The stop associated with this vertex.
-     * @param trip The trip associated with this vertex.
+     * @param line The line associated with this vertex.
      */
-    InputPTGraphVertex(const Stop& stop, std::shared_ptr<Trip> trip = nullptr);
+    InputPTGraphVertex(const Stop& stop, std::shared_ptr<Line> line = nullptr);
 
     /**
      * @details Get the stop associated with this vertex.
@@ -160,10 +141,10 @@ public:
     const Stop& GetStop() const;
 
     /**
-     * @details Get the trip associated with this vertex.
-     * @return A shared pointer to the Trip object.
+     * @details Get the line associated with this vertex.
+     * @return A shared pointer to the Line object.
      */
-    std::shared_ptr<Trip> GetTrip() const;
+    std::shared_ptr<Line> GetLine() const;
 
     /**
      * @details Add a connection from this vertex to another.
@@ -181,18 +162,37 @@ private:
     /**
      * @brief The stop associated with this vertex.
      */
-    const Stop& m_stop;
+    const Stop m_stop;
 
     /**
-     * @brief The trip associated with this vertex.
+     * @brief The line associated with this vertex.
      */
-    std::shared_ptr<Trip> m_trip;
+    std::shared_ptr<Line> m_line;
 
     /**
      * @brief List of connections originating from this vertex.
      */
     std::vector<ConnectionInfo> m_connections;
 }; 
+
+/**
+ * @brief Structure to hold connection information between graph vertices.
+ */
+struct ConnectionInfo {
+    InputPTGraphVertex* toVertex;
+    std::string type; // "inVehicle", "transfer", "footpath"
+    int arrivalTime = -1;   // inVehicle
+    int departureTime = -1; // inVehicle
+    int tripId = -1;        // inVehicle, transfer
+    int duration = -1;      // inVehicle?, transfer, footpath
+
+    /**
+     * @details Constructor for ConnectionInfo.
+     * @param toVertex The destination vertex of the connection.
+     * @param type The type of the connection ("inVehicle", "transfer", "footpath").
+     */
+    ConnectionInfo(InputPTGraphVertex* toVertex, std::string type): toVertex(toVertex), type(type) {};
+};
 
 } // namespace NextSimIO
 

@@ -63,12 +63,12 @@
       * @details Get public transit line ID
       * @return Public transit line ID
      */
-     std::string GetID() { return m_id; }
+     std::string GetID() const { return m_id; }
      /**
       * @details Get dispatch interval
       * @return Dispatch interval [min]
      */
-     double GetInterval() { return m_interval; }
+     double GetInterval() const { return m_interval; }
  
      /**
       * @details Get sequence of links
@@ -86,13 +86,13 @@
       * @details Get sequence of stations
       * @return Sequence of stations that line passes
      */
-     std::vector<int> GetStationSeq() { return m_stationSeq; }
+     std::vector<int> GetStationSeq() const { return m_stationSeq; }
  
      /**
       * @details Get sequence of distance between stations
       * @return Sequence of distance between stations
      */
-     std::vector<double> GetStationDistanceSeq() { return m_stationDistanceSeq; }
+     std::vector<double> GetStationDistanceSeq() const { return m_stationDistanceSeq; }
  
      /**
       * @details Get sequence of garages for rail transit

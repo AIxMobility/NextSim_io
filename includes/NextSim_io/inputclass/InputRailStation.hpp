@@ -13,6 +13,7 @@
 #include <string>
 #include <NextSim_io/inputclass/Railstation/Exit.hpp>
 #include <NextSim_io/inputclass/Railstation/Timetable.hpp>
+#include <NextSim_io/inputclass/InputPTGraphVertex.hpp>
 
 namespace NextSimIO
 {
@@ -28,17 +29,20 @@ public:
      * @param id Station ID
      * @param transitMode Type of transit 
      * @param address Station name
+     * @param type type of stop (default is Rail)
     */
    InputRailStation(int id, std::string transitMode, std::string address);
 
    void PushExit(Exit exit) { m_exit.push_back(exit); }
    void Pushtimetable(Timetable timetable) { m_timetable.push_back(timetable); }
 
-   int GetId() { return m_id; }
+   int GetId() const { return m_id; }
 
-   std::string GetTransitMode() { return m_transitMode; }
+   std::string GetTransitMode() const { return m_transitMode; }
 
-   std::string GetAddress() { return m_address; }
+   std::string GetAddress() const { return m_address; }
+
+   StopType GetStopType() const { return m_type; }
 
    std::vector<Exit> GetExits() const { return m_exit; }
 
@@ -59,6 +63,11 @@ private:
     * @details 
    */
    std::string m_address;
+
+   /**
+    * @details Type of the station (Rail)
+   */
+   StopType m_type;
 
    /**
     * @details  

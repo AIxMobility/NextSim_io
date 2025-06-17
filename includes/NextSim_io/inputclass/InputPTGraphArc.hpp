@@ -14,6 +14,16 @@
 namespace NextSimIO
 {
 /**
+ * @enum Arc Type
+ * @brief Enum to classify arc types (Trip, Transfer, Footpath)
+ */
+enum class ArcType {
+    InVehicle,
+    Transfer,
+    Footpath
+};
+
+/**
  * @class PTCost
  * @brief Class for each public transport arc cost information
  */
@@ -22,7 +32,7 @@ class PTCost
 public:
     /**
      * @details Constructor
-     * @param timeCost Time to pass the arc
+     * @param timeCost In-vehicle time to pass the arc
      * @param distanceCost Length of the arc
      * @param footpathCost Time spent walking on the arc
      * @param transferCost Number of transfers on the arc
@@ -116,19 +126,19 @@ public:
      * @details Constructor
      * @param arcId Arc ID
      * @param fromStopId From stop ID 
-     * @param fromTripId From trip ID 
+     * @param fromLineId From line ID 
      * @param toStopId To stop ID 
-     * @param toTripId To trip ID 
-     * @param type Arc type 
+     * @param toLineId To line ID 
+     * @param type Arc type
      * @param ptCost Arc cost
      */
     InputPTGraphArc(std::size_t arcId,
-               std::size_t fromStopId,
-               int fromTripId,
-               std::size_t toStopId,
-               int toTripId,
-               const std::string& type,
-               PTCost ptCost);
+                    std::size_t fromStopId,
+                    int fromLineId,
+                    std::size_t toStopId,
+                    int toLineId,
+                    ArcType type, 
+                    PTCost ptCost);
 
     /**
      * @details Get arc ID
@@ -143,10 +153,10 @@ public:
     std::size_t GetFromStopId() const { return m_fromStopId; }
 
     /**
-     * @details Get from trip ID
-     * @return From trip ID 
+     * @details Get from line ID
+     * @return From line ID 
      */
-    int GetFromTripId() const { return m_fromTripId; }
+    int GetFromLineId() const { return m_fromLineId; }
 
     /**
      * @details Get to stop ID
@@ -155,16 +165,16 @@ public:
     std::size_t GetToStopId() const { return m_toStopId; }
 
     /**
-     * @details Get to trip ID
-     * @return To trip ID 
+     * @details Get to line ID
+     * @return To line ID 
      */
-    int GetToTripId() const { return m_toTripId; }
+    int GetToLineId() const { return m_toLineId; }
 
     /**
      * @details Get arc type
-     * @return Arc type ("trip", "transfer", "footpath")
+     * @return Arc type (now ArcType enum)
      */
-    std::string GetType() const { return m_type; }
+    ArcType GetType() const { return m_type; } // Changed return type
 
     /**
      * @details Add arc cost into vector
@@ -190,9 +200,9 @@ private:
     std::size_t m_fromStopId;
 
     /**
-     * @details From trip ID 
+     * @details From line ID 
      */
-    int m_fromTripId;
+    int m_fromLineId;
 
     /**
      * @details To stop ID 
@@ -200,14 +210,14 @@ private:
     std::size_t m_toStopId;
 
     /**
-     * @details To trip ID 
+     * @details To line ID 
      */
-    int m_toTripId;
+    int m_toLineId;
 
     /**
      * @details Arc type
      */
-    std::string m_type;
+    ArcType m_type; // Changed from std::string
 
     /**
      * @details Vector of public transport arc cost

@@ -50,7 +50,7 @@ RailLineArr::RailLineArr()
         }
 
         InputRailLine route(routeName, routeId, stationSeq);
-        m_railline.push_back(route);
+        m_railLine.push_back(route);
     }
     doc.Clear();
 

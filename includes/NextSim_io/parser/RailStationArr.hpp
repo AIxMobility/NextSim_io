@@ -8,7 +8,12 @@
 #ifndef RAILSTATIONARR_H
 #define RAILSTATIONARR_H
 
+#include <vector>
+#include <map> 
+#include <stdexcept>
+
 #include <NextSim_io/inputclass/InputRailStation.hpp>
+#include <NextSim_io/inputclass/InputPTGraphVertex.hpp>
 
 namespace NextSimIO
 {
@@ -28,7 +33,22 @@ public:
      * @details Get vector of all signal plans
      * @return Vector of all signal plans
     */
-   std::vector<InputRailStation> GetRailStations() { return m_railstations; }
+   const std::vector<InputRailStation> GetRailStations() const { return m_railstations; }
+
+    /**
+     * @brief Checks if a stop with the given ID exists in this collection. Used for pt routing. 
+     * @param stopId The ID of the stop to check
+     * @return True if the stop exists, false otherwise
+     */
+    bool HasStop(int stopId) const;
+
+    /**
+     * @brief Retrieves a const reference to the Stop object by its ID. Used for pt routing.
+     * @param stopId The ID of the stop to retrieve.
+     * @return A const reference to the Stop object.
+     * @throws std::out_of_range if the stop with the given ID is not found.
+     */
+    const Stop& GetStopById(int stopId) const;
 
 
 private:
@@ -38,6 +58,12 @@ private:
     */
    std::vector<InputRailStation> m_railstations;
 
+    /**
+     * @brief Map for quick lookup of Stop objects by their ID. Used for pt routing.
+     * @details Stores Stop objects derived from InputRailStation, mapping their IDs to the Stop objects.
+     */
+    std::map<int, Stop> m_stopMap;
+    
 };
 } // namespace NextSimIO
 

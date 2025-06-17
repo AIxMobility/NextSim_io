@@ -31,9 +31,9 @@ public:
 
    std::string GetName() { return m_name; }
 
-   int GetId() { return m_id; }
+   int GetID() const { return m_id; }
 
-   std::vector<int> GetTrailStationSeq() { return m_seq; }
+   std::vector<int> GetTrailStationSeq() const { return m_seq; }
 
 
 

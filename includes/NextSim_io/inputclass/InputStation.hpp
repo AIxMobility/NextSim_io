@@ -11,6 +11,7 @@
 
 #include <vector>
 #include <string>
+#include <NextSim_io/inputclass/InputPTGraphVertex.hpp>
 
 namespace NextSimIO
 {
@@ -28,6 +29,7 @@ public:
      * @param lane Lane ID
      * @param pos Position of station
      * @param parkingLots Number of parking lots
+     * @param type type of stop (default is Road)
      */
     InputStation(int id, int link, int lane, double pos, int parkingLots);
 
@@ -80,6 +82,12 @@ public:
     int GetParkingLots() const { return m_parkingLots; }
 
     /**
+     * @details Get the type of the station, always StopType::Road for this class
+     * @return Type of the station (Road)
+ */
+    StopType GetStopType() const { return m_type; }
+
+    /**
      * @details Get sequence of transit lines passing through this station
      * @return Vector of transit line names
  */
@@ -116,6 +124,11 @@ private:
      * @details Number of parking lots at this station
  */
     int m_parkingLots;
+    
+    /**
+    * @details Type of the station (Road)
+*/
+    StopType m_type;
 
     /**
      * @details Sequence of line IDs that pass the station

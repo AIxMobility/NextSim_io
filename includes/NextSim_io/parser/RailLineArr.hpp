@@ -29,7 +29,7 @@
       * @details
       * @return 
      */
-    std::vector<InputRailLine> GetRailLine() { return m_railline; }
+    std::vector<InputRailLine> GetRailLine() const { return m_railLine; }
  
  
  private:
@@ -37,7 +37,7 @@
      /**
       * @details Vector of all signal plans
      */
-    std::vector<InputRailLine> m_railline;
+    std::vector<InputRailLine> m_railLine;
  
  };
  } // namespace NextSimIO

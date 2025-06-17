@@ -12,7 +12,7 @@
 namespace NextSimIO
 {
 InputStation::InputStation(int id, int link, int lane, double pos, int parkingLots) : 
-    m_id(id), m_link(link), m_lane(lane), m_pos(pos), m_parkingLots(parkingLots) {};
+    m_id(id), m_link(link), m_lane(lane), m_pos(pos), m_parkingLots(parkingLots), m_type(StopType::Road) {};
 
 void InputStation::SetLineList(std::string lineList)
 {

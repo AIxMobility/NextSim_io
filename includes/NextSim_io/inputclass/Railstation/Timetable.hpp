@@ -52,7 +52,7 @@
       * @details 
       * @return 
       */
-    std::vector<std::string> GetTime() const { return m_time; }
+    const std::vector<std::string>& GetTime() const { return m_time; }
 
  private:
      /**

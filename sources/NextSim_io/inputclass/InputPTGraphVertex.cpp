@@ -5,7 +5,6 @@
  * @author Yeonwoo Yu
  */
 
-#include <math.h>
 #include <NextSim_io/inputclass/InputPTGraphVertex.hpp>
 
 namespace NextSimIO
@@ -22,34 +21,34 @@ Stop::Stop(int stopId, StopType type)
     return m_stopType;
     }
 
-Trip::Trip(int tripId, const std::vector<int> &stops, const std::vector<int> &arrivalTimes, const std::vector<int> &departureTimes)
-    : m_tripId(tripId), m_stops(stops), m_arrivalTimes(arrivalTimes), m_departureTimes(departureTimes) {}
+Line::Line(int lineId, const std::vector<int> &stops, const std::vector<int> &arrivalTimes, const std::vector<int> &departureTimes)
+    : m_lineId(lineId), m_stops(stops), m_arrivalTimes(arrivalTimes), m_departureTimes(departureTimes) {}
 
-    int Trip::GetTripId() const {
-        return m_tripId;
+    int Line::GetLineId() const {
+        return m_lineId;
     }
 
-    const std::vector<int>& Trip::GetStops() const {
+    const std::vector<int>& Line::GetStops() const {
         return m_stops;
     }
 
-    const std::vector<int>& Trip::GetArrivalTimes() const {
+    const std::vector<int>& Line::GetArrivalTimes() const {
         return m_arrivalTimes;
     }
 
-    const std::vector<int>& Trip::GetDepartureTimes() const {
+    const std::vector<int>& Line::GetDepartureTimes() const {
         return m_departureTimes;
     }
 
-InputPTGraphVertex::InputPTGraphVertex(const Stop& stop, std::shared_ptr<Trip> trip)
-    : m_stop(stop), m_trip(std::move(trip)) {}
+InputPTGraphVertex::InputPTGraphVertex(const Stop& stop, std::shared_ptr<Line> line)
+    : m_stop(stop), m_line(std::move(line)) {}
 
     const Stop& InputPTGraphVertex::GetStop() const {
         return m_stop;
     }
 
-    std::shared_ptr<Trip> InputPTGraphVertex::GetTrip() const {
-        return m_trip;
+    std::shared_ptr<Line> InputPTGraphVertex::GetLine() const {
+        return m_line;
     }
 
     void InputPTGraphVertex::AddConnection(ConnectionInfo connectionInfo) {

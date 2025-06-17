@@ -10,5 +10,5 @@
  namespace NextSimIO
 {
 InputRailStation::InputRailStation(int id, const std::string transitMode, const std::string address) : 
-    m_id(id), m_transitMode(transitMode), m_address(address) {};
+    m_id(id), m_transitMode(transitMode), m_address(address), m_type(StopType::Rail) {};
 }

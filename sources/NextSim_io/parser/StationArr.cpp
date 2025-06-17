@@ -66,6 +66,11 @@ StationArr::StationArr()
                     }
 
                     m_stations.push_back(station);
+                    
+                    // Form stop object and add to map for pt routing
+                    Stop stop(id, station.GetStopType()); 
+                    m_stopMap.emplace(id, stop);
+
                 }
             }
         }

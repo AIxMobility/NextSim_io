@@ -29,7 +29,7 @@ public:
      * @details Get vector of public transit lines
      * @return Vector of public transit lines
  */
-    std::vector<InputPTline> GetPTLines()
+    std::vector<InputPTline> GetPTLines() const
     {
         return m_ptLines;
     }
