@@ -119,7 +119,7 @@ SignalArr::SignalArr()
         for (TiXmlElement *e = elem->FirstChildElement(); e != NULL;
              e = e->NextSiblingElement())
         {
-            const char *planId = e->Attribute("planId");
+            const char *planId = e->Attribute("id");
             const char *startTime = e->Attribute("startTime");
             const char *endTime = e->Attribute("endTime");
 
