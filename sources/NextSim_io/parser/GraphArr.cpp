@@ -231,6 +231,34 @@ ArcArr::ArcArr()
                     
                     demoArc.PushArcCost(ArcCost(0, atof(arc_length), 0, 0));
 
+                    std::vector<int> availableLanes = {};
+                    for (TiXmlElement* laneElem = e->FirstChildElement(); laneElem != nullptr;
+                         laneElem = laneElem->NextSiblingElement())
+                    {
+                        bool isBlock = false;
+                        for (TiXmlElement* segElem = laneElem->FirstChildElement(); segElem != nullptr;
+                             segElem = segElem->NextSiblingElement())
+                        {
+                            std::string name = segElem->Value();
+                            if (name == "segment")
+                            {
+                                const char *end_point = segElem->Attribute("end_point");
+                                const char *block = segElem->Attribute("block");
+
+                                if (strcmp(block, "True") == 0 && std::abs(atof(end_point) - atof(arc_length)) < 3)
+                                    isBlock = true;
+                            }
+                            else continue;
+                        }
+
+                        if (!isBlock)
+                            availableLanes.push_back(
+                                static_cast<int>(atoll(laneElem->Attribute("id")))
+                            );
+                    }
+
+                    demoArc.SetAvailableLanes(availableLanes);
+
                     m_arcs.push_back(demoArc);
                 }
             }
