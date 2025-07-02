@@ -1,8 +1,8 @@
 /**
  * NextSim Captain
  * @file : Timetable.cpp
- * @version : 1.0
- * @author : Yuseock Hwang
+ * @version : 1.1
+ * @author : Yuseock Hwang, Yeonwoo Yu
  */
 
  #include <sstream>
@@ -11,6 +11,6 @@
  
  namespace NextSimIO
  {
-    Timetable::Timetable(std::string dayOfWeek, int routeId, std::string type, std::vector<std::string> time) 
+    Timetable::Timetable(std::string dayOfWeek, std::string routeId, std::string type, std::vector<std::string> time) 
     :  m_dayOfweek(dayOfWeek), m_routeId(routeId), m_type(type), m_time(std::move(time)) {};
  } // namespace NextSimIO

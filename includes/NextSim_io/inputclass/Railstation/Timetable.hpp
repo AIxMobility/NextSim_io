@@ -1,8 +1,8 @@
 /**
  * NextSim Captain
  * @file : Timetable.hpp
- * @version : 1.0
- * @author : YuseockHwang
+ * @version : 1.1
+ * @author : Yuseock Hwang, Yeonwoo Yu
  */
 
  #pragma once
@@ -24,54 +24,54 @@
      /**
       * @details Constructor
       * @param dayOfWeek 
-      * @param routeId
+      * @param routeId (string)
       * @param type
       * @param time
       */
-    Timetable(std::string dayOfWeek, int routeId, std::string type, std::vector<std::string> time);
+    Timetable(std::string dayOfWeek, std::string routeId, std::string type, std::vector<std::string> time);
  
      /**
-      * @details 
-      * @return 
+      * @details Whether the timetable is for a weekday or weekend
+      * @return weekdays / weekends
       */
     std::string GetDayOfWeek() const { return m_dayOfweek; }
 
      /**
-      * @details 
-      * @return 
+      * @details Get route ID of the line
+      * @return Route ID of the line (string)
       */
-    int GetrouteId() const { return m_routeId; }
+    std::string GetrouteId() const { return m_routeId; }
 
      /**
-      * @details 
-      * @return 
+      * @details Direction of the line
+      * @return terminal / start
       */
     std::string GetType() const { return m_type; }
 
       /**
-      * @details 
-      * @return 
+      * @details List of times for the timetable (HH:MM)
+      * @return  List of times for the timetable (HH:MM)
       */
     const std::vector<std::string>& GetTime() const { return m_time; }
 
  private:
      /**
-      * @details Exit ID
+      * @details Whether the timetable is for a weekday or weekend
      */
     std::string m_dayOfweek;
 
      /**
-      * @details 
+      * @details Route ID of the line
      */
-    int m_routeId;
+    std::string m_routeId;
 
      /**
-      * @details 
+      * @details Direction of the line
      */
     std::string m_type;
 
      /**
-      * @details 
+      * @details Timetable times 
      */
     std::vector<std::string> m_time;
 

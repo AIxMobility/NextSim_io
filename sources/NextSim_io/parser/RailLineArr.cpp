@@ -38,7 +38,7 @@ RailLineArr::RailLineArr()
     {
         std::string routeName = routeElem->Attribute("name");
         const char* idAttr = routeElem->Attribute("id");
-        int routeId = std::stoi(idAttr); 
+        std::string routeId = idAttr;
         std::string stationSeqStr = routeElem->Attribute("railStationSeq");
 
         std::vector<int> stationSeq;

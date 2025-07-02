@@ -1,9 +1,8 @@
 /**
  * NextSim Captain
  * @file : InputrailLine.hpp
- * @version : 1.0
- * @author : Yuseock Hwang
- */
+ * @version : 1.1
+ * @author : Yuseock Hwang, Yeonwoo Yu */
 
  
 #pragma once
@@ -24,16 +23,16 @@ class InputRailLine
 public:
     /**
      * @details Constructor
-     * @param id Station ID
+     * @param id Line ID (string)
      * @param seq Sequence of station 
     */
    InputRailLine(std::string name, int id, std::vector<int> seq);
 
    std::string GetName() { return m_name; }
 
-   int GetID() const { return m_id; }
+   std::string GetID() const { return m_id; }
 
-   std::vector<int> GetTrailStationSeq() const { return m_seq; }
+   std::vector<int> GetRailStationSeq() const { return m_seq; }
 
 
 
@@ -46,7 +45,7 @@ private:
  /**
      * @details Line ID
     */
-   int m_id;   
+   std::string m_id;   
 
  /**
      * @details Line sequence of station
