@@ -1,8 +1,8 @@
 /**
  * NextSim Captain
  * @file : StationArr.hpp
- * @version : 1.0
- * @author : ???
+ * @version : 1.1
+ * @author : Sujae Jeon, Yeonwoo Yu
 */
 
 #ifndef STATIONARR_H

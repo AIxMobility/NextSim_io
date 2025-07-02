@@ -1,8 +1,8 @@
 /**
  * NextSim Captain
  * @file : RailStation.cpp
- * @version : 1.0
- * @author : Yuseock Hwang
+ * @version : 1.1
+ * @author : Yuseock Hwang, Yeonwoo Yu
  */
 #include <iostream>
 #include <sstream>
@@ -40,8 +40,16 @@ RailStationArr::RailStationArr()
         const std::string transitMode = stationElem->Attribute("transitMode");
         const std::string address = stationElem->Attribute("address");
 
-        InputRailStation station(id, transitMode, address);
+        std::string centerStr = stationElem->Attribute("center");
+        std::stringstream ss(centerStr);
+        double x, y;
+        std::pair<double, double> center;
+        if (ss >> x >> y)
+        {
+            center = std::make_pair(x, y);
+        }
 
+        InputRailStation station(id, transitMode, address, center);
 
         TiXmlElement *exitList = stationElem->FirstChildElement("exit");
         for (TiXmlElement *exitElem = exitList; exitElem != nullptr;
@@ -62,7 +70,6 @@ RailStationArr::RailStationArr()
         {
             std::string dayOfWeek = timetableElem->Attribute("dayOfWeek");
             std::string routeId = timetableElem->Attribute("routeId");
-            int Id = std::stoi(routeId);
             std::string type = timetableElem->Attribute("type");
             std::vector<std::string> times;
 
@@ -72,7 +79,7 @@ RailStationArr::RailStationArr()
             {
                 times.push_back(time);
             }
-            Timetable timetable(dayOfWeek, Id, type, times);
+            Timetable timetable(dayOfWeek, routeId, type, times);
 
             station.Pushtimetable(timetable);
         }

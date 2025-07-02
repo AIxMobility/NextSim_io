@@ -1,8 +1,8 @@
 /**
  * NextSim Captain
  * @file : StationArr.cpp
- * @version : 1.0
- * @author : Sujae Jeon
+ * @version : 1.1
+ * @author : Sujae Jeon, Yeonwoo Yu
  */
 
 #include <filesystem>
@@ -55,8 +55,18 @@ StationArr::StationArr()
                     int parkingLots = 0;
                     if (e->Attribute("parkingLots"))
                         parkingLots = atol(e->Attribute("parkingLots"));
+                    
+                    // Parse center coordinates
+                    std::string centerStr = e->Attribute("center");
+                    std::stringstream ss(centerStr);
+                    double x, y;
+                    std::pair<double, double> center;
+                    if (ss >> x >> y)
+                    {
+                        center = std::make_pair(x, y);
+                    }
 
-                    InputStation station(id, link, lane, pos, parkingLots);
+                    InputStation station(id, link, lane, pos, parkingLots, center);
 
                     // Parse <line list="...">
                     TiXmlElement* lineElement = e->FirstChildElement("line");

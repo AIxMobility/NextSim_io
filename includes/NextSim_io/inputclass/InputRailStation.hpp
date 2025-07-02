@@ -1,8 +1,8 @@
 /**
  * NextSim Captain
  * @file : InputrailStation.hpp
- * @version : 1.0
- * @author : Yuseock Hwang
+ * @version : 1.1
+ * @author : Yuseock Hwang, Yeonwoo Yu
  */
 
 #pragma once
@@ -29,9 +29,10 @@ public:
      * @param id Station ID
      * @param transitMode Type of transit 
      * @param address Station name
+     * @param center Coordinate center of the station (Local Coordinate System)
      * @param type type of stop (default is Rail)
     */
-   InputRailStation(int id, std::string transitMode, std::string address);
+   InputRailStation(int id, std::string transitMode, std::string address, std::pair<double, double> center);
 
    void PushExit(Exit exit) { m_exit.push_back(exit); }
    void Pushtimetable(Timetable timetable) { m_timetable.push_back(timetable); }
@@ -41,6 +42,8 @@ public:
    std::string GetTransitMode() const { return m_transitMode; }
 
    std::string GetAddress() const { return m_address; }
+
+   std::pair<double, double> GetCenter() const { return m_center; }
 
    StopType GetStopType() const { return m_type; }
 
@@ -63,6 +66,11 @@ private:
     * @details 
    */
    std::string m_address;
+
+    /**
+     * @details Coordinate of the center of the station
+    */
+    std::pair<double, double> m_center;
 
    /**
     * @details Type of the station (Rail)

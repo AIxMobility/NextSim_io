@@ -1,8 +1,8 @@
 /**
  * NextSim Captain
  * @file : RailStation.hpp
- * @version : 1.0
- * @author : Yuseock Hwang
+ * @version : 1.1
+ * @author : Yuseock Hwang, Yeonwoo Yu
  */
 
 #ifndef RAILSTATIONARR_H

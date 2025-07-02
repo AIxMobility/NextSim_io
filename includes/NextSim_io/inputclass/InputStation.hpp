@@ -1,8 +1,8 @@
 /**
  * NextSim Captain
  * @file : InputStation.hpp
- * @version : 1.0
- * @author : Sujae Jeon
+ * @version : 1.1
+ * @author : Sujae Jeon, Yeonwoo Yu
  */
 
 #pragma once
@@ -11,6 +11,7 @@
 
 #include <vector>
 #include <string>
+#include <utility>
 #include <NextSim_io/inputclass/InputPTGraphVertex.hpp>
 
 namespace NextSimIO
@@ -29,9 +30,10 @@ public:
      * @param lane Lane ID
      * @param pos Position of station
      * @param parkingLots Number of parking lots
+     * @param center Coordinate center of the station (Local Coordinate System)
      * @param type type of stop (default is Road)
      */
-    InputStation(int id, int link, int lane, double pos, int parkingLots);
+    InputStation(int id, int link, int lane, double pos, int parkingLots, std::pair<double, double> center);
 
     /**
      * @details Set sequence of line IDs
@@ -82,6 +84,13 @@ public:
     int GetParkingLots() const { return m_parkingLots; }
 
     /**
+     * @details Get the coodinate center of the station
+     * @return Coordinate center of the station
+ */
+
+    std::pair<double, double> GetCenter() const { return m_center; }
+
+    /**
      * @details Get the type of the station, always StopType::Road for this class
      * @return Type of the station (Road)
  */
@@ -124,6 +133,11 @@ private:
      * @details Number of parking lots at this station
  */
     int m_parkingLots;
+
+    /**
+     * @details Coordinate of the center of the station
+ */
+    std::pair<double, double> m_center;
     
     /**
     * @details Type of the station (Road)
@@ -184,7 +198,7 @@ public:
      * @details Get position range of DRT station
      * @return Pair of start and end position (from link start point)
  */
-    std::pair<double, double> GetPosRange() { return m_posRange; }
+    std::pair<double, double> GetPosRange() const { return m_posRange; }
 
 private:
     /**
