@@ -11,9 +11,6 @@
 
 namespace NextSimIO
 {
-InputStation::InputStation(int id, int link, int lane, double pos, int parkingLots) : 
-    m_id(id), m_link(link), m_lane(lane), m_pos(pos), m_parkingLots(parkingLots), m_center(0.0, 0.0), m_type(StopType::Road) {};
-
 InputStation::InputStation(int id, int link, int lane, double pos, int parkingLots, std::pair<double, double> center)
     : m_id(id), m_link(link), m_lane(lane), m_pos(pos), m_parkingLots(parkingLots), m_center(center), m_type(StopType::Road) {};
 

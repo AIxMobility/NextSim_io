@@ -26,7 +26,7 @@ public:
      * @param id Line ID (string)
      * @param seq Sequence of station 
     */
-   InputRailLine(std::string name, int id, std::vector<int> seq);
+   InputRailLine(std::string name, std::string id, std::vector<int> seq);
 
    std::string GetName() { return m_name; }
 
