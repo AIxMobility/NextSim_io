@@ -113,4 +113,16 @@ StationArr::StationArr()
     doc.Clear();
 }
 
+bool StationArr::HasStop(int stopId) const {
+    return m_stopMap.find(stopId) != m_stopMap.end();
+}
+
+const Stop& StationArr::GetStopById(int stopId) const {
+    auto it = m_stopMap.find(stopId);
+    if (it == m_stopMap.end()) {
+        throw std::out_of_range("Stop ID " + std::to_string(stopId) + " not found.");
+    }
+    return it->second;
+}
+
 } // namespace NextSimIO
