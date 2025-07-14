@@ -27,6 +27,8 @@ static std::filesystem::path ScenarioXMLPath = NetworkXmlFilePath / "scenario.xm
 
 static std::filesystem::path NetworkXMLPath = NetworkXmlFilePath / "network.xml";
 
+static std::filesystem::path FootpathNetworkXMLPath = NetworkXmlFilePath / "footpathNetwork.xml";
+
 static std::filesystem::path SignalTODXMLPath = NetworkXmlFilePath / "signalTOD.xml";
 
 static std::filesystem::path SignalXMLPath = NetworkXmlFilePath / "signal.xml";
@@ -63,7 +65,6 @@ static std::filesystem::path RailStationNewXMLPath = NetworkXmlFilePath / "railS
 
 static std::filesystem::path RailLineNewXMLPath = NetworkXmlFilePath / "railLine.xml";
 
-// Parameter xml file path
 static std::filesystem::path VehicleTypeXMLPath = ParameterXmlFilePath / "vehicletypes.xml";
 
 static std::filesystem::path RecordModeXMLPath = ParameterXmlFilePath / "recordMode.xml";

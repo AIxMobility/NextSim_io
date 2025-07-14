@@ -11,6 +11,7 @@ file(GLOB_RECURSE sources
         ${CMAKE_CURRENT_SOURCE_DIR}/parser/*.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/inputclass/*.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/inputclass/intersection/*.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/inputclass/footpath/*.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/tinyapi/*.cpp)
 
 
