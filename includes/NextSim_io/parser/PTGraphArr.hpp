@@ -21,6 +21,7 @@
 #include <NextSim_io/inputclass/InputRailLine.hpp>
 #include <NextSim_io/parser/RailLineArr.hpp>
 #include <NextSim_io/inputclass/Railstation/Timetable.hpp>
+#include <NextSim_io/inputclass/footpath/FootpathRouteGenerator.hpp>
 
 namespace NextSimIO
 {
@@ -90,9 +91,12 @@ public:
     /**
      * @brief Constructor with station arrays
      * @param roadStations Road station array
-     * @param railStations Rail station array  
+     * @param railStations Rail station array
+     * @param roadPTLines Road public transport line data
+     * @param railPTLines Rail public transport line data
      */
-    PTArcArr(const StationArr& roadStations, const RailStationArr& railStations);
+    PTArcArr(const StationArr& roadStations, const RailStationArr& railStations,
+                const PTlineArr& roadPTLines, const RailLineArr& railPTLines);
 
     /**
      * @brief Get vector of all PT arcs
@@ -137,7 +141,7 @@ public:
      * @param arcArr Arc array
      * @param vertexArr Vertex array
      */
-    PTGraph(const PTArcArr& arcArr, const PTVertexArr& vertexArr);
+    PTGraph(const PTVertexArr& vertexArr, const PTArcArr& arcArr);
 
     /**
      * @brief Get vertex to arc mapping
