@@ -146,6 +146,12 @@ public:
     void SetNumLane(std::size_t numLane) { m_numLane = numLane; }
 
     /**
+     * @details Set available lanes in the arc when it is connected to a sink node
+     * @param availableLanes Available lanes in the arc
+     */
+    void SetAvailableLanes(std::vector<int> availableLanes) { m_availableLanes = availableLanes; }
+
+    /**
      * @details Add arc cost into vector
      * @param arcCost Arc cost vector
      */
@@ -176,6 +182,12 @@ public:
     std::size_t GetNumLane() { return m_numLane; }
 
     /**
+     * @details Get available lanes in the arc when it is connected to a sink node
+     * @return Available lanes in the arc
+     */
+    std::vector<int> GetAvailableLanes() { return m_availableLanes; }
+
+    /**
      * @details Get vector of arc cost
      * @return Vector of arc cost
      */
@@ -201,6 +213,11 @@ private:
      * @details Number of lanes in the arc
      */
     std::size_t m_numLane;
+
+    /**
+     * @details Available lanes in the arc when it is connected to a sink node
+     */
+    std::vector<int> m_availableLanes;
 
     /**
      * @details Vector of arc cost

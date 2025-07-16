@@ -40,6 +40,7 @@ VehicleTypesArr::VehicleTypesArr()
         if (elemName == "vehtype")
         {
             InputDistribution veh_lenDist(std::string("Normal"), 4.5, 5.0, 5.5, 0.4);
+            InputDistribution veh_widthDist(std::string("Normal"), 1.9, 1.8, 2.1, 0.2);
             InputDistribution jamgapDist(std::string("LogNormal"), 1.0, 2.0, 3.5, 0.2);
             InputDistribution vfDist(std::string("Normal"), 50.0, 60.0, 70.0, 10.0);
             InputDistribution reaction_timeDist(std::string("LogNormal"), 1.0, 1.5, 3.5, 0.2);
@@ -73,6 +74,27 @@ VehicleTypesArr::VehicleTypesArr()
                     veh_lenDist.SetMean(atof(mean));
                     veh_lenDist.SetMin(atof(min));
                     veh_lenDist.SetSD(atof(sd));
+                }
+
+                else if (elemName2 == "veh_width")
+                {
+                    const char* dist = e->Attribute("dist");
+                    const char* max = e->Attribute("max");
+                    const char* mean = e->Attribute("mean");
+                    const char* min = e->Attribute("min");
+                    const char* sd = e->Attribute("sd");
+
+                    if (!dist)   throw std::runtime_error ("Element should have 'dist' attribute");
+                    if (!max)   throw std::runtime_error ("Element should have 'max' attribute");
+                    if (!mean)   throw std::runtime_error ("Element should have 'mean' attribute");
+                    if (!min)   throw std::runtime_error ("Element should have 'min' attribute");
+                    if (!sd)   throw std::runtime_error ("Element should have 'sd' attribute");
+
+                    veh_widthDist.SetDist(dist);
+                    veh_widthDist.SetMax(atof(max));
+                    veh_widthDist.SetMean(atof(mean));
+                    veh_widthDist.SetMin(atof(min));
+                    veh_widthDist.SetSD(atof(sd));
                 }
 
                 else if (elemName2 == "jamgap")
@@ -257,8 +279,8 @@ VehicleTypesArr::VehicleTypesArr()
             // TODO: implement v2x on/off
             InputVehicleTypes demoVehicleTypes(
                 name, std::atoi(max_pax), strcmp(v2x, "on") == 0 ? true : false,
-                veh_lenDist, jamgapDist, vfDist, reaction_timeDist, max_accDist,
-                max_decDist, lc_param1Dist, lc_param2Dist, lc_senseDist);
+                veh_lenDist, veh_widthDist, jamgapDist, vfDist, reaction_timeDist, 
+                max_accDist, max_decDist, lc_param1Dist, lc_param2Dist, lc_senseDist);
 
             m_vehTypes.insert({ std::atoi(id), demoVehicleTypes });
         }

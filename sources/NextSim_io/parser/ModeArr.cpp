@@ -34,10 +34,10 @@ ModeArr::ModeArr()
     for(TiXmlElement *elem = root->FirstChildElement() ; elem != NULL ; elem = elem->NextSiblingElement())
     {
         int id = std::stoi(elem->Attribute("id"));
-        int scycle = std::stoi(elem->Attribute("scycle"));
+        int stime = std::stoi(elem->Attribute("stime"));
 
         TiXmlElement *e = elem->FirstChildElement();
-        InputMode tMode = InputMode(id, scycle);
+        InputMode tMode = InputMode(id, stime);
 
         bool getMicro = false;
         bool getMeso = false;

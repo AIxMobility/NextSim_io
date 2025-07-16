@@ -21,7 +21,8 @@ namespace NextSimIO
 SignalArr::SignalArr()
 {
     TiXmlDocument doc;
-    bool loadSuccess = doc.LoadFile(NextSimIO::SignalNewXMLPath.string().c_str());
+    bool loadSuccess = doc.LoadFile(NextSimIO::SignalXMLPath.string().c_str());
+
     if (!loadSuccess)
     {
         std::cout << "Loading failed (SignalArr)" << std::endl;
@@ -75,17 +76,15 @@ SignalArr::SignalArr()
                 tPhase = tPhase->NextSiblingElement())
             {
                 const char *phaseId = tPhase->Attribute("id");
-                const char *greenTime = tPhase->Attribute("greenTime");
-                const char *yellowTime = tPhase->Attribute("yellowTime");
+                const char *duration = tPhase->Attribute("duration");
                 const char *turnList = tPhase->Attribute("turnList");
 
                 
                 if (!phaseId)   throw std::runtime_error ("Element should have 'id' attribute");
-                if (!greenTime)   throw std::runtime_error ("Element should have 'greenTime' attribute");
-                if (!yellowTime)   throw std::runtime_error ("Element should have 'yellowTime' attribute");
+                if (!duration)   throw std::runtime_error ("Element should have 'duration' attribute");
                 if (!turnList)   throw std::runtime_error ("Element should have 'turnList' attribute");
 
-                phase singlePhase(std::atoi(phaseId), std::atoi(greenTime), std::atoi(yellowTime));
+                phase singlePhase(std::atoi(phaseId), std::atoi(duration));
                 singlePhase.SetTurnList(turnList);
 
                 phaseSeq.push_back(singlePhase);
@@ -120,7 +119,7 @@ SignalArr::SignalArr()
         for (TiXmlElement *e = elem->FirstChildElement(); e != NULL;
              e = e->NextSiblingElement())
         {
-            const char *planId = e->Attribute("planId");
+            const char *planId = e->Attribute("id");
             const char *startTime = e->Attribute("startTime");
             const char *endTime = e->Attribute("endTime");
 
@@ -131,7 +130,7 @@ SignalArr::SignalArr()
             if (!endTime)
                 throw std::runtime_error("Element should have 'endTime' attribute");
 
-            table singleTable(atoi(planId), atoi(startTime), atoi(endTime));
+            table singleTable(atoi(planId), startTime, endTime);
 
             todTable.push_back(singleTable);
         }

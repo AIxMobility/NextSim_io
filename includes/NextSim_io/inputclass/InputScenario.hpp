@@ -27,10 +27,11 @@ public:
      * @param id Scenario ID
      * @param startTime Start time of scenario
      * @param duration Duration of scenario [min]
+     * @param BGTduration Background traffic duration [min]
      * @param odID OD matrix ID
      * @param todID TOD matrix ID
     */
-    InputScenario(int id, std::string startTime, int duration, int odID, int todID);
+    InputScenario(int id, std::string startTime, int duration, int BGTduration, int odID, int todID);
 
     /** @cond EXCLUDE */
     ~InputScenario() = default;
@@ -55,6 +56,12 @@ public:
      * @return Duration of scenario [min]
     */
     int GetDuration() { return m_duration; }
+
+    /**
+     * @brief Get background traffic duration
+     * @return Background traffic duration [min]
+    */
+    int GetBGTDuration() { return m_BGTduration; }
 
     /**
      * @brief Get OD matrix ID
@@ -84,6 +91,11 @@ private:
      * @details Duration of scenario [min]
     */
     int m_duration;
+
+    /**
+     * @details Background traffic duration [min]
+    */
+    int m_BGTduration;
 
     /**
      * @details OD matrix ID

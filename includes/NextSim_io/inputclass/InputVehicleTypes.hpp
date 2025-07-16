@@ -29,6 +29,7 @@ public:
      * @param maxPax Maximum number of passengers
      * @param v2xActive Whether V2X is active or not
      * @param vehLen Vehicle length
+     * @param vehWidth Vehicle width
      * @param jamgap Jam gap
      * @param vf Free flow speed
      * @param reactionTime Reaction time
@@ -43,6 +44,7 @@ public:
         int maxPax, 
         bool v2xActive, 
         InputDistribution vehLen, 
+        InputDistribution vehWidth,
         InputDistribution jamgap, 
         InputDistribution vf, 
         InputDistribution reactionTime, 
@@ -75,6 +77,12 @@ public:
      * @return Vehicle length [m]
     */
     double GenVehLen() { return m_vehLen.GenValue(); }
+
+    /**
+     * @details Generate vehicle width
+     * @return Vehicle width [m]
+    */
+    double GenVehWidth() { return m_vehWidth.GenValue(); }
 
     /**
      * @details Generate jam gap
@@ -167,6 +175,11 @@ private:
      * @details Vehicle length [m]
     */
     InputDistribution m_vehLen;
+
+    /**
+     * @details Vehicle width [m]
+    */
+    InputDistribution m_vehWidth;
 
     /**
      * @details Jam gap [m]

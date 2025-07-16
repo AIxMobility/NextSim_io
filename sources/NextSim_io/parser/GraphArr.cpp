@@ -43,8 +43,7 @@ VertexArr::VertexArr()
             {
                 const char *vertexid = e2->Attribute("id");
                 const char *type = e2->Attribute("type");
-                const char *xcoord = e2->Attribute("x_coord");
-                const char *ycoord = e2->Attribute("y_coord");
+                const char *center = e2->Attribute("center");
 
                 int nodeType;
                 if (!strcmp(type, "normal")){
@@ -74,10 +73,36 @@ VertexArr::VertexArr()
                     nodeType,
                     0.0,
                     0);
+                
+                double xcoord = 0.0;
+                double ycoord = 0.0;
+                if (center)
+                {
+                    std::istringstream iss(center);
+                    std::string x, y;
+                    if (std::getline(iss, x, ' ') && std::getline(iss, y))
+                    {
+                        xcoord = atof(x.c_str());
+                        ycoord = atof(y.c_str());
+                    }
+                    else
+                    {
+                        throw std::runtime_error ("Invalid center format");
+                    }
+                }
+                else
+                {
+                    const char *xcoordAttr = e2->Attribute("x_coord");
+                    const char *ycoordAttr = e2->Attribute("y_coord");
 
-                VertexCoord single_coord(
-                    atof(xcoord),
-                    atof(ycoord));
+                    if (!xcoordAttr || !ycoordAttr)
+                        throw std::runtime_error ("Element should have 'x_coord' and 'y_coord' attributes");
+
+                    xcoord = atof(xcoordAttr);
+                    ycoord = atof(ycoordAttr);
+                }
+
+                VertexCoord single_coord(xcoord, ycoord);
 
                 single_vertex.SetCoordinates({single_coord});
 
@@ -205,6 +230,34 @@ ArcArr::ArcArr()
                     );
                     
                     demoArc.PushArcCost(ArcCost(0, atof(arc_length), 0, 0));
+
+                    std::vector<int> availableLanes = {};
+                    for (TiXmlElement* laneElem = e->FirstChildElement(); laneElem != nullptr;
+                         laneElem = laneElem->NextSiblingElement())
+                    {
+                        bool isBlock = false;
+                        for (TiXmlElement* segElem = laneElem->FirstChildElement(); segElem != nullptr;
+                             segElem = segElem->NextSiblingElement())
+                        {
+                            std::string name = segElem->Value();
+                            if (name == "segment")
+                            {
+                                const char *end_point = segElem->Attribute("end_point");
+                                const char *block = segElem->Attribute("block");
+
+                                if (strcmp(block, "True") == 0 && std::abs(atof(end_point) - atof(arc_length)) < 3)
+                                    isBlock = true;
+                            }
+                            else continue;
+                        }
+
+                        if (!isBlock)
+                            availableLanes.push_back(
+                                static_cast<int>(atoll(laneElem->Attribute("id")))
+                            );
+                    }
+
+                    demoArc.SetAvailableLanes(availableLanes);
 
                     m_arcs.push_back(demoArc);
                 }

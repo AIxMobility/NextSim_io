@@ -64,12 +64,12 @@ PaxArr::PaxArr()
  
                  if (elemName2 == "agent")
                  {
-                     InputAgentPax demoPax(atol(e->Attribute("originLink")),
-                                      atol(e->Attribute("originOffset")),
-                                      atol(e->Attribute("destLink")),
-                                      atol(e->Attribute("destOffset")),
-                                      atof(e->Attribute("time")),
-                                      e->Attribute("type"));
+                     InputAgentPax demoPax(atol(e->Attribute("id")),
+                                        atol(e->Attribute("originLink")),
+                                        atol(e->Attribute("originOffset")),
+                                        atol(e->Attribute("destLink")),
+                                        atol(e->Attribute("destOffset")),
+                                        atof(e->Attribute("time")));
  
                      for (TiXmlElement* tripElem = e->FirstChildElement("trip"); tripElem != NULL;
                      tripElem = tripElem->NextSiblingElement("trip"))

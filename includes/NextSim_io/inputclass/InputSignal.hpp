@@ -9,7 +9,6 @@
 #ifndef INPUTSIGNAL_H
 #define INPUTSIGNAL_H
 
-#include "signal/phase.hpp"
 #include "signal/plan.hpp"
 #include "signal/turn.hpp"
 

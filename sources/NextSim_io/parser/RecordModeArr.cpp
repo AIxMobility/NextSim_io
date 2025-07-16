@@ -79,6 +79,10 @@ RecordModeArr::RecordModeArr()
     bool activatedSinkEvent = std::string(eSinkEvent->Attribute("active")) == "t";
     InputRecordMode recordModeSinkEvent(6, activatedSinkEvent);
     m_recordModes.emplace_back(recordModeSinkEvent);
+
+    // SignalEvent (when visualizer is activated)
+    InputRecordMode recordModeSignal(7, activatedVisualizer);
+    m_recordModes.emplace_back(recordModeSignal);
     
     doc.Clear();
 };

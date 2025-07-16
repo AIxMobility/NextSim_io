@@ -40,6 +40,7 @@ ScenarioArr::ScenarioArr()
             const char *id = elem->Attribute("id");
             const char *startTime = elem->Attribute("startTime");
             const char *duration = elem->Attribute("duration");
+            const char *BGTduration = elem->Attribute("BGTduration");
             const char *odID = elem->Attribute("odMatrixID");
             const char *todID = elem->Attribute("todID");
 
@@ -49,13 +50,15 @@ ScenarioArr::ScenarioArr()
                 throw std::runtime_error("Element should have 'startTime' attribute");
             if (!duration)
                 throw std::runtime_error("Element should have 'duration' attribute");
+            if (!BGTduration)
+                throw std::runtime_error("Element should have 'BGTduration' attribute");
             if (!odID)
                 throw std::runtime_error("Element should have 'odMatrixID' attribute");
             if (!todID)
                 throw std::runtime_error("Element should have 'todID' attribute");
             
             InputScenario singleScenario(
-                atoi(id), startTime, atoi(duration), atoi(odID), atoi(todID));
+                atoi(id), startTime, atoi(duration), atoi(BGTduration), atoi(odID), atoi(todID));
 
             m_scenarios.emplace_back(singleScenario);
         }
