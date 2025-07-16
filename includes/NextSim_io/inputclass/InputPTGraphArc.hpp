@@ -15,7 +15,7 @@ namespace NextSimIO
 {
 /**
  * @enum Arc Type
- * @brief Enum to classify arc types (Trip, Transfer, Footpath)
+ * @brief Enum to classify arc types (InVehicle, Transfer, Footpath)
  */
 enum class ArcType {
     InVehicle,
@@ -32,28 +32,21 @@ class PTCost
 public:
     /**
      * @details Constructor
-     * @param timeCost In-vehicle time to pass the arc
-     * @param distanceCost Length of the arc
-     * @param footpathCost Time spent walking on the arc
+     * @param timeCost Time to pass the arc
+     * @param footpathCost Walking distance on the arc
      * @param transferCost Number of transfers on the arc
      */
-    PTCost(double timeCost, double distanceCost, double footpathCost, int transferCost);
+    PTCost(double timeCost, double footpathCost, int transferCost);
 
     /**
      * @details Get time cost
-     * @return Time cost
+     * @return Time cost (total time; min)
      */
     double GetTimeCost() const { return m_timeCost; }
 
     /**
-     * @details Get distance cost
-     * @return Distance cost
-     */
-    double GetDistanceCost() const { return m_distanceCost; }
-
-    /**
      * @details Get footpath cost
-     * @return Footpath cost
+     * @return Footpath cost (walking distance)
      */
     double GetFootpathCost() const { return m_footpathCost; }
 
@@ -68,12 +61,6 @@ public:
      * @param timeCost calculated time cost
      */
     void SetTimeCost(double timeCost) { m_timeCost = timeCost; }
-
-    /**
-     * @details Set distance cost
-     * @param distanceCost calculated distance cost
-     */
-    void SetDistanceCost(double distanceCost) { m_distanceCost = distanceCost; }
 
     /**
      * @details Set footpath cost
@@ -94,12 +81,7 @@ private:
     double m_timeCost;
 
     /**
-     * @brief Length of the arc
-     */
-    double m_distanceCost;
-
-    /**
-     * @brief Time spent walking on the arc
+     * @brief Walking distance on the arc
      */
     double m_footpathCost;
 
@@ -134,9 +116,9 @@ public:
      */
     InputPTGraphArc(std::size_t arcId,
                     std::size_t fromStopId,
-                    int fromLineId,
+                    std::string fromLineId,
                     std::size_t toStopId,
-                    int toLineId,
+                    std::string toLineId,
                     ArcType type, 
                     PTCost ptCost);
 
@@ -156,7 +138,7 @@ public:
      * @details Get from line ID
      * @return From line ID 
      */
-    int GetFromLineId() const { return m_fromLineId; }
+    std::string GetFromLineId() const { return m_fromLineId; }
 
     /**
      * @details Get to stop ID
@@ -168,7 +150,7 @@ public:
      * @details Get to line ID
      * @return To line ID 
      */
-    int GetToLineId() const { return m_toLineId; }
+    std::string GetToLineId() const { return m_toLineId; }
 
     /**
      * @details Get arc type
@@ -202,7 +184,7 @@ private:
     /**
      * @details From line ID 
      */
-    int m_fromLineId;
+    std::string m_fromLineId;
 
     /**
      * @details To stop ID 
@@ -212,7 +194,7 @@ private:
     /**
      * @details To line ID 
      */
-    int m_toLineId;
+    std::string m_toLineId;
 
     /**
      * @details Arc type

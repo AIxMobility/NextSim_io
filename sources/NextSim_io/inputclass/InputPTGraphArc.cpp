@@ -11,8 +11,8 @@
 
 namespace NextSimIO
 {
-PTCost::PTCost(double timeCost, double distanceCost, double footpathCost, int transferCost)
-    : m_timeCost(timeCost), m_distanceCost(distanceCost), m_footpathCost(footpathCost), m_transferCost(transferCost) {}
+PTCost::PTCost(double timeCost, double footpathCost, int transferCost)
+    : m_timeCost(timeCost), m_footpathCost(footpathCost), m_transferCost(transferCost) {}
 
     void InputPTGraphArc::PushArcCost(PTCost ptCost)
     {
@@ -24,13 +24,13 @@ InputPTGraphArc::InputPTGraphArc()
 
 InputPTGraphArc::InputPTGraphArc(std::size_t arcId,
                        std::size_t fromStopId,
-                       int m_fromLineId,
+                       std::string fromLineId,
                        std::size_t toStopId,
-                       int m_toLineId,
+                       std::string toLineId,
                        ArcType type,
                        PTCost ptCost)
-    : m_arcId(arcId), m_fromStopId(fromStopId), m_fromLineId(m_fromLineId),
-      m_toStopId(toStopId), m_toLineId(m_toLineId), m_type(type), m_cost({ptCost})
+    : m_arcId(arcId), m_fromStopId(fromStopId), m_fromLineId(fromLineId),
+      m_toStopId(toStopId), m_toLineId(toLineId), m_type(type), m_cost({ptCost})
 {}
 
 } // namespace NextSimIO
