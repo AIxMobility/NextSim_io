@@ -21,10 +21,10 @@ Stop::Stop(int stopId, StopType type)
     return m_stopType;
     }
 
-Line::Line(int lineId, const std::vector<int> &stops, const std::vector<int> &arrivalTimes, const std::vector<int> &departureTimes)
+Line::Line(std::string lineId, const std::vector<int> &stops, const std::vector<int> &arrivalTimes, const std::vector<int> &departureTimes)
     : m_lineId(lineId), m_stops(stops), m_arrivalTimes(arrivalTimes), m_departureTimes(departureTimes) {}
 
-    int Line::GetLineId() const {
+    std::string Line::GetLineId() const {
         return m_lineId;
     }
 
@@ -51,12 +51,12 @@ InputPTGraphVertex::InputPTGraphVertex(const Stop& stop, std::shared_ptr<Line> l
         return m_line;
     }
 
-    void InputPTGraphVertex::AddConnection(ConnectionInfo connectionInfo) {
-        m_connections.push_back(std::move(connectionInfo));
-    }
+    // void InputPTGraphVertex::AddConnection(ConnectionInfo connectionInfo) {
+    //     m_connections.push_back(std::move(connectionInfo));
+    // }
 
-    const std::vector<ConnectionInfo>& InputPTGraphVertex::GetConnections() const {
-        return m_connections;
-    }
+    // const std::vector<ConnectionInfo>& InputPTGraphVertex::GetConnections() const {
+    //     return m_connections;
+    // }
 
 }; // namespace NextSimIO

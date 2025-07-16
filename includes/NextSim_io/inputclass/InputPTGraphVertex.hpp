@@ -16,6 +16,27 @@
 
 namespace NextSimIO
 {
+class InputPTGraphVertex;
+
+// /**
+//  * @brief Structure to hold connection information between graph vertices.
+//  */
+// struct ConnectionInfo {
+//     InputPTGraphVertex* toVertex;
+//     std::string type; // "inVehicle", "transfer", "footpath"
+//     int arrivalTime = -1;   // inVehicle
+//     int departureTime = -1; // inVehicle
+//     int tripId = -1;        // inVehicle, transfer
+//     int duration = -1;      // inVehicle?, transfer, footpath
+
+//     /**
+//      * @details Constructor for ConnectionInfo.
+//      * @param toVertex The destination vertex of the connection.
+//      * @param type The type of the connection ("inVehicle", "transfer", "footpath").
+//      */
+//     ConnectionInfo(InputPTGraphVertex* toVertex, std::string type): toVertex(toVertex), type(type) {};
+// };
+
 /**
  * @enum StopType
  * @brief Enum to classify stop types (e.g., road or rail)
@@ -63,8 +84,8 @@ class Stop {
     };
     
 /**
- * @class Trip
- * @brief Class for each trip information
+ * @class Line
+ * @brief Class for each line information
  */
 class Line {
 public:
@@ -75,13 +96,13 @@ public:
      * @param arrivalTimes List of arrival times at each stop
      * @param departureTimes List of departure times from each stop
      */
-    Line(int lineId, const std::vector<int> &stops, const std::vector<int> &arrivalTimes, const std::vector<int> &departureTimes);
+    Line(std::string lineId, const std::vector<int> &stops, const std::vector<int> &arrivalTimes, const std::vector<int> &departureTimes);
 
     /**
      * @brief Get line ID
      * @return Line ID.
      */
-    int GetLineId() const;
+    std::string GetLineId() const;
 
     /**
      * @brief Get list of stops in the line
@@ -105,7 +126,7 @@ private:
     /**
      * @details line ID
      */
-    int m_lineId;
+    std::string m_lineId;
     /**
      * @details List of stops in the line
      */
@@ -146,17 +167,17 @@ public:
      */
     std::shared_ptr<Line> GetLine() const;
 
-    /**
-     * @details Add a connection from this vertex to another.
-     * @param connectionInfo The information about the connection to add.
-     */
-    void AddConnection(ConnectionInfo connectionInfo);
+    // /**
+    //  * @details Add a connection from this vertex to another.
+    //  * @param connectionInfo The information about the connection to add.
+    //  */
+    // void AddConnection(ConnectionInfo connectionInfo);
 
-    /**
-     * @details Get the list of connections originating from this vertex.
-     * @return A constant reference to the vector of ConnectionInfo objects.
-     */
-    const std::vector<ConnectionInfo>& GetConnections() const;
+    // /**
+    //  * @details Get the list of connections originating from this vertex.
+    //  * @return A constant reference to the vector of ConnectionInfo objects.
+    //  */
+    // const std::vector<ConnectionInfo>& GetConnections() const;
 
 private:
     /**
@@ -169,30 +190,11 @@ private:
      */
     std::shared_ptr<Line> m_line;
 
-    /**
-     * @brief List of connections originating from this vertex.
-     */
-    std::vector<ConnectionInfo> m_connections;
+    // /**
+    //  * @brief List of connections originating from this vertex.
+    //  */
+    // std::vector<ConnectionInfo> m_connections;
 }; 
-
-/**
- * @brief Structure to hold connection information between graph vertices.
- */
-struct ConnectionInfo {
-    InputPTGraphVertex* toVertex;
-    std::string type; // "inVehicle", "transfer", "footpath"
-    int arrivalTime = -1;   // inVehicle
-    int departureTime = -1; // inVehicle
-    int tripId = -1;        // inVehicle, transfer
-    int duration = -1;      // inVehicle?, transfer, footpath
-
-    /**
-     * @details Constructor for ConnectionInfo.
-     * @param toVertex The destination vertex of the connection.
-     * @param type The type of the connection ("inVehicle", "transfer", "footpath").
-     */
-    ConnectionInfo(InputPTGraphVertex* toVertex, std::string type): toVertex(toVertex), type(type) {};
-};
 
 } // namespace NextSimIO
 
