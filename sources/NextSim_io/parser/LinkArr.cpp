@@ -124,7 +124,8 @@ LinkArr::LinkArr()
                             if (!right_lane_id)   throw std::runtime_error ("Element should have 'right_lane_id' attribute");
                             if (!laneId)   throw std::runtime_error ("Element should have 'id' attribute");
                             if (!num_cell)   throw std::runtime_error ("Element should have 'num_cell' attribute");
-
+                            if (!ptOnly)   ptOnly = "False";  // default value
+                            
                             InputLane demoLane(
                                 (std::size_t)atoll(laneId),
                                 (std::size_t)atoll(left_lane_id),
