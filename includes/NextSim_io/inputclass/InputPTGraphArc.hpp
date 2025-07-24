@@ -168,7 +168,7 @@ public:
      * @details Get vector of arc cost
      * @return Vector of public transport arc cost
      */
-    const std::vector<PTCost>& GetArcCosts() const { return m_cost; }
+    const std::vector<PTCost>& GetCost() const { return m_cost; }
 
 private:
     /**

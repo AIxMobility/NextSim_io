@@ -58,7 +58,8 @@ class Stop {
          * @param type Type of the stop
          */
         Stop(int stopId, StopType type);
-    
+        Stop(const Stop&) = default;
+        Stop& operator=(const Stop&) = default;
         /**
          * @brief Get stop ID
          * @return Stop ID
@@ -183,7 +184,7 @@ private:
     /**
      * @brief The stop associated with this vertex.
      */
-    const Stop m_stop;
+    Stop m_stop;
 
     /**
      * @brief The line associated with this vertex.
@@ -195,7 +196,5 @@ private:
     //  */
     // std::vector<ConnectionInfo> m_connections;
 }; 
-
 } // namespace NextSimIO
-
 #endif

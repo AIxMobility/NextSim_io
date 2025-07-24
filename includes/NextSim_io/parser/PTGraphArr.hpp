@@ -21,7 +21,7 @@
 #include <NextSim_io/inputclass/InputRailLine.hpp>
 #include <NextSim_io/parser/RailLineArr.hpp>
 #include <NextSim_io/inputclass/Railstation/Timetable.hpp>
-#include <NextSim_io/inputclass/footpath/FootpathRouteGenerator.hpp>
+#include <NextSim_io/inputclass/footpath/footpath.hpp>
 
 namespace NextSimIO
 {
@@ -189,6 +189,8 @@ private:
     const PTArcArr& m_arcArr;
 
 }; // class PTGraph
+
+int convertToMinutes(const std::string& time);
 
 } // namespace NextSimIO
 

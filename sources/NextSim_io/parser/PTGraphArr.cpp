@@ -15,7 +15,7 @@
 #include <utility> 
 
 #include <NextSim_io/parser/PTGraphArr.hpp>
-#include <NextSim_io/inputclass/footpath/FootpathRouteGenerator.hpp>
+#include <NextSim_io/inputclass/footpath/footpath.hpp>
 #include <NextSim_io/tinyapi/tinystr.h>
 #include <NextSim_io/tinyapi/tinyxml.h>
 #include <NextSim_io/FilePath.hpp>
@@ -441,7 +441,7 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
     }
 
     // 3. 도보(Footpath) 아크 생성
-    Captain::FootpathRouteGenerator generator; // Genarate footpath arcs using the FootpathRouteGenerator
+    Captain::Footpath generator; // Genarate footpath arcs using the Footpath
     generator.LoadFootpathNetwork(); // Load the footpath network
 
     // 3.1. 로드 정류장 간 도보 (InputStation의 Location 사용)
