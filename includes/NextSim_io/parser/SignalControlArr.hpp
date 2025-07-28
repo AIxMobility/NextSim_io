@@ -28,23 +28,44 @@ public:
      * @details Get vector of all signal control
      * @return Vector of all signal control
     */
-    std::vector<InputSignalControl> GetSignalControls() const { return m_signalControls; }
+    std::unordered_map<Captain::UnitIdentifier, InputSignalControl> GetSignalControlMap() const { return m_signalControlMap; }
+
+    /**
+     * @details Get signal control for a specific node
+     * @param nodeIdentifier Node identifier to get the signal control for
+     * @return InputSignalControl for the specified node
+     */
+    InputSignalControl GetSignalControlMap(Captain::UnitIdentifier nodeIdentifier) const   
+    {
+        auto it = m_signalControlMap.find(nodeIdentifier);
+        if (it != m_signalControlMap.end())
+        {
+            return it->second;
+        }
+        else
+        {
+            throw std::runtime_error("Signal control for the specified node not found");
+        }
+    }
 
     /**
      * @details Set vector of signal control
-     * @param signalControlList Vector of signal control
+     * @param nodeIdentifier Node identifier to set the signal control for
+     * @param inputSignalControl InputSignalControl object containing signal control information
      */
-    void SetSignalControls(const std::vector<InputSignalControl>& signalControls)
+    void SetSignalControlMap(Captain::UnitIdentifier nodeIdentifier, const InputSignalControl& inputSignalControl)
     {
-        m_signalControls = signalControls;
+        m_signalControlMap[nodeIdentifier] = inputSignalControl;
     }
 
 private:
     
     /**
-     * @details sequence of signal control (node)
+     * @details map of signal control information
+     * Key: Node Identifier \n
+     * Value: InputSignalControl object containing signal control information
      */
-    std::vector<InputSignalControl> m_signalControls;
+   std::unordered_map<Captain::UnitIdentifier, InputSignalControl> m_signalControlMap;
 };
 } // namespace NextSimIO
 

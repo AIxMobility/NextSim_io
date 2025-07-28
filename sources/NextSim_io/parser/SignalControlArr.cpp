@@ -31,9 +31,6 @@ SignalControlArr::SignalControlArr()
     }
 
     TiXmlElement *root = doc.FirstChildElement();
-    // int planId = atoi(root->Attribute("id"));
-
-    std::vector<InputSignalControl> signalControlList;
 
     for (TiXmlElement *e = root->FirstChildElement(); e != NULL;
          e = e->NextSiblingElement())
@@ -73,9 +70,10 @@ SignalControlArr::SignalControlArr()
             phaseSeq.push_back(singlePhase);
         }
         singleSignalControl.SetPhaseList(phaseSeq);
-        signalControlList.push_back(singleSignalControl);
+
+        Captain::UnitIdentifier nodeIdentifier(id, Captain::UnitType::Node);
+        SetSignalControlMap(nodeIdentifier, singleSignalControl);
     }
-    SetSignalControls(signalControlList);
 
     doc.Clear();
 };

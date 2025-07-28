@@ -11,6 +11,7 @@
 
 #include "signal/plan.hpp"
 #include "signal/turn.hpp"
+#include <captain/Structs/GeneralStructs.hpp>
 
 namespace NextSimIO
 {
@@ -21,6 +22,11 @@ namespace NextSimIO
 class InputSignalControl
 {
 public:
+
+    /**
+     * @details Default constructor
+     */
+    InputSignalControl() = default; 
     /**
      * @details Constructor
      * @param nodeId Node ID
