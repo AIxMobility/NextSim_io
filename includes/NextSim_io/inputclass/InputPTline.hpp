@@ -105,7 +105,7 @@
       * @details Public transit line ID
      */
      std::string m_id;
- 
+     
      /**
       * @details Dispatch interval [min]
      */
