@@ -118,16 +118,19 @@ LinkArr::LinkArr()
                             const char *right_lane_id = ele->Attribute("right_lane_id");
                             const char *laneId = ele->Attribute("id");
                             const char *num_cell = ele->Attribute("num_cell");
+                            const char *ptOnly = ele->Attribute("ptOnly");
                             
                             if (!left_lane_id)   throw std::runtime_error ("Element should have 'left_lane_id' attribute");
                             if (!right_lane_id)   throw std::runtime_error ("Element should have 'right_lane_id' attribute");
                             if (!laneId)   throw std::runtime_error ("Element should have 'id' attribute");
                             if (!num_cell)   throw std::runtime_error ("Element should have 'num_cell' attribute");
-
+                            if (!ptOnly)   ptOnly = "False";  // default value
+                            
                             InputLane demoLane(
                                 (std::size_t)atoll(laneId),
                                 (std::size_t)atoll(left_lane_id),
                                 (std::size_t)atoll(right_lane_id),
+                                a_to_bool(ptOnly),
                                 atoi(num_cell));
 
                             for (TiXmlElement* e_lane =
@@ -160,25 +163,17 @@ LinkArr::LinkArr()
                                     const char *init_point = e_lane->Attribute("init_point");
                                     const char *end_point = e_lane->Attribute("end_point");
                                     const char *block = e_lane->Attribute("block");
-                                    const char *left_lc = e_lane->Attribute("left_lc");
-                                    const char *right_lc = e_lane->Attribute("right_lc");
                                     
                                     if (!segmentId)   throw std::runtime_error ("Element should have 'id' attribute");
                                     if (!init_point)   throw std::runtime_error ("Element should have 'init_point' attribute");
                                     if (!end_point)   throw std::runtime_error ("Element should have 'end_point' attribute");
                                     if (!block)   throw std::runtime_error ("Element should have 'block' attribute");
-                                    if (!left_lc)   throw std::runtime_error ("Element should have 'left_lc' attribute");
-                                    if (!right_lc)   throw std::runtime_error ("Element should have 'right_lc' attribute");
 
                                     bool blocked = a_to_bool(block);
-                                    bool left_lc_bool = a_to_bool(left_lc);
-                                    bool right_lc_bool = a_to_bool(right_lc);
 
                                     InputSegment demoSegment(
                                         (std::size_t)atoll(segmentId),
                                         blocked,
-                                        left_lc_bool,
-                                        right_lc_bool,
                                         atof(init_point),
                                         atof(end_point));
                                     demoLane.PushSegment(demoSegment);

@@ -36,10 +36,11 @@ public:
      * @param idVal Lane ID
      * @param leftLaneIdVal Left lane ID
      * @param rightLaneIdVal Right lane ID
+     * @param ptOnly Whether lane is dedicated for public transport only
      * @param numCellVal Number of cells
     */
     InputLane(std::size_t idVal, std::size_t leftLaneIdVal,
-              std::size_t rightLaneIdVal, int numCellVal);
+              std::size_t rightLaneIdVal, bool ptOnly, int numCellVal);
 
     /**
      * @details Constructor
@@ -70,6 +71,12 @@ public:
      * @param rightLaneIdVal Right lane ID
     */
     void SetRightLaneID(std::size_t rightLaneIdVal) { m_rightLaneId = rightLaneIdVal; }
+    
+    /**
+     * @details Set whether lane is dedicated for public transport only
+     * @param ptOnly Whether lane is dedicated for public transport only
+    */
+    void SetPtOnly(bool ptOnly) { m_ptOnly = ptOnly; }
 
     /**
      * @details Set number of cells
@@ -106,6 +113,12 @@ public:
      * @return Right lane ID
     */
     std::size_t GetRightLaneID() { return m_rightLaneId; }
+    
+    /**
+     * @details Get whether lane is dedicated for public transport only
+     * @return True(public transport only) or False(not)
+    */
+    bool GetPtOnly() const { return m_ptOnly; }
 
     /**
      * @details Get number of cells
@@ -141,6 +154,12 @@ private:
      * @details Right lane ID
     */
     std::size_t m_rightLaneId = 0;
+    
+    /**
+     * @details Whether lane is dedicated for public transport only \n
+     * (Default: false)
+     */
+    bool m_ptOnly = false;
 
     /**
      * @details Number of cells in lane

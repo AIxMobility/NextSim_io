@@ -25,13 +25,10 @@ public:
      * @details Constructor
      * @param id Segment ID
      * @param block Whether segment is blocked or not
-     * @param left_lc Whether left lane change is allowed or not
-     * @param right_lc Whether right lane change is allowed or not
      * @param init_point Start point of segment
      * @param end_point End point of segment
      */
-    InputSegment(std::size_t id, bool block, bool left_lc, bool right_lc,
-                 double init_point, double end_point);
+    InputSegment(std::size_t id, bool block, double init_point, double end_point);
 
     /** @cond EXCLUDE */
     InputSegment() = default;
@@ -77,18 +74,6 @@ public:
     bool GetBlocked() const { return m_blocked; }
 
     /**
-     * @details Get whether left lane change is allowed or not
-     * @return True(left lane change is allowed) or False(not)
-    */
-    bool GetLeftLCallowed() const { return m_leftLcAllowed; }
-
-    /**
-     * @details Get whether right lane change is allowed or not
-     * @return True(right lane change is allowed) or False(not)
-    */
-    bool GetRightLCallowed() const { return m_rightLcAllowed; }
-
-    /**
      * @details Get start point of segment
      * @return Start point of segment (from link start point)
     */
@@ -111,16 +96,6 @@ private:
      * @details Whether segment is blocked or not
      */
     bool m_blocked;
-
-    /**
-     * @details Whether left lane change is allowed or not
-     */
-    bool m_leftLcAllowed;
-
-    /**
-     * @details Whether right lane change is allowed or not
-     */
-    bool m_rightLcAllowed;
 
     /**
      * @details Start point of segment (from link start point)
