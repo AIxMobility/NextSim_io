@@ -15,20 +15,20 @@ namespace NextSimIO
 {
 /**
  * @class PTlineArr
- * @brief Class for whole public transit line information from ptline.xml
-*/
+ * @brief Class for whole public transit line information from roadptline.xml
+ */
 class PTlineArr
 {
 public:
     /**
-     * @details Constructor (Parse public transit line information from ptline.xml)
-    */
+     * @details Constructor (Parse public transit line information from roadptline.xml)
+ */
     PTlineArr();
     
     /**
      * @details Get vector of public transit lines
      * @return Vector of public transit lines
-    */
+ */
     std::vector<InputPTline> GetPTLines()
     {
         return m_ptLines;
@@ -37,7 +37,7 @@ public:
 private:
     /**
      * @details Vector of public transit lines
-    */
+ */
     std::vector<InputPTline> m_ptLines;
 };
 } // namespace NextSimIO

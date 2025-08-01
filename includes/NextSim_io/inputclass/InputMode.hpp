@@ -25,9 +25,9 @@ public:
     /**
      * @brief Constructor
      * @param id Period ID
-     * @param scycle Application Start cycle
+     * @param stime Application Start time
     */
-    InputMode(int id, int scycle);
+    InputMode(int id, int stime);
 
     /** @cond EXCLUDE */
     ~InputMode() = default;
@@ -54,10 +54,10 @@ public:
     int GetId() { return m_id; }
 
     /**
-     * @brief Get start cycle
-     * @return Start cycle for applying the corresponding mode setting
+     * @brief Get start time
+     * @return Start time for applying the corresponding mode setting
     */
-    int GetScycle() { return m_sCycle; }
+    int GetStime() { return m_sTime; }
 
     /**
      * @brief Get vector of micro link IDs
@@ -78,9 +78,9 @@ private:
     int m_id;
 
     /**
-     * @details Start cycle for applying the corresponding mode setting
+     * @details Start time for applying the corresponding mode setting [min]
     */
-    int m_sCycle;
+    int m_sTime;
 
     /**
      * @details Vector of microscopic link IDs

@@ -17,7 +17,7 @@ InputStation::InputStation(int id, int link, int lane, double pos, int parkingLo
 void InputStation::SetLineList(std::string lineList)
 {
     std::stringstream ss(lineList);
-    int line_id;
+    std::string line_id;
 
     while (ss >> line_id)
         m_lineList.push_back(line_id);

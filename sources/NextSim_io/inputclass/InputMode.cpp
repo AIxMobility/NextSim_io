@@ -11,7 +11,7 @@
 
 namespace NextSimIO
 {
-InputMode::InputMode(int id, int sCycle) : m_id(id), m_sCycle(sCycle){};
+InputMode::InputMode(int id, int sTime) : m_id(id), m_sTime(sTime){};
 
 void InputMode::SetMicroLinkVector(std::string linkVector)
 {

@@ -22,9 +22,10 @@ namespace NextSimIO
 class plan
 {
 public:
+    plan() = default;
     /**
      * @details Constructor
-     * @param id Plan ID
+     * @param id plan ID
      * @param cycle Cycle of the plan
      * @param offset Offset of the plan
      * @param phaseSeq Sequence of phase
@@ -33,7 +34,7 @@ public:
 
     /**
      * @details Get plan ID
-     * @return Plan ID
+     * @return plan ID
      */
     int GetId() const { return m_id; }
 
@@ -53,11 +54,11 @@ public:
      * @details Get sequence of phase
      * @return Sequence of phase
      */
-    std::vector<phase> GetPhaseSeq() const { return m_phaseSeq; }
+    std::vector<phase> GetPhaseList() const { return m_phaseList; }
 
 private:
     /**
-     * @details Plan ID
+     * @details plan ID
     */
     int m_id;
     
@@ -72,9 +73,9 @@ private:
     int m_offset;
 
     /**
-     * @details Sequence of phase
+     * @details List of phase
      */
-    std::vector<phase> m_phaseSeq;
+    std::vector<phase> m_phaseList;
 };
 } // namespace NextSimIO
 

@@ -9,6 +9,6 @@
 
 namespace NextSimIO
 {
-table::table(int planId, int start, int end) 
+table::table(int planId, std::string start, std::string end) 
     : m_planId(planId), m_startTime(start), m_endTime(end) {};
 } // namespace NextSimIO

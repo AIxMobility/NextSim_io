@@ -33,19 +33,19 @@ public:
      * @details Get link ID that the port is connected to
      * @return Link ID
      */
-    int GetLinkId() { return m_linkId; }
+    int GetLinkId() const { return m_linkId; }
 
     /**
      * @details Get direction of the port
      * @return Direction (0: N, 1: E, 2: S, 3: W)
      */
-    int GetDirection() { return m_direction; }
+    int GetDirection() const { return m_direction; }
     
     /**
      * @details Get type of the port
      * @return Type (1: incoming, -1: outgoing)
      */
-    int GetType() { return m_type; }
+    int GetType() const { return m_type; }
 
 private:
     /**

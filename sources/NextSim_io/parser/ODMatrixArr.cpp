@@ -36,7 +36,7 @@ ODMatrixArr::ODMatrixArr()
     {
         std::string elemName = elem->Value();
 
-        if (elemName == "od_matrix")
+        if (elemName == "odMatrix")
         {
             const char *id = elem->Attribute("id");
             if (!id)
@@ -49,7 +49,7 @@ ODMatrixArr::ODMatrixArr()
             {
                 std::string childName = child->Value();
 
-                if (childName == "nv_od_matrix")
+                if (childName == "nvodMatrix")
                 {
                     for (TiXmlElement *demand = child->FirstChildElement();
                          demand != NULL; demand = demand->NextSiblingElement())
@@ -90,7 +90,7 @@ ODMatrixArr::ODMatrixArr()
                         }
                     }
                 }
-                else if (childName == "av_od_matrix")
+                else if (childName == "avodMatrix")
                 {
                     for (TiXmlElement *demand = child->FirstChildElement();
                          demand != NULL; demand = demand->NextSiblingElement())
@@ -131,7 +131,7 @@ ODMatrixArr::ODMatrixArr()
                         }
                     }
                 }
-                else if (childName == "tr_od_matrix")
+                else if (childName == "trodMatrix")
                 {
                     for (TiXmlElement *demand = child->FirstChildElement();
                          demand != NULL; demand = demand->NextSiblingElement())
