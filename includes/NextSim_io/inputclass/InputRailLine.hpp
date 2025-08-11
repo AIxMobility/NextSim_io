@@ -33,7 +33,7 @@ public:
 
    int GetId() { return m_id; }
 
-   std::vector<int> GetTrailStationSeq() { return m_seq; }
+   std::vector<int> GetRailStationSeq() { return m_seq; }
 
 
 
