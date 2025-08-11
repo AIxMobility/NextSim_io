@@ -20,7 +20,7 @@ namespace NextSimIO
 RailLineArr::RailLineArr()
 {
     TiXmlDocument doc;
-    bool loadSuccess = doc.LoadFile(NextSimIO::RailLineNewXMLPath.string().c_str());
+    bool loadSuccess = doc.LoadFile(NextSimIO::RailPTlineXMLPath.string().c_str());
 
     if (!loadSuccess)
     {

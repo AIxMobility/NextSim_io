@@ -40,7 +40,7 @@
       * @details 
       * @return 
       */
-    int GetrouteId() const { return m_routeId; }
+    int GetRouteId() const { return m_routeId; }
 
      /**
       * @details 

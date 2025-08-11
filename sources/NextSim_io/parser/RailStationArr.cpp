@@ -20,7 +20,7 @@ namespace NextSimIO
 RailStationArr::RailStationArr()
 {
     TiXmlDocument doc;
-    bool loadSuccess = doc.LoadFile(NextSimIO::RailStationNewXMLPath.string().c_str());
+    bool loadSuccess = doc.LoadFile(NextSimIO::RailStationXMLPath.string().c_str());
 
     if (!loadSuccess)
     {
