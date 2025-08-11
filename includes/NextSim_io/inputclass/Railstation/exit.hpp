@@ -1,6 +1,6 @@
 /**
  * NextSim Captain
- * @file : Exit.hpp
+ * @file : exit.hpp
  * @version : 1.0
  * @author : YuseockHwang
  */

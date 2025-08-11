@@ -1,13 +1,13 @@
 /**
  * NextSim Captain
- * @file : Exit.cpp
+ * @file : exit.cpp
  * @version : 1.0
  * @author : Yuseock Hwang
  */
 
  #include <sstream>
 
- #include <NextSim_io/inputclass/Railstation/Exit.hpp>
+ #include <NextSim_io/inputclass/Railstation/exit.hpp>
  
  namespace NextSimIO
  {
