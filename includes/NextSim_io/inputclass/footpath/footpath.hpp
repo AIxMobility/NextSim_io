@@ -75,13 +75,19 @@ struct NearestLinkPoint {
  */
 class Footpath {
 public:
-    /** @brief Constructor */
+    /** 
+     * @brief Constructor 
+    */
     Footpath();
 
-    /** @brief Destructor */
+    /** 
+     * @brief Destructor 
+    */
     ~Footpath() = default;
 
-    /** @brief Load the pedestrian footpath network data. */
+    /** 
+     * @brief Load the pedestrian footpath network data
+     */
     void LoadFootpathNetwork();
 
     /**
@@ -92,10 +98,14 @@ public:
      */
     NearestLinkPoint FindNearestFootpathLinkPoint(double x, double y) const;
 
-    /** @brief Add a pedestrian node to the network. */
+    /** 
+     * @brief Add a pedestrian node to the network. 
+     */
     void AddFootpathNode(const FootpathNode& node);
 
-    /** @brief Add a pedestrian edge to the network. */
+    /** 
+     * @brief Add a pedestrian edge to the network. 
+     */
     void AddFootpathEdge(const FootpathEdge& edge);
 
     /**
@@ -105,7 +115,9 @@ public:
      */
     const FootpathNode& GetFootpathNode(const std::string& nodeId) const;
 
-    /** @brief Remove temporary nodes and edges added during routing. */
+    /** 
+     * @brief Remove temporary nodes and edges added during routing
+     */
     void RemoveTempNodesAndEdges();
 
     /**
@@ -132,13 +144,13 @@ public:
      */
     double GetDistance(const std::pair<double, double>& p1, const std::pair<double, double>& p2);
 
-    /**
-     * @brief Export the network nodes, edges, and route to CSV files.
-     * @param node_filepath Path for node CSV
-     * @param edge_filepath Path for edge CSV
-     * @param path_filepath Path for route CSV
-     */
-    void ExportNetworkToCsv(const std::string& node_filepath, const std::string& edge_filepath, const std::string& path_filepath) const;
+    // /**
+    //  * @brief Export the network nodes, edges, and route to CSV files.
+    //  * @param node_filepath Path for node CSV
+    //  * @param edge_filepath Path for edge CSV
+    //  * @param path_filepath Path for route CSV
+    //  */
+    // void ExportNetworkToCsv(const std::string& node_filepath, const std::string& edge_filepath, const std::string& path_filepath) const;
 
     /**
      * @brief Get the node ID list forming the last computed route.
@@ -147,11 +159,30 @@ public:
     std::vector<std::string> GetFootpathRoute() const;
 
 private:
-    std::map<std::string, FootpathNode> m_footpathNodes;   /**< Nodes in the network */
-    std::map<std::string, std::vector<FootpathEdge>> m_footpathEdges; /**< Edges in the network */
-    bool m_isNetworkLoaded = false;                         /**< Network load flag */
-    std::vector<std::string> m_footpath;                    /**< Last computed route */
-    static std::atomic<long long> s_tempNodeCounter;        /**< Counter for temp node IDs */
+    /** 
+     * @brief Map of footpath nodes in the network
+     */
+    std::map<std::string, FootpathNode> m_footpathNodes;
+
+    /** 
+     * @brief Map of footpath edges in the network
+     */
+    std::map<std::string, std::vector<FootpathEdge>> m_footpathEdges;
+
+    /** 
+     * @brief Flag indicating whether the footpath network has been successfully loaded.
+     */
+    bool m_isNetworkLoaded = false;
+
+    /** 
+     * @brief The last computed footpath route as a sequence of node IDs.
+     */
+    std::vector<std::string> m_footpath;
+
+    /** 
+     * @brief Static atomic counter for generating unique temporary node IDs.
+     */
+    static std::atomic<long long> s_tempNodeCounter;
 };
 
 } // namespace Captain

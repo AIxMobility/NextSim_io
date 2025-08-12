@@ -191,17 +191,13 @@ void Footpath::LoadFootpathNetwork() {
         }
     }
 
-    std::cout << "Link creation summary:" << std::endl;
-    std::cout << "  Links successfully created (bidirectional counted once): " << createdEdgeCount << std::endl;
-
-    std::cout << "Footpath network loading complete." << std::endl;
-    std::cout << "Total Footpath Nodes: " << m_footpathNodes.size() << std::endl;
+    // std::cout << "[FOOTPATH NETWORK] Footpath network loading complete." << std::endl;
 
     size_t totalEdges = 0;
     for (const auto& pair : m_footpathEdges) {
         totalEdges += pair.second.size();
     }
-    std::cout << "Total Footpath Edges (bidirectional): " << totalEdges << std::endl;
+    // std::cout << "Total Footpath Edges (bidirectional): " << totalEdges << std::endl;
 
     m_isNetworkLoaded = true;
 }
@@ -273,12 +269,10 @@ NearestLinkPoint Footpath::FindNearestFootpathLinkPoint(double x, double y) cons
 
 void Footpath::AddFootpathNode(const FootpathNode& node) {
     m_footpathNodes[node.id] = node;
-    // std::cout << "Added temporary node: " << node.id << std::endl; // For debugging
 }
 
 void Footpath::AddFootpathEdge(const FootpathEdge& edge) {
     m_footpathEdges[edge.from_node_id].push_back(edge);
-    // std::cout << "Added temporary edge: " << edge.from_node_id << " -> " << edge.to_node_id << std::endl; // For debugging
 }
 
 const FootpathNode& Footpath::GetFootpathNode(const std::string& nodeId) const {
@@ -286,8 +280,8 @@ const FootpathNode& Footpath::GetFootpathNode(const std::string& nodeId) const {
     if (it != m_footpathNodes.end()) {
         return it->second;
     }
-    std::cerr << "Error: Node " << nodeId << " not found in GetFootpathNode!" << std::endl;
-    static FootpathNode dummyNode = {"", 0.0, 0.0}; // Return a default constructed node
+    std::cerr << "Error: Node " << nodeId << " not found in GetFootpathNode" << std::endl;
+    static FootpathNode dummyNode = {"", 0.0, 0.0};
     return dummyNode;
 }
 
@@ -441,63 +435,63 @@ double Footpath::GetDistance(const std::pair<double, double>& origin_coords, con
 
     double total_distance = origin_offset + network_distance + dest_offset;
 
-    std::cout << "Origin offset distance: " << origin_offset << std::endl;
-    std::cout << "Footpath network distance (Dijkstra): " << network_distance << std::endl;
-    std::cout << "Destination offset distance: " << dest_offset << std::endl;
-    std::cout << ">>> Total distance (with offset): " << total_distance << std::endl;
+    // std::cout << "Origin offset distance: " << origin_offset << std::endl;
+    // std::cout << "Footpath network distance (Dijkstra): " << network_distance << std::endl;
+    // std::cout << "Destination offset distance: " << dest_offset << std::endl;
+    // std::cout << ">>> Total distance (with offset): " << total_distance << std::endl;
 
     return total_distance;
 }
 
-void Footpath::ExportNetworkToCsv(const std::string& node_filepath, const std::string& edge_filepath, const std::string& path_filepath) const {
-    // Save nodes to CSV (footpath_nodes.csv)
-    std::ofstream nodes_ofs(node_filepath);
-    if (!nodes_ofs.is_open()) {
-        std::cerr << "[Footpath::ExportNetworkToCsv][Error] Failed to open node file for writing: " << node_filepath << std::endl;
-        return;
-    }
-    nodes_ofs << "id,x,y\n";
+// void Footpath::ExportNetworkToCsv(const std::string& node_filepath, const std::string& edge_filepath, const std::string& path_filepath) const {
+//     // Save nodes to CSV (footpath_nodes.csv)
+//     std::ofstream nodes_ofs(node_filepath);
+//     if (!nodes_ofs.is_open()) {
+//         std::cerr << "[Footpath::ExportNetworkToCsv][Error] Failed to open node file for writing: " << node_filepath << std::endl;
+//         return;
+//     }
+//     nodes_ofs << "id,x,y\n";
 
-    for (const auto& pair : m_footpathNodes) {
-        const FootpathNode& node = pair.second;
-        nodes_ofs << node.id << ","
-                  << std::fixed << std::setprecision(3) << node.x_coord << "," // 소수점 3자리까지 고정
-                  << std::fixed << std::setprecision(3) << node.y_coord << "\n";
-    }
-    nodes_ofs.close();
-    std::cout << "\n[Footpath::ExportNetworkToCsv][Info] Exported " << m_footpathNodes.size() << " nodes to " << node_filepath << std::endl;
+//     for (const auto& pair : m_footpathNodes) {
+//         const FootpathNode& node = pair.second;
+//         nodes_ofs << node.id << ","
+//                   << std::fixed << std::setprecision(3) << node.x_coord << "," // 소수점 3자리까지 고정
+//                   << std::fixed << std::setprecision(3) << node.y_coord << "\n";
+//     }
+//     nodes_ofs.close();
+//     std::cout << "\n[Footpath::ExportNetworkToCsv][Info] Exported " << m_footpathNodes.size() << " nodes to " << node_filepath << std::endl;
 
-    // Save edges to CSV (footpath_edges.csv)
-    std::ofstream edges_ofs(edge_filepath);
-    if (!edges_ofs.is_open()) {
-        std::cerr << "[Footpath::ExportNetworkToCsv][Error] Failed to open edge file for writing: " << edge_filepath << std::endl;
-        return;
-    }
-    edges_ofs << "from_node,to_node,length\n";
+//     // Save edges to CSV (footpath_edges.csv)
+//     std::ofstream edges_ofs(edge_filepath);
+//     if (!edges_ofs.is_open()) {
+//         std::cerr << "[Footpath::ExportNetworkToCsv][Error] Failed to open edge file for writing: " << edge_filepath << std::endl;
+//         return;
+//     }
+//     edges_ofs << "from_node,to_node,length\n";
 
-    for (const auto& pair : m_footpathEdges) {
-        for (const auto& edge : pair.second) {
-            edges_ofs << edge.from_node_id << ","
-                      << edge.to_node_id << ","
-                      << std::fixed << std::setprecision(3) << edge.length << "\n";
-        }
-    }
-    edges_ofs.close();
-    std::cout << "[Footpath::ExportNetworkToCsv][Info] Exported " << m_footpathEdges.size() << " edge lists to " << edge_filepath << std::endl;
+//     for (const auto& pair : m_footpathEdges) {
+//         for (const auto& edge : pair.second) {
+//             edges_ofs << edge.from_node_id << ","
+//                       << edge.to_node_id << ","
+//                       << std::fixed << std::setprecision(3) << edge.length << "\n";
+//         }
+//     }
+//     edges_ofs.close();
+//     std::cout << "[Footpath::ExportNetworkToCsv][Info] Exported " << m_footpathEdges.size() << " edge lists to " << edge_filepath << std::endl;
 
-    // Save paths to CSV (footpath_paths.csv)
-    std::ofstream paths_ofs(path_filepath);
-    if (!paths_ofs.is_open()) {
-        std::cerr << "[Footpath::ExportNetworkToCsv][Error] Failed to open path file for writing: " << path_filepath << std::endl;
-        return;
-    }
-    paths_ofs << "node_id\n";
+//     // Save paths to CSV (footpath_paths.csv)
+//     std::ofstream paths_ofs(path_filepath);
+//     if (!paths_ofs.is_open()) {
+//         std::cerr << "[Footpath::ExportNetworkToCsv][Error] Failed to open path file for writing: " << path_filepath << std::endl;
+//         return;
+//     }
+//     paths_ofs << "node_id\n";
 
-    for (const auto& nodeId : m_footpath) {
-        paths_ofs << nodeId << "\n";
-    }
-    paths_ofs.close();
-    std::cout << "[Footpath::ExportNetworkToCsv][Info] Exported " << m_footpath.size() << " path nodes to " << path_filepath << std::endl;
-}
+//     for (const auto& nodeId : m_footpath) {
+//         paths_ofs << nodeId << "\n";
+//     }
+//     paths_ofs.close();
+//     std::cout << "[Footpath::ExportNetworkToCsv][Info] Exported " << m_footpath.size() << " path nodes to " << path_filepath << std::endl;
+// }
 
 } // namespace Captain

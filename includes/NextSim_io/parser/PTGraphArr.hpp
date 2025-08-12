@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <unordered_map>
+#include <fstream>
 #include <NextSim_io/inputclass/InputPTGraphVertex.hpp>
 #include <NextSim_io/inputclass/InputPTGraphArc.hpp>
 #include <NextSim_io/inputclass/InputStation.hpp>
@@ -87,6 +88,7 @@ public:
      * @brief Default constructor
      */
     PTArcArr();
+    ~PTArcArr();
 
     /**
      * @brief Constructor with station arrays
@@ -126,6 +128,8 @@ private:
      * @brief Vector of PT arcs
      */
     std::vector<InputPTGraphArc> m_ptArcs;
+
+    std::ofstream m_arcLogFile; 
 
 }; // class PTArcArr
 
