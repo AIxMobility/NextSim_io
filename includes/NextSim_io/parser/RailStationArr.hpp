@@ -1,7 +1,7 @@
 /**
  * NextSim Captain
  * @file : RailStation.hpp
- * @version : 1.1
+ * @version : 1.2
  * @author : Yuseock Hwang, Yeonwoo Yu
  */
 
@@ -19,21 +19,27 @@ namespace NextSimIO
 {
 /**
  * @class RailStationArr
- * @brief 
+ * @brief Class for whole rail station information from railStation.xml
  */
 class RailStationArr
 {
 public:
     /**
-     * @details Constructor (Parse signal information from network.xml)
+     * @details Constructor
     */
    RailStationArr();
 
     /**
-     * @details Get vector of all signal plans
-     * @return Vector of all signal plans
+     * @details Constructor
+     * @param dayOfWeek The day of the week for which to load rail stations (e.g., "weekdays", "weekends")
     */
-   const std::vector<InputRailStation> GetRailStations() const { return m_railstations; }
+   RailStationArr(const std::string& dayOfWeek);
+
+    /**
+     * @details Get vector of all rail stations
+     * @return Vector of all rail stations
+    */
+   const std::vector<InputRailStation>& GetRailStations() const { return m_railstations; }
 
     /**
      * @brief Checks if a stop with the given ID exists in this collection. Used for pt routing. 
@@ -54,7 +60,7 @@ public:
 private:
 
     /**
-     * @details Vector of all signal plans
+     * @details Vector of all rail stations
     */
    std::vector<InputRailStation> m_railstations;
 
