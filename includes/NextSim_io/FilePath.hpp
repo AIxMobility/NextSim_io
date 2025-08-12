@@ -47,7 +47,7 @@ static std::filesystem::path RailStationXMLPath = NetworkXmlFilePath / "railStat
 
 static std::filesystem::path RoadPTlineXMLPath = NetworkXmlFilePath / "roadPTline.xml";
 
-static std::filesystem::path RailPTlineXMLPath = NetworkXmlFilePath / "railPTline.xml";
+static std::filesystem::path RailPTlineXMLPath = NetworkXmlFilePath / "railPTLine.xml";
 
 static std::filesystem::path RouteJSONPath = NetworkXmlFilePath / "Route.json";
 

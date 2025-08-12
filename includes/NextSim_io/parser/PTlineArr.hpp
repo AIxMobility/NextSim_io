@@ -1,8 +1,8 @@
 /**
  * NextSim Captain
  * @file : PTlineArr.hpp
- * @version : 1.0
- * @author : ???
+ * @version : 1.1
+ * @author : Sujae Jeon, Yeonwoo Yu
  */
 
 #ifndef PTROUTEARR_H
@@ -15,7 +15,7 @@ namespace NextSimIO
 {
 /**
  * @class PTlineArr
- * @brief Class for whole public transit line information from roadptline.xml
+ * @brief Class for road public transit line information
  */
 class PTlineArr
 {
@@ -29,15 +29,13 @@ public:
      * @details Get vector of public transit lines
      * @return Vector of public transit lines
  */
-    std::vector<InputPTline> GetPTLines() const
-    {
-        return m_ptLines;
-    }
+    std::vector<InputPTline> GetPTLines() const { return m_ptLines; }
 
 private:
+
     /**
      * @details Vector of public transit lines
- */
+    */
     std::vector<InputPTline> m_ptLines;
 };
 } // namespace NextSimIO

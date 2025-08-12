@@ -19,14 +19,15 @@ namespace NextSimIO
 {
 /**
  * @class StationArr
- * @brief Class for whole station information from publictransit.xml
- */
+ * @brief Class for whole station information from roadStation.xml
+*/
+
 class StationArr
 {
 
 public:
     /**
-     * @details Constructor (Parse station information from publictransit.xml)
+     * @details Constructor (Parse station information from roadStation.xml)
     */
     StationArr();
 

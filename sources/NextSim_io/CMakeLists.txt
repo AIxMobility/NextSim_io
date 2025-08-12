@@ -5,6 +5,7 @@ file(GLOB_RECURSE headers
         ${includes_dir}/parser/*.hpp
         ${includes_dir}/inputclass/*.hpp
         ${includes_dir}/inputclass/intersection/*.hpp
+        ${includes_dir}/inputclass/footpath/*.hpp
         ${includes_dir}/tinyapi/*.h)
 
 file(GLOB_RECURSE sources

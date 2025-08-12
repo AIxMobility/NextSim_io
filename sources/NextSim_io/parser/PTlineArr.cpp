@@ -1,8 +1,8 @@
 /**
  * NextSim Captain
  * @file : PTLineArr.cpp
- * @version : 1.0
- * @author : Sujae Jeon
+ * @version : 1.1
+ * @author : Sujae Jeon, Yeonwoo Yu
  */
 
 #include <iostream>
@@ -29,7 +29,6 @@ PTlineArr::PTlineArr()
         return;
     }
 
-
     TiXmlElement* root = doc.FirstChildElement(); 
     for (TiXmlElement* elem = root->FirstChildElement(); elem != nullptr; elem = elem->NextSiblingElement())
     {
@@ -42,25 +41,25 @@ PTlineArr::PTlineArr()
         if (elem->Attribute("interval"))
             interval = std::stoi(elem->Attribute("interval"));
 
-        InputPTline tPTline(id, interval);
+        InputPTline PTline(id, interval);
         
 
         TiXmlElement* e = elem->FirstChildElement("link");
         if (e && e->Attribute("seq"))
         {
-            tPTline.SetLinkSeq(e->Attribute("seq"));
+            PTline.SetLinkSeq(e->Attribute("seq"));
         }
 
         e = elem->FirstChildElement("node");
         if (e && e->Attribute("seq"))
         {
-            tPTline.SetNodeSeq(e->Attribute("seq"));
+            PTline.SetNodeSeq(e->Attribute("seq"));
         }
 
         e = elem->FirstChildElement("station");
         if (e && e->Attribute("seq"))
         {
-            tPTline.SetStationSeq(e->Attribute("seq"));
+            PTline.SetStationSeq(e->Attribute("seq"));
         }
 
         e = elem->FirstChildElement("garage");
@@ -68,15 +67,15 @@ PTlineArr::PTlineArr()
         {
             if (e->Attribute("id"))
             {
-                tPTline.SetGarageSeq(e->Attribute("id"));
+                PTline.SetGarageSeq(e->Attribute("id"));
             }
             else if (e->Attribute("seq"))
             {
-                tPTline.SetGarageSeq(e->Attribute("seq"));
+                PTline.SetGarageSeq(e->Attribute("seq"));
             }
         }
 
-        m_ptLines.push_back(tPTline);
+        m_ptLines.push_back(PTline);
     }
     
 }

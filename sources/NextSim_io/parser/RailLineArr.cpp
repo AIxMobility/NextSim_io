@@ -1,8 +1,8 @@
 /**
  * NextSim Captain
  * @file : RailLineArr.cpp
- * @version : 1.0
- * @author : Yuseock Hwang
+ * @version : 1.1
+ * @author : Yuseock Hwang, Yeonwoo Yu
  */
 #include <iostream>
 #include <sstream>
@@ -20,11 +20,11 @@ namespace NextSimIO
 RailLineArr::RailLineArr()
 {
     TiXmlDocument doc;
-    bool loadSuccess = doc.LoadFile(NextSimIO::RailLineNewXMLPath.string().c_str());
+    bool loadSuccess = doc.LoadFile(NextSimIO::RailPTlineXMLPath.string().c_str());
 
     if (!loadSuccess)
     {
-        std::cout << "Loading failed (RailStationArr)" << std::endl;
+        std::cout << "Loading failed (RailLineArr)" << std::endl;
         return;
     }
 
@@ -50,7 +50,7 @@ RailLineArr::RailLineArr()
         }
 
         InputRailLine route(routeName, routeId, stationSeq);
-        m_railLine.push_back(route);
+        m_railLines.push_back(route);
     }
     doc.Clear();
 
