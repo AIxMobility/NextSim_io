@@ -18,25 +18,6 @@ namespace NextSimIO
 {
 class InputPTGraphVertex;
 
-// /**
-//  * @brief Structure to hold connection information between graph vertices.
-//  */
-// struct ConnectionInfo {
-//     InputPTGraphVertex* toVertex;
-//     std::string type; // "inVehicle", "transfer", "footpath"
-//     int arrivalTime = -1;   // inVehicle
-//     int departureTime = -1; // inVehicle
-//     int tripId = -1;        // inVehicle, transfer
-//     int duration = -1;      // inVehicle?, transfer, footpath
-
-//     /**
-//      * @details Constructor for ConnectionInfo.
-//      * @param toVertex The destination vertex of the connection.
-//      * @param type The type of the connection ("inVehicle", "transfer", "footpath").
-//      */
-//     ConnectionInfo(InputPTGraphVertex* toVertex, std::string type): toVertex(toVertex), type(type) {};
-// };
-
 /**
  * @enum StopType
  * @brief Enum to classify stop types (e.g., road or rail)
@@ -51,38 +32,38 @@ enum class StopType {
  * @brief Class for each stop information
  */
 class Stop {
-    public:
-        /**
-         * @brief Constructor
-         * @param stopId Unique ID of the stop
-         * @param type Type of the stop
-         */
-        Stop(int stopId, StopType type);
-        Stop(const Stop&) = default;
-        Stop& operator=(const Stop&) = default;
-        /**
-         * @brief Get stop ID
-         * @return Stop ID
-         */
-        int GetStopId() const;
+public:
+    /**
+     * @brief Constructor
+     * @param stopId Unique ID of the stop
+     * @param type Type of the stop
+     */
+    Stop(int stopId, StopType type);
+    Stop(const Stop&) = default;
+    Stop& operator=(const Stop&) = default;
+    /**
+     * @brief Get stop ID
+     * @return Stop ID
+     */
+    int GetStopId() const;
 
-        /**
-         * @brief Get the type of the stop
-         * @return Stop type (Road or Rail)
-         */
-        StopType GetStopType() const;
+    /**
+     * @brief Get the type of the stop
+     * @return Stop type (Road or Rail)
+     */
+    StopType GetStopType() const;
+
+private:
+    /**
+     * @details Stop ID
+     */
+    int m_stopId;
     
-    private:
-        /**
-         * @details Stop ID
-         */
-        int m_stopId;
-        
-        /**
-         * @details Stop type
-         */
-        StopType m_stopType;
-    };
+    /**
+     * @details Stop type
+     */
+    StopType m_stopType;
+};
     
 /**
  * @class Line
@@ -168,18 +149,6 @@ public:
      */
     std::shared_ptr<Line> GetLine() const;
 
-    // /**
-    //  * @details Add a connection from this vertex to another.
-    //  * @param connectionInfo The information about the connection to add.
-    //  */
-    // void AddConnection(ConnectionInfo connectionInfo);
-
-    // /**
-    //  * @details Get the list of connections originating from this vertex.
-    //  * @return A constant reference to the vector of ConnectionInfo objects.
-    //  */
-    // const std::vector<ConnectionInfo>& GetConnections() const;
-
 private:
     /**
      * @brief The stop associated with this vertex.
@@ -190,11 +159,7 @@ private:
      * @brief The line associated with this vertex.
      */
     std::shared_ptr<Line> m_line;
-
-    // /**
-    //  * @brief List of connections originating from this vertex.
-    //  */
-    // std::vector<ConnectionInfo> m_connections;
+    
 }; 
 } // namespace NextSimIO
 #endif

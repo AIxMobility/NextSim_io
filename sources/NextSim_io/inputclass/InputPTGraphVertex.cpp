@@ -6,6 +6,7 @@
  */
 
 #include <NextSim_io/inputclass/InputPTGraphVertex.hpp>
+#include <iostream>
 
 namespace NextSimIO
 {
@@ -22,7 +23,8 @@ Stop::Stop(int stopId, StopType type)
     }
 
 Line::Line(std::string lineId, const std::vector<int> &stops, const std::vector<int> &arrivalTimes, const std::vector<int> &departureTimes)
-    : m_lineId(lineId), m_stops(stops), m_arrivalTimes(arrivalTimes), m_departureTimes(departureTimes) {}
+    : m_lineId(lineId), m_stops(stops), m_arrivalTimes(arrivalTimes), m_departureTimes(departureTimes)
+    {}
 
     std::string Line::GetLineId() const {
         return m_lineId;
@@ -50,13 +52,5 @@ InputPTGraphVertex::InputPTGraphVertex(const Stop& stop, std::shared_ptr<Line> l
     std::shared_ptr<Line> InputPTGraphVertex::GetLine() const {
         return m_line;
     }
-
-    // void InputPTGraphVertex::AddConnection(ConnectionInfo connectionInfo) {
-    //     m_connections.push_back(std::move(connectionInfo));
-    // }
-
-    // const std::vector<ConnectionInfo>& InputPTGraphVertex::GetConnections() const {
-    //     return m_connections;
-    // }
 
 }; // namespace NextSimIO

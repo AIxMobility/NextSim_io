@@ -27,10 +27,11 @@ InputPTGraphArc::InputPTGraphArc(std::size_t arcId,
                        std::string fromLineId,
                        std::size_t toStopId,
                        std::string toLineId,
+                       int depTime,
                        ArcType type,
                        PTCost ptCost)
     : m_arcId(arcId), m_fromStopId(fromStopId), m_fromLineId(fromLineId),
-      m_toStopId(toStopId), m_toLineId(toLineId), m_type(type), m_cost({ptCost})
+      m_toStopId(toStopId), m_toLineId(toLineId), m_depTime(depTime), m_type(type), m_cost({ptCost})
 {}
 
 } // namespace NextSimIO

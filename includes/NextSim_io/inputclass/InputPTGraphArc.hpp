@@ -112,6 +112,7 @@ public:
      * @param toStopId To stop ID 
      * @param toLineId To line ID 
      * @param type Arc type
+     * @param depTime Departure time
      * @param ptCost Arc cost
      */
     InputPTGraphArc(std::size_t arcId,
@@ -119,6 +120,7 @@ public:
                     std::string fromLineId,
                     std::size_t toStopId,
                     std::string toLineId,
+                    int depTime,
                     ArcType type, 
                     PTCost ptCost);
 
@@ -151,6 +153,18 @@ public:
      * @return To line ID 
      */
     std::string GetToLineId() const { return m_toLineId; }
+    
+    /**
+     * @details Get departure time from Stop
+     * @return Departure time
+     */
+    int GetDepTime() const { return m_depTime; }
+
+    /**
+     * @details Set departure time
+     * @param time Departure time to set
+     */
+    void SetDepTime(int time) { m_depTime = time; }
 
     /**
      * @details Get arc type
@@ -195,6 +209,11 @@ private:
      * @details To line ID 
      */
     std::string m_toLineId;
+
+    /**
+     * @details Departure time 
+     */
+    int m_depTime;
 
     /**
      * @details Arc type
