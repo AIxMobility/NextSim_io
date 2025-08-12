@@ -97,12 +97,6 @@ public:
      * @param vertexArr Vertex vectors
      */
     Graph(ArcArr arcArr, VertexArr vertexArr);
-
-    /**
-     * @details Get vertex to arc map
-     * @return Vertex to arc map
-     */
-    std::unordered_map<int, std::vector<int>> GetVertexToArc() { return m_vertexToArc; }
     
     /**
      * @details Get arc to arc map
@@ -110,14 +104,7 @@ public:
      */
     std::unordered_map<int, std::vector<int>> GetArcToArc() { return m_arcToArc; }
 
-
 private:
-    /**
-     * @details .
-     * @note does not used in route generation, it could be deleted
-     */
-    std::unordered_map<int, std::vector<int>> m_vertexToArc;
-
     /**
      * @details .
      */
