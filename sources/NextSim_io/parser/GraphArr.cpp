@@ -235,6 +235,11 @@ ArcArr::ArcArr()
                     for (TiXmlElement* laneElem = e->FirstChildElement(); laneElem != nullptr;
                          laneElem = laneElem->NextSiblingElement())
                     {
+                        const char* ptonlyAttr = laneElem->Attribute("ptonly");
+                        if (ptonlyAttr && strcmp(ptonlyAttr, "True") == 0) {
+                            continue;
+                        }
+
                         bool isBlock = false;
                         for (TiXmlElement* segElem = laneElem->FirstChildElement(); segElem != nullptr;
                              segElem = segElem->NextSiblingElement())
@@ -258,6 +263,10 @@ ArcArr::ArcArr()
                     }
 
                     demoArc.SetAvailableLanes(availableLanes);
+
+                    if (!availableLanes.empty()) {
+                        m_arcs.push_back(demoArc);
+                    }
 
                     m_arcs.push_back(demoArc);
                 }
