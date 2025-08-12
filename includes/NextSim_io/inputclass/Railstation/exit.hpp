@@ -14,45 +14,44 @@
 namespace NextSimIO
 {
 /**
- * @class Exit
- * @brief Class for Exit information
+ * @class exit
+ * @brief Class for exit information
  */
-class Exit
+class exit
 {
 public:
     /**
      * @details Constructor
-     * @param id exit ID
-     * @param link 
-     * @param offset 
-     * @param accesstime 
+     * @param id Exit ID
+     * @param link Link ID
+     * @param offset Offset in the link
+     * @param accesstime Access time
      */
-    Exit(int id, int link, int offset, double accesstime);
+    exit(int id, int link, int offset, double accesstime);
 
     /**
-     * @details 
-     * @return 
+     * @details Get exit ID
+     * @return Exit ID
      */
     int GetId() { return m_id; }
 
     /**
-     * @details 
-     * @return 
+     * @details Get link ID
+     * @return Link ID
      */
     int GetLink() { return m_link; }
 
     /**
-     * @details 
-     * @return 
+     * @details Get offset in the link
+     * @return Offset in the link
      */
     int GetOffset() { return m_offset; }
 
     /**
-     * @details 
-     * @return 
+     * @details Get access time
+     * @return Access time
      */
     double GetAccesstime() { return m_accesstime; }
-
 
 private:
     /**
@@ -61,17 +60,17 @@ private:
     int m_id;
 
     /**
-     * @details 
+     * @details Link ID
      */
     int m_link;
 
     /**
-     * @details 
+     * @details Offset in the link
      */
     int m_offset;
 
     /**
-     * @details 
+     * @details Access time
      */
     double m_accesstime;
 

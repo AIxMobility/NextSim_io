@@ -37,51 +37,55 @@ RailStationArr::RailStationArr()
     stationElem = stationElem->NextSiblingElement("railStation"))
     {
         const int id = std::stoi(stationElem->Attribute("id"));
+
         const std::string transitMode = stationElem->Attribute("transitMode");
+
+        const std::string lineLisStr = stationElem->Attribute("lineList");
+        std::vector<std::string> lineList;
+        std::istringstream lineStream(lineLisStr);
+        std::string line;
+        while (std::getline(lineStream, line, ' ')) {
+            lineList.push_back(line);
+        }
+
         const std::string address = stationElem->Attribute("address");
 
-        InputRailStation station(id, transitMode, address);
+        InputRailStation station(id, transitMode, lineList, address);
 
 
         TiXmlElement *exitList = stationElem->FirstChildElement("exit");
         for (TiXmlElement *exitElem = exitList; exitElem != nullptr;
             exitElem = exitElem->NextSiblingElement("exit"))
-       {
-           int exitId = std::stoi(exitElem->Attribute("id"));
-           int linkRef = std::stoi(exitElem->Attribute("linkRef"));
-           int offset = std::stod(exitElem->Attribute("offset"));
-           double accessTime = std::stoi(exitElem->Attribute("accessTime"));
+        {
+            int exitId = std::stoi(exitElem->Attribute("id"));
+            int linkRef = std::stoi(exitElem->Attribute("linkRef"));
+            int offset = std::stod(exitElem->Attribute("offset"));
+            double accessTime = std::stoi(exitElem->Attribute("accessTime"));
 
-           Exit exit(exitId, linkRef, offset, accessTime);
-           station.PushExit(exit);
-       }
+            exit exit(exitId, linkRef, offset, accessTime);
+            station.PushExit(exit);
+        }
 
-       TiXmlElement *timetableList = stationElem->FirstChildElement("timetable");
-       for (TiXmlElement *timetableElem = timetableList; timetableElem != nullptr;
+        TiXmlElement *timetableList = stationElem->FirstChildElement("timetable");
+        for (TiXmlElement *timetableElem = timetableList; timetableElem != nullptr;
         timetableElem = timetableElem->NextSiblingElement("timetable"))
         {
             std::string dayOfWeek = timetableElem->Attribute("dayOfWeek");
-            std::string routeId = timetableElem->Attribute("routeId");
-            int Id = std::stoi(routeId);
-            std::string direction = timetableElem->Attribute("direction");
+            std::string lineId = timetableElem->Attribute("lineId");
             std::vector<std::string> times;
-
             std::istringstream timeStream(timetableElem->Attribute("time"));
             std::string time;
             while (timeStream >> time)
             {
                 times.push_back(time);
             }
-            timetable timetable(dayOfWeek, Id, direction, times);
+            timetable timetable(dayOfWeek, lineId, times);
 
             station.Pushtimetable(timetable);
         }
 
         m_railstation.push_back(station);
-
-
     }
     doc.Clear();
-
 };
 } // namespace NextSimIO

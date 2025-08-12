@@ -24,11 +24,10 @@ public:
     /**
      * @details Constructor
      * @param dayOfWeek Day of the week for the timetable
-     * @param routeId Route ID for the timetable
-     * @param type Type of the timetable
+     * @param lineId line ID for the timetable
      * @param time Time schedule for the timetable
      */
-    timetable(std::string dayOfWeek, int routeId, std::string type, std::vector<std::string> time);
+    timetable(std::string dayOfWeek, std::string lineId, std::vector<std::string> time);
 
     /**
      * @details Gets the day of the week for the timetable.
@@ -37,16 +36,10 @@ public:
     std::string GetDayOfWeek() const { return m_dayOfweek; }
 
     /**
-     * @details Gets the route ID for the timetable.
-     * @return The route ID as an integer.
+     * @details Gets the line ID for the timetable.
+     * @return The line ID as a string.
      */
-    int GetRouteId() const { return m_routeId; }
-
-    /**
-     * @details Gets the type of the timetable.
-     * @return The type of the timetable as a string.
-     */
-    std::string GetDirection() const { return m_direction; }
+    std::string GetLineId() const { return m_lineId; }
 
     /**
      * @details Gets the time schedule for the timetable.
@@ -54,29 +47,19 @@ public:
      */
     std::vector<std::string> GetTime() const { return m_time; }
 
-    /**
-     * @return The type of the timetable as a string.
-     */
-    std::string GetType() const { return m_direction; }
-
 private:
     /**
-     * @details 
+     * @details Day of the week for the timetable
      */
     std::string m_dayOfweek;
 
     /**
-     * @details 
+     * @details The unique ID of the transit line
      */
-    int m_routeId;
+    std::string m_lineId;
 
     /**
-     * @details 
-     */
-    std::string m_direction;
-
-    /**
-     * @details 
+     * @details The time schedule for the timetable
      */
     std::vector<std::string> m_time;
 };
