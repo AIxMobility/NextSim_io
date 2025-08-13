@@ -39,14 +39,17 @@ PTlineArr::PTlineArr()
         {
             // Get required attributes: id & interval
             std::string id;
+            double fee = 0;
             int interval = 0;
 
             if (lineElem->Attribute("id"))
                 id = lineElem->Attribute("id");
+            if (lineElem->Attribute("fee"))
+                fee = std::stod(lineElem->Attribute("fee"));
             if (lineElem->Attribute("interval"))
                 interval = std::stoi(lineElem->Attribute("interval"));
 
-            InputPTline tPTline(id, interval);
+            InputPTline tPTline(id, fee, interval);
 
             // link
             TiXmlElement* e = lineElem->FirstChildElement("link");

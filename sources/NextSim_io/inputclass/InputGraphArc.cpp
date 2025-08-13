@@ -22,5 +22,10 @@ void InputGraphArc::PushArcCost(ArcCost arcCost)
 {
     m_arcCost.emplace_back(arcCost);
 }
+
+void InputGraphArc::PushPTLaneList(int ptlane)
+{
+    m_ptlanelist.push_back(ptlane);
+}
 // class InputGraphArc
 }

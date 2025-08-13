@@ -11,8 +11,9 @@
 
 namespace NextSimIO
 {
-InputPTline::InputPTline(std::string id, double interval) 
-    : m_id(std::move(id)), m_interval(interval) {}
+InputPTline::InputPTline(std::string id, double fee, double interval) 
+    : m_id(std::move(id)), m_fee(fee), m_interval(interval) {}
+
 void InputPTline::SetLinkSeq(std::string linkSeq)
 {
     std::stringstream ss(linkSeq);
