@@ -17,7 +17,7 @@
 #include <tuple>
 
 #include <NextSim_io/parser/PTGraphArr.hpp>
-#include <NextSim_io/inputclass/footpath/footpath.hpp>
+#include <NextSim_io/inputclass/ptpath/footpath.hpp>
 #include <NextSim_io/tinyapi/tinystr.h>
 #include <NextSim_io/tinyapi/tinyxml.h>
 #include <NextSim_io/FilePath.hpp>

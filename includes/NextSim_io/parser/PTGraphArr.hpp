@@ -22,7 +22,7 @@
 #include <NextSim_io/inputclass/InputRailLine.hpp>
 #include <NextSim_io/parser/RailLineArr.hpp>
 #include <NextSim_io/inputclass/Railstation/Timetable.hpp>
-#include <NextSim_io/inputclass/footpath/footpath.hpp>
+#include <NextSim_io/inputclass/ptpath/footpath.hpp>
 
 namespace NextSimIO
 {
