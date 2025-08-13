@@ -1,11 +1,11 @@
 /**
- * @file Footpath.hpp
+ * @file footpath.hpp
  * @version 1.0
  * @author Yeonwoo Yu
  */
 
-#ifndef Footpath_HPP
-#define Footpath_HPP
+#ifndef FOOTPATH_HPP
+#define FOOTPATH_HPP
 
 #pragma once
 

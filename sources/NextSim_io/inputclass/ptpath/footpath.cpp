@@ -1,6 +1,6 @@
 /**
  * NextSim Captain
- * @file : Footpath.cpp
+ * @file : footpath.cpp
  * @version : 1.0
  * @author : Yeonwoo Yu
  */
