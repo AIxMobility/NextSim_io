@@ -68,7 +68,6 @@ RailStationArr::RailStationArr()
         for (TiXmlElement *timetableElem = timetableList; timetableElem != nullptr;
             timetableElem = timetableElem->NextSiblingElement("timetable"))
         {
-            // NULL 포인터 체크를 더 안전하게
             const char* dayOfWeekAttr = timetableElem->Attribute("dayOfWeek");
             const char* routeIdAttr = timetableElem->Attribute("routeId");
             const char* typeAttr = timetableElem->Attribute("type");
@@ -78,15 +77,11 @@ RailStationArr::RailStationArr()
             std::string routeId = routeIdAttr ? std::string(routeIdAttr) : "";
             std::string type = typeAttr ? std::string(typeAttr) : "";
 
-            // std::cerr << "  [XML] Parsing timetable - routeId=" << routeId 
-            //         << ", type=" << type << ", dayOfWeek=" << dayOfWeek << std::endl;
-
             if (!rawTime) {
                 std::cerr << "  Warning: timetable with no time attribute for routeId=" << routeId << "\n";
                 continue;
             }
 
-            // 안전한 길이 체크
             size_t timeAttrLength = 0;
             try {
                 timeAttrLength = strlen(rawTime);
@@ -95,43 +90,35 @@ RailStationArr::RailStationArr()
                 continue;
             }
 
-            // std::cerr << "  [XML] Raw time attribute length: " << timeAttrLength << std::endl;
-
-            // 너무 긴 문자열 처리
-            const size_t MAX_TIME_ATTR_LENGTH = 20000; // 더 보수적으로 설정
+            const size_t MAX_TIME_ATTR_LENGTH = 20000;
             if (timeAttrLength > MAX_TIME_ATTR_LENGTH) {
                 std::cerr << "  Warning: time attribute too long (" << timeAttrLength
                         << " chars) for routeId=" << routeId << ". Truncating.\n";
                 timeAttrLength = MAX_TIME_ATTR_LENGTH;
             }
 
-            // 안전한 string 생성
             std::string timeAttr;
             try {
-                timeAttr.reserve(timeAttrLength + 100); // 여유분 추가
+                timeAttr.reserve(timeAttrLength + 100);
                 timeAttr.assign(rawTime, timeAttrLength);
-                // std::cerr << "  [XML] Time string created successfully, length: " << timeAttr.length() << std::endl;
             } catch (const std::exception& e) {
                 std::cerr << "  Error: Failed to create time string for routeId=" << routeId 
                         << ", error: " << e.what() << "\n";
                 continue;
             }
 
-            // 시간 문자열 샘플 출력 (처음 100자만)
             std::string sample = timeAttr.length() > 100 ? timeAttr.substr(0, 100) + "..." : timeAttr;
-            // std::cerr << "  [XML] Time sample: " << sample << std::endl;
 
             std::vector<std::string> times;
-            times.reserve(500); // 예상되는 시간 개수만큼 미리 예약
+            times.reserve(500);
 
             try {
                 std::istringstream timeStream(timeAttr);
                 std::string time;
-                const size_t maxTokens = 300; // 더 보수적으로 설정
+                const size_t maxTokens = 300;
                 size_t tokenCount = 0;
 
                 while (timeStream >> time && tokenCount < maxTokens) {
-                    // 시간 형식 더 엄격하게 검증
                     if (time.length() >= 4 && time.length() <= 5) {
                         size_t colonPos = time.find(':');
                         if (colonPos != std::string::npos && colonPos > 0 && colonPos < time.length() - 1) {
@@ -161,13 +148,10 @@ RailStationArr::RailStationArr()
                             << ") for routeId=" << routeId << ", truncating.\n";
                 }
 
-                // std::cerr << "  [XML] Parsed " << times.size() << " valid time entries\n";
 
-                // Timetable 객체 생성 - 더 안전하게
                 try {
                     Timetable timetable(std::move(dayOfWeek), std::move(routeId), std::move(type), std::move(times));
                     station.Pushtimetable(std::move(timetable));
-                    // std::cerr << "  [XML] Timetable added successfully\n";
                 } catch (const std::exception& e) {
                     std::cerr << "  Error: Failed to create/add timetable: " << e.what() << "\n";
                 }
@@ -181,7 +165,6 @@ RailStationArr::RailStationArr()
 
         m_railstations.push_back(station);
         
-        // Form stop object and add to map for pt routing
         Stop stop(id, station.GetStopType()); 
         m_stopMap.emplace(id, stop);
 
@@ -243,7 +226,7 @@ RailStationArr::RailStationArr(const std::string& dayOfWeekFilter)
         {
             const char* dayOfWeekAttr = timetableElem->Attribute("dayOfWeek");
             if (!dayOfWeekAttr || dayOfWeekFilter != dayOfWeekAttr)
-                continue;  // 필터링
+                continue; 
 
             const char* routeIdAttr = timetableElem->Attribute("routeId");
             const char* typeAttr = timetableElem->Attribute("type");
@@ -252,9 +235,6 @@ RailStationArr::RailStationArr(const std::string& dayOfWeekFilter)
             std::string dayOfWeek = std::string(dayOfWeekAttr);
             std::string routeId = routeIdAttr ? std::string(routeIdAttr) : "";
             std::string type = typeAttr ? std::string(typeAttr) : "";
-            
-            // std::cerr << "  [XML] Parsing timetable - routeId=" << routeId 
-            //         << ", type=" << type << ", dayOfWeek=" << dayOfWeek << std::endl;
 
             if (!rawTime) continue;
 
@@ -289,7 +269,6 @@ RailStationArr::RailStationArr(const std::string& dayOfWeekFilter)
                 Timetable timetable(std::move(dayOfWeek), std::move(routeId), std::move(type), std::move(times));
                 station.Pushtimetable(std::move(timetable));
             } catch (...) {
-                // ignore bad timetable
             }
         }
 
