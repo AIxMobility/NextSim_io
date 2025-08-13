@@ -13,6 +13,8 @@
 #include <set>
 #include <cmath>
 #include <utility> 
+#include <vector>
+#include <tuple>
 
 #include <NextSim_io/parser/PTGraphArr.hpp>
 #include <NextSim_io/inputclass/footpath/footpath.hpp>
@@ -73,7 +75,6 @@ int convertToMinutes(const std::string& time) {
     }
 }
 
-
 double euclidDist(const std::pair<double, double>& p1, const std::pair<double, double>& p2) // Euclidean distance (flat coordinate)
 {
     double dx = p1.first - p2.first;
@@ -100,6 +101,38 @@ double GetBusTravelTime(int originLinkID, int destLinkID, double avgSpeedMps) {
     double timeMin = timeSec / 60.0;
 
     return timeMin;
+}
+
+void pairStations(const StationArr& roadStations,
+                  const RailStationArr& railStations,
+                  std::vector<std::tuple<int,int>>& pairs) {
+    pairs.clear();
+
+    const auto& road = roadStations.GetStations();
+    for (size_t i = 0; i < road.size(); ++i) {
+        for (size_t j = 0; j < road.size(); ++j) {
+            if (i != j) {
+                pairs.emplace_back(road[i].GetId(), road[j].GetId());
+            }
+        }
+    }
+
+    const auto& rail = railStations.GetRailStations();
+    for (size_t i = 0; i < rail.size(); ++i) {
+        for (size_t j = 0; j < rail.size(); ++j) {
+            if (i != j) {
+                pairs.emplace_back(rail[i].GetId(), rail[j].GetId());
+            }
+        }
+    }
+
+
+    for (const auto& rStation : road) {
+        for (const auto& railStation : rail) {
+            pairs.emplace_back(rStation.GetId(), railStation.GetId());
+            pairs.emplace_back(railStation.GetId(), rStation.GetId());
+        }
+    }
 }
 
 // Constants for footpath/transfer logic
@@ -139,33 +172,35 @@ PTVertexArr::PTVertexArr(const StationArr& roadStations, const RailStationArr& r
                     int originStopId = stationSeq[i];
                     int destStopId = stationSeq[i + 1];
 
-                    auto findInputStation = [](const std::vector<InputStation>& stations, int stopId) -> const InputStation* {
-                        for (const auto& station : stations) {
-                            if (station.GetId() == stopId) {
-                                return &station;
-                            }
-                        }
-                        return nullptr;
-                    };
+                    // auto findInputStation = [](const std::vector<InputStation>& stations, int stopId) -> const InputStation* {
+                    //     for (const auto& station : stations) {
+                    //         if (station.GetId() == stopId) {
+                    //             return &station;
+                    //         }
+                    //     }
+                    //     return nullptr;
+                    // };
 
-                    const std::vector<InputStation>& stationList = roadStations.GetStations();
-                    const InputStation* originStation = findInputStation(stationList, originStopId);
-                    const InputStation* destStation = findInputStation(stationList, destStopId);
+                    // const std::vector<InputStation>& stationList = roadStations.GetStations();
+                    // const InputStation* originStation = findInputStation(stationList, originStopId);
+                    // const InputStation* destStation = findInputStation(stationList, destStopId);
 
-                    if (!roadStations.HasStop(originStopId) || !roadStations.HasStop(destStopId)) {
-                        std::cerr << "정류장 정보가 없습니다.\n";
-                        continue;
-                    }
+                    // if (!roadStations.HasStop(originStopId) || !roadStations.HasStop(destStopId)) {
+                    //     std::cerr << "정류장 정보가 없습니다.\n";
+                    //     continue;
+                    // }
 
-                    int originLinkID = originStation->GetLink();
-                    int destLinkID = destStation->GetLink();
+                    // int originLinkID = originStation->GetLink();
+                    // int destLinkID = destStation->GetLink();
 
-                    double travelTimeMin = GetBusTravelTime(originLinkID, destLinkID, avgBusSpeed);
+                    // double travelTimeMin = GetBusTravelTime(originLinkID, destLinkID, avgBusSpeed);
 
-                    if (travelTimeMin < 0) {
-                        std::cerr << "경로 계산 실패: " << originLinkID << " -> " << destLinkID << "\n";
-                        continue;
-                    }
+                    // if (travelTimeMin < 0) {
+                    //     std::cerr << "경로 계산 실패: " << originLinkID << " -> " << destLinkID << "\n";
+                    //     continue;
+                    // }
+
+                    double travelTimeMin = 2.0;
 
                     currentTime += dwellTime + static_cast<int>(std::round(travelTimeMin));
                 }
@@ -423,33 +458,34 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
                     int originStopId = stationSeq[i];
                     int destStopId = stationSeq[i + 1];
 
-                    auto findInputStation = [](const std::vector<InputStation>& stations, int stopId) -> const InputStation* {
-                        for (const auto& station : stations) {
-                            if (station.GetId() == stopId) {
-                                return &station;
-                            }
-                        }
-                        return nullptr;
-                    };
+                    // auto findInputStation = [](const std::vector<InputStation>& stations, int stopId) -> const InputStation* {
+                    //     for (const auto& station : stations) {
+                    //         if (station.GetId() == stopId) {
+                    //             return &station;
+                    //         }
+                    //     }
+                    //     return nullptr;
+                    // };
 
-                    const std::vector<InputStation>& stationList = roadStations.GetStations();
-                    const InputStation* originStation = findInputStation(stationList, originStopId);
-                    const InputStation* destStation = findInputStation(stationList, destStopId);
+                    // const std::vector<InputStation>& stationList = roadStations.GetStations();
+                    // const InputStation* originStation = findInputStation(stationList, originStopId);
+                    // const InputStation* destStation = findInputStation(stationList, destStopId);
 
-                    if (!roadStations.HasStop(originStopId) || !roadStations.HasStop(destStopId)) {
-                        std::cerr << "정류장 정보가 없습니다.\n";
-                        continue;
-                    }
+                    // if (!roadStations.HasStop(originStopId) || !roadStations.HasStop(destStopId)) {
+                    //     std::cerr << "정류장 정보가 없습니다.\n";
+                    //     continue;
+                    // }
 
-                    int originLinkID = originStation->GetLink();
-                    int destLinkID = destStation->GetLink();
+                    // int originLinkID = originStation->GetLink();
+                    // int destLinkID = destStation->GetLink();
 
-                    double travelTimeMin = GetBusTravelTime(originLinkID, destLinkID, avgBusSpeed);
+                    // double travelTimeMin = GetBusTravelTime(originLinkID, destLinkID, avgBusSpeed);
 
-                    if (travelTimeMin < 0) {
-                        std::cerr << "경로 계산 실패: " << originLinkID << " -> " << destLinkID << "\n";
-                        continue;
-                    }
+                    // if (travelTimeMin < 0) {
+                    //     std::cerr << "경로 계산 실패: " << originLinkID << " -> " << destLinkID << "\n";
+                    //     continue;
+                    // }
+                    double travelTimeMin = 2.0; // 임시로 2분으로 설정
 
                     currentTime += dwellTime + static_cast<int>(std::round(travelTimeMin));
                 }
@@ -602,10 +638,7 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
 
         if (lineIds.size() > 1) {
             // std::cout << "[DEBUG_TRANSFER_ARC_GENERATION] Station ID: " << inputStation.GetId() << ", Lines: ";
-            for (const auto& line : lineIds) {
-                // std::cout << line << " ";
-            }
-            // std::cout << "(" << lineIds.size() << " lines)" << std::endl;
+
 
             for (size_t i = 0; i < lineIds.size(); ++i) {
                 for (size_t j = 0; j < lineIds.size(); ++j) {
@@ -805,8 +838,6 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
                         << arc.GetCost()[0].GetTransferCost() << "\n";
         }
         ////////////////
-
-
     }
     
     void PTArcArr::Clear()

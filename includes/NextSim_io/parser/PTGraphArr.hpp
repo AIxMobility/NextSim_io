@@ -196,6 +196,9 @@ private:
 
 int convertToMinutes(const std::string& time);
 
+void pairStations(const StationArr& roadStations, const RailStationArr& railStations, 
+                    std::vector<std::tuple<int,int>>& pairs);
+
 } // namespace NextSimIO
 
 #endif
