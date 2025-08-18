@@ -210,20 +210,20 @@ ArcArr::ArcArr()
 
                 if (elemName2 == "link")
                 {
-                    const char *vertexId = e->Attribute("id");
+                    const char *ArcId = e->Attribute("id");
                     const char *fromNode = e->Attribute("from_node");
                     const char *toNode = e->Attribute("to_node");
                     const char *numLane = e->Attribute("num_lane");
                     const char *arc_length = e->Attribute("length");
 
-                    if (!vertexId)   throw std::runtime_error ("Element should have 'id' attribute");
+                    if (!ArcId)   throw std::runtime_error ("Element should have 'id' attribute");
                     if (!fromNode)   throw std::runtime_error ("Element should have 'from_node' attribute");
                     if (!toNode)   throw std::runtime_error ("Element should have 'to_node' attribute");
                     if (!numLane)   throw std::runtime_error ("Element should have 'num_lane' attribute");
                     if (!arc_length)   throw std::runtime_error ("Element should have 'length' attribute");
 
                     InputGraphArc demoArc(
-                        static_cast<std::size_t>(atoll(vertexId)),
+                        static_cast<std::size_t>(atoll(ArcId)),
                         static_cast<std::size_t>(atoll(fromNode)),
                         static_cast<std::size_t>(atoll(toNode)),
                         static_cast<std::size_t>(atoll(numLane))
@@ -252,9 +252,16 @@ ArcArr::ArcArr()
                         }
 
                         if (!isBlock)
-                            availableLanes.push_back(
-                                static_cast<int>(atoll(laneElem->Attribute("id")))
-                            );
+                        {
+                            const char *laneId = laneElem->Attribute("id");
+                            const char* ptonlyAttr = laneElem->Attribute("ptonly");
+                            
+                            availableLanes.push_back(static_cast<int>(atoll(laneId)));
+
+                            if (ptonlyAttr && strcmp(ptonlyAttr, "True") == 0) {
+                                demoArc.PushPTLaneList(static_cast<int>(atoll(laneId)));
+                            }
+                        }
                     }
 
                     demoArc.SetAvailableLanes(availableLanes);
@@ -269,30 +276,41 @@ ArcArr::ArcArr()
 
 Graph::Graph(ArcArr arcArr, VertexArr vertexArr)
 {
-    std::vector<InputGraphArc> arcs = arcArr.GetArcs();
     std::vector<InputGraphVertex> vertices = vertexArr.GetVertices();
+    std::vector<InputGraphArc> arcs = arcArr.GetArcs();
+
+    //ptlaneinfo
+    std::vector<std::pair<int, std::vector<int>>> ptlaneinfo;
+    for (auto &arc : arcs)
+    {
+        int arcId = arc.GetID();
+        std::vector<int> ptlanes = arc.GetPTLaneList();
+        if (!ptlanes.empty())
+        {
+            ptlaneinfo.push_back(std::make_pair(arcId, ptlanes));
+        }
+    }
 
     for (auto &vertex : vertices)
     {
-        // vertexToArc
-        std::vector<port> connectedlinks = vertex.GetLinks();
-        std::size_t vertexID = vertex.GetId();
-
-        for (auto &link : connectedlinks)
-        {
-            if (link.GetType() == -1)
-            {
-                std::size_t connectedLinkID = link.GetLinkId();
-                m_vertexToArc[vertexID].emplace_back(connectedLinkID);
-            }
-        }
-
         //arcToArc
         std::vector<ConnectionInfo> linkConnections = vertex.GetConnectionInfo();
         for (auto &conn : linkConnections)
         {
-            std::size_t fromLink = conn.GetFromLink();
-            std::size_t toLink = conn.GetToLink();
+            int fromLink = conn.GetFromLink();
+            int toLink = conn.GetToLink();
+            int toLane = conn.GetToLane();
+            bool isPTLane = false;
+
+            for (auto &p : ptlaneinfo){
+                if (p.first == fromLink && std::find(p.second.begin(), p.second.end(), toLane) != p.second.end())
+                {
+                    isPTLane = true;
+                    break;
+                }
+            }
+
+            if (isPTLane) continue;
 
             if(std::find(m_arcToArc[fromLink].begin(), m_arcToArc[fromLink].end(), toLink) == m_arcToArc[fromLink].end())
             {

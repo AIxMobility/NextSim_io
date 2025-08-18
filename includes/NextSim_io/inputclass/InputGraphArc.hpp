@@ -158,6 +158,12 @@ public:
     void PushArcCost(ArcCost arcCost);
 
     /**
+     * @details Set PT lane list
+     * @param ptlane PT lane nmber
+     */
+    void PushPTLaneList(int ptlane);
+
+    /**
      * @details Get arc ID
      * @return Arc ID
      */
@@ -193,6 +199,12 @@ public:
      */
     std::vector<ArcCost> GetArcCost() { return m_arcCost; }
 
+    /**
+     * @details Get PT lane list
+     * @return PT lane list
+     */
+    std::vector<int> GetPTLaneList() { return m_ptlanelist; }
+
 private:
     /**
      * @details Arc ID 
@@ -224,6 +236,10 @@ private:
      */
     std::vector<ArcCost> m_arcCost;
 
+    /**
+     * @details Vector of PT lane list
+     */
+    std::vector<int> m_ptlanelist = {};
 }; // class InputGraphArc
 } // namespace NextSimIO
 
