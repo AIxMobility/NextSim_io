@@ -1,8 +1,8 @@
 /**
  * NextSim Captain
  * @file : RailLineArr.cpp
- * @version : 1.1
- * @author : Yuseock Hwang, Yeonwoo Yu
+ * @version : 1.2
+ * @author : Yuseock Hwang, Yeonwoo Yu, Sujae Jeon
  */
 #include <iostream>
 #include <sstream>
@@ -30,16 +30,15 @@ RailLineArr::RailLineArr()
 
     TiXmlElement *modeElem = doc.FirstChildElement("Mode");
 
-    TiXmlElement *routesElem = modeElem->FirstChildElement("routes");
+    TiXmlElement *linesElem = modeElem->FirstChildElement("Lines");
 
-    for (TiXmlElement *routeElem = routesElem->FirstChildElement("route");
-             routeElem != nullptr;
-             routeElem = routeElem->NextSiblingElement("route"))
+    for (TiXmlElement *lineElem = linesElem->FirstChildElement("Line");
+             lineElem != nullptr;
+             lineElem = lineElem->NextSiblingElement("Line"))
     {
-        std::string routeName = routeElem->Attribute("name");
-        const char* idAttr = routeElem->Attribute("id");
-        std::string routeId = idAttr;
-        std::string stationSeqStr = routeElem->Attribute("railStationSeq");
+        std::string id = lineElem->Attribute("id");
+        double fee = std::stod(lineElem->Attribute("fee"));
+        std::string stationSeqStr = lineElem->Attribute("railStationSeq");
 
         std::vector<int> stationSeq;
         std::istringstream stationStream(stationSeqStr);
@@ -49,11 +48,10 @@ RailLineArr::RailLineArr()
             stationSeq.push_back(station);
         }
 
-        InputRailLine route(routeName, routeId, stationSeq);
-        m_railLines.push_back(route);
+        InputRailLine line(id, fee, stationSeq);
+        m_railLines.push_back(line);
     }
     doc.Clear();
-
-
+    
 };
 } // namespace NextSimIO

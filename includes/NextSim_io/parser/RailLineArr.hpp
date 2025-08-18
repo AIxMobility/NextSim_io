@@ -1,8 +1,8 @@
 /**
  * NextSim Captain
  * @file : RailLineArr.hpp
- * @version : 1.1
- * @author : Yuseock Hwang, Yeonwoo Yu
+ * @version : 1.2
+ * @author : Yuseock Hwang, Yeonwoo Yu, Sujae Jeon
  */
 
 
@@ -15,7 +15,7 @@
  {
  /**
   * @class RailLineArr
-  * @brief Class for rail public transit line information from roadptline.xml
+  * @brief Class for rail public transit line 
   */
  class RailLineArr
  {
@@ -30,7 +30,6 @@
       * @return Vector of rail public transit lines
      */
     std::vector<InputRailLine> GetRailLines() const { return m_railLines; }
- 
  
  private:
  
