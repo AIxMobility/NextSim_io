@@ -45,8 +45,8 @@ InputStation::InputStation(int id, int link, int lane, double pos, int parkingLo
         }
     }
 
-InputDRTStation::InputDRTStation(int id, int link, int lane) : 
-    m_id(id), m_link(link), m_lane(lane) {};
+InputDRTStation::InputDRTStation(int id, int link, int lane) 
+    : m_id(id), m_link(link), m_lane(lane) {};
 
     void InputDRTStation::SetPosRange(std::string posRange)
     {

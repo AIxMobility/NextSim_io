@@ -51,12 +51,10 @@ StationArr::StationArr()
                     int lane = atol(e->Attribute("lane_ref"));
                     double pos = atof(e->Attribute("pos"));
 
-                    // Handle optional `parkingLots`
                     int parkingLots = 0;
                     if (e->Attribute("parkingLots"))
                         parkingLots = atol(e->Attribute("parkingLots"));
                     
-                    // Parse center coordinates
                     std::string centerStr = e->Attribute("center");
                     std::stringstream ss(centerStr);
                     double x, y;
@@ -68,7 +66,6 @@ StationArr::StationArr()
 
                     InputStation station(id, link, lane, pos, parkingLots, center);
 
-                    // Parse <line list="...">
                     TiXmlElement* lineElement = e->FirstChildElement("line");
                     if (lineElement && lineElement->Attribute("list"))
                     {
