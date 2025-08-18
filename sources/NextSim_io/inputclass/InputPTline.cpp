@@ -1,7 +1,7 @@
 /**
  * NextSim Captain
  * @file : InputPTline.cpp
- * @version : 1.0
+ * @version : 1.1
  * @author : Sujae Jeon
  */
 
@@ -11,8 +11,9 @@
 
 namespace NextSimIO
 {
-InputPTline::InputPTline(std::string id, double interval) 
-    : m_id(std::move(id)), m_interval(interval) {}
+InputPTline::InputPTline(std::string id, double fee, double interval) 
+    : m_id(std::move(id)), m_fee(fee), m_interval(interval) {}
+
 void InputPTline::SetLinkSeq(std::string linkSeq)
 {
     std::stringstream ss(linkSeq);
@@ -49,10 +50,6 @@ void InputPTline::SetStationDistanceSeq(std::string stationDistanceSeq)
         m_stationDistanceSeq.push_back(stationDistance);
 }
 
-/**
- * @details Set sequence of garages for rail transit
- * @param garageSeq Space-separated sequence of garage IDs
- */
 void InputPTline::SetGarageSeq(std::string garageSeq)
 {
     std::stringstream ss(garageSeq);

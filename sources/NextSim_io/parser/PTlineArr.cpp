@@ -34,15 +34,17 @@ PTlineArr::PTlineArr()
     {
         // Get required attributes: id & interval
         std::string id;
+        double fee = 0;
         int interval = 0;
 
         if (elem->Attribute("id"))
             id = elem->Attribute("id");
+        if (elem->Attribute("fee"))
+            fee = std::stod(elem->Attribute("fee"));
         if (elem->Attribute("interval"))
             interval = std::stoi(elem->Attribute("interval"));
 
-        InputPTline PTline(id, interval);
-        
+        InputPTline PTline(id, fee, interval);
 
         TiXmlElement* e = elem->FirstChildElement("link");
         if (e && e->Attribute("seq"))
@@ -77,7 +79,6 @@ PTlineArr::PTlineArr()
 
         m_ptLines.push_back(PTline);
     }
-    
 }
 
 } // namespace NextSimIO
