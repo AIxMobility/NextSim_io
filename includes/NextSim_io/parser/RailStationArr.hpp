@@ -9,7 +9,8 @@
 #define RAILSTATIONARR_H
 
 #include <vector>
-#include <map> 
+#include <map>
+#include <optional>
 #include <stdexcept>
 
 #include <NextSim_io/inputclass/InputRailStation.hpp>
@@ -58,6 +59,10 @@ public:
 
 
 private:
+    /**
+     * @brief Load rail stations
+     */
+    void LoadRailStations(const std::optional<std::string>& dayOfWeekFilter = std::nullopt);
 
     /**
      * @details Vector of all rail stations
