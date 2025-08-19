@@ -1,7 +1,7 @@
 /**
  * NextSim Captain
  * @file : InputPTGraphArc.cpp
- * @version : 1.0
+ * @version : 1.1
  * @author Yeonwoo Yu
  */
 
@@ -11,8 +11,8 @@
 
 namespace NextSimIO
 {
-PTCost::PTCost(double timeCost, double footpathCost, int transferCost)
-    : m_timeCost(timeCost), m_footpathCost(footpathCost), m_transferCost(transferCost) {}
+PTCost::PTCost(double timeCost, double footpathCost, int transferCost, int fare)
+    : m_timeCost(timeCost), m_footpathCost(footpathCost), m_transferCost(transferCost), m_fare(fare) {}
 
     void InputPTGraphArc::PushArcCost(PTCost ptCost)
     {

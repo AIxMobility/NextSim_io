@@ -39,7 +39,7 @@ public:
      * @details Get the Line fee
      * @return Line fee
      */
-    double GetFee() { return m_fee; }
+    double GetFee() const { return m_fee; }
 
   /**
   * @details Get station sequence of rail public transit lines

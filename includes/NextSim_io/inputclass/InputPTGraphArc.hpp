@@ -1,6 +1,6 @@
 /**
  * @file InputPTGraphArc.hpp
- * @version 1.0
+ * @version 1.1
  * @author Yeonwoo Yu
  */
 
@@ -35,8 +35,9 @@ public:
      * @param timeCost Time to pass the arc
      * @param footpathCost Walking distance on the arc
      * @param transferCost Number of transfers on the arc
+     * @param fare Fare for the arc (optional, default is 0)
      */
-    PTCost(double timeCost, double footpathCost, int transferCost);
+    PTCost(double timeCost, double footpathCost, int transferCost, int fare);
 
     /**
      * @details Get time cost
@@ -55,6 +56,12 @@ public:
      * @return Transfer cost (number of transfers)
      */
     int GetTransferCost() const { return m_transferCost; }
+
+    /**
+     * @details Get fare
+     * @return Fare (in currency units, e.g., KRW)
+     */
+    int GetFare() const { return m_fare; }
 
     /**
      * @details Set time cost
@@ -90,6 +97,10 @@ private:
      */
     int m_transferCost;
 
+    /**
+     * @brief Fare for the arc
+     */
+    int m_fare;
 };
 
 /**

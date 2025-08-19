@@ -69,7 +69,7 @@ public:
      * @details Get fare for using the public transit line
      * @return Fare for using the public transit line
      */
-    double GetFee() { return m_fee; }
+    double GetFee() const { return m_fee; }
 
     /**
      * @details Get dispatch interval
