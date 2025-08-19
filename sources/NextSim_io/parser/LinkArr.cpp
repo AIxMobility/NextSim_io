@@ -118,19 +118,19 @@ LinkArr::LinkArr()
                             const char *right_lane_id = ele->Attribute("right_lane_id");
                             const char *laneId = ele->Attribute("id");
                             const char *num_cell = ele->Attribute("num_cell");
-                            const char *ptOnly = ele->Attribute("ptOnly");
+                            const char *laneAccessType = ele->Attribute("laneAccessType");
                             
                             if (!left_lane_id)   throw std::runtime_error ("Element should have 'left_lane_id' attribute");
                             if (!right_lane_id)   throw std::runtime_error ("Element should have 'right_lane_id' attribute");
                             if (!laneId)   throw std::runtime_error ("Element should have 'id' attribute");
                             if (!num_cell)   throw std::runtime_error ("Element should have 'num_cell' attribute");
-                            if (!ptOnly)   ptOnly = "False";  // default value
+                            if (!laneAccessType)   laneAccessType = "All";  // default value
                             
                             InputLane demoLane(
                                 (std::size_t)atoll(laneId),
                                 (std::size_t)atoll(left_lane_id),
                                 (std::size_t)atoll(right_lane_id),
-                                a_to_bool(ptOnly),
+                                laneAccessType,
                                 atoi(num_cell));
 
                             for (TiXmlElement* e_lane =
