@@ -82,7 +82,7 @@ void RailStationArr::LoadRailStations(const std::optional<std::string>& dayOfWee
             }
 
             std::string lineId    = timetableElem->Attribute("lineId")    ?: "";
-            std::string direction = timetableElem->Attribute("direction") ?: "";
+            std::string type = timetableElem->Attribute("type") ?: "";
             const char* rawTime   = timetableElem->Attribute("time");
 
             std::vector<std::string> times;
@@ -94,7 +94,7 @@ void RailStationArr::LoadRailStations(const std::optional<std::string>& dayOfWee
                 }
             }
 
-            timetable timetable(dayOfWeek, lineId, direction, std::move(times));
+            timetable timetable(dayOfWeek, lineId, type, std::move(times));
             station.Pushtimetable(std::move(timetable));
         }
 

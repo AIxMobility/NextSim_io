@@ -32,7 +32,6 @@ PTlineArr::PTlineArr()
     TiXmlElement* root = doc.FirstChildElement(); 
     for (TiXmlElement* elem = root->FirstChildElement(); elem != nullptr; elem = elem->NextSiblingElement())
     {
-        // Get required attributes: id & interval
         std::string id;
         double fee = 0;
         int interval = 0;

@@ -11,7 +11,7 @@
  
  namespace NextSimIO
  {
-    timetable::timetable(std::string dayOfWeek, std::string lineId, std::string direction, std::vector<std::string> time) 
-    :  m_dayOfweek(dayOfWeek), m_lineId(lineId), m_direction(direction), m_time(std::move(time)) {};
+    timetable::timetable(std::string dayOfWeek, std::string lineId, std::string type, std::vector<std::string> time) 
+    :  m_dayOfweek(dayOfWeek), m_lineId(lineId), m_type(type), m_time(std::move(time)) {};
     
  } // namespace NextSimIO

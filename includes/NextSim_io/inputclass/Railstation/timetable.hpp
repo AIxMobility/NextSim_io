@@ -25,10 +25,10 @@ public:
      * @details Constructor
      * @param dayOfWeek Day of the week for the timetable
      * @param lineId line ID for the timetable
-     * @param direction Direction type of the timetable (e.g., terminal, start)
+     * @param type Direction type of the timetable (e.g., terminal, start)
      * @param time Time schedule for the timetable
      */
-    timetable(std::string dayOfWeek, std::string lineId, std::string direction, std::vector<std::string> time);
+    timetable(std::string dayOfWeek, std::string lineId, std::string type, std::vector<std::string> time);
 
     /**
      * @details Gets the day of the week for the timetable.
@@ -43,10 +43,10 @@ public:
     std::string GetLineId() const { return m_lineId; }
 
     /**
-      * @details Get direction of the line
+      * @details Get direction type of the line
       * @return Direction of the line. (e.g., terminal / start)
       */
-    std::string GetDirection() const { return m_direction; }
+    std::string GetType() const { return m_type; }
 
     /**
      * @details Gets the time schedule for the timetable. (HH:MM)
@@ -66,9 +66,9 @@ private:
     std::string m_lineId;
 
     /**
-      * @details Direction of the line
+      * @details Direction type of the line
      */
-    std::string m_direction;
+    std::string m_type;
 
     /**
      * @details The time schedule for the timetable

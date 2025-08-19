@@ -28,17 +28,27 @@ RailLineArr::RailLineArr()
         return;
     }
 
-    TiXmlElement *modeElem = doc.FirstChildElement("Mode");
+    TiXmlElement* modeElem = doc.FirstChildElement("Mode");
 
-    TiXmlElement *linesElem = modeElem->FirstChildElement("Lines");
+    TiXmlElement* linesElem = modeElem->FirstChildElement("Lines");
 
-    for (TiXmlElement *lineElem = linesElem->FirstChildElement("Line");
-             lineElem != nullptr;
-             lineElem = lineElem->NextSiblingElement("Line"))
+    for (TiXmlElement* lineElem = linesElem->FirstChildElement("Line");
+        lineElem != nullptr;
+        lineElem = lineElem->NextSiblingElement("Line"))
     {
-        std::string id = lineElem->Attribute("id");
-        double fee = std::stod(lineElem->Attribute("fee"));
-        std::string stationSeqStr = lineElem->Attribute("railStationSeq");
+        const char* idAttr = lineElem->Attribute("id");
+        const char* seqAttr = lineElem->Attribute("railStationSeq");
+
+        if (!idAttr || !seqAttr) {
+            std::cerr << "[WARN] Skipping Line: missing 'id' or 'railStationSeq'\n";
+            continue;
+        }
+
+        std::string id = idAttr;
+        std::string stationSeqStr = seqAttr;
+
+        const char* feeAttr = lineElem->Attribute("fee");
+        double fee = (feeAttr != nullptr) ? std::stod(feeAttr) : 0;
 
         std::vector<int> stationSeq;
         std::istringstream stationStream(stationSeqStr);
@@ -48,8 +58,7 @@ RailLineArr::RailLineArr()
             stationSeq.push_back(station);
         }
 
-        InputRailLine line(id, fee, stationSeq);
-        m_railLines.push_back(line);
+        m_railLines.emplace_back(id, fee, stationSeq);
     }
     doc.Clear();
     
