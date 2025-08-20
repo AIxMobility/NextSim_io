@@ -34,7 +34,7 @@ public:
      * @details Get vector of links
      * @return Vector of links
     */
-    std::vector<InputLink> GetLinks() { return m_links; }
+    std::vector<InputLink> GetLinks() const { return m_links; }
 
 private:
     /**

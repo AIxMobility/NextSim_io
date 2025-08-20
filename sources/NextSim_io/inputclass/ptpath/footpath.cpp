@@ -22,11 +22,11 @@
 namespace Captain
 {
 
-Footpath::Footpath() {}
+footpath::footpath() {}
 
-std::atomic<long long> Footpath::s_tempNodeCounter(0);
+std::atomic<long long> footpath::s_tempNodeCounter(0);
 
-void Footpath::LoadFootpathNetwork() {
+void footpath::LoadFootpathNetwork() {
     TiXmlDocument doc;
     bool loadSuccess = doc.LoadFile(NextSimIO::FootpathNetworkXMLPath.string().c_str());
 
@@ -142,8 +142,8 @@ void Footpath::LoadFootpathNetwork() {
     int createdEdgeCount = 0;
     double tolerance = 100.0;  
     //threshold should be adjusted based on the scale of the map
-    double vertical_threshold = 400.0; 
-    double horizontal_threshold = 700.0; 
+    double vertical_threshold = 2000.0; 
+    double horizontal_threshold = 2000.0; 
 
     for (const auto& [id1, node1] : m_footpathNodes) {
         for (const auto& [id2, node2] : m_footpathNodes) {
@@ -202,7 +202,7 @@ void Footpath::LoadFootpathNetwork() {
     m_isNetworkLoaded = true;
 }
 
-NearestLinkPoint Footpath::FindNearestFootpathLinkPoint(double x, double y) const {
+NearestLinkPoint footpath::FindNearestFootpathLinkPoint(double x, double y) const {
     NearestLinkPoint result;
     result.found = false;
     result.distance = std::numeric_limits<double>::max();
@@ -267,15 +267,15 @@ NearestLinkPoint Footpath::FindNearestFootpathLinkPoint(double x, double y) cons
     return result;
 }
 
-void Footpath::AddFootpathNode(const FootpathNode& node) {
+void footpath::AddFootpathNode(const FootpathNode& node) {
     m_footpathNodes[node.id] = node;
 }
 
-void Footpath::AddFootpathEdge(const FootpathEdge& edge) {
+void footpath::AddFootpathEdge(const FootpathEdge& edge) {
     m_footpathEdges[edge.from_node_id].push_back(edge);
 }
 
-const FootpathNode& Footpath::GetFootpathNode(const std::string& nodeId) const {
+const FootpathNode& footpath::GetFootpathNode(const std::string& nodeId) const {
     auto it = m_footpathNodes.find(nodeId);
     if (it != m_footpathNodes.end()) {
         return it->second;
@@ -285,7 +285,7 @@ const FootpathNode& Footpath::GetFootpathNode(const std::string& nodeId) const {
     return dummyNode;
 }
 
-void Footpath::RemoveTempNodesAndEdges() {
+void footpath::RemoveTempNodesAndEdges() {
     std::vector<std::string> tempNodeIdsToRemove;
     for (const auto& pair : m_footpathNodes) {
         if (pair.first.rfind("TEMP_NODE_", 0) == 0) {
@@ -315,11 +315,11 @@ void Footpath::RemoveTempNodesAndEdges() {
     }
 }
 
-double Captain::Footpath::calculateDistance(const FootpathNode& n1, const FootpathNode& n2) const {
+double Captain::footpath::calculateDistance(const FootpathNode& n1, const FootpathNode& n2) const {
     return std::sqrt(std::pow(n1.x_coord - n2.x_coord, 2) + std::pow(n1.y_coord - n2.y_coord, 2));
 }
 
-double Footpath::Dijkstra(const std::string& start_node_id, const std::string& end_node_id) {
+double footpath::Dijkstra(const std::string& start_node_id, const std::string& end_node_id) {
     if (start_node_id.empty() || end_node_id.empty() ||
         m_footpathNodes.find(start_node_id) == m_footpathNodes.end() ||
         m_footpathNodes.find(end_node_id) == m_footpathNodes.end()) {
@@ -381,7 +381,7 @@ double Footpath::Dijkstra(const std::string& start_node_id, const std::string& e
     return -1.0;
 }
 
-double Footpath::GetDistance(const std::pair<double, double>& origin_coords, const std::pair<double, double>& dest_coords) {
+double footpath::GetDistance(const std::pair<double, double>& origin_coords, const std::pair<double, double>& dest_coords) {
     // Step 1: Find nearest link point for origin
     NearestLinkPoint originLinkPoint = FindNearestFootpathLinkPoint(origin_coords.first, origin_coords.second);
     if (!originLinkPoint.found) {

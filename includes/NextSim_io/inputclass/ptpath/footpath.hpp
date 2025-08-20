@@ -70,20 +70,20 @@ struct NearestLinkPoint {
 };
 
 /**
- * @class Footpath
+ * @class footpath
  * @brief Generates pedestrian footpath routes using Dijkstra's algorithm.
  */
-class Footpath {
+class footpath {
 public:
     /** 
      * @brief Constructor 
     */
-    Footpath();
+    footpath();
 
     /** 
      * @brief Destructor 
     */
-    ~Footpath() = default;
+    ~footpath() = default;
 
     /** 
      * @brief Load the pedestrian footpath network data

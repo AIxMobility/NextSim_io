@@ -6,8 +6,8 @@
  */
 
 #pragma once
-#ifndef INPUTPTROUTE_H
-#define INPUTPTROUTE_H
+#ifndef INPUTPTLINE_H
+#define INPUTPTLINE_H
 
 #include <string>
 #include <vector>
@@ -81,13 +81,13 @@ public:
       * @details Get sequence of links
       * @return Sequence of links that line passes
      */
-    std::vector<int> GetLinkSeq() { return m_linkSeq; }
+    std::vector<int> GetLinkSeq() const { return m_linkSeq; }
 
     /**
      * @details Get sequence of nodes
      * @return Sequence of nodes that line passes
      */
-    std::vector<int> GetNodeSeq() { return m_nodeSeq; }
+    std::vector<int> GetNodeSeq() const { return m_nodeSeq; }
 
     /**
      * @details Get sequence of stations
@@ -150,4 +150,4 @@ private:
 };
 } // namespace NextSimIO
 
-#endif
+#endif // INPUTPTLINE_H
