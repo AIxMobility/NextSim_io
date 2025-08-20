@@ -58,6 +58,12 @@ public:
         m_signalControlMap[nodeIdentifier] = inputSignalControl;
     }
 
+    /**
+     * @details Update the signal control XML file for a specific node (changed as false)
+     * @param nodeId Node identifier to update the signal control XML for
+    */
+    bool UpdateSignalControlXML(int nodeId) const;
+
 private:
     
     /**
