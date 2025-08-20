@@ -21,8 +21,8 @@
 #include <NextSim_io/parser/PTlineArr.hpp>
 #include <NextSim_io/inputclass/InputRailLine.hpp>
 #include <NextSim_io/parser/RailLineArr.hpp>
-#include <NextSim_io/inputclass/Railstation/Timetable.hpp>
-#include <NextSim_io/inputclass/ptpath/footpath.hpp>
+#include <NextSim_io/inputclass/Railstation/timetable.hpp>
+#include <NextSim_io/parser/LinkArr.hpp>
 
 namespace NextSimIO
 {
@@ -88,7 +88,6 @@ public:
      * @brief Default constructor
      */
     PTArcArr();
-    ~PTArcArr();
 
     /**
      * @brief Constructor with station arrays
@@ -128,9 +127,7 @@ private:
      * @brief Vector of PT arcs
      */
     std::vector<InputPTGraphArc> m_ptArcs;
-
-    std::ofstream m_arcLogFile; 
-
+    
 }; // class PTArcArr
 
 /**
@@ -194,7 +191,7 @@ private:
 
 }; // class PTGraph
 
-int convertToMinutes(const std::string& time);
+double convertToMinutes(const std::string& time);
 
 void pairStations(const StationArr& roadStations, const RailStationArr& railStations, 
                     std::vector<std::tuple<int,int>>& pairs);

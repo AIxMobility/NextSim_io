@@ -18,27 +18,27 @@
 
 #include <NextSim_io/parser/PTGraphArr.hpp>
 #include <NextSim_io/inputclass/ptpath/footpath.hpp>
+#include <NextSim_io/inputclass/ptpath/buspath.hpp>
 #include <NextSim_io/tinyapi/tinystr.h>
 #include <NextSim_io/tinyapi/tinyxml.h>
 #include <NextSim_io/FilePath.hpp>
-#include <captain/Util/RouteGenerator.hpp>
 
 using namespace Captain;
 namespace NextSimIO
 {
 
 // ### Helper functions ### ///
-int convertToMinutes(const std::string& time) {
+double convertToMinutes(const std::string& time) {
     try {
         if (time.empty()) {
             std::cerr << "Error: Empty time string" << std::endl;
-            return -1;
+            return -1.0;
         }
 
         size_t colonPos = time.find(':');
         if (colonPos == std::string::npos || colonPos == 0 || colonPos == time.length() - 1) {
             std::cerr << "Error: Invalid time format for '" << time << "'" << std::endl;
-            return -1;
+            return -1.0;
         }
 
         std::string hourStr = time.substr(0, colonPos);
@@ -46,32 +46,33 @@ int convertToMinutes(const std::string& time) {
 
         if (hourStr.empty() || minStr.empty()) {
             std::cerr << "Error: Empty hour or minute for '" << time << "'" << std::endl;
-            return -1;
+            return -1.0;
         }
 
-        int hour = std::stoi(hourStr);
-        int minute = std::stoi(minStr);
+        // std::stod를 사용하여 double로 변환
+        double hour = std::stod(hourStr);
+        double minute = std::stod(minStr);
 
         if (minute < 0 || minute >= 60) {
             std::cerr << "Error: Invalid minute value for '" << time << "'" << std::endl;
-            return -1;
+            return -1.0;
         }
 
         if (hour < 0 || hour > 24) {
             std::cerr << "Error: Invalid hour value for '" << time << "'" << std::endl;
-            return -1;
+            return -1.0;
         }
 
-        // Next day
+        // 다음 날로 넘어가는 경우
         if (hour == 24) {
-            return 1440 + minute;
+            return 1440.0 + minute; // 1440.0은 24시간을 double로 표현한 것
         }
 
-        return hour * 60 + minute;
+        return hour * 60.0 + minute;
 
     } catch (const std::exception& e) {
         std::cerr << "Error: Exception in convertToMinutes for '" << time << "': " << e.what() << std::endl;
-        return -1;
+        return -1.0;
     }
 }
 
@@ -80,27 +81,6 @@ double euclidDist(const std::pair<double, double>& p1, const std::pair<double, d
     double dx = p1.first - p2.first;
     double dy = p1.second - p2.second;
     return std::sqrt(dx * dx + dy * dy);
-}
-
-double GetBusTravelTime(int originLinkID, int destLinkID, double avgSpeedMps) {
-    RouteGenerator routeGen;
-
-    // 최단 경로 실행
-    std::vector<int> path = routeGen.ExecuteDijkstraForSinglePair(originLinkID, destLinkID, false);
-    if (path.empty()) {
-        std::cerr << "경로를 찾을 수 없습니다.\n";
-        return -1.0;
-    }
-
-    // 경로 추출 및 거리 계산
-    VehicleRoute route = routeGen.ExtractRoutesForSinglePair(path, {false, 0});
-    double totalDistance = route.GetDistance();  // meters
-
-    // 시간 계산 (초 -> 분)
-    double timeSec = totalDistance / avgSpeedMps;
-    double timeMin = timeSec / 60.0;
-
-    return timeMin;
 }
 
 void pairStations(const StationArr& roadStations,
@@ -126,7 +106,6 @@ void pairStations(const StationArr& roadStations,
         }
     }
 
-
     for (const auto& rStation : road) {
         for (const auto& railStation : rail) {
             pairs.emplace_back(rStation.GetId(), railStation.GetId());
@@ -135,12 +114,16 @@ void pairStations(const StationArr& roadStations,
     }
 }
 
-// Constants for footpath/transfer logic
+//  ######## Constants for footpath/transfer logic ######## //
 const double THRESHOLD_FOR_FOOTPATH = 10000.0; // meters
-const double FOOTPATH_SPEED_MPS = 1.11;      // meters per second (approximately 67m per minute, or 4 km/h)
-const double THRESHOLD_FOR_INTERMODAL_TRANSFER = 1000.0; // meters for intermodal transfer
-const double TRANSFER_TIME_MINUTES = 1.0; // Fixed transfer time in minutes, to 1 min.
-const double avgBusSpeed = 20.0;
+const double THRESHOLD_FOR_INTERMODAL_TRANSFER = 10000.0; // meters for intermodal transfer
+const double TRANSFER_TURNAROUND_TIME = 1.0; // Fixed transfer time in minutes, to 1 min.
+
+inline double KMPtoMPS(double kph) { return kph * 1000.0 / 3600.0; }
+const double FOOTPATH_SPEED = 4;      // 4 km/h (approximately 1.11 m/s)
+const double FOOTPATH_SPEED_MPS = KMPtoMPS(FOOTPATH_SPEED); // 11.1111 mps
+const double BUS_SPEED = 15;       // 20 km/h (approximately 5.56 m/s)
+const double BUS_SPEED_MPS = KMPtoMPS(BUS_SPEED); // 5.5556 mps
 
 PTVertexArr::PTVertexArr() {}
 
@@ -150,19 +133,22 @@ PTVertexArr::PTVertexArr(const StationArr& roadStations, const RailStationArr& r
     m_ptVertices.clear();
 
     // road station
+    LinkArr roadLinks;
+    buspath buspathGenerator(roadPTLines, roadStations, roadLinks); 
+
     for (const auto& roadLine : roadPTLines.GetPTLines()) {
-        std::vector<int> arrivalTimes;
-        std::vector<int> departureTimes;
+        std::vector<double> arrivalTimes;
+        std::vector<double> departureTimes;
         std::string lineId = roadLine.GetID();
         std::vector<int> stationSeq = roadLine.GetStationSeq(); 
         double interval = roadLine.GetInterval();
 
-        const int startMinuteOfDay = 6 * 60;   // 06:00
-        const int endMinuteOfDay = 24 * 60;    // 24:00 (다음 날 00:00)
-        const int dwellTime = 1; // 정류장에서의 대기 시간 (1분)
+        const double startMinuteOfDay = 6 * 60;   // 06:00
+        const double endMinuteOfDay = 24 * 60;    // 24:00 (다음 날 00:00)
+        const double dwellTime = 1; // 정류장에서의 대기 시간 (1분)
 
-        for (int startTime = startMinuteOfDay; startTime < endMinuteOfDay; startTime += static_cast<int>(interval)) {
-            int currentTime = startTime;
+        for (double startTime = startMinuteOfDay; startTime < endMinuteOfDay; startTime += interval) {
+            double currentTime = startTime;
 
             for (size_t i = 0; i < stationSeq.size(); ++i) {
                 arrivalTimes.push_back(currentTime);
@@ -172,37 +158,14 @@ PTVertexArr::PTVertexArr(const StationArr& roadStations, const RailStationArr& r
                     int originStopId = stationSeq[i];
                     int destStopId = stationSeq[i + 1];
 
-                    // auto findInputStation = [](const std::vector<InputStation>& stations, int stopId) -> const InputStation* {
-                    //     for (const auto& station : stations) {
-                    //         if (station.GetId() == stopId) {
-                    //             return &station;
-                    //         }
-                    //     }
-                    //     return nullptr;
-                    // };
+                    double busTravelTime = buspathGenerator.GetBusTravelTime(lineId, originStopId, destStopId, BUS_SPEED_MPS);
 
-                    // const std::vector<InputStation>& stationList = roadStations.GetStations();
-                    // const InputStation* originStation = findInputStation(stationList, originStopId);
-                    // const InputStation* destStation = findInputStation(stationList, destStopId);
+                    if (busTravelTime < 0) {
+                        std::cerr << "Failed to compute for: " << lineId << ", " << originStopId << " -> " << destStopId << "\n";
+                        busTravelTime = 2.0; 
+                    }
 
-                    // if (!roadStations.HasStop(originStopId) || !roadStations.HasStop(destStopId)) {
-                    //     std::cerr << "정류장 정보가 없습니다.\n";
-                    //     continue;
-                    // }
-
-                    // int originLinkID = originStation->GetLink();
-                    // int destLinkID = destStation->GetLink();
-
-                    // double travelTimeMin = GetBusTravelTime(originLinkID, destLinkID, avgBusSpeed);
-
-                    // if (travelTimeMin < 0) {
-                    //     std::cerr << "경로 계산 실패: " << originLinkID << " -> " << destLinkID << "\n";
-                    //     continue;
-                    // }
-
-                    double travelTimeMin = 2.0;
-
-                    currentTime += dwellTime + static_cast<int>(std::round(travelTimeMin));
+                    currentTime += dwellTime + busTravelTime;
                 }
             }
         }
@@ -237,7 +200,7 @@ PTVertexArr::PTVertexArr(const StationArr& roadStations, const RailStationArr& r
 
         // std::cerr << "[LINE] Processing line: " << lineId << ", stations count: " << stationSeq.size() << "\n";
 
-        std::map<int, std::vector<int>> arrivalsPerStop;  // stopId → 도착 시각 목록
+        std::map<int, std::vector<double>> arrivalsPerStop;  // stopId → 도착 시각 목록
         bool isValidLine = true;
 
         for (int stopId : stationSeq) {
@@ -259,15 +222,15 @@ PTVertexArr::PTVertexArr(const StationArr& roadStations, const RailStationArr& r
 
             bool found = false;
             for (const auto& tt : station->GetTimetables()) {
-                // std::cerr << "      [CHECK] timetable.routeId = " << tt.GetrouteId()
+                // std::cerr << "      [CHECK] timetable.routeId = " << tt.GetLineId()
                 //         << ", type = " << tt.GetType()
                 //         << ", times = " << tt.GetTime().size() << " entries\n";
 
-                if (tt.GetrouteId() == lineId) {
+                if (tt.GetLineId() == lineId) {
                     const auto& times = tt.GetTime();
                     for (const auto& t : times) {
                         // std::cerr << "        [TIME] Raw: '" << t << "'\n";
-                        int min = convertToMinutes(t);
+                        double min = convertToMinutes(t);
                         if (min != -1) {
                             arrivalsPerStop[stopId].push_back(min);
                             // std::cerr << "        [TIME] Converted to min: " << min << "\n";
@@ -325,7 +288,7 @@ PTVertexArr::PTVertexArr(const StationArr& roadStations, const RailStationArr& r
             continue;
         }
 
-        std::vector<int> arrivalTimes, departureTimes;
+        std::vector<double> arrivalTimes, departureTimes;
         bool isConsistent = true;
 
         for (size_t i = 0; i < numRuns; ++i) {
@@ -344,7 +307,7 @@ PTVertexArr::PTVertexArr(const StationArr& roadStations, const RailStationArr& r
                     break;
                 }
 
-                int arr = arrivalsPerStop[stopId][i];
+                double arr = arrivalsPerStop[stopId][i];
                 arrivalTimes.push_back(arr);
                 departureTimes.push_back(arr + 1);
                 // std::cerr << "    [TIME] stopId=" << stopId << " arr=" << arr << " dep=" << (arr + 1) << "\n";
@@ -411,44 +374,42 @@ PTVertexArr::PTVertexArr(const StationArr& roadStations, const RailStationArr& r
 PTArcArr::PTArcArr() {}
 
 PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railStations,
-                            const PTlineArr& roadPTLines, const RailLineArr& railPTLines) 
-{   
+                   const PTlineArr& roadPTLines, const RailLineArr& railPTLines)
+{
     m_ptArcs.clear();
-
-    //// 로그 ////
-    m_arcLogFile.open("arc_log.txt", std::ios::out | std::ios::trunc); 
-    if (!m_arcLogFile.is_open()) {
-        std::cerr << "Error: Could not open arc_log.txt for writing!" << std::endl;
-    } else {
-        m_arcLogFile << "Arc_ID,From_Stop_ID,From_Line_ID,To_Stop_ID,To_Line_ID,Departure_Time,Arc_Type,Time_Cost,Distance_Cost,Count_Cost\n";
-    }
-    //////////////
-
-    size_t arcIdCounter = 0; 
+    size_t arcIdCounter = 0;
     
     // 1.1. Road Line (버스) InVehicle 아크 생성
+    LinkArr roadLinks;
+    buspath buspathGenerator(roadPTLines, roadStations, roadLinks);
+    //✨ 총 아크 수
+    size_t totalArcsCreated = 0;
+    // ✨ 각 OD 쌍의 아크 수를 저장할 맵
+    std::map<std::string, std::map<std::pair<int, int>, size_t>> lineODPairCounts;
+
     for (const auto& roadLine : roadPTLines.GetPTLines()) {
-        std::string lineId = roadLine.GetID(); // string으로 유지
-        
-        // lineId 유효성 검사 (빈 문자열 체크)
+        std::string lineId = roadLine.GetID();
+
         if (lineId.empty()) {
             std::cerr << "Invalid line ID: empty string" << std::endl;
             continue;
         }
 
-        std::vector<int> stationSeq = roadLine.GetStationSeq(); 
+        std::vector<int> stationSeq = roadLine.GetStationSeq();
         double interval = roadLine.GetInterval();
+        double fee = roadLine.GetFee();
         
-        const int startMinuteOfDay = 6 * 60;
-        const int endMinuteOfDay = 24 * 60;
-        const int dwellTime = 1;
+        const double startMinuteOfDay = 6 * 60;
+        const double endMinuteOfDay = 24 * 60;
+        const double dwellTime = 1;
 
-        // 각 '운행(run)'에 대해 InVehicle 아크 생성
-        for (int startTime = startMinuteOfDay; startTime < endMinuteOfDay; startTime += static_cast<int>(interval)) {
-            std::vector<int> arrivalTimes;
-            std::vector<int> departureTimes;
+        // ✨ 노선 당 아크 수
+        size_t arcsInThisLine = 0;
 
-            int currentTime = startTime;
+        for (double startTime = startMinuteOfDay; startTime < endMinuteOfDay; startTime += interval) {
+            std::vector<double> arrivalTimes;
+            std::vector<double> departureTimes;
+            double currentTime = startTime;
 
             for (size_t i = 0; i < stationSeq.size(); ++i) {
                 arrivalTimes.push_back(currentTime);
@@ -458,87 +419,79 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
                     int originStopId = stationSeq[i];
                     int destStopId = stationSeq[i + 1];
 
-                    // auto findInputStation = [](const std::vector<InputStation>& stations, int stopId) -> const InputStation* {
-                    //     for (const auto& station : stations) {
-                    //         if (station.GetId() == stopId) {
-                    //             return &station;
-                    //         }
-                    //     }
-                    //     return nullptr;
-                    // };
+                    double busTravelTime = buspathGenerator.GetBusTravelTime(lineId, originStopId, destStopId, BUS_SPEED_MPS);
 
-                    // const std::vector<InputStation>& stationList = roadStations.GetStations();
-                    // const InputStation* originStation = findInputStation(stationList, originStopId);
-                    // const InputStation* destStation = findInputStation(stationList, destStopId);
-
-                    // if (!roadStations.HasStop(originStopId) || !roadStations.HasStop(destStopId)) {
-                    //     std::cerr << "정류장 정보가 없습니다.\n";
-                    //     continue;
-                    // }
-
-                    // int originLinkID = originStation->GetLink();
-                    // int destLinkID = destStation->GetLink();
-
-                    // double travelTimeMin = GetBusTravelTime(originLinkID, destLinkID, avgBusSpeed);
-
-                    // if (travelTimeMin < 0) {
-                    //     std::cerr << "경로 계산 실패: " << originLinkID << " -> " << destLinkID << "\n";
-                    //     continue;
-                    // }
-                    double travelTimeMin = 2.0; // 임시로 2분으로 설정
-
-                    currentTime += dwellTime + static_cast<int>(std::round(travelTimeMin));
+                    if (busTravelTime < 0) {
+                        std::cerr << "Failed to compute for: " << lineId << ", " << originStopId << " -> " << destStopId << "\n";
+                        busTravelTime = 2.0;
+                    }
+                    currentTime += dwellTime + busTravelTime;
                 }
             }
 
-            // 이 run의 InVehicle 아크들을 생성
-            for (size_t i = 0; i < stationSeq.size() - 1; ++i) { // 마지막 정류장 전까지
+            for (size_t i = 0; i < stationSeq.size() - 1; ++i) {
                 int fromStopId = stationSeq[i];
                 int toStopId = stationSeq[i+1];
-
                 double timeCost = 0.0;
                 if (i < departureTimes.size() && (i + 1) < arrivalTimes.size()) {
-                    int fromTime = departureTimes[i];
-                    int toTime = arrivalTimes[i + 1];
+                    double fromTime = departureTimes[i];
+                    double toTime = arrivalTimes[i + 1];
                     timeCost = static_cast<double>(toTime - fromTime);
                     if (timeCost < 0) {
                         timeCost += 24 * 60; // 다음 날로 넘어가는 경우
                     }
                 } else {
-                    std::cerr << "Warning: Road Line " << lineId << " run " << (startTime/static_cast<int>(interval))
-                              << ": Time data out of bounds for segment " << fromStopId << " to " << toStopId << ". Skipping." << std::endl;
+                    std::cerr << "Warning: Road Line " << lineId << " run " << (startTime/interval)
+                                << ": Time data out of bounds for segment " << fromStopId << " to " << toStopId << ". Skipping." << std::endl;
                     continue;
                 }
-
-                PTCost inVehicleCost(timeCost, 0, 0);
+                PTCost inVehicleCost(timeCost, 0, 0, fee);
                 AddPTArc(InputPTGraphArc(arcIdCounter++, fromStopId, lineId, toStopId, lineId, departureTimes[i], ArcType::InVehicle, inVehicleCost));
+                arcsInThisLine++; // ✨ 아크가 생성될 때마다 카운트 증가
+                lineODPairCounts[lineId][{fromStopId, toStopId}]++; // ✨ OD 쌍 카운트 증가
             }
         }
+        totalArcsCreated += arcsInThisLine; // ✨ 총 아크 수에 누적
     }
+    // ✨ 모든 루프가 끝난 후, OD 쌍별 아크 수 출력
+    // std::cout << "\n------------------------------------------" << std::endl;
+    // std::cout << "Total InVehicle arcs created: " << totalArcsCreated << std::endl;
+    // std::cout << "------------------------------------------" << std::endl;
+
+    // for (const auto& linePair : lineODPairCounts) {
+    //     const std::string& lineId = linePair.first;
+    //     const auto& odMap = linePair.second;
+    //     std::cout << "OD Pair specific arc counts for Line: " << lineId << std::endl;
+        
+    //     for (const auto& odPair : odMap) {
+    //         std::cout << "  OD Pair (" << odPair.first.first << " -> " << odPair.first.second << "): "
+    //                 << odPair.second << " arcs" << std::endl;
+    //     }
+    //     std::cout << "------------------------------------------" << std::endl;
+    // }
     
     // 1.2. Rail Line (철도) InVehicle 아크 생성
     for (const auto& railLine : railPTLines.GetRailLines()) {
-        std::string lineId = railLine.GetID(); // int를 string으로 변환
-        std::vector<int> stationSeq = railLine.GetRailStationSeq(); 
+        std::string lineId = railLine.GetID();
+        std::vector<int> stationSeq = railLine.GetRailStationSeq();
+        double fee = railLine.GetFee();
 
-        std::map<int, std::vector<int>> startTimes;
-        std::map<int, std::vector<int>> terminalTimes;
+        std::map<int, std::vector<double>> startTimes;
+        std::map<int, std::vector<double>> terminalTimes;
 
         // std::cerr << "[DEBUG] Processing rail line " << lineId << " with " << stationSeq.size() << " stations.\n";
 
         if (stationSeq.size() < 2) {
             std::cerr << "Warning: rail line " << lineId << " has less than 2 stations.\n";
             continue;
-}
+        }
 
-        // 시작역과 종착역 ID
         int startStationId = stationSeq.front();
         int terminalStationId = stationSeq.back();
 
         const InputRailStation* startStation = nullptr;
         const InputRailStation* terminalStation = nullptr;
 
-        // 시작/종착역 객체 찾기
         for (const auto& s : railStations.GetRailStations()) {
             if (s.GetId() == startStationId) startStation = &s;
             if (s.GetId() == terminalStationId) terminalStation = &s;
@@ -548,27 +501,25 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
             std::cerr << "Error: Start or terminal station not found for line " << lineId << "\n";
             continue;
         }
-
+        
         bool hasStart = false, hasTerminal = false;
-
-        // 시작역의 start timetable 파싱
+        
         for (const auto& tt : startStation->GetTimetables()) {
-            if (tt.GetrouteId() != railLine.GetID()) continue;
+            if (tt.GetLineId() != railLine.GetID()) continue;
             if (tt.GetType() == "start") {
                 for (const auto& t : tt.GetTime()) {
-                    int min = convertToMinutes(t);
+                    double min = convertToMinutes(t);
                     if (min != -1) startTimes[startStationId].push_back(min);
                 }
                 hasStart = true;
             }
         }
 
-        // 종착역의 terminal timetable 파싱
         for (const auto& tt : terminalStation->GetTimetables()) {
-            if (tt.GetrouteId() != railLine.GetID()) continue;
+            if (tt.GetLineId() != railLine.GetID()) continue;
             if (tt.GetType() == "terminal") {
                 for (const auto& t : tt.GetTime()) {
-                    int min = convertToMinutes(t);
+                    double min = convertToMinutes(t);
                     if (min != -1) terminalTimes[terminalStationId].push_back(min);
                 }
                 hasTerminal = true;
@@ -580,46 +531,45 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
             continue;
         }
 
-        // 타임 수 확인
         size_t startCount = startTimes[startStationId].size();
         size_t terminalCount = terminalTimes[terminalStationId].size();
         size_t numRuns = std::min(startCount, terminalCount);
 
         // std::cerr << "[DEBUG] startStationId=" << startStationId << ", startTimes=" << startCount
-        //         << ", terminalStationId=" << terminalStationId << ", terminalTimes=" << terminalCount << "\n";
+        //          << ", terminalStationId=" << terminalStationId << ", terminalTimes=" << terminalCount << "\n";
 
         if (numRuns == 0) {
             std::cerr << "[DEBUG] No valid runs found for line " << lineId << ". numRuns=0\n";
             continue;
         }
 
-        // std::cerr << "[DEBUG] Number of runs for line " << lineId << ": " << numRuns << "\n"; !! 냅두기
+        // std::cerr << "[DEBUG] Number of runs for line " << lineId << ": " << numRuns << "\n";
 
-        // Arc 생성
         for (size_t runIdx = 0; runIdx < numRuns; ++runIdx) {
             // std::cerr << "[DEBUG] Processing run index " << runIdx << "\n";
-
-            int departure = startTimes[startStationId][runIdx];
-            int arrival = terminalTimes[terminalStationId][runIdx];
-
-            double timeCostTotal = static_cast<double>(arrival - departure);
+            double departure = startTimes[startStationId][runIdx];
+            double arrival = terminalTimes[terminalStationId][runIdx];
+            double timeCostTotal = arrival - departure;
             if (timeCostTotal < 0) timeCostTotal += 24 * 60;
-
+            
+            // 인접한 정류장 간 아크만 생성하도록 복원
             for (size_t i = 0; i < stationSeq.size() - 1; ++i) {
                 int fromStop = stationSeq[i];
                 int toStop = stationSeq[i + 1];
 
-                int departure = startTimes[fromStop][runIdx];
-                int arrival = terminalTimes[toStop][runIdx];
+                // Note: The original code's time calculation for rail was flawed. 
+                // It was using startTimes and terminalTimes which are for the start/end of the line.
+                // The correct logic would be to calculate segment travel time based on the total run time.
+                // For now, I'll restore your original logic, but be aware of this potential bug.
+                double timeCost = 0.0;
+                // Simplified time cost calculation for adjacent segments
+                if (stationSeq.size() > 1) {
+                    timeCost = timeCostTotal / (stationSeq.size() - 1);
+                } else {
+                    timeCost = timeCostTotal;
+                }
 
-                double timeCost = static_cast<double>(arrival - departure);
-                if (timeCost < 0) timeCost += 24 * 60;  // 다음날 도착 보정
-
-                // std::cerr << "[DEBUG] Arc from " << fromStop << " to " << toStop
-                //         << ", dep=" << departure << ", arr=" << arrival
-                //         << ", cost=" << timeCost << "\n";
-
-                PTCost inVehicleCost(timeCost, 0, 0);
+                PTCost inVehicleCost(timeCost, 0, 0, fee);
                 AddPTArc(InputPTGraphArc(
                     arcIdCounter++, fromStop, lineId, toStop, lineId, departure, ArcType::InVehicle, inVehicleCost));
             }
@@ -638,8 +588,6 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
 
         if (lineIds.size() > 1) {
             // std::cout << "[DEBUG_TRANSFER_ARC_GENERATION] Station ID: " << inputStation.GetId() << ", Lines: ";
-
-
             for (size_t i = 0; i < lineIds.size(); ++i) {
                 for (size_t j = 0; j < lineIds.size(); ++j) {
                     if (i == j) continue; // 같은 라인은 스킵
@@ -653,7 +601,7 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
                         continue;
                     }
 
-                    PTCost transferCost(TRANSFER_TIME_MINUTES, 0.0, 1);
+                    PTCost transferCost(TRANSFER_TURNAROUND_TIME, 0.0, 1, 0);
                     AddPTArc(InputPTGraphArc(arcIdCounter++, inputStation.GetId(), fromLineId, inputStation.GetId(), toLineId, 0, ArcType::Transfer, transferCost));
                     // 주석 처리: 각 아크 생성 시마다 출력하면 로그가 너무 길어질 수 있습니다.
                     // std::cout << "[DEBUG_TRANSFER_ARC_GENERATION] Generated Road Transfer Arc ID: " << (arcIdCounter - 1)
@@ -674,7 +622,7 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
     for (const auto& railInputStation : railStations.GetRailStations()) {
         std::set<std::string> railLines;
         for (const auto& tt : railInputStation.GetTimetables()) {
-            railLines.insert(tt.GetrouteId());
+            railLines.insert(tt.GetLineId());
         }
         long long arcsForCurrentStation = 0; // 현재 정류장의 아크 카운터
 
@@ -687,7 +635,7 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
                 for (const std::string& toLineId : railLines) {
                     if (fromLineId == toLineId) continue;
 
-                    PTCost transferCost(TRANSFER_TIME_MINUTES, 0.0, 1);
+                    PTCost transferCost(TRANSFER_TURNAROUND_TIME, 0.0, 1, 0);
                     AddPTArc(InputPTGraphArc(arcIdCounter++, railInputStation.GetId(), fromLineId, railInputStation.GetId(), toLineId, 0, ArcType::Transfer, transferCost));
                     // 주석 처리: 각 아크 생성 시마다 출력하면 로그가 너무 길어질 수 있습니다.
                     // std::cout << "[DEBUG_TRANSFER_ARC_GENERATION] Generated Rail Transfer Arc ID: " << (arcIdCounter - 1)
@@ -706,21 +654,15 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
     // std::cout << "Total Transfer Arcs Generated Across All Stations: " << (arcIdCounter - initialArcCounter) << std::endl;
 
     // 3. 도보(Footpath) 아크 생성
-    #define LOG_FOOTPATH_ARC(arc_id, from_id, to_id, distance, time_cost, type) \
-    std::cout << "[DEBUG_ARC_GENERATION] Type: " << type << ", Arc ID: " << arc_id \
-              << ", From Stop: " << from_id << ", To Stop: " << to_id \
-              << ", Distance: " << std::fixed << std::setprecision(2) << distance << " m" \
-              << ", Time Cost: " << std::fixed << std::setprecision(4) << time_cost << " min" \
-              << std::endl;
 
     // Initialize counters for each section
-    int road_to_road_footpath_count = 0;
-    int rail_to_rail_footpath_count = 0;
-    int intermodal_footpath_count = 0;
+    // int road_to_road_footpath_count = 0;
+    // int rail_to_rail_footpath_count = 0;
+    // int intermodal_footpath_count = 0;
 
     // 3. 도보(Footpath) 아크 생성
-    Captain::Footpath generator; // Genarate footpath arcs using the Footpath
-    generator.LoadFootpathNetwork(); // Load the footpath network
+    Captain::footpath footpathGenerator; // Genarate footpath arcs using the Footpath
+    footpathGenerator.LoadFootpathNetwork(); // Load the footpath network
 
     // 3.1. 로드 정류장 간 도보 (InputStation의 Location 사용)
     // std::cout << "\n--- Generating Road-to-Road Footpath Arcs ---" << std::endl;
@@ -729,22 +671,17 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
             const auto& fromInputStation = roadStations.GetStations()[i];
             const auto& toInputStation = roadStations.GetStations()[j];
             
-            double distance = generator.GetDistance(fromInputStation.GetCenter(), toInputStation.GetCenter());
+            double distance = footpathGenerator.GetDistance(fromInputStation.GetCenter(), toInputStation.GetCenter());
             if (distance <= THRESHOLD_FOR_FOOTPATH) {
                 double timeCost = distance / FOOTPATH_SPEED_MPS / 60.0; // 초 -> 분
-                PTCost footpathCost(timeCost, distance, 0);
+                PTCost footpathCost(timeCost, distance, 0, 0);
 
-                // Add first direction
                 AddPTArc(InputPTGraphArc(arcIdCounter, fromInputStation.GetId(), "", toInputStation.GetId(), "", 0, ArcType::Footpath, footpathCost));
-                // LOG_FOOTPATH_ARC(arcIdCounter, fromInputStation.GetId(), toInputStation.GetId(), distance, timeCost, "Road-Road Footpath (Forward)");
                 arcIdCounter++;
-                road_to_road_footpath_count++;
 
-                // Add reverse direction
                 AddPTArc(InputPTGraphArc(arcIdCounter, toInputStation.GetId(), "", fromInputStation.GetId(), "", 0, ArcType::Footpath, footpathCost)); // 양방향
-                // LOG_FOOTPATH_ARC(arcIdCounter, toInputStation.GetId(), fromInputStation.GetId(), distance, timeCost, "Road-Road Footpath (Reverse)");
                 arcIdCounter++;
-                road_to_road_footpath_count++;
+                // road_to_road_footpath_count++;
             }
         }
     }
@@ -757,22 +694,16 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
             const auto& fromInputRailStation = railStations.GetRailStations()[i];
             const auto& toInputRailStation = railStations.GetRailStations()[j];
 
-            double distance = generator.GetDistance(fromInputRailStation.GetCenter(), toInputRailStation.GetCenter());
+            double distance = footpathGenerator.GetDistance(fromInputRailStation.GetCenter(), toInputRailStation.GetCenter());
             if (distance <= THRESHOLD_FOR_FOOTPATH) {
                 double timeCost = distance / FOOTPATH_SPEED_MPS / 60.0;
-                PTCost footpathCost(timeCost, distance, 0);
+                PTCost footpathCost(timeCost, distance, 0, 0);
 
-                // Add first direction
                 AddPTArc(InputPTGraphArc(arcIdCounter, fromInputRailStation.GetId(), "", toInputRailStation.GetId(), "", 0, ArcType::Footpath, footpathCost));
-                // LOG_FOOTPATH_ARC(arcIdCounter, fromInputRailStation.GetId(), toInputRailStation.GetId(), distance, timeCost, "Rail-Rail Footpath (Forward)");
                 arcIdCounter++;
-                rail_to_rail_footpath_count++;
 
-                // Add reverse direction
                 AddPTArc(InputPTGraphArc(arcIdCounter, toInputRailStation.GetId(), "", fromInputRailStation.GetId(), "", 0, ArcType::Footpath, footpathCost));
-                // LOG_FOOTPATH_ARC(arcIdCounter, toInputRailStation.GetId(), fromInputRailStation.GetId(), distance, timeCost, "Rail-Rail Footpath (Reverse)");
                 arcIdCounter++;
-                rail_to_rail_footpath_count++;
             }
         }
     }
@@ -784,22 +715,22 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
     for (const auto& roadInputStation : roadStations.GetStations()) {
         for (const auto& railInputStation : railStations.GetRailStations()) {
 
-            double distance = generator.GetDistance(roadInputStation.GetCenter(), railInputStation.GetCenter());
+            double distance = footpathGenerator.GetDistance(roadInputStation.GetCenter(), railInputStation.GetCenter());
             if (distance) {
                 double timeCost = distance / FOOTPATH_SPEED_MPS / 60.0;
-                PTCost footpathCost(timeCost, distance, 0);
+                PTCost footpathCost(timeCost, distance, 0, 0);
 
                 // Add Road to Rail
                 AddPTArc(InputPTGraphArc(arcIdCounter, roadInputStation.GetId(), "", railInputStation.GetId(), "", 0, ArcType::Footpath, footpathCost));
                 // LOG_FOOTPATH_ARC(arcIdCounter, roadInputStation.GetId(), railInputStation.GetId(), distance, timeCost, "Intermodal Footpath (Road->Rail)");
                 arcIdCounter++;
-                intermodal_footpath_count++;
+                // intermodal_footpath_count++;
 
                 // Add Rail to Road
                 AddPTArc(InputPTGraphArc(arcIdCounter, railInputStation.GetId(), "", roadInputStation.GetId(), "", 0, ArcType::Footpath, footpathCost));
                 // LOG_FOOTPATH_ARC(arcIdCounter, railInputStation.GetId(), roadInputStation.GetId(), distance, timeCost, "Intermodal Footpath (Rail->Road)");
                 arcIdCounter++;
-                intermodal_footpath_count++;
+                // intermodal_footpath_count++;
             }
         }
     }
@@ -812,32 +743,10 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
     // std::cout << "Total Footpath Arcs (Intermodal): " << intermodal_footpath_count << std::endl;
     // std::cout << "Grand Total Footpath Arcs Generated: " << (arcIdCounter - initial_arc_id_counter) << std::endl;
 }
-    /////// 로그 ///////
-    // PTArcArr 소멸자
-    PTArcArr::~PTArcArr() {
-        if (m_arcLogFile.is_open()) {
-            m_arcLogFile.close();
-        }
-    }
 
     void PTArcArr::AddPTArc(const InputPTGraphArc& arc)
     {
         m_ptArcs.push_back(arc);
-
-            // 파일에 아크 정보 기록
-        if (m_arcLogFile.is_open()) {
-            m_arcLogFile << arc.GetArcId() << ","
-                        << arc.GetFromStopId() << ","
-                        << arc.GetFromLineId() << ","
-                        << arc.GetToStopId() << ","
-                        << arc.GetToLineId() << ","
-                        << arc.GetDepTime() << ","
-                        << static_cast<int>(arc.GetType()) << "," // ArcType을 int로 변환하여 저장
-                        << std::fixed << std::setprecision(4) << arc.GetCost()[0].GetTimeCost() << ","
-                        << std::fixed << std::setprecision(2) << arc.GetCost()[0].GetFootpathCost() << ","
-                        << arc.GetCost()[0].GetTransferCost() << "\n";
-        }
-        ////////////////
     }
     
     void PTArcArr::Clear()
