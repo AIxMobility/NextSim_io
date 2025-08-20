@@ -131,7 +131,7 @@ public:
                     std::string fromLineId,
                     std::size_t toStopId,
                     std::string toLineId,
-                    int depTime,
+                    double depTime,
                     ArcType type, 
                     PTCost ptCost);
 
@@ -169,13 +169,13 @@ public:
      * @details Get departure time from Stop
      * @return Departure time
      */
-    int GetDepTime() const { return m_depTime; }
+    double GetDepTime() const { return m_depTime; }
 
     /**
      * @details Set departure time
      * @param time Departure time to set
      */
-    void SetDepTime(int time) { m_depTime = time; }
+    void SetDepTime(double time) { m_depTime = time; }
 
     /**
      * @details Get arc type
@@ -224,7 +224,7 @@ private:
     /**
      * @details Departure time 
      */
-    int m_depTime;
+    double m_depTime;
 
     /**
      * @details Arc type

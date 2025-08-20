@@ -78,7 +78,7 @@ public:
      * @param arrivalTimes List of arrival times at each stop
      * @param departureTimes List of departure times from each stop
      */
-    Line(std::string lineId, const std::vector<int> &stops, const std::vector<int> &arrivalTimes, const std::vector<int> &departureTimes);
+    Line(std::string lineId, const std::vector<int> &stops, const std::vector<double> &arrivalTimes, const std::vector<double> &departureTimes);
 
     /**
      * @brief Get line ID
@@ -96,13 +96,13 @@ public:
      * @brief Get list of arrival times at each stop.
      * @return Constant reference to the list of arrival times
      */
-    const std::vector<int>& GetArrivalTimes() const;
+    const std::vector<double>& GetArrivalTimes() const;
 
     /**
      * @brief Get list of departure times from each stop.
      * @return Cconstant reference to the list of departure times
      */
-    const std::vector<int>& GetDepartureTimes() const;
+    const std::vector<double>& GetDepartureTimes() const;
 
 private:
     /**
@@ -116,11 +116,11 @@ private:
     /**
      * @details List of arrival times at each stop
      */
-    std::vector<int> m_arrivalTimes;
+    std::vector<double> m_arrivalTimes;
     /**
      * @details List of departure times from each stop
      */
-    std::vector<int> m_departureTimes;
+    std::vector<double> m_departureTimes;
 };
 
 /**

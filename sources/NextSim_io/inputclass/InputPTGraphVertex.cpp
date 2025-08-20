@@ -22,7 +22,7 @@ Stop::Stop(int stopId, StopType type)
     return m_stopType;
     }
 
-Line::Line(std::string lineId, const std::vector<int> &stops, const std::vector<int> &arrivalTimes, const std::vector<int> &departureTimes)
+Line::Line(std::string lineId, const std::vector<int> &stops, const std::vector<double> &arrivalTimes, const std::vector<double> &departureTimes)
     : m_lineId(lineId), m_stops(stops), m_arrivalTimes(arrivalTimes), m_departureTimes(departureTimes)
     {}
 
@@ -34,11 +34,11 @@ Line::Line(std::string lineId, const std::vector<int> &stops, const std::vector<
         return m_stops;
     }
 
-    const std::vector<int>& Line::GetArrivalTimes() const {
+    const std::vector<double>& Line::GetArrivalTimes() const {
         return m_arrivalTimes;
     }
 
-    const std::vector<int>& Line::GetDepartureTimes() const {
+    const std::vector<double>& Line::GetDepartureTimes() const {
         return m_departureTimes;
     }
 

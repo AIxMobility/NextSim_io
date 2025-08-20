@@ -27,7 +27,7 @@ InputPTGraphArc::InputPTGraphArc(std::size_t arcId,
                        std::string fromLineId,
                        std::size_t toStopId,
                        std::string toLineId,
-                       int depTime,
+                       double depTime,
                        ArcType type,
                        PTCost ptCost)
     : m_arcId(arcId), m_fromStopId(fromStopId), m_fromLineId(fromLineId),
