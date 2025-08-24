@@ -86,6 +86,11 @@ RecordModeArr::RecordModeArr()
     bool activatedSignalEvent = std::string(eSignalEvent->Attribute("active")) == "t";
     InputRecordMode recordModeSignalEvent(7, activatedSignalEvent);
     m_recordModes.emplace_back(recordModeSignalEvent);
+
+    // SignalControlEvent (when signalControl is activated)
+    TiXmlElement *eSignalControlEvent = root->FirstChildElement("SignalControlEvent");
+    bool activatedSignalControlEvent = std::string(eSignalControlEvent->Attribute("active")) == "t";
+    m_recordModes.emplace_back(InputRecordMode(9, activatedSignalControlEvent));
     
     doc.Clear();
 };
