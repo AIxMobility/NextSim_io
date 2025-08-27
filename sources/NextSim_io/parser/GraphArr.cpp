@@ -263,7 +263,6 @@ ArcArr::ArcArr()
                             }
                             else {
                                 demoArc.PushPTLaneList(static_cast<int>(atol(laneId)));
-                                std::cout << "PT lane found: " << laneId << std::endl;
                             }
                         }
                     }
