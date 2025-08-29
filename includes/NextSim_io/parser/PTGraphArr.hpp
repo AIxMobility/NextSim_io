@@ -13,13 +13,9 @@
 #include <fstream>
 #include <NextSim_io/inputclass/InputPTGraphVertex.hpp>
 #include <NextSim_io/inputclass/InputPTGraphArc.hpp>
-#include <NextSim_io/inputclass/InputStation.hpp>
 #include <NextSim_io/parser/StationArr.hpp>
-#include <NextSim_io/inputclass/InputRailStation.hpp>
 #include <NextSim_io/parser/RailStationArr.hpp>
-#include <NextSim_io/inputclass/InputPTline.hpp>
 #include <NextSim_io/parser/PTlineArr.hpp>
-#include <NextSim_io/inputclass/InputRailLine.hpp>
 #include <NextSim_io/parser/RailLineArr.hpp>
 #include <NextSim_io/inputclass/Railstation/timetable.hpp>
 #include <NextSim_io/parser/LinkArr.hpp>
@@ -36,7 +32,7 @@ public:
     /**
      * @brief Default constructor
      */
-    PTVertexArr();
+    PTVertexArr() = default;
 
     /**
      * @brief Constructor with station arrays
@@ -56,7 +52,7 @@ public:
      * @brief Add a PT vertex to the array
      * @param vertex The vertex to add
      */
-    void AddPTVertex(const InputPTGraphVertex& vertex);
+    void AddPTVertex(const InputPTGraphVertex& vertex) { m_ptVertices.push_back(vertex); }
 
     /**
      * @brief Get the number of vertices
@@ -67,7 +63,7 @@ public:
     /**
      * @brief Clear all vertices
      */
-    void Clear();
+    void Clear() { m_ptVertices.clear(); }
 
 private:
     /**
@@ -87,7 +83,7 @@ public:
     /**
      * @brief Default constructor
      */
-    PTArcArr();
+    PTArcArr() = default;
 
     /**
      * @brief Constructor with station arrays
@@ -109,7 +105,7 @@ public:
      * @brief Add a PT arc to the array
      * @param arc The arc to add
      */
-    void AddPTArc(const InputPTGraphArc& arc);
+    void AddPTArc(const InputPTGraphArc& arc) { m_ptArcs.push_back(arc); }
 
     /**
      * @brief Get the number of arcs
@@ -120,7 +116,7 @@ public:
     /**
      * @brief Clear all arcs
      */
-    void Clear();
+    void Clear() { m_ptArcs.clear(); }
 
 private:
     /**
@@ -139,8 +135,8 @@ class PTGraph
 public:
     /**
      * @brief Constructor
-     * @param arcArr Arc array
      * @param vertexArr Vertex array
+     * @param arcArr Arc array
      */
     PTGraph(const PTVertexArr& vertexArr, const PTArcArr& arcArr);
 
