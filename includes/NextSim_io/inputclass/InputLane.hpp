@@ -10,6 +10,7 @@
 #define INPUTLANE_H
 
 #include <vector>
+#include <string> 
 
 #include "InputCell.hpp"
 #include "InputSegment.hpp"
@@ -36,11 +37,11 @@ public:
      * @param idVal Lane ID
      * @param leftLaneIdVal Left lane ID
      * @param rightLaneIdVal Right lane ID
-     * @param ptOnly Whether lane is dedicated for public transport only
+     * @param laneAccessType Lane access type
      * @param numCellVal Number of cells
     */
     InputLane(std::size_t idVal, std::size_t leftLaneIdVal,
-              std::size_t rightLaneIdVal, bool ptOnly, int numCellVal);
+              std::size_t rightLaneIdVal, std::string laneAccessType, int numCellVal);
 
     /**
      * @details Constructor
@@ -73,10 +74,10 @@ public:
     void SetRightLaneID(std::size_t rightLaneIdVal) { m_rightLaneId = rightLaneIdVal; }
     
     /**
-     * @details Set whether lane is dedicated for public transport only
-     * @param ptOnly Whether lane is dedicated for public transport only
+     * @details Set lane access type
+     * @param laneAccessType Lane access type
     */
-    void SetPtOnly(bool ptOnly) { m_ptOnly = ptOnly; }
+    void SetLaneAccessType(std::string laneAccessType) { m_accessibleTypes = laneAccessType; }
 
     /**
      * @details Set number of cells
@@ -115,10 +116,10 @@ public:
     std::size_t GetRightLaneID() { return m_rightLaneId; }
     
     /**
-     * @details Get whether lane is dedicated for public transport only
-     * @return True(public transport only) or False(not)
+     * @details Get lane access type
+     * @return Lane access type
     */
-    bool GetPtOnly() const { return m_ptOnly; }
+    std::string GetLaneAccessType() const { return m_accessibleTypes; }
 
     /**
      * @details Get number of cells
@@ -156,10 +157,9 @@ private:
     std::size_t m_rightLaneId = 0;
     
     /**
-     * @details Whether lane is dedicated for public transport only \n
-     * (Default: false)
-     */
-    bool m_ptOnly = false;
+     * @details Lane access type
+    */
+    std::string m_accessibleTypes = "All";
 
     /**
      * @details Number of cells in lane

@@ -198,7 +198,7 @@ public:
 
     /**
      * @details Get node type
-     * @return Node type 
+     * @return Node type (0: Normal, 1: Intersection, 2: Merging, 3: Diverging, 4: Terminal, 5: Garage)
      */
     int GetType() const { return m_type; }
 

@@ -125,7 +125,6 @@ const double FOOTPATH_SPEED_MPS = KMPtoMPS(FOOTPATH_SPEED); // 11.1111 mps
 const double BUS_SPEED = 20;       // 20 km/h (approximately 5.56 m/s)
 const double BUS_SPEED_MPS = KMPtoMPS(BUS_SPEED); // 5.5556 mps
 
-PTVertexArr::PTVertexArr() {}
 
 PTVertexArr::PTVertexArr(const StationArr& roadStations, const RailStationArr& railStations,
                             const PTlineArr& roadPTLines, const RailLineArr& railPTLines)
@@ -358,20 +357,6 @@ PTVertexArr::PTVertexArr(const StationArr& roadStations, const RailStationArr& r
         // std::cerr << "[DONE] Line " << lineId << " processed with " << m_ptVertices.size() << " total vertices.\n";
     }
 }
-
-    void PTVertexArr::AddPTVertex(const InputPTGraphVertex& vertex)
-    {
-        m_ptVertices.push_back(vertex);
-    }
-
-    void PTVertexArr::Clear()
-    {
-        m_ptVertices.clear();
-    }
-
-
-// PTArcArr Implementation
-PTArcArr::PTArcArr() {}
 
 PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railStations,
                    const PTlineArr& roadPTLines, const RailLineArr& railPTLines)
@@ -743,16 +728,6 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
     // std::cout << "Total Footpath Arcs (Intermodal): " << intermodal_footpath_count << std::endl;
     // std::cout << "Grand Total Footpath Arcs Generated: " << (arcIdCounter - initial_arc_id_counter) << std::endl;
 }
-
-    void PTArcArr::AddPTArc(const InputPTGraphArc& arc)
-    {
-        m_ptArcs.push_back(arc);
-    }
-    
-    void PTArcArr::Clear()
-    {
-        m_ptArcs.clear();
-    }
 
 
 PTGraph::PTGraph(const PTVertexArr& vertexArr, const PTArcArr& arcArr)

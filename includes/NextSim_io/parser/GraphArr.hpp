@@ -41,6 +41,12 @@ public:
      */
     std::vector<int> GetSourceTerminals() { return m_sourceTerminals; }
 
+    /**
+     * @details Get vertex information map
+     */
+    std::unordered_map<int, InputGraphVertex> GetVertexInfo() { return m_vertexInfo; }
+    
+
 private:
     /**
      * @details Vector of vertices
@@ -56,6 +62,11 @@ private:
      * @details Vector of source terminal ids
      */
     std::vector<int> m_sourceTerminals;
+
+    /**
+     * @details Map of vertex ID to InputGraphVertex
+     */
+    std::unordered_map<int, InputGraphVertex> m_vertexInfo;
 
 }; // class VertexArr
 
@@ -76,11 +87,21 @@ public:
      */
     std::vector<InputGraphArc> GetArcs() { return m_arcs; }
 
+    /**
+     * @details Get arc information map
+     */
+    std::unordered_map<int, InputGraphArc> GetArcInfo() { return m_arcInfo; }
+
 private:
     /**
      * @details Vector of arcs
      */
     std::vector<InputGraphArc> m_arcs;
+
+    /**
+     * @details Map of arc ID to InputGraphArc
+     */
+    std::unordered_map<int, InputGraphArc> m_arcInfo;
     
 }; // class ArcArr
 

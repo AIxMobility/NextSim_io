@@ -119,13 +119,13 @@ public:
      * @param toNode To node ID (connected with arc end point)
      * @param numLane Number of lanes in the arc
      */
-    InputGraphArc(std::size_t id, std::size_t fromNode, std::size_t toNode, std::size_t numLane);
+    InputGraphArc(int id, std::size_t fromNode, std::size_t toNode, std::size_t numLane);
 
     /**
      * @details Set arc ID
      * @param id Arc ID
      */
-    void SetID(std::size_t id) { m_id = id; }
+    void SetID(int id) { m_id = id; }
 
     /**
      * @details Sed from node ID
@@ -161,13 +161,13 @@ public:
      * @details Set PT lane list
      * @param ptlane PT lane nmber
      */
-    void PushPTLaneList(int ptlane);
+    void PushPTLaneList(int ptlane) {m_ptlanelist.push_back(ptlane);} 
 
     /**
      * @details Get arc ID
      * @return Arc ID
      */
-    std::size_t GetID() { return m_id; }
+    int GetID() { return m_id; }
 
     /**
      * @details Get from node ID
@@ -209,7 +209,7 @@ private:
     /**
      * @details Arc ID 
      */
-    std::size_t m_id;
+    int m_id;
 
     /**
      * @details From node ID (connected with arc start point)
