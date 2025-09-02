@@ -122,7 +122,7 @@ const double TRANSFER_TURNAROUND_TIME = 1.0; // Fixed transfer time in minutes, 
 inline double KMPtoMPS(double kph) { return kph * 1000.0 / 3600.0; }
 const double FOOTPATH_SPEED = 4;      // 4 km/h (approximately 1.11 m/s)
 const double FOOTPATH_SPEED_MPS = KMPtoMPS(FOOTPATH_SPEED); // 11.1111 mps
-const double BUS_SPEED = 15;       // 20 km/h (approximately 5.56 m/s)
+const double BUS_SPEED = 20;       // 20 km/h (approximately 5.56 m/s)
 const double BUS_SPEED_MPS = KMPtoMPS(BUS_SPEED); // 5.5556 mps
 
 PTVertexArr::PTVertexArr() {}

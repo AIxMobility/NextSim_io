@@ -127,9 +127,9 @@ public:
      * @param ptCost Arc cost
      */
     InputPTGraphArc(std::size_t arcId,
-                    std::size_t fromStopId,
+                    int fromStopId,
                     std::string fromLineId,
-                    std::size_t toStopId,
+                    int toStopId,
                     std::string toLineId,
                     double depTime,
                     ArcType type, 
@@ -145,7 +145,7 @@ public:
      * @details Get from stop ID
      * @return From stop ID
      */
-    std::size_t GetFromStopId() const { return m_fromStopId; }
+    int GetFromStopId() const { return m_fromStopId; }
 
     /**
      * @details Get from line ID
@@ -157,7 +157,7 @@ public:
      * @details Get to stop ID
      * @return To stop ID
      */
-    std::size_t GetToStopId() const { return m_toStopId; }
+    int GetToStopId() const { return m_toStopId; }
 
     /**
      * @details Get to line ID
@@ -204,7 +204,7 @@ private:
     /**
      * @details From stop ID
      */
-    std::size_t m_fromStopId;
+    int m_fromStopId;
 
     /**
      * @details From line ID 
@@ -214,7 +214,7 @@ private:
     /**
      * @details To stop ID 
      */
-    std::size_t m_toStopId;
+    int m_toStopId;
 
     /**
      * @details To line ID 

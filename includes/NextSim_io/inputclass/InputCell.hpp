@@ -44,7 +44,7 @@ public:
      * @details Get offset of cell
      * @return Location of starting point of cell
     */
-    const double GetOffset() const { return m_offset; }
+    double GetOffset() const { return m_offset; }
 
 private:
     /**
