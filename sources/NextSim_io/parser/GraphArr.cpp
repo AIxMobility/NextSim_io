@@ -226,10 +226,11 @@ ArcArr::ArcArr()
                         static_cast<std::size_t>(atoll(vertexId)),
                         static_cast<std::size_t>(atoll(fromNode)),
                         static_cast<std::size_t>(atoll(toNode)),
-                        static_cast<std::size_t>(atoll(numLane))
+                        static_cast<std::size_t>(atoll(numLane)),
+                        static_cast<double>(atof(arc_length))
                     );
                     
-                    demoArc.PushArcCost(ArcCost(0, atof(arc_length), 0, 0));
+                    demoArc.SetArcCost(ArcCost(0, atof(arc_length), 0, 0));
 
                     std::vector<int> availableLanes = {};
                     for (TiXmlElement* laneElem = e->FirstChildElement(); laneElem != nullptr;
