@@ -49,7 +49,6 @@ double convertToMinutes(const std::string& time) {
             return -1.0;
         }
 
-        // std::stod를 사용하여 double로 변환
         double hour = std::stod(hourStr);
         double minute = std::stod(minStr);
 
@@ -74,6 +73,15 @@ double convertToMinutes(const std::string& time) {
         std::cerr << "Error: Exception in convertToMinutes for '" << time << "': " << e.what() << std::endl;
         return -1.0;
     }
+}
+
+std::string getCurrentTime() {
+    auto now = std::chrono::system_clock::now();
+    std::time_t current_time = std::chrono::system_clock::to_time_t(now);
+    std::tm tm = *std::localtime(&current_time);
+    std::stringstream ss;
+    ss << std::put_time(&tm, "%H:%M");
+    return ss.str();
 }
 
 double euclidDist(const std::pair<double, double>& p1, const std::pair<double, double>& p2) // Euclidean distance (flat coordinate)
@@ -622,7 +630,6 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
 
                     PTCost transferCost(TRANSFER_TURNAROUND_TIME, 0.0, 1, 0);
                     AddPTArc(InputPTGraphArc(arcIdCounter++, railInputStation.GetId(), fromLineId, railInputStation.GetId(), toLineId, 0, ArcType::Transfer, transferCost));
-                    // 주석 처리: 각 아크 생성 시마다 출력하면 로그가 너무 길어질 수 있습니다.
                     // std::cout << "[DEBUG_TRANSFER_ARC_GENERATION] Generated Rail Transfer Arc ID: " << (arcIdCounter - 1)
                     //           << ", From Station: " << railInputStation.GetId() << ", From Line: " << fromLineId
                     //           << ", To Station: " << railInputStation.GetId() << ", To Line: " << toLineId << std::endl;

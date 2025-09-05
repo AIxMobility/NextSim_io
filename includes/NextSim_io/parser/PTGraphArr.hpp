@@ -189,6 +189,8 @@ private:
 
 double convertToMinutes(const std::string& time);
 
+std::string getCurrentTime();
+
 void pairStations(const StationArr& roadStations, const RailStationArr& railStations, 
                     std::vector<std::tuple<int,int>>& pairs);
 

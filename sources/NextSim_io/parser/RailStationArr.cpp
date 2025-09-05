@@ -28,7 +28,7 @@ RailStationArr::RailStationArr(const std::string& dayOfWeek) {
 void RailStationArr::LoadRailStations(const std::optional<std::string>& dayOfWeekFilter) {
     TiXmlDocument doc;
     if (!doc.LoadFile(RailStationNewXMLPath.string().c_str())) {
-        std::cerr << "Failed to load RailStation XML\n";
+        std::cerr << "Loading failed (RailStationArr)\n";
         return;
     }
 
