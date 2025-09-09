@@ -25,6 +25,8 @@ VertexCoord::VertexCoord(float x, float y)
 void InputGraphVertex::pushLink(port link)
 {
     m_connectedLinks.emplace_back(link);
+    if (link.GetType() == -1)
+        m_connectedOutLinks.emplace_back(link);
 }
 
 float InputGraphVertex::CalHeuristic(InputGraphVertex departVertex, InputGraphVertex destVertex)
