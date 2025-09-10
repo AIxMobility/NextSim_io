@@ -77,7 +77,7 @@ PaxArr::PaxArr()
                          demoPax.AddTrip(atol(tripElem->Attribute("origin")),
                                      atol(tripElem->Attribute("dest")),
                                      tripElem->Attribute("mode"),
-                                     atol(tripElem->Attribute("lineID")));
+                                     tripElem->Attribute("lineID"));
                      }
  
                      m_agentPax.push_back(demoPax);
