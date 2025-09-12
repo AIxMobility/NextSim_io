@@ -8,11 +8,27 @@
 #ifndef NEXTSIMIO_FILEPATH_HPP
 #define NEXTSIMIO_FILEPATH_HPP
 
+#include <fstream>
+#include <string>
+#include <sstream>
 #include <filesystem>
+#include <iostream>
 
 namespace NextSimIO
 {
-static std::string network_name = "public";
+static std::string load_network_name() {
+    std::ifstream file("config.txt");
+    std::string line, key, value;
+    while (std::getline(file, line)) {
+        std::istringstream iss(line);
+        if (std::getline(iss, key, '=') && std::getline(iss, value)) {
+            if (key == "network_name") return value;
+        }
+    }
+    return "public"; // default fallback
+}
+
+static std::string network_name = load_network_name();
 
 static std::filesystem::path currentPath = std::filesystem::current_path();
 
