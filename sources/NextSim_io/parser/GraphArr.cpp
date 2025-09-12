@@ -168,6 +168,8 @@ VertexArr::VertexArr()
 
     for (auto &vertex : m_vertices)
     {
+        m_vertexInfo[vertex.GetId()] = vertex;
+
         if (vertex.GetType() == 4)
         {
             if (vertex.GetLinks()[0].GetType() == -1)
@@ -226,10 +228,11 @@ ArcArr::ArcArr()
                         static_cast<std::size_t>(atoll(ArcId)),
                         static_cast<std::size_t>(atoll(fromNode)),
                         static_cast<std::size_t>(atoll(toNode)),
-                        static_cast<std::size_t>(atoll(numLane))
+                        static_cast<std::size_t>(atoll(numLane)),
+                        static_cast<double>(atof(arc_length))
                     );
                     
-                    demoArc.PushArcCost(ArcCost(0, atof(arc_length), 0, 0));
+                    demoArc.SetArcCost(ArcCost(0, atof(arc_length), 0, 0));
 
                     std::vector<int> availableLanes = {};
                     for (TiXmlElement* laneElem = e->FirstChildElement(); laneElem != nullptr;
@@ -254,12 +257,13 @@ ArcArr::ArcArr()
                         if (!isBlock)
                         {
                             const char *laneId = laneElem->Attribute("id");
-                            const char* ptonlyAttr = laneElem->Attribute("ptonly");
-                            
-                            availableLanes.push_back(static_cast<int>(atoll(laneId)));
+                            const char *laneAccessType = laneElem->Attribute("laneAccessType");
 
-                            if (ptonlyAttr && strcmp(ptonlyAttr, "True") == 0) {
-                                demoArc.PushPTLaneList(static_cast<int>(atoll(laneId)));
+                            if (laneAccessType == nullptr) {
+                                availableLanes.push_back(static_cast<int>(atol(laneId)));
+                            }
+                            else {
+                                demoArc.PushPTLaneList(static_cast<int>(atol(laneId)));
                             }
                         }
                     }
@@ -271,46 +275,42 @@ ArcArr::ArcArr()
             }
         }
     }
+
+    for (auto &arc : m_arcs)
+    {
+        m_arcInfo[arc.GetID()] = arc;
+    }
+
     doc.Clear();
 }; // ArcArr::ArcArr
 
 Graph::Graph(ArcArr arcArr, VertexArr vertexArr)
 {
     std::vector<InputGraphVertex> vertices = vertexArr.GetVertices();
-    std::vector<InputGraphArc> arcs = arcArr.GetArcs();
+    std::unordered_map<int, InputGraphArc> arcInfo = arcArr.GetArcInfo();
 
-    //ptlaneinfo
-    std::vector<std::pair<int, std::vector<int>>> ptlaneinfo;
-    for (auto &arc : arcs)
-    {
-        int arcId = arc.GetID();
-        std::vector<int> ptlanes = arc.GetPTLaneList();
-        if (!ptlanes.empty())
-        {
-            ptlaneinfo.push_back(std::make_pair(arcId, ptlanes));
-        }
-    }
+    m_arcToArc.clear();
 
     for (auto &vertex : vertices)
     {
-        //arcToArc
         std::vector<ConnectionInfo> linkConnections = vertex.GetConnectionInfo();
         for (auto &conn : linkConnections)
         {
             int fromLink = conn.GetFromLink();
+            int fromLane = conn.GetFromLane();
             int toLink = conn.GetToLink();
             int toLane = conn.GetToLane();
-            bool isPTLane = false;
 
-            for (auto &p : ptlaneinfo){
-                if (p.first == fromLink && std::find(p.second.begin(), p.second.end(), toLane) != p.second.end())
-                {
-                    isPTLane = true;
-                    break;
-                }
+            InputGraphArc &fromLinkInfo = arcInfo.at(fromLink);
+            InputGraphArc &toLinkInfo = arcInfo.at(toLink);
+            std::vector<int> fromLinkAvailableLanes = fromLinkInfo.GetAvailableLanes();
+            std::vector<int> toLinkAvailableLanes = toLinkInfo.GetAvailableLanes();
+
+            if ((std::find(fromLinkAvailableLanes.begin(), fromLinkAvailableLanes.end(), fromLane) == fromLinkAvailableLanes.end())
+                || (std::find(toLinkAvailableLanes.begin(), toLinkAvailableLanes.end(), toLane) == toLinkAvailableLanes.end()))
+            {
+                continue;
             }
-
-            if (isPTLane) continue;
 
             if(std::find(m_arcToArc[fromLink].begin(), m_arcToArc[fromLink].end(), toLink) == m_arcToArc[fromLink].end())
             {
@@ -318,7 +318,6 @@ Graph::Graph(ArcArr arcArr, VertexArr vertexArr)
             }
         }
     }
-
 }; // Graph::Graph
 
 } // namespace NextSimIO

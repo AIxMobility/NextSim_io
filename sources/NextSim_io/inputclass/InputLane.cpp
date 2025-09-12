@@ -11,18 +11,18 @@
 namespace NextSimIO
 {
 InputLane::InputLane(std::size_t idVal, std::size_t leftLaneIdVal,
-                     std::size_t rightLaneIdVal, bool ptOnly, int numCellVal)
+                     std::size_t rightLaneIdVal, std::string laneAccessType, int numCellVal)
     : m_id(idVal),
       m_leftLaneId(leftLaneIdVal),
       m_rightLaneId(rightLaneIdVal),
-      m_ptOnly(ptOnly),
+      m_accessibleTypes(laneAccessType),
       m_numCell(numCellVal)
 {
     m_id = idVal;
     m_numCell = numCellVal;
     m_leftLaneId = leftLaneIdVal;
     m_rightLaneId = rightLaneIdVal;
-    m_ptOnly = ptOnly;
+    m_accessibleTypes = laneAccessType;
 }
 
 InputLane::InputLane(std::size_t idVal, std::size_t leftLaneIdVal,

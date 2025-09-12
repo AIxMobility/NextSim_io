@@ -21,6 +21,11 @@ class ArcCost
 {
 public:
     /**
+     * @details Default Constructor
+     */
+    ArcCost() : m_timeCost(0), m_distanceCost(0), m_financialCost(0), m_trafficCost(0) {}
+
+    /**
      * @details Constructor
      * @param timeCost Time to pass the arc with freeflow speed
      * @param distanceCost Length of the arc
@@ -118,14 +123,15 @@ public:
      * @param fromNode From node ID (connected with arc start point)
      * @param toNode To node ID (connected with arc end point)
      * @param numLane Number of lanes in the arc
+     * @param length Length of the arc
      */
-    InputGraphArc(std::size_t id, std::size_t fromNode, std::size_t toNode, std::size_t numLane);
+    InputGraphArc(std::size_t id, std::size_t fromNode, std::size_t toNode, std::size_t numLane, double length);
 
     /**
      * @details Set arc ID
      * @param id Arc ID
      */
-    void SetID(std::size_t id) { m_id = id; }
+    void SetID(int id) { m_id = id; }
 
     /**
      * @details Sed from node ID
@@ -146,28 +152,34 @@ public:
     void SetNumLane(std::size_t numLane) { m_numLane = numLane; }
 
     /**
+     * @details Set length of the arc
+     * @param length Length of the arc
+     */
+    void SetLength(double length) { m_length = length; }
+
+    /**
      * @details Set available lanes in the arc when it is connected to a sink node
      * @param availableLanes Available lanes in the arc
      */
     void SetAvailableLanes(std::vector<int> availableLanes) { m_availableLanes = availableLanes; }
 
     /**
-     * @details Add arc cost into vector
-     * @param arcCost Arc cost vector
+     * @details Set arc cost
+     * @param arcCost Arc cost object
      */
-    void PushArcCost(ArcCost arcCost);
+    void SetArcCost(ArcCost arcCost) { m_arcCost = arcCost; }
 
     /**
      * @details Set PT lane list
      * @param ptlane PT lane nmber
      */
-    void PushPTLaneList(int ptlane);
+    void PushPTLaneList(int ptlane) {m_ptlanelist.push_back(ptlane);} 
 
     /**
      * @details Get arc ID
      * @return Arc ID
      */
-    std::size_t GetID() { return m_id; }
+    int GetID() { return m_id; }
 
     /**
      * @details Get from node ID
@@ -188,6 +200,12 @@ public:
     std::size_t GetNumLane() { return m_numLane; }
 
     /**
+     * @details Get length of the arc
+     * @return Length of the arc
+     */
+    double GetLength() { return m_length; }
+
+    /**
      * @details Get available lanes in the arc when it is connected to a sink node
      * @return Available lanes in the arc
      */
@@ -197,7 +215,19 @@ public:
      * @details Get vector of arc cost
      * @return Vector of arc cost
      */
-    std::vector<ArcCost> GetArcCost() { return m_arcCost; }
+    ArcCost GetArcCost() { return m_arcCost; }
+
+    /**
+     * @details Get whether the arc is controlled within control range
+     * @return Whether the arc is controlled within control range
+    */
+    bool GetControlled() { return m_controlled; }
+
+    /**
+     * @details Set whether the arc is controlled within control range
+     * @param controlled Whether the arc is controlled within control range
+    */
+    void SetControlled(bool controlled) { m_controlled = controlled; }
 
     /**
      * @details Get PT lane list
@@ -209,7 +239,7 @@ private:
     /**
      * @details Arc ID 
      */
-    std::size_t m_id;
+    int m_id;
 
     /**
      * @details From node ID (connected with arc start point)
@@ -227,14 +257,24 @@ private:
     std::size_t m_numLane;
 
     /**
+     * @details Length of the arc
+     */
+    double m_length;
+
+    /**
      * @details Available lanes in the arc when it is connected to a sink node
      */
     std::vector<int> m_availableLanes;
 
     /**
-     * @details Vector of arc cost
+     * @details Arc cost 
      */
-    std::vector<ArcCost> m_arcCost;
+    ArcCost m_arcCost;
+
+    /**
+     * @details Whether the arc is controlled within control range
+     */
+    bool m_controlled = false;
 
     /**
      * @details Vector of PT lane list

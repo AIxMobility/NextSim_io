@@ -31,7 +31,7 @@ public:
      * @param odID OD matrix ID
      * @param todID TOD matrix ID
     */
-    InputScenario(int id, std::string startTime, int duration, int BGTduration, int odID, int todID);
+    InputScenario(int id, std::string startTime, int duration, int BGTduration, int odID, int todID, bool signalControl = false);
 
     /** @cond EXCLUDE */
     ~InputScenario() = default;
@@ -75,6 +75,12 @@ public:
     */
     int GetTODID() { return m_todID; }
 
+    /**
+     * @brief Check if signal control is active
+     * @return True if signal control is active, false otherwise
+    */
+    bool IsSignalControl() const { return m_signalControl; }
+
 
 private:
     /**
@@ -106,6 +112,11 @@ private:
      * @details TOD matrix ID
     */
     int m_todID;
+
+    /**
+     * @details Whether signal control is active or not
+    */
+    bool m_signalControl = false;
 };
 } // namespace NextSimIO
 
