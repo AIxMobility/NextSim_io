@@ -17,6 +17,6 @@ InputAgentPax::InputAgentPax(int id, int originLink, int originOffset, int destL
       m_destLink(destLink), m_destOffset(destOffset), 
       m_time(time) {}
 
-void InputAgentPax::AddTrip(int origin, int dest, std::string mode, std::string lineID) {
-  m_trips.push_back(InputAgentPaxTrip(origin, dest, mode, lineID)); }
+void InputAgentPax::AddTrip(int origin, int dest, std::string mode, std::string lineID, double time) {
+  m_trips.push_back(InputAgentPaxTrip(origin, dest, mode, lineID, time)); }
 } // namespace NextSimIO
