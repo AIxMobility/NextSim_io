@@ -227,6 +227,12 @@ public:
     std::vector<port> GetLinks() const { return m_connectedLinks; }
 
     /**
+     * @details Get connected outgoing links (type = -1)
+     * @return Vector of connected outgoing links
+    */
+    std::vector<port> GetOutLinks() const { return m_connectedOutLinks; }
+
+    /**
      * @details Get connection information
      * @return Vector of connection information
      */
@@ -284,6 +290,11 @@ private:
      * @details Vector of connected links
     */
     std::vector<port> m_connectedLinks;
+
+    /**
+     * @details Vector of connected outgoing links (type = -1)
+     */
+    std::vector<port> m_connectedOutLinks;
 
     /**
      * @details Vector of connection information

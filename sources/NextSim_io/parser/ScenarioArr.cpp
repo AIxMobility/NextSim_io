@@ -8,6 +8,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <cstring>
 
 #include <NextSim_io/parser/ScenarioArr.hpp>
 
@@ -43,6 +44,7 @@ ScenarioArr::ScenarioArr()
             const char *BGTduration = elem->Attribute("BGTduration");
             const char *odID = elem->Attribute("odMatrixID");
             const char *todID = elem->Attribute("todID");
+            const char *signalControl = elem->Attribute("signalControl");
 
             if (!id)
                 throw std::runtime_error("Element should have 'id' attribute");
@@ -56,9 +58,14 @@ ScenarioArr::ScenarioArr()
                 throw std::runtime_error("Element should have 'odMatrixID' attribute");
             if (!todID)
                 throw std::runtime_error("Element should have 'todID' attribute");
+            if (!signalControl)
+                throw std::runtime_error("Element should have 'signalControl' attribute");
+
+            bool signalBool = (std::strcmp(signalControl, "1") == 0 ||
+                                strcasecmp(signalControl, "true") == 0);
             
             InputScenario singleScenario(
-                atoi(id), startTime, atoi(duration), atoi(BGTduration), atoi(odID), atoi(todID));
+                atoi(id), startTime, atoi(duration), atoi(BGTduration), atoi(odID), atoi(todID), signalBool);
 
             m_scenarios.emplace_back(singleScenario);
         }

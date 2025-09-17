@@ -81,8 +81,16 @@ RecordModeArr::RecordModeArr()
     m_recordModes.emplace_back(recordModeSinkEvent);
 
     // SignalEvent (when visualizer is activated)
-    InputRecordMode recordModeSignal(7, activatedVisualizer);
-    m_recordModes.emplace_back(recordModeSignal);
+    TiXmlElement *eSignalEvent = root->FirstChildElement("SignalEvent");
+
+    bool activatedSignalEvent = std::string(eSignalEvent->Attribute("active")) == "t";
+    InputRecordMode recordModeSignalEvent(7, activatedSignalEvent);
+    m_recordModes.emplace_back(recordModeSignalEvent);
+
+    // SignalControlEvent (when signalControl is activated)
+    TiXmlElement *eSignalControlEvent = root->FirstChildElement("SignalControlEvent");
+    bool activatedSignalControlEvent = std::string(eSignalControlEvent->Attribute("active")) == "t";
+    m_recordModes.emplace_back(InputRecordMode(9, activatedSignalControlEvent));
     
     doc.Clear();
 };
