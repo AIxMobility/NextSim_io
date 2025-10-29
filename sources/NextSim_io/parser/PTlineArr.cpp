@@ -29,58 +29,61 @@ PTlineArr::PTlineArr()
         return;
     }
 
+    TiXmlElement* root = doc.FirstChildElement();
 
-    TiXmlElement* root = doc.FirstChildElement(); 
-    for (TiXmlElement* elem = root->FirstChildElement(); elem != nullptr; elem = elem->NextSiblingElement())
+    for (TiXmlElement* linesElem = root; linesElem != nullptr; linesElem = linesElem->NextSiblingElement("Lines"))
     {
-        // Get required attributes: id & interval
-        std::string id;
-        double fee = 0;
-        int interval = 0;
-
-        if (elem->Attribute("id"))
-            id = elem->Attribute("id");
-        if (elem->Attribute("fee"))
-            fee = std::stod(elem->Attribute("fee"));
-        if (elem->Attribute("interval"))
-            interval = std::stoi(elem->Attribute("interval"));
-
-        InputPTline tPTline(id, fee, interval);
-
-        TiXmlElement* e = elem->FirstChildElement("link");
-        if (e && e->Attribute("seq"))
+        const char* modeAttr = linesElem->Attribute("mode");
+        std::string mode = modeAttr ? modeAttr : "";
+        for (TiXmlElement* lineElem = linesElem->FirstChildElement("Line"); lineElem != nullptr; lineElem = lineElem->NextSiblingElement("Line"))
         {
-            tPTline.SetLinkSeq(e->Attribute("seq"));
-        }
+            // Get required attributes: id & interval
+            std::string id;
+            double fee = 0;
+            int interval = 0;
 
-        e = elem->FirstChildElement("node");
-        if (e && e->Attribute("seq"))
-        {
-            tPTline.SetNodeSeq(e->Attribute("seq"));
-        }
+            if (lineElem->Attribute("id"))
+                id = lineElem->Attribute("id");
+            if (lineElem->Attribute("fee"))
+                fee = std::stod(lineElem->Attribute("fee"));
+            if (lineElem->Attribute("interval"))
+                interval = std::stoi(lineElem->Attribute("interval"));
 
-        e = elem->FirstChildElement("station");
-        if (e && e->Attribute("seq"))
-        {
-            tPTline.SetStationSeq(e->Attribute("seq"));
-        }
+            InputPTline tPTline(id, fee, interval);
 
-        e = elem->FirstChildElement("garage");
-        if (e)
-        {
-            if (e->Attribute("id"))
+            // link
+            TiXmlElement* e = lineElem->FirstChildElement("link");
+            if (e && e->Attribute("seq"))
+                tPTline.SetLinkSeq(e->Attribute("seq"));
+
+            // node
+            e = lineElem->FirstChildElement("node");
+            if (e && e->Attribute("seq"))
+                tPTline.SetNodeSeq(e->Attribute("seq"));
+
+            // station
+            e = lineElem->FirstChildElement("station");
+            if (e && e->Attribute("seq"))
+                tPTline.SetStationSeq(e->Attribute("seq"));
+
+            // garage (있을 수도 없을 수도 있음)
+            e = lineElem->FirstChildElement("garage");
+            if (e)
             {
-                tPTline.SetGarageSeq(e->Attribute("id"));
+                if (e->Attribute("id"))
+                    tPTline.SetGarageSeq(e->Attribute("id"));
+                else if (e->Attribute("seq"))
+                    tPTline.SetGarageSeq(e->Attribute("seq"));
             }
-            else if (e->Attribute("seq"))
-            {
-                tPTline.SetGarageSeq(e->Attribute("seq"));
-            }
-        }
 
-        m_ptLines.push_back(tPTline);
+            if (mode == "Bus")
+                m_busLines.push_back(tPTline);
+            else if (mode == "TRT")
+                m_trtLines.push_back(tPTline);
+            else
+                std::cerr << "Unknown mode: " << mode << " for line id: " << id << std::endl;
+        }
     }
-    
 }
 
 } // namespace NextSimIO
