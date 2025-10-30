@@ -22,21 +22,37 @@ class PTlineArr
 public:
     /**
      * @details Constructor (Parse public transit line information from roadptline.xml)
- */
+    */
     PTlineArr();
     
     /**
      * @details Get vector of public transit lines
      * @return Vector of public transit lines
- */
-    std::vector<InputPTline> GetPTLines() const { return m_ptLines; }
+    */
+    std::vector<InputPTline> GetBusLines()
+    {
+        return m_busLines;
+    }
+
+    /**
+     * @details Get vector of public transit lines for TRT
+     * @return Vector of public transit lines for TRT
+    */
+    std::vector<InputPTline> GetTRTLines()
+    {
+        return m_trtLines;
+    }
 
 private:
-
     /**
      * @details Vector of public transit lines
     */
-    std::vector<InputPTline> m_ptLines;
+    std::vector<InputPTline> m_busLines;
+
+    /**
+     * @details Vector of public transit lines for TRT
+    */
+    std::vector<InputPTline> m_trtLines;
 };
 } // namespace NextSimIO
 

@@ -104,8 +104,9 @@ std::vector<std::vector<size_t>> InputLink::Get2DMaxVehicle()  // veh/lane
         matrix[i].resize(m_laneNumCellVector[i]);
         for (int j = 0; j < m_laneNumCellVector[i]; j++)
         {
-            matrix[i][j] = static_cast<int>(
-                std::round(m_laneVector[i].GetCellVector()[j].length / 7.0));
+            // temporary calculation basaed on ceiling(length / 5)
+            // matrix[i][j] = static_cast<std::size_t>(std::ceil(Length/vehlength));
+            matrix[i][j] = m_laneVector[i].GetCellVector()[j].length / 7;
         }
     }
     return matrix;
