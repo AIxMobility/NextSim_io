@@ -143,7 +143,7 @@ PTVertexArr::PTVertexArr(const StationArr& roadStations, const RailStationArr& r
     LinkArr roadLinks;
     buspath buspathGenerator(roadPTLines, roadStations, roadLinks); 
 
-    for (const auto& roadLine : roadPTLines.GetPTLines()) {
+    for (const auto& roadLine : roadPTLines.GetBusLines()) {
         std::vector<double> arrivalTimes;
         std::vector<double> departureTimes;
         std::string lineId = roadLine.GetID();
@@ -380,7 +380,7 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
     // ✨ 각 OD 쌍의 아크 수를 저장할 맵
     std::map<std::string, std::map<std::pair<int, int>, size_t>> lineODPairCounts;
 
-    for (const auto& roadLine : roadPTLines.GetPTLines()) {
+    for (const auto& roadLine : roadPTLines.GetBusLines()) {
         std::string lineId = roadLine.GetID();
 
         if (lineId.empty()) {

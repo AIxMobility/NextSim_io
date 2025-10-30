@@ -18,7 +18,7 @@ namespace Captain
 {
 buspath::buspath(const PTlineArr& ptlinesArr, const StationArr& stationsArr, const LinkArr& linksArr)
 {
-    for (const auto& PTline : ptlinesArr.GetPTLines()) {
+    for (const auto& PTline : ptlinesArr.GetBusLines()) {
         try {
             BuildODMap(PTline, stationsArr, linksArr);
         } catch (const std::runtime_error& e) {
