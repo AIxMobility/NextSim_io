@@ -259,7 +259,7 @@ ArcArr::ArcArr()
                             const char *laneId = laneElem->Attribute("id");
                             const char *laneAccessType = laneElem->Attribute("laneAccessType");
 
-                            if (laneAccessType == nullptr) {
+                            if ((laneAccessType == nullptr) || (strcmp(laneAccessType, "All") == 0)) {
                                 availableLanes.push_back(static_cast<int>(atol(laneId)));
                             }
                             else {
