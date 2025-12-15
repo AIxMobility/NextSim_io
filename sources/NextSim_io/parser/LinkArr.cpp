@@ -9,6 +9,8 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
+#include <algorithm>
+#include <sstream>
 
 #include <NextSim_io/parser/LinkArr.hpp>
 
@@ -94,6 +96,19 @@ LinkArr::LinkArr()
                     if (!to_node)   throw std::runtime_error ("Element should have 'to_node' attribute");
                     if (!maxSpd)   throw std::runtime_error ("Element should have 'max_spd' attribute");
                     if (!minSpd)   throw std::runtime_error ("Element should have 'min_spd' attribute");
+
+                    const char *shape = e->Attribute("shape");
+                    std::vector<std::pair<double, double>> geometry;
+                    if (shape) {
+                        std::string shapeStr(shape);
+                        std::replace(shapeStr.begin(), shapeStr.end(), ',', ' ');
+                        std::istringstream iss(shapeStr);
+                        double x, y;
+                        while (iss >> x >> y) {
+                            geometry.emplace_back(x, y);
+                        }
+                    }
+                    demoLink.SetGeometry(geometry);
 
                     demoLink.freeFlowSpeed = std::atof(ffspeed);
                     demoLink.qMax = std::atof(qmax);

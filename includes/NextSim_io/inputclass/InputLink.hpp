@@ -88,6 +88,10 @@ public:
     */
     [[nodiscard]] const std::vector<InputLane>& GetLaneVector() const { return m_laneVector; }
 
+    void SetLaneNumCellVector(std::vector<int> laneNumCellVector) { m_laneNumCellVector = laneNumCellVector; }
+    void SetGeometry(std::vector<std::pair<double, double>> geometry) { m_geometry = geometry; }
+    std::vector<std::pair<double, double>> GetGeometry() const { return m_geometry; }
+
     /**
      * @details Get link ID
      * @return Link ID
@@ -207,6 +211,7 @@ private:
      * @details Vector of number of cells of each lane in order
     */
     std::vector<int> m_laneNumCellVector;
+    std::vector<std::pair<double, double>> m_geometry;
 };
 } // namespace NextSimIO
 
