@@ -10,6 +10,7 @@
 #include <string>
 #include <filesystem>
 #include <vector>
+#include <algorithm>
 
 #include <NextSim_io/parser/PTlineArr.hpp>
 #include <NextSim_io/tinyapi/tinystr.h>
@@ -51,15 +52,29 @@ PTlineArr::PTlineArr()
 
             InputPTline tPTline(id, fee, interval);
 
-            // link
+            // linkList
             TiXmlElement* e = lineElem->FirstChildElement("link");
-            if (e && e->Attribute("seq"))
-                tPTline.SetLinkSeq(e->Attribute("seq"));
+            for (TiXmlElement* linkElem = e; linkElem != nullptr; linkElem = linkElem->NextSiblingElement("link"))
+            {
+                int link_id;
+                int seq = 0;
+                int prefer_lane = 0;
 
-            // node
-            e = lineElem->FirstChildElement("node");
-            if (e && e->Attribute("seq"))
-                tPTline.SetNodeSeq(e->Attribute("seq"));
+                if (linkElem->Attribute("id"))
+                    link_id = std::stoi(linkElem->Attribute("id"));
+                if (linkElem->Attribute("seq"))
+                    seq = std::stoi(linkElem->Attribute("seq"));
+                if (linkElem->Attribute("preferLane"))
+                    prefer_lane = std::stoi(linkElem->Attribute("prefer_lane"));
+                
+                InputPTlink ptlink(link_id, seq, prefer_lane);
+                tPTline.PushPTlink(ptlink);
+            }
+            
+            std::sort(tPTline.GetLinkSeq().begin(), tPTline.GetLinkSeq().end(),
+                      [](InputPTlink& a, InputPTlink& b) {
+                          return a.GetSequence() < b.GetSequence();
+                      });
 
             // station
             e = lineElem->FirstChildElement("station");
