@@ -1,8 +1,8 @@
 /**
  * NextSim Captain
  * @file : InputPTline.hpp
- * @version : 1.0
- * @author : Sujae Jeon
+ * @version : 1.1
+ * @author : Sujae Jeon, Dongheon Lee
  */
 
 #pragma once
@@ -35,7 +35,7 @@ public:
      * @details Get link sequence
      * @return link sequence
      */
-    int GetSequence() { return m_sequence; }
+    int GetSequence() const { return m_sequence; }
 
     /**
      * @details Get prefer lanes in the link

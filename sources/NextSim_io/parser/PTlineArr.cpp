@@ -53,31 +53,33 @@ PTlineArr::PTlineArr()
             InputPTline tPTline(id, fee, interval);
 
             // linkList
-            TiXmlElement* e = lineElem->FirstChildElement("link");
-            for (TiXmlElement* linkElem = e; linkElem != nullptr; linkElem = linkElem->NextSiblingElement("link"))
+            TiXmlElement* linksElem = lineElem->FirstChildElement("links");
+            if (linksElem)
             {
-                int link_id;
-                int seq = 0;
-                int prefer_lane = 0;
+                for (TiXmlElement* linkElem = linksElem->FirstChildElement("link");
+                    linkElem != nullptr;
+                    linkElem = linkElem->NextSiblingElement("link"))
+                {
+                    int link_id = 0;
+                    int seq = 0;
+                    int prefer_lane = 0;
 
-                if (linkElem->Attribute("id"))
-                    link_id = std::stoi(linkElem->Attribute("id"));
-                if (linkElem->Attribute("seq"))
-                    seq = std::stoi(linkElem->Attribute("seq"));
-                if (linkElem->Attribute("preferLane"))
-                    prefer_lane = std::stoi(linkElem->Attribute("prefer_lane"));
-                
-                InputPTlink ptlink(link_id, seq, prefer_lane);
-                tPTline.PushPTlink(ptlink);
+                    const char* attr = nullptr;
+
+                    if ((attr = linkElem->Attribute("id")))
+                        link_id = std::stoi(attr);
+                    if ((attr = linkElem->Attribute("seq")))
+                        seq = std::stoi(attr);
+                    if ((attr = linkElem->Attribute("prefer_lane")))
+                        prefer_lane = std::stoi(attr);
+
+                    InputPTlink ptlink(link_id, seq, prefer_lane);
+                    tPTline.PushPTlink(ptlink);
+                }
             }
             
-            std::sort(tPTline.GetLinkSeq().begin(), tPTline.GetLinkSeq().end(),
-                      [](InputPTlink& a, InputPTlink& b) {
-                          return a.GetSequence() < b.GetSequence();
-                      });
-
             // station
-            e = lineElem->FirstChildElement("station");
+            TiXmlElement* e = lineElem->FirstChildElement("station");
             if (e && e->Attribute("seq"))
                 tPTline.SetStationSeq(e->Attribute("seq"));
 

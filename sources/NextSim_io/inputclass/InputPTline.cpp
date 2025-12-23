@@ -1,8 +1,8 @@
 /**
  * NextSim Captain
  * @file : InputPTline.cpp
- * @version : 1.0
- * @author : Sujae Jeon
+ * @version : 1.1
+ * @author : Sujae Jeon, Dongheon Lee
  */
 
 #include <sstream>
