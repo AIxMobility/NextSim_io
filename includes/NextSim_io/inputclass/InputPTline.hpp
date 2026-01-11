@@ -21,9 +21,9 @@ public:
      * @details Constructor
      * @param id link ID
      * @param sequence link sequence
-     * @param preferLane prefer lane in the link
+     * @param usePTlane usage of PT lane
      */
-    InputPTlink(int id, int sequence, int preferLane);
+    InputPTlink(int id, int sequence, bool usePTlane);
 
     /**
      * @details Get link ID
@@ -38,10 +38,10 @@ public:
     int GetSequence() const { return m_sequence; }
 
     /**
-     * @details Get prefer lanes in the link
-     * @return prefer lanes in the link
+     * @details Get usage of PT lane
+     * @return usage of PT lane
      */
-    int GetPreferLane(){ return m_preferLane; }
+    bool GetUsePTlane() const { return m_usePTlane; }
     
 private:
     /**
@@ -55,9 +55,9 @@ private:
     int m_sequence;
 
     /**
-     * @details prefer lanes in the link
+     * @details usage of PT lane
      */
-    int m_preferLane;
+    bool m_usePTlane;
 };
 
 /**
@@ -84,10 +84,22 @@ public:
     void SetStationSeq(std::string stationSeq);
 
     /**
+     * @details Push a station ID to the station sequence
+     * @param stationID Station ID to be added
+     */
+    void PushStationSeq(int stationID);
+
+    /**
      * @details Set sequence of garages for rail transit
      * @param garageSeq Sequence of garage IDs where rail vehicles are stored
      */
     void SetGarageSeq(std::string garageSeq);
+
+    /**
+     * @details Push a garage ID to the garage sequence
+     * @param garageID Garage ID to be added
+     */
+    void PushGarageSeq(int garageID);
 
     /**
      * @details Get public transit line ID

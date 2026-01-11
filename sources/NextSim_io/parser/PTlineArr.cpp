@@ -62,35 +62,28 @@ PTlineArr::PTlineArr()
                 {
                     int link_id = 0;
                     int seq = 0;
-                    int prefer_lane = 0;
+                    bool use_ptlane = false;
 
                     const char* attr = nullptr;
 
-                    if ((attr = linkElem->Attribute("id")))
+                    if (attr = linkElem->Attribute("id"))
                         link_id = std::stoi(attr);
-                    if ((attr = linkElem->Attribute("seq")))
+                    if (attr = linkElem->Attribute("seq"))
                         seq = std::stoi(attr);
-                    if ((attr = linkElem->Attribute("prefer_lane")))
-                        prefer_lane = std::stoi(attr);
+                    if (attr = linkElem->Attribute("use_ptlane"))
+                        use_ptlane = (std::string(attr) == "True");
+                    if (attr = linkElem->Attribute("station"))
+                    {
+                        tPTline.PushStationSeq(std::stoi(attr));
+                    }
+                    if (attr = linkElem->Attribute("garage"))
+                    {
+                        tPTline.PushGarageSeq(std::stoi(attr));
+                    }
 
-                    InputPTlink ptlink(link_id, seq, prefer_lane);
+                    InputPTlink ptlink(link_id, seq, use_ptlane);
                     tPTline.PushPTlink(ptlink);
                 }
-            }
-            
-            // station
-            TiXmlElement* e = lineElem->FirstChildElement("station");
-            if (e && e->Attribute("seq"))
-                tPTline.SetStationSeq(e->Attribute("seq"));
-
-            // garage (있을 수도 없을 수도 있음)
-            e = lineElem->FirstChildElement("garage");
-            if (e)
-            {
-                if (e->Attribute("id"))
-                    tPTline.SetGarageSeq(e->Attribute("id"));
-                else if (e->Attribute("seq"))
-                    tPTline.SetGarageSeq(e->Attribute("seq"));
             }
 
             if (mode == "Bus")

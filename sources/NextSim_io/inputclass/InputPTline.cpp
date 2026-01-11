@@ -12,8 +12,8 @@
 namespace NextSimIO
 {
 //class InputPTlink
-InputPTlink::InputPTlink(int id, int sequence, int preferLane)
-    : m_id(id), m_sequence(sequence), m_preferLane(preferLane) {}
+InputPTlink::InputPTlink(int id, int sequence, bool usePTlane)
+    : m_id(id), m_sequence(sequence), m_usePTlane(usePTlane) {}
 
 
 //class InputPTline
@@ -42,6 +42,11 @@ void InputPTline::SetStationSeq(std::string stationSeq)
         m_stationSeq.push_back(stationid);
 }
 
+void InputPTline::PushStationSeq(int stationID)
+{
+    m_stationSeq.push_back(stationID);
+}
+
 /**
  * @details Set sequence of garages for rail transit
  * @param garageSeq Space-separated sequence of garage IDs
@@ -53,4 +58,9 @@ void InputPTline::SetGarageSeq(std::string garageSeq)
     while (ss >> garageID)
         m_garageSeq.push_back(garageID);
 }
-} // namespace NextSimIO
+
+void InputPTline::PushGarageSeq(int garageID)
+{
+    m_garageSeq.push_back(garageID);
+} 
+}// namespace NextSimIO
