@@ -36,7 +36,7 @@ public:
      */
     connection(int id, int fromLink, int fromLane, int toLink, int toLane,
                std::string turning, double priority, 
-               double length, double width, double ffSpeed);
+               double length, double width, double ffSpeed, std::string shape);
 
     /**
      * @details Get connection ID
@@ -136,6 +136,25 @@ private:
      * @details Free flow speed [km/h]
     */
     double m_ffSpeed;
+
+    /**
+     * @details Shape of the connection (Global Coordinates)
+    */
+    std::vector<std::pair<double, double>> m_shape;
+
+public:
+
+    /**
+     * @details Set shape of the connection
+     * @param shape Vector of pairs representing the shape
+     */
+    void SetShape(std::vector<std::pair<double, double>> shape) { m_shape = shape; }
+
+    /**
+     * @details Get shape of the connection
+     * @return Vector of pairs representing the shape
+     */
+    std::vector<std::pair<double, double>> GetShape() const { return m_shape; }
 };
 }  // namespace NextSimIO
 

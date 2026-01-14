@@ -5,13 +5,23 @@
  * @author : ???
  */
 
+#include <sstream>
+#include <algorithm>
 #include <NextSim_io/inputclass/intersection/connection.hpp>
 
 namespace NextSimIO
 {
 connection::connection(int id, int fromLink, int fromLane, int toLink, int toLane,
             std::string turning, double priority, 
-            double length, double width, double ffspeed)
+            double length, double width, double ffspeed, std::string shape)
     : m_connectionId(id), m_fromLink(fromLink), m_fromLane(fromLane), m_toLink(toLink), m_toLane(toLane),
-      m_turning(turning), m_priority(priority), m_length(length), m_width(width), m_ffSpeed(ffspeed) {};
+      m_turning(turning), m_priority(priority), m_length(length), m_width(width), m_ffSpeed(ffspeed) 
+{
+    std::replace(shape.begin(), shape.end(), ',', ' ');
+    std::istringstream iss(shape);
+    double x, y;
+    while (iss >> x >> y) {
+        m_shape.emplace_back(x, y);
+    }
+};
 }  // namespace NextSimIO

@@ -122,6 +122,19 @@ public:
      * @return Signal offset [s]
     */
     int GetOffset() { return m_offset; }
+
+    
+    /**
+     * @details Set global position of node
+     * @param globalPos Global position (x, y)
+    */
+    void SetGlobalPos(std::pair<double, double> globalPos) { m_globalPos = globalPos; }
+
+    /**
+     * @details Get global position of node
+     * @return Global position (x, y)
+    */
+    std::pair<double, double> GetGlobalPos() const { return m_globalPos; }
     
     /**
      * @details Get connected links
@@ -253,7 +266,11 @@ private:
      * @details Signal offset [s]
     */
     int m_offset = 0;
-
+    
+    /**
+     * @details Global Coordinates of node
+    */
+    std::pair<double, double> m_globalPos;
 };
 } // namespace NextSimIO
 

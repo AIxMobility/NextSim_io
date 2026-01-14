@@ -46,6 +46,18 @@ NodeArr::NodeArr()
                 const char *numConnection = e2->Attribute("num_connection");
                 const char *numPort = e2->Attribute("num_port");
                 const char *v2x = e2->Attribute("v2x");
+                const char *center = e2->Attribute("center");
+                std::pair<double, double> globalPos = {0.0, 0.0};
+                if (center)
+                {
+                    std::string centerStr(center);
+                    std::stringstream iss(centerStr);
+                    iss >> globalPos.first >> globalPos.second;
+                }
+                else
+                {
+                    throw std::runtime_error("Element should have 'center' or 'position' attribute");
+                }
 
                 if (!nodeId)   throw std::runtime_error ("Element should have 'id' attribute");
                 if (!nodeType)   throw std::runtime_error ("Element should have 'type' attribute");
@@ -63,6 +75,7 @@ NodeArr::NodeArr()
                         atoi(numConnection),
                         atoi(numPort),
                         strcmp(v2x, "on") == 0 ? true : false);
+                    single_node.SetGlobalPos(globalPos);
 
                     for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
                          e3 = e3->NextSiblingElement())
@@ -118,6 +131,16 @@ NodeArr::NodeArr()
                             if (!width)   width = "3.5";
                             if (!ffspeed)   throw std::runtime_error ("Element should have 'ff_spd' attribute");
 
+                            const char *connShape = e3->Attribute("shape");
+                            std::string shapeStr;
+                            if (connShape) {
+                                shapeStr = std::string(connShape);
+                            }
+                            else
+                            {
+                                throw std::runtime_error ("Element should have 'shape' attribute");
+                            }
+
                             connection single_connection(
                                 atol(connectionId),
                                 atol(from_link),
@@ -128,7 +151,8 @@ NodeArr::NodeArr()
                                 atof(priority),
                                 atof(length),
                                 atof(width),
-                                atof(ffspeed));
+                                atof(ffspeed),
+                                shapeStr);
 
                             single_node.pushConnection(single_connection);
                         }
@@ -150,6 +174,7 @@ NodeArr::NodeArr()
                         atoi(numConnection),
                         atoi(numPort),
                         strcmp(v2x, "on") == 0 ? true : false);
+                    single_node.SetGlobalPos(globalPos);
 
                     for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
                          e3 = e3->NextSiblingElement())
@@ -203,6 +228,16 @@ NodeArr::NodeArr()
                             if (!width)   width = "3.5";
                             if (!ffspeed)   throw std::runtime_error ("Element should have 'ff_spd' attribute");
 
+                            const char *connShape = e3->Attribute("shape");
+                            std::string shapeStr;
+                            if (connShape) {
+                                shapeStr = std::string(connShape);
+                            }
+                            else
+                            {
+                                throw std::runtime_error ("Element should have 'shape' attribute");
+                            }
+
                             connection single_connection(
                                 atol(connectionId),
                                 atol(from_link),
@@ -213,7 +248,8 @@ NodeArr::NodeArr()
                                 atof(priority),
                                 atof(length),
                                 atof(width),
-                                atof(ffspeed));
+                                atof(ffspeed),
+                                shapeStr);
                                 
                             single_node.pushConnection(single_connection);
                         }
@@ -289,6 +325,16 @@ NodeArr::NodeArr()
                             if (!width)   width = "3.5";
                             if (!ffspeed)   throw std::runtime_error ("Element should have 'ff_spd' attribute");
 
+                            const char *connShape = e3->Attribute("shape");
+                            std::string shapeStr;
+                            if (connShape) {
+                                shapeStr = std::string(connShape);
+                            }
+                            else
+                            {
+                                throw std::runtime_error ("Element should have 'shape' attribute");
+                            }
+
                             connection single_connection(
                                 atol(connectionId),
                                 atol(from_link),
@@ -299,11 +345,13 @@ NodeArr::NodeArr()
                                 atof(priority),
                                 atof(length),
                                 atof(width),
-                                atof(ffspeed));
+                                atof(ffspeed),
+                                shapeStr);
                                 
                             single_node.pushConnection(single_connection);
                         }
                     }
+                    single_node.SetGlobalPos(globalPos);
                     m_nodes.push_back(single_node);
                     m_intersectionNodes.push_back(single_node);
                     m_mergingNodes.push_back(single_node);
@@ -322,6 +370,7 @@ NodeArr::NodeArr()
                         atoi(numConnection),
                         atoi(numPort),
                         strcmp(v2x, "on") == 0 ? true : false);
+                    single_node.SetGlobalPos(globalPos);
 
                     for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
                          e3 = e3->NextSiblingElement())
@@ -376,6 +425,16 @@ NodeArr::NodeArr()
                             if (!width)   width = "3.5";
                             if (!ffspeed)   throw std::runtime_error ("Element should have 'ff_spd' attribute");
 
+                            const char *connShape = e3->Attribute("shape");
+                            std::string shapeStr;
+                            if (connShape) {
+                                shapeStr = std::string(connShape);
+                            }
+                            else
+                            {
+                                throw std::runtime_error ("Element should have 'shape' attribute");
+                            }
+
                             connection single_connection(
                                 atol(connectionId),
                                 atol(from_link),
@@ -386,7 +445,8 @@ NodeArr::NodeArr()
                                 atof(priority),
                                 atof(length),
                                 atof(width),
-                                atof(ffspeed));
+                                atof(ffspeed),
+                                shapeStr);
                                 
                             single_node.pushConnection(single_connection);
                         }
@@ -409,6 +469,7 @@ NodeArr::NodeArr()
                         -1,
                         atoi(numPort),
                         strcmp(v2x, "on") == 0 ? true : false);
+                    single_node.SetGlobalPos(globalPos);
 
                     for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
                          e3 = e3->NextSiblingElement())
@@ -455,6 +516,7 @@ NodeArr::NodeArr()
                         -1,
                         atoi(numPort),
                         strcmp(v2x, "on") == 0 ? true : false);
+                    single_node.SetGlobalPos(globalPos);
 
                     for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
                          e3 = e3->NextSiblingElement())
@@ -509,6 +571,16 @@ NodeArr::NodeArr()
                             if (!width)   width = "3.5";
                             if (!ffspeed)   throw std::runtime_error ("Element should have 'ff_spd' attribute");
 
+                            const char *connShape = e3->Attribute("shape");
+                            std::string shapeStr;
+                            if (connShape) {
+                                shapeStr = std::string(connShape);
+                            }
+                            else
+                            {
+                                throw std::runtime_error ("Element should have 'shape' attribute");
+                            }
+
                             connection single_connection(
                                 atol(connectionId),
                                 atol(from_link),
@@ -519,7 +591,8 @@ NodeArr::NodeArr()
                                 atof(priority),
                                 atof(length),
                                 atof(width),
-                                atof(ffspeed));
+                                atof(ffspeed),
+                                shapeStr);
                                 
                             single_node.pushConnection(single_connection);
                         }

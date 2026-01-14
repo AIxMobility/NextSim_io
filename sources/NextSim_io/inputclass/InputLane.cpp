@@ -8,10 +8,13 @@
 #include <NextSim_io/inputclass/InputLane.hpp>
 
 // InputLane methods
+#include <sstream>
+#include <algorithm>
+
 namespace NextSimIO
 {
 InputLane::InputLane(std::size_t idVal, std::size_t leftLaneIdVal,
-                     std::size_t rightLaneIdVal, std::string laneAccessType, int numCellVal)
+                     std::size_t rightLaneIdVal, std::string laneAccessType, int numCellVal, std::string shape)
     : m_id(idVal),
       m_leftLaneId(leftLaneIdVal),
       m_rightLaneId(rightLaneIdVal),
@@ -23,12 +26,25 @@ InputLane::InputLane(std::size_t idVal, std::size_t leftLaneIdVal,
     m_leftLaneId = leftLaneIdVal;
     m_rightLaneId = rightLaneIdVal;
     m_accessibleTypes = laneAccessType;
+    std::replace(shape.begin(), shape.end(), ',', ' ');
+    std::istringstream iss(shape);
+    double x, y;
+    while (iss >> x >> y) {
+        m_shape.emplace_back(x, y);
+    }
 }
 
 InputLane::InputLane(std::size_t idVal, std::size_t leftLaneIdVal,
                      std::size_t rightLaneIdVal, int numCellVal,
-                     bool LeftEmpty, bool RightEmpty)
+                     bool LeftEmpty, bool RightEmpty, std::string shape)
 {
+    std::replace(shape.begin(), shape.end(), ',', ' ');
+    std::istringstream iss(shape);
+    double x, y;
+    while (iss >> x >> y) {
+        m_shape.emplace_back(x, y);
+    }
+
     m_id = idVal;
     m_numCell = numCellVal;
     if (RightEmpty)

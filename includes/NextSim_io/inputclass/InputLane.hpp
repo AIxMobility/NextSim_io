@@ -39,9 +39,10 @@ public:
      * @param rightLaneIdVal Right lane ID
      * @param laneAccessType Lane access type
      * @param numCellVal Number of cells
+     * @param shape Shape of lane as string
     */
     InputLane(std::size_t idVal, std::size_t leftLaneIdVal,
-              std::size_t rightLaneIdVal, std::string laneAccessType, int numCellVal);
+              std::size_t rightLaneIdVal, std::string laneAccessType, int numCellVal, std::string shape);
 
     /**
      * @details Constructor
@@ -51,10 +52,11 @@ public:
      * @param numCellVal Number of cells
      * @param LeftEmpty Whether left lane is empty or not\
      * @param RightEmpty Whether right lane is empty or not
-    */
+     * @param shape Shape of lane as string
+     */
     InputLane(std::size_t idVal, std::size_t leftLaneIdVal,
               std::size_t rightLaneIdVal, int numCellVal, 
-              bool LeftEmpty, bool RightEmpty);
+              bool LeftEmpty, bool RightEmpty, std::string shape);
 
     /**
      * @details Set lane ID
@@ -139,6 +141,18 @@ public:
     */
     const std::vector<InputSegment>& GetSegmentVector() const { return m_segmentVector; }
 
+    /**
+     * @details Set shape of the lane
+     * @param shape Vector of pairs representing the shape
+     */
+    void SetShape(std::vector<std::pair<double, double>> shape) { m_shape = shape; }
+
+    /**
+     * @details Get shape of the lane
+     * @return Vector of pairs representing the shape
+     */
+    std::vector<std::pair<double, double>> GetShape() const { return m_shape; }
+
 private:
 
     /**
@@ -176,6 +190,10 @@ private:
     */
     std::vector<InputSegment> m_segmentVector;
 
+    /**
+     * @details Shape of the lane (Global Coordinates)
+    */
+    std::vector<std::pair<double, double>> m_shape;
 };
 } // namespace NextSimIO
 
