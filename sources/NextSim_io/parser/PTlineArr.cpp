@@ -66,17 +66,17 @@ PTlineArr::PTlineArr()
 
                     const char* attr = nullptr;
 
-                    if (attr = linkElem->Attribute("id"))
+                    if ((attr = linkElem->Attribute("id")))
                         link_id = std::stoi(attr);
-                    if (attr = linkElem->Attribute("seq"))
+                    if ((attr = linkElem->Attribute("seq")))
                         seq = std::stoi(attr);
-                    if (attr = linkElem->Attribute("use_ptlane"))
+                    if ((attr = linkElem->Attribute("use_ptlane")))
                         use_ptlane = (std::string(attr) == "True");
-                    if (attr = linkElem->Attribute("station"))
+                    if ((attr = linkElem->Attribute("station")))
                     {
                         tPTline.PushStationSeq(std::stoi(attr));
                     }
-                    if (attr = linkElem->Attribute("garage"))
+                    if ((attr = linkElem->Attribute("garage")))
                     {
                         tPTline.PushGarageSeq(std::stoi(attr));
                     }
