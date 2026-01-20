@@ -306,8 +306,13 @@ Graph::Graph(ArcArr arcArr, VertexArr vertexArr)
             std::vector<int> fromLinkAvailableLanes = fromLinkInfo.GetAvailableLanes();
             std::vector<int> toLinkAvailableLanes = toLinkInfo.GetAvailableLanes();
 
-            if ((std::find(fromLinkAvailableLanes.begin(), fromLinkAvailableLanes.end(), fromLane) == fromLinkAvailableLanes.end())
-                || (std::find(toLinkAvailableLanes.begin(), toLinkAvailableLanes.end(), toLane) == toLinkAvailableLanes.end()))
+            if (fromLinkAvailableLanes.empty() || toLinkAvailableLanes.empty())
+            {
+                continue;
+            }
+
+            if ((std::find(fromLinkAvailableLanes.begin(), fromLinkAvailableLanes.end(), fromLane) == fromLinkAvailableLanes.end()) &&
+                (std::find(toLinkAvailableLanes.begin(), toLinkAvailableLanes.end(), toLane) == toLinkAvailableLanes.end()))
             {
                 continue;
             }
