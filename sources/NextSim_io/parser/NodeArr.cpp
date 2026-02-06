@@ -530,6 +530,91 @@ NodeArr::NodeArr()
                     single_node.FreeConnectedLinks();
                     single_node.FreeConnectedTable();
                 }
+
+                // Return node type (type 6) - used for TRT turnaround points
+                else if (!strcmp (nodeType, "return"))
+                {
+                    // create single InputNode instance here (type 6)
+                    // Treat like intersection for routing purposes
+                    InputNode single_node(
+                        6, 
+                        atol(nodeId), 
+                        atoi(numConnection),
+                        atoi(numPort),
+                        strcmp(v2x, "on") == 0 ? true : false);
+
+                    for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
+                         e3 = e3->NextSiblingElement())
+                    {
+                        std::string val1 = e3->Value();
+                        if (val1 == "port")
+                        {
+                            int temp = -1;
+
+                            const char *link_id = e3->Attribute("link_id");
+                            const char *direction = e3->Attribute("direction");
+                            const char *portType = e3->Attribute("type");
+
+                            if (!link_id)   throw std::runtime_error ("Element should have 'link_id' attribute");
+                            if (!direction)   throw std::runtime_error ("Element should have 'direction' attribute");
+                            if (!portType)   throw std::runtime_error ("Element should have 'type' attribute");
+
+                            if (!strcmp (portType, "in"))
+                            {
+                                temp = 1;
+                            }
+
+                            port single_link(
+                                atol(link_id),
+                                atoi(direction),
+                                temp);
+
+                            single_node.pushLink(single_link);
+                        }
+                        else if (val1 == "connection")
+                        {
+                            const char *connectionId = e3->Attribute("id");
+                            const char *from_link = e3->Attribute("from_link");
+                            const char *from_lane = e3->Attribute("from_lane");
+                            const char *to_link = e3->Attribute("to_link");
+                            const char *to_lane = e3->Attribute("to_lane");
+                            const char *priority = e3->Attribute("priority");
+                            const char *turning = e3->Attribute("turning");
+                            const char *length = e3->Attribute("length");
+                            const char *width = e3->Attribute("width");
+                            const char *ffspeed = e3->Attribute("ff_spd");
+
+                            if (!connectionId)   throw std::runtime_error ("Element should have 'id' attribute");
+                            if (!from_link)   throw std::runtime_error ("Element should have 'from_link' attribute");
+                            if (!from_lane)   throw std::runtime_error ("Element should have 'from_lane' attribute");
+                            if (!to_link)   throw std::runtime_error ("Element should have 'to_link' attribute");
+                            if (!to_lane)   throw std::runtime_error ("Element should have 'to_lane' attribute");
+                            if (!turning)   throw std::runtime_error ("Element should have 'turning' attribute");
+                            if (!priority)   priority = "1";
+                            if (!length)   throw std::runtime_error ("Element should have 'length' attribute");
+                            if (!width)   width = "3.5";
+                            if (!ffspeed)   throw std::runtime_error ("Element should have 'ff_spd' attribute");
+
+                            connection single_connection(
+                                atol(connectionId),
+                                atol(from_link),
+                                atol(from_lane),
+                                atol(to_link),
+                                atol(to_lane),
+                                turning,
+                                atof(priority),
+                                atof(length),
+                                atof(width),
+                                atof(ffspeed));
+                                
+                            single_node.pushConnection(single_connection);
+                        }
+                    }
+                    m_nodes.push_back(single_node);
+                    m_intersectionNodes.push_back(single_node);  // Add to intersection nodes for routing
+
+                    single_node.FreeConnectedLinks();
+                }
             }
         }
     }

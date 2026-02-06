@@ -64,6 +64,9 @@ VertexArr::VertexArr()
                 else if (!strcmp(type, "garage")){
                     nodeType = 5;
                 }
+                else if (!strcmp(type, "return")){
+                    nodeType = 6;
+                }
                 else{
                     throw std::runtime_error ("Invalid node type");
                 }
