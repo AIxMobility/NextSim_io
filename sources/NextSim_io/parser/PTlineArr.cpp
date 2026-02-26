@@ -52,7 +52,6 @@ PTlineArr::PTlineArr()
 
             InputPTline tPTline(id, fee, interval);
 
-            // linkList
             TiXmlElement* linksElem = lineElem->FirstChildElement("links");
             if (linksElem)
             {

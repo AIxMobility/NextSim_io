@@ -85,6 +85,7 @@ LinkArr::LinkArr()
                     const char *to_node = e->Attribute("to_node");
                     const char *maxSpd = e->Attribute("max_spd");  // km/h
                     const char *minSpd = e->Attribute("min_spd");  // km/h
+                    const char *type = e->Attribute("type");
 
                     if (!ffspeed)   throw std::runtime_error ("Element should have 'ffspeed' attribute");
                     if (!qmax)   throw std::runtime_error ("Element should have 'qmax' attribute");
@@ -94,6 +95,7 @@ LinkArr::LinkArr()
                     if (!to_node)   throw std::runtime_error ("Element should have 'to_node' attribute");
                     if (!maxSpd)   throw std::runtime_error ("Element should have 'max_spd' attribute");
                     if (!minSpd)   throw std::runtime_error ("Element should have 'min_spd' attribute");
+                    if (!type)   throw std::runtime_error ("Element should have 'type' attribute");
 
                     demoLink.freeFlowSpeed = std::atof(ffspeed);
                     demoLink.qMax = std::atof(qmax);
@@ -105,6 +107,7 @@ LinkArr::LinkArr()
                         ((std::size_t)atoll(to_node)));
                     demoLink.maxSpeed = std::atof(maxSpd);
                     demoLink.minSpeed = std::atof(minSpd);
+                    demoLink.SetType(type);
 
                     // save lane infos for each link
                     // int lane_num = 0;
