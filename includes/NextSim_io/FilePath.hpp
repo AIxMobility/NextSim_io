@@ -42,26 +42,25 @@ static std::pair<std::string, std::string> load_network_name() {
         if (std::getline(iss, key, '=') && std::getline(iss, value)) {
             if (key == "network_name") network_name = value;
             else if (key == "branch") branch = value;
-            else if (key == "version") version = value;
         }
     }
 
-    return std::make_pair(network_name, "@" + branch + "_v" + version);
+    return std::make_pair(branch, network_name);
 }
 
 static std::pair<std::string, std::string> networkID = load_network_name();
 
-static std::string network_name = networkID.first;
+static std::string branch = networkID.first;
 
-static std::string network_version = networkID.second;
+static std::string network_name = networkID.second;
 
 static std::filesystem::path simulationInputPath = get_simulation_input_path();
 
 static std::filesystem::path NetworkXmlFilePath =
-    simulationInputPath / ("network_xml_" + network_name + network_version);
+    simulationInputPath / ("datasets/" + branch + "/network_xml_" + network_name);
 
 static std::filesystem::path ParameterXmlFilePath =
-    simulationInputPath / ("parameter_xml" + network_version);
+    simulationInputPath / ("datasets/" + branch + "/parameter_xml");
 
 // Network xml file path
 static std::filesystem::path ScenarioXMLPath = NetworkXmlFilePath / "scenario.xml";
