@@ -10,7 +10,7 @@
 #include <string>
 #include <cstdlib>
 
-#include <NextSim_io/parser/MessageArr.hpp>
+#include <NextSim_io/parser/V2XMsgArr.hpp>
 
 #include <NextSim_io/tinyapi/tinystr.h>
 #include <NextSim_io/tinyapi/tinyxml.h>
@@ -18,14 +18,14 @@
 
 namespace NextSimIO
 {
-MessageArr::MessageArr()
+V2XMsgArr::V2XMsgArr()
 {
     TiXmlDocument doc;
     bool loadSuccess = doc.LoadFile(NextSimIO::V2XXMLPath.string().c_str());
 
     if (!loadSuccess)
     {
-        std::cout << "Loading failed (MessageArr)" << std::endl;
+        std::cout << "Loading failed (V2XMsgArr)" << std::endl;
         // std::cerr << doc.ErrorDesc() << std::endl;
         return;
     }
@@ -58,7 +58,7 @@ MessageArr::MessageArr()
                     if (!msg_type)   throw std::runtime_error ("Element should have 'msg_type' attribute");
                     if (!value)   throw std::runtime_error ("Element should have 'value' attribute");
 
-                    InputMessage demoMessage(
+                    InputV2XMsg demoMsg(
                         std::atoi(id),
                         std::atof(stime),
                         std::atof(etime),
@@ -69,9 +69,9 @@ MessageArr::MessageArr()
 
                     if (!node_id)   throw std::runtime_error ("Element should have 'node_id' attribute");
 
-                    demoMessage.SetNodeID(std::atoi(node_id));
+                    demoMsg.SetNodeID(std::atoi(node_id));
 
-                    m_regionMessage.push_back(demoMessage);
+                    m_regionMsg.push_back(demoMsg);
                 }
             }
         }
@@ -98,7 +98,7 @@ MessageArr::MessageArr()
                     if (!msg_type)   throw std::runtime_error ("Element should have 'msg_type' attribute");
                     if (!value)   throw std::runtime_error ("Element should have 'value' attribute");
 
-                    InputMessage demoMessage(
+                    InputV2XMsg demoMsg(
                         std::atoi(id),
                         std::atof(stime),
                         std::atof(etime),
@@ -109,9 +109,9 @@ MessageArr::MessageArr()
 
                     if (!veh_id)   throw std::runtime_error ("Element should have 'veh_id' attribute");
 
-                    demoMessage.SetVehID(std::atoi(veh_id));
+                    demoMsg.SetVehID(std::atoi(veh_id));
 
-                    m_vehMessage.push_back(demoMessage);
+                    m_vehMsg.push_back(demoMsg);
                 }
             }
         }
