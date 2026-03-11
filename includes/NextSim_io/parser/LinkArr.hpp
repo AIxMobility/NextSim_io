@@ -36,11 +36,22 @@ public:
     */
     std::vector<InputLink> GetLinks() { return m_links; }
 
+    /**
+     * @detauls Get vector of return links
+     * @return Vector of return links
+     */
+    std::vector<InputLink> GetReturnLinks() { return m_returnLinks; }
+
 private:
     /**
      * @details Vector of links
     */
     std::vector<InputLink> m_links;
+    
+    /**
+     * @details Vector of return links
+    */
+    std::vector<InputLink> m_returnLinks;
 };
 } // namespace NextSimIO
 

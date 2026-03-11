@@ -187,8 +187,10 @@ LinkArr::LinkArr()
                         }
                     }
 
+                    if (demoLink.GetType() == "return")
+                        m_returnLinks.push_back(demoLink);
+
                     m_links.push_back(demoLink);
-                    // perhaps need to free pointers here
                 }
             }
         }
