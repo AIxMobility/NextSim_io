@@ -7,12 +7,22 @@
 
 #include <sstream>
 
+#include <algorithm>
 #include <NextSim_io/inputclass/InputStation.hpp>
 
 namespace NextSimIO
 {
-InputStation::InputStation(int id, int link, int lane, double pos, int parkingLots) : 
-    m_id(id), m_link(link), m_lane(lane), m_pos(pos), m_parkingLots(parkingLots) {};
+InputStation::InputStation(int id, int link, int lane, double pos, int parkingLots, std::string globalPos) : 
+    m_id(id), m_link(link), m_lane(lane), m_pos(pos), m_parkingLots(parkingLots)
+{
+    std::replace(globalPos.begin(), globalPos.end(), ',', ' ');
+    std::stringstream ss(globalPos);
+    double x, y;
+    if (ss >> x >> y)
+    {
+        m_globalPos = {x, y};
+    }
+};
 
 void InputStation::SetLineList(std::string lineList)
 {

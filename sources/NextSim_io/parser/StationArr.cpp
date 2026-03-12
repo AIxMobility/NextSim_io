@@ -10,7 +10,6 @@
 #include <string>
 #include <cstdlib>
 #include <vector>
-#include <sstream>
 
 #include <NextSim_io/parser/StationArr.hpp>
 #include <NextSim_io/tinyapi/tinystr.h>
@@ -46,17 +45,39 @@ StationArr::StationArr()
 
                 if (elemName2 == "station")
                 {
-                    int id = atol(e->Attribute("id"));
-                    int link = atol(e->Attribute("link_ref"));
-                    int lane = atol(e->Attribute("lane_ref"));
-                    double pos = atof(e->Attribute("pos"));
+                    const char *idStr = e->Attribute("id");
+                    const char *linkStr = e->Attribute("link_ref");
+                    const char *laneStr = e->Attribute("lane_ref");
+                    const char *posStr = e->Attribute("pos");
+                    
+                    if (!idStr) throw std::runtime_error("Element should have 'id' attribute");
+                    if (!linkStr) throw std::runtime_error("Element should have 'link_ref' attribute");
+                    if (!laneStr) throw std::runtime_error("Element should have 'lane_ref' attribute");
+                    if (!posStr) throw std::runtime_error("Element should have 'pos' attribute");
+
+                    int id = atol(idStr);
+                    int link = atol(linkStr);
+                    int lane = atol(laneStr);
+                    double pos = atof(posStr);
 
                     // Handle optional `parkingLots`
                     int parkingLots = 0;
                     if (e->Attribute("parkingLots"))
                         parkingLots = atol(e->Attribute("parkingLots"));
 
-                    InputStation station(id, link, lane, pos, parkingLots);
+                    // Parse center attribute for global position
+                    const char *centerStr = e->Attribute("center");
+                    std::string globalPosStr;
+                    if (centerStr)
+                    {
+                        globalPosStr = std::string(centerStr);
+                    }
+                    else
+                    {
+                        throw std::runtime_error("Element should have 'center' attribute");
+                    }
+
+                    InputStation station(id, link, lane, pos, parkingLots, globalPosStr);
 
                     // Parse <line list="...">
                     TiXmlElement* lineElement = e->FirstChildElement("line");

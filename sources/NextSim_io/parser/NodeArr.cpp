@@ -46,6 +46,18 @@ NodeArr::NodeArr()
                 const char *numConnection = e2->Attribute("num_connection");
                 const char *numPort = e2->Attribute("num_port");
                 const char *v2x = e2->Attribute("v2x");
+                const char *center = e2->Attribute("center");
+                std::pair<double, double> globalPos = {0.0, 0.0};
+                if (center)
+                {
+                    std::string centerStr(center);
+                    std::stringstream iss(centerStr);
+                    iss >> globalPos.first >> globalPos.second;
+                }
+                else
+                {
+                    throw std::runtime_error("Element should have 'center' or 'position' attribute");
+                }
 
                 if (!nodeId)   throw std::runtime_error ("Element should have 'id' attribute");
                 if (!nodeType)   throw std::runtime_error ("Element should have 'type' attribute");
@@ -102,6 +114,16 @@ NodeArr::NodeArr()
                     if (!width)   width = "3.5";
                     if (!ffspeed)   throw std::runtime_error ("Element should have 'ff_spd' attribute");
 
+                    const char *connShape = element->Attribute("shape");
+                    std::string shapeStr;
+                    if (connShape) {
+                        shapeStr = std::string(connShape);
+                    }
+                    else
+                    {
+                        throw std::runtime_error ("Element should have 'shape' attribute");
+                    }
+
                     connection single_connection(
                         atol(connectionId),
                         atol(from_link),
@@ -112,7 +134,8 @@ NodeArr::NodeArr()
                         atof(priority),
                         atof(length),
                         atof(width),
-                        atof(ffspeed));
+                        atof(ffspeed),
+                        shapeStr);
 
                     targetNode.pushConnection(single_connection);
                 };
@@ -142,6 +165,7 @@ NodeArr::NodeArr()
                         atoi(numPort),
                         v2xEnabled);
 
+                    single_node.SetGlobalPos(globalPos);
                     parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_normalNodes.push_back(single_node);
@@ -160,6 +184,7 @@ NodeArr::NodeArr()
                         atoi(numPort),
                         v2xEnabled);
 
+                    single_node.SetGlobalPos(globalPos);
                     parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_intersectionNodes.push_back(single_node);
@@ -178,6 +203,7 @@ NodeArr::NodeArr()
                         atoi(numPort),
                         v2xEnabled);
 
+                    single_node.SetGlobalPos(globalPos);
                     parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_intersectionNodes.push_back(single_node);
@@ -196,6 +222,7 @@ NodeArr::NodeArr()
                         atoi(numPort),
                         v2xEnabled);
 
+                    single_node.SetGlobalPos(globalPos);
                     parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_intersectionNodes.push_back(single_node);
@@ -212,9 +239,39 @@ NodeArr::NodeArr()
                         atol(nodeId), 
                         -1,
                         atoi(numPort),
-                        v2xEnabled);
+                        strcmp(v2x, "on") == 0 ? true : false);
 
-                    parseNodeChildren(e2, single_node, false);
+                    single_node.SetGlobalPos(globalPos);
+                    for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
+                         e3 = e3->NextSiblingElement())
+                    {
+                        std::string val1 = e3->Value();
+                        // port should be the same for terminal
+                        if (val1 == "port")
+                        {
+                            // create port instance + pushLink to
+                            // InputNode
+                            int temp = -1;
+
+                            const char *link_id = e3->Attribute("link_id");
+                            const char *direction = e3->Attribute("direction");
+                            const char *portType = e3->Attribute("type");
+
+                            if (!link_id)   throw std::runtime_error ("Element should have 'link_id' attribute");
+                            if (!direction)   throw std::runtime_error ("Element should have 'direction' attribute");
+                            if (!portType)   throw std::runtime_error ("Element should have 'type' attribute");
+
+                            if (!strcmp(portType, "in"))
+                            {
+                                temp = 1;
+                            }
+                            port single_link(
+                                atol(link_id),
+                                atoi(direction),
+                                temp);
+                            single_node.pushLink(single_link);
+                        }
+                    }
                     m_nodes.push_back(single_node);
                     m_terminalNodes.push_back(single_node);
                     
@@ -230,6 +287,7 @@ NodeArr::NodeArr()
                         atoi(numPort),
                         v2xEnabled);
 
+                    single_node.SetGlobalPos(globalPos);
                     parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_garageNodes.push_back(single_node);

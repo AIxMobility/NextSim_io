@@ -30,9 +30,10 @@ public:
      * @param length Link length
      * @param width Link width
      * @param stopLine Position of stop line
+     * @param shape Shape as string
     */
     InputLink(std::size_t id, int lane, double length, 
-              double width, double stopLine);
+              double width, double stopLine, std::string shape);
 
     /** @cond EXCLUDE */
     ~InputLink() = default;
@@ -87,6 +88,20 @@ public:
      * @return Vector of lanes
     */
     [[nodiscard]] const std::vector<InputLane>& GetLaneVector() const { return m_laneVector; }
+
+    void SetLaneNumCellVector(std::vector<int> laneNumCellVector) { m_laneNumCellVector = laneNumCellVector; }
+
+    /**
+     * @details Set shape of the link
+     * @param shape Vector of pairs representing the shape
+     */
+    void SetShape(std::vector<std::pair<double, double>> shape) { m_shape = shape; }
+
+    /**
+     * @details Get shape of the link
+     * @return Vector of pairs representing the shape
+     */
+    std::vector<std::pair<double, double>> GetShape() const { return m_shape; }
 
     /**
      * @details Get link ID
@@ -207,6 +222,11 @@ private:
      * @details Vector of number of cells of each lane in order
     */
     std::vector<int> m_laneNumCellVector;
+
+    /**
+     * @details Shape of the link (Global Coordinates)
+    */
+    std::vector<std::pair<double, double>> m_shape;
 };
 } // namespace NextSimIO
 

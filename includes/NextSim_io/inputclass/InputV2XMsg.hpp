@@ -6,8 +6,8 @@
  */
 
 #pragma once
-#ifndef INPUTMESSAGE_H
-#define INPUTMESSAGE_H
+#ifndef INPUTMSG_H
+#define INPUTMSG_H
 
 #include <string>
 #include <vector>
@@ -15,21 +15,21 @@
 namespace NextSimIO
 {
 /**
- * @class InputMessage
- * @brief Class for each message information
+ * @class InputV2XMsg
+ * @brief Class for each msg information
 */
-class InputMessage
+class InputV2XMsg
 {
 public:
     /**
      * @brief Constructor
-     * @param id Message ID
+     * @param id Msg ID
      * @param sTime Start time
      * @param eTime End time
-     * @param msgType Message type
+     * @param msgType Msg type
      * @param value Speed value
     */
-    InputMessage(int id, double sTime, double eTime, 
+    InputV2XMsg(int id, double sTime, double eTime, 
                  int msgType, int value);
 
     /**

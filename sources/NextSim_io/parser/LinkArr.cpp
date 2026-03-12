@@ -10,6 +10,7 @@
 #include <string>
 #include <cstdlib>
 
+
 #include <NextSim_io/parser/LinkArr.hpp>
 
 #include <NextSim_io/tinyapi/tinystr.h>
@@ -66,17 +67,6 @@ LinkArr::LinkArr()
                     if (!width)   throw std::runtime_error ("Element should have 'width' attribute");
                     if (!stop_line)   throw std::runtime_error ("Element should have 'stop_line' attribute");
 
-                    InputLink demoLink(
-                        static_cast<std::size_t>(
-                            atoll(linkId)),
-                            atoi(num_lane),
-                            atof(linkLength),
-                            atof(width),
-                            atof(stop_line));
-
-                    // set the Link 2d, 1d values here.
-                    // TODO: add set min max speed
-
                     const char *ffspeed = e->Attribute("ff_spd");  // km/h
                     const char *qmax = e->Attribute("qmax");  // veh/hr
                     const char *waveSpd = e->Attribute("wave_spd");  // km/h
@@ -96,6 +86,25 @@ LinkArr::LinkArr()
                     if (!maxSpd)   throw std::runtime_error ("Element should have 'max_spd' attribute");
                     if (!minSpd)   throw std::runtime_error ("Element should have 'min_spd' attribute");
                     if (!type)   throw std::runtime_error ("Element should have 'type' attribute");
+
+                    const char *shape = e->Attribute("shape");
+                    std::string shapeStr;
+                    if (shape) {
+                        shapeStr = std::string(shape);
+                    }
+                    else
+                    {
+                        throw std::runtime_error ("Element should have 'shape' attribute");
+                    }
+
+                    InputLink demoLink(
+                        static_cast<std::size_t>(
+                            atoll(linkId)),
+                            atoi(num_lane),
+                            atof(linkLength),
+                            atof(width),
+                            atof(stop_line),
+                            shapeStr);
 
                     demoLink.freeFlowSpeed = std::atof(ffspeed);
                     demoLink.qMax = std::atof(qmax);
@@ -129,12 +138,23 @@ LinkArr::LinkArr()
                             if (!num_cell)   throw std::runtime_error ("Element should have 'num_cell' attribute");
                             if (!laneAccessType)   laneAccessType = "All";  // default value
                             
+                            const char *laneShape = ele->Attribute("shape");
+                            std::string laneShapeStr;
+                            if (laneShape) {
+                                laneShapeStr = std::string(laneShape);
+                            }
+                            else
+                            {
+                                throw std::runtime_error ("Element should have 'shape' attribute");
+                            }
+
                             InputLane demoLane(
                                 (std::size_t)atoll(laneId),
                                 (std::size_t)atoll(left_lane_id),
                                 (std::size_t)atoll(right_lane_id),
                                 laneAccessType,
-                                atoi(num_cell));
+                                atoi(num_cell),
+                                laneShapeStr);
 
                             for (TiXmlElement* e_lane =
                                      ele->FirstChildElement();

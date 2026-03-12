@@ -28,8 +28,9 @@ public:
      * @param lane Lane ID
      * @param pos Position of station
      * @param parkingLots Number of parking lots
+     * @param globalPos Global coordinates
      */
-    InputStation(int id, int link, int lane, double pos, int parkingLots);
+    InputStation(int id, int link, int lane, double pos, int parkingLots, std::string globalPos);
 
     /**
      * @details Set sequence of line IDs
@@ -91,6 +92,19 @@ public:
  */
     std::vector<int> GetGarageList() const { return m_garageList; }
 
+    /**
+     * @details Set global position of station
+     * @param x X coordinate
+     * @param y Y coordinate
+     */
+    void SetGlobalPos(double x, double y) { m_globalPos = {x, y}; }
+
+    /**
+     * @details Get global position of station
+     * @return Global position (x, y)
+     */
+    std::pair<double, double> GetGlobalPos() const { return m_globalPos; }
+
 private:
     /**
      * @details Station ID
@@ -126,6 +140,11 @@ private:
      * @details Sequence of garage IDs linked to this station (for rail transit)
  */
     std::vector<int> m_garageList;
+
+    /**
+     * @details Global Coordinates of station
+    */
+    std::pair<double, double> m_globalPos;
 };
 
 /**
