@@ -15,6 +15,24 @@
 
 namespace NextSimIO
 {
+struct V2XModeData
+{
+    bool v2i = true;
+    bool v2v = true;
+};
+
+struct V2XMsgData
+{
+    bool congestion = true;
+    bool danger = true;
+};
+
+struct V2XData
+{
+    V2XModeData mode;
+    V2XMsgData msg;
+};
+
 /**
  * @class InputScenario
  * @brief Class for each simulation mode information
@@ -30,8 +48,10 @@ public:
      * @param BGTduration Background traffic duration [min]
      * @param odID OD matrix ID
      * @param todID TOD matrix ID
+     * @param signalControl Whether signal control is active
+     * @param v2xData V2X data
     */
-    InputScenario(int id, std::string startTime, int duration, int BGTduration, int odID, int todID, bool signalControl = false);
+    InputScenario(int id, std::string startTime, int duration, int BGTduration, int odID, int todID, bool signalControl = false, V2XData v2xData = V2XData());
 
     /** @cond EXCLUDE */
     ~InputScenario() = default;
@@ -81,6 +101,12 @@ public:
     */
     bool IsSignalControl() const { return m_signalControl; }
 
+    /**
+     * @brief Get V2X data
+     * @return V2X data
+    */
+    V2XData GetV2XData() const { return m_v2xData; }
+
 
 private:
     /**
@@ -117,6 +143,11 @@ private:
      * @details Whether signal control is active or not
     */
     bool m_signalControl = false;
+
+    /**
+     * @details V2X data
+    */
+    V2XData m_v2xData;
 };
 } // namespace NextSimIO
 

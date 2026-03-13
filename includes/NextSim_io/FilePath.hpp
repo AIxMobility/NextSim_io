@@ -28,7 +28,7 @@ static std::filesystem::path get_simulation_input_path() {
     }
     
     // Fallback to direct path if relative path doesn't work
-    return "/home/wjstnwp/NextSim/SimulationInput";
+    return "/home/elena0210/NextSim/SimulationInput";
 }
 
 static std::pair<std::string, std::string> load_network_name() {
@@ -64,6 +64,8 @@ static std::filesystem::path ParameterXmlFilePath =
 
 // Network xml file path
 static std::filesystem::path ScenarioXMLPath = NetworkXmlFilePath / "scenario.xml";
+
+static std::filesystem::path ScenarioJSONPath = NetworkXmlFilePath / "config_scenario.json";
 
 static std::filesystem::path NetworkXMLPath = NetworkXmlFilePath / "network.xml";
 
