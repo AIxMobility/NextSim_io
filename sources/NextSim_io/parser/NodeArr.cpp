@@ -18,6 +18,34 @@
 
 namespace NextSimIO
 {
+namespace
+{
+std::vector<std::pair<double, double>> ParseShapePoints(const char* val)
+{
+    std::vector<std::pair<double, double>> shapePoints;
+    if (val == nullptr)
+        return shapePoints;
+
+    std::stringstream ss(val);
+    std::string token;
+    while (ss >> token)
+    {
+        const auto commaPos = token.find(',');
+        if (commaPos == std::string::npos)
+            continue;
+
+        const std::string xStr = token.substr(0, commaPos);
+        const std::string yStr = token.substr(commaPos + 1);
+        if (xStr.empty() || yStr.empty())
+            continue;
+
+        shapePoints.emplace_back(std::stod(xStr), std::stod(yStr));
+    }
+
+    return shapePoints;
+}
+}
+
 NodeArr::NodeArr()
 {
     TiXmlDocument doc;
@@ -90,6 +118,7 @@ NodeArr::NodeArr()
                     const char *length = element->Attribute("length");
                     const char *width = element->Attribute("width");
                     const char *ffspeed = element->Attribute("ff_spd");
+                    const char *shape = element->Attribute("shape");
 
                     if (!connectionId)   throw std::runtime_error ("Element should have 'id' attribute");
                     if (!from_link)   throw std::runtime_error ("Element should have 'from_link' attribute");
@@ -112,7 +141,8 @@ NodeArr::NodeArr()
                         atof(priority),
                         atof(length),
                         atof(width),
-                        atof(ffspeed));
+                        atof(ffspeed),
+                        ParseShapePoints(shape));
 
                     targetNode.pushConnection(single_connection);
                 };
