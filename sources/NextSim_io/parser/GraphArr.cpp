@@ -64,6 +64,9 @@ VertexArr::VertexArr()
                 else if (!strcmp(type, "garage")){
                     nodeType = 5;
                 }
+                else if (!strcmp(type, "return")){
+                    nodeType = 6;
+                }
                 else{
                     throw std::runtime_error ("Invalid node type");
                 }
@@ -259,7 +262,7 @@ ArcArr::ArcArr()
                             const char *laneId = laneElem->Attribute("id");
                             const char *laneAccessType = laneElem->Attribute("laneAccessType");
 
-                            if (laneAccessType == nullptr) {
+                            if ((laneAccessType == nullptr) || (strcmp(laneAccessType, "All") == 0)) {
                                 availableLanes.push_back(static_cast<int>(atol(laneId)));
                             }
                             else {
@@ -306,8 +309,13 @@ Graph::Graph(ArcArr arcArr, VertexArr vertexArr)
             std::vector<int> fromLinkAvailableLanes = fromLinkInfo.GetAvailableLanes();
             std::vector<int> toLinkAvailableLanes = toLinkInfo.GetAvailableLanes();
 
-            if ((std::find(fromLinkAvailableLanes.begin(), fromLinkAvailableLanes.end(), fromLane) == fromLinkAvailableLanes.end())
-                || (std::find(toLinkAvailableLanes.begin(), toLinkAvailableLanes.end(), toLane) == toLinkAvailableLanes.end()))
+            if (fromLinkAvailableLanes.empty() || toLinkAvailableLanes.empty())
+            {
+                continue;
+            }
+
+            if ((std::find(fromLinkAvailableLanes.begin(), fromLinkAvailableLanes.end(), fromLane) == fromLinkAvailableLanes.end()) &&
+                (std::find(toLinkAvailableLanes.begin(), toLinkAvailableLanes.end(), toLane) == toLinkAvailableLanes.end()))
             {
                 continue;
             }

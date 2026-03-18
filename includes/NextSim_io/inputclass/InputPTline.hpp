@@ -2,7 +2,7 @@
  * NextSim Captain
  * @file : InputPTline.hpp
  * @version : 1.1
- * @author : Sujae Jeon
+ * @author : Sujae Jeon, Dongheon Lee
  */
 
 #pragma once
@@ -14,6 +14,52 @@
 
 namespace NextSimIO
 {
+class InputPTlink
+{
+public:
+    /**
+     * @details Constructor
+     * @param id link ID
+     * @param sequence link sequence
+     * @param usePTlane usage of PT lane
+     */
+    InputPTlink(int id, int sequence, bool usePTlane);
+
+    /**
+     * @details Get link ID
+     * @return link ID
+     */
+    int GetID() { return m_id; }
+
+    /**
+     * @details Get link sequence
+     * @return link sequence
+     */
+    int GetSequence() const { return m_sequence; }
+
+    /**
+     * @details Get usage of PT lane
+     * @return usage of PT lane
+     */
+    bool GetUsePTlane() const { return m_usePTlane; }
+    
+private:
+    /**
+     * @details link ID
+     */
+    int m_id;
+
+    /**
+     * @details link sequence
+     */
+    int m_sequence;
+
+    /**
+     * @details usage of PT lane
+     */
+    bool m_usePTlane;
+};
+
 /**
  * @class InputPTline
  * @brief Class for public transit line
@@ -29,17 +75,7 @@ public:
      */
     InputPTline(std::string id, double fee, double interval);
 
-    /**
-     * @details Set sequence of links
-     * @param linkSeq Sequence of links that line passes
-     */
-    void SetLinkSeq(std::string linkSeq);
-
-    /**
-     * @details Set sequence of nodes
-     * @param nodeSeq Sequence of nodes that line passes
-     */
-    void SetNodeSeq(std::string nodeSeq);
+    void PushPTlink(InputPTlink ptlink);
 
     /**
      * @details Set sequence of stations
@@ -48,16 +84,22 @@ public:
     void SetStationSeq(std::string stationSeq);
 
     /**
-     * @details Set sequence of distance between stations
-     * @param stationDistanceSeq Sequence of distance between stations
+     * @details Push a station ID to the station sequence
+     * @param stationID Station ID to be added
      */
-    void SetStationDistanceSeq(std::string stationDistanceSeq);
+    void PushStationSeq(int stationID);
 
     /**
      * @details Set sequence of garages for rail transit
      * @param garageSeq Sequence of garage IDs where rail vehicles are stored
      */
     void SetGarageSeq(std::string garageSeq);
+
+    /**
+     * @details Push a garage ID to the garage sequence
+     * @param garageID Garage ID to be added
+     */
+    void PushGarageSeq(int garageID);
 
     /**
      * @details Get public transit line ID
@@ -75,35 +117,23 @@ public:
      * @details Get dispatch interval
      * @return Dispatch interval [min]
      */
-     double GetInterval() const { return m_interval; }
- 
-     /**
-      * @details Get sequence of links
-      * @return Sequence of links that line passes
-     */
-    std::vector<int> GetLinkSeq() const { return m_linkSeq; }
+    double GetInterval() { return m_interval; }
 
     /**
-     * @details Get sequence of nodes
-     * @return Sequence of nodes that line passes
+     * @details Get sequence of links that line passes
+     * @return Sequence of links that line passes
      */
-    std::vector<int> GetNodeSeq() const { return m_nodeSeq; }
+    std::vector<InputPTlink> GetLinkSeq() { return m_PTlinkSeq; }
 
     /**
      * @details Get sequence of stations
      * @return Sequence of stations that line passes
      */
-     std::vector<int> GetStationSeq() const { return m_stationSeq; }
- 
-     /**
-      * @details Get sequence of distance between stations
-      * @return Sequence of distance between stations
-     */
-     std::vector<double> GetStationDistanceSeq() const { return m_stationDistanceSeq; }
- 
-     /**
-      * @details Get sequence of garages for rail transit
-      * @return Sequence of garage IDs
+    std::vector<int> GetStationSeq() { return m_stationSeq; }
+
+    /**
+     * @details Get sequence of garages for rail transit
+     * @return Sequence of garage IDs
      */
     std::vector<int> GetGarageSeq() { return m_garageSeq; }
 
@@ -126,22 +156,12 @@ private:
     /**
      * @details Sequence of links that line passes
      */
-    std::vector<int> m_linkSeq;
-
-    /**
-     * @details Sequence of nodes that line passes
-     */
-    std::vector<int> m_nodeSeq;
+    std::vector<InputPTlink> m_PTlinkSeq = {};
 
     /**
      * @details Sequence of stations that line passes
      */
     std::vector<int> m_stationSeq;
-
-    /**
-     * @details Sequence of distance between stations
-     */
-    std::vector<double> m_stationDistanceSeq;
 
     /**
      * @details Sequence of garage IDs for rail transit

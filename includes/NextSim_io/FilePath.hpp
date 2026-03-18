@@ -16,27 +16,51 @@
 
 namespace NextSimIO
 {
-static std::string load_network_name() {
-    std::ifstream file("config.txt");
+static std::filesystem::path get_simulation_input_path() {
+    // Try to find SimulationInput directory relative to executable location
+    std::filesystem::path currentPath = std::filesystem::current_path();
+    
+    // Go up from build/bin to project root, then to SimulationInput
+    std::filesystem::path simulationInput = currentPath / ".." / ".." / "SimulationInput";
+    
+    if (std::filesystem::exists(simulationInput)) {
+        return std::filesystem::canonical(simulationInput);
+    }
+    
+    // Fallback to direct path if relative path doesn't work
+    return "/home/wjstnwp/NextSim/SimulationInput";
+}
+
+static std::pair<std::string, std::string> load_network_name() {
+    std::filesystem::path simInputPath = get_simulation_input_path();
+    std::ifstream file(simInputPath / "config.txt");
     std::string line, key, value;
+    std::string network_name, branch, version;
+    
     while (std::getline(file, line)) {
         std::istringstream iss(line);
         if (std::getline(iss, key, '=') && std::getline(iss, value)) {
-            if (key == "network_name") return value;
+            if (key == "network_name") network_name = value;
+            else if (key == "branch") branch = value;
         }
     }
-    return "public"; // default fallback
+
+    return std::make_pair(branch, network_name);
 }
 
-static std::string network_name = load_network_name();
+static std::pair<std::string, std::string> networkID = load_network_name();
 
-static std::filesystem::path currentPath = std::filesystem::current_path();
+static std::string branch = networkID.first;
+
+static std::string network_name = networkID.second;
+
+static std::filesystem::path simulationInputPath = get_simulation_input_path();
 
 static std::filesystem::path NetworkXmlFilePath =
-    std::filesystem::current_path() / ("network_xml_" + network_name);
+    simulationInputPath / ("datasets/" + branch + "/network_xml_" + network_name);
 
 static std::filesystem::path ParameterXmlFilePath =
-    std::filesystem::current_path() / "parameter_xml";
+    simulationInputPath / ("datasets/" + branch + "/parameter_xml");
 
 // Network xml file path
 static std::filesystem::path ScenarioXMLPath = NetworkXmlFilePath / "scenario.xml";

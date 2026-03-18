@@ -53,86 +53,96 @@ NodeArr::NodeArr()
                 if (!numPort)   throw std::runtime_error ("Element should have 'num_port' attribute");
                 if (!v2x)   v2x = "off";
 
-                if (!strcmp (nodeType, "normal"))
-                {
+                const bool v2xEnabled = (strcmp(v2x, "on") == 0);
 
-                    // create single InputNode instance here
-                    InputNode single_node(
-                        0, 
-                        atol(nodeId), 
-                        atoi(numConnection),
-                        atoi(numPort),
-                        strcmp(v2x, "on") == 0 ? true : false);
+                auto parsePort = [](TiXmlElement *element, InputNode& targetNode) {
+                    int temp = -1;
 
-                    for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
+                    const char *link_id = element->Attribute("link_id");
+                    const char *direction = element->Attribute("direction");
+                    const char *portType = element->Attribute("type");
+
+                    if (!link_id)   throw std::runtime_error ("Element should have 'link_id' attribute");
+                    if (!direction)   throw std::runtime_error ("Element should have 'direction' attribute");
+                    if (!portType)   throw std::runtime_error ("Element should have 'type' attribute");
+
+                    if (!strcmp (portType, "in"))
+                    {
+                        temp = 1;
+                    }
+
+                    port single_link(
+                        atol(link_id),
+                        atoi(direction),
+                        temp);
+
+                    targetNode.pushLink(single_link);
+                };
+
+                auto parseConnection = [](TiXmlElement *element, InputNode& targetNode) {
+                    const char *connectionId = element->Attribute("id");
+                    const char *from_link = element->Attribute("from_link");
+                    const char *from_lane = element->Attribute("from_lane");
+                    const char *to_link = element->Attribute("to_link");
+                    const char *to_lane = element->Attribute("to_lane");
+                    const char *priority = element->Attribute("priority");
+                    const char *turning = element->Attribute("turning");
+                    const char *length = element->Attribute("length");
+                    const char *width = element->Attribute("width");
+                    const char *ffspeed = element->Attribute("ff_spd");
+
+                    if (!connectionId)   throw std::runtime_error ("Element should have 'id' attribute");
+                    if (!from_link)   throw std::runtime_error ("Element should have 'from_link' attribute");
+                    if (!from_lane)   throw std::runtime_error ("Element should have 'from_lane' attribute");
+                    if (!to_link)   throw std::runtime_error ("Element should have 'to_link' attribute");
+                    if (!to_lane)   throw std::runtime_error ("Element should have 'to_lane' attribute");
+                    if (!turning)   throw std::runtime_error ("Element should have 'turning' attribute");
+                    if (!priority)   priority = "1";
+                    if (!length)   throw std::runtime_error ("Element should have 'length' attribute");
+                    if (!width)   width = "3.5";
+                    if (!ffspeed)   throw std::runtime_error ("Element should have 'ff_spd' attribute");
+
+                    connection single_connection(
+                        atol(connectionId),
+                        atol(from_link),
+                        atol(from_lane),
+                        atol(to_link),
+                        atol(to_lane),
+                        turning,
+                        atof(priority),
+                        atof(length),
+                        atof(width),
+                        atof(ffspeed));
+
+                    targetNode.pushConnection(single_connection);
+                };
+
+                auto parseNodeChildren = [&](TiXmlElement *nodeElement, InputNode& targetNode, bool includeConnections) {
+                    for (TiXmlElement *e3 = nodeElement->FirstChildElement(); e3 != NULL;
                          e3 = e3->NextSiblingElement())
                     {
                         std::string val1 = e3->Value();
                         if (val1 == "port")
                         {
-                            // create port instance + pushLink to
-                            // InputNode
-                            int temp = -1;
-
-                            const char *link_id = e3->Attribute("link_id");
-                            const char *direction = e3->Attribute("direction");
-                            const char *portType = e3->Attribute("type");
-
-                            if (!link_id)   throw std::runtime_error ("Element should have 'link_id' attribute");
-                            if (!direction)   throw std::runtime_error ("Element should have 'direction' attribute");
-                            if (!portType)   throw std::runtime_error ("Element should have 'type' attribute");
-
-                            if (!strcmp (portType, "in"))
-                            {
-                                temp = 1;
-                            }
-
-                            port single_link(
-                                atol(link_id),
-                                atoi(direction),
-                                temp);
-
-                            single_node.pushLink(single_link);
+                            parsePort(e3, targetNode);
                         }
-                        else if (val1 == "connection")
+                        else if (includeConnections && val1 == "connection")
                         {
-                            const char *connectionId = e3->Attribute("id");
-                            const char *from_link = e3->Attribute("from_link");
-                            const char *from_lane = e3->Attribute("from_lane");
-                            const char *to_link = e3->Attribute("to_link");
-                            const char *to_lane = e3->Attribute("to_lane");
-                            const char *priority = e3->Attribute("priority");
-                            const char *turning = e3->Attribute("turning");
-                            const char *length = e3->Attribute("length");
-                            const char *width = e3->Attribute("width");
-                            const char *ffspeed = e3->Attribute("ff_spd");
-
-                            if (!connectionId)   throw std::runtime_error ("Element should have 'id' attribute");
-                            if (!from_link)   throw std::runtime_error ("Element should have 'from_link' attribute");
-                            if (!from_lane)   throw std::runtime_error ("Element should have 'from_lane' attribute");
-                            if (!to_link)   throw std::runtime_error ("Element should have 'to_link' attribute");
-                            if (!to_lane)   throw std::runtime_error ("Element should have 'to_lane' attribute");
-                            if (!turning)   throw std::runtime_error ("Element should have 'turning' attribute");
-                            if (!priority)   priority = "1";
-                            if (!length)   throw std::runtime_error ("Element should have 'length' attribute");
-                            if (!width)   width = "3.5";
-                            if (!ffspeed)   throw std::runtime_error ("Element should have 'ff_spd' attribute");
-
-                            connection single_connection(
-                                atol(connectionId),
-                                atol(from_link),
-                                atol(from_lane),
-                                atol(to_link),
-                                atol(to_lane),
-                                turning,
-                                atof(priority),
-                                atof(length),
-                                atof(width),
-                                atof(ffspeed));
-
-                            single_node.pushConnection(single_connection);
+                            parseConnection(e3, targetNode);
                         }
                     }
+                };
+
+                if (!strcmp (nodeType, "normal"))
+                {
+                    InputNode single_node(
+                        0,
+                        atol(nodeId),
+                        atoi(numConnection),
+                        atoi(numPort),
+                        v2xEnabled);
+
+                    parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_normalNodes.push_back(single_node);
 
@@ -143,81 +153,14 @@ NodeArr::NodeArr()
 
                 else if (!strcmp (nodeType, "intersection"))
                 {
-                    // create single InputNode instance here
                     InputNode single_node(
                         1,
                         atol(nodeId),
                         atoi(numConnection),
                         atoi(numPort),
-                        strcmp(v2x, "on") == 0 ? true : false);
+                        v2xEnabled);
 
-                    for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
-                         e3 = e3->NextSiblingElement())
-                    {
-                        std::string val1 = e3->Value();
-                        if (val1 == "port")
-                        {
-                            // create port instance + pushLink to
-                            // InputNode
-                            int temp = -1;
-
-                            const char *link_id = e3->Attribute("link_id");
-                            const char *direction = e3->Attribute("direction");
-                            const char *portType = e3->Attribute("type");
-
-                            if (!link_id)   throw std::runtime_error ("Element should have 'link_id' attribute");
-                            if (!direction)   throw std::runtime_error ("Element should have 'direction' attribute");
-                            if (!portType)   throw std::runtime_error ("Element should have 'type' attribute");
-
-                            if (!strcmp (portType, "in"))
-                            {
-                                temp = 1;
-                            }
-                            port single_link(
-                                atol(link_id),
-                                atoi(direction),
-                                temp);
-                            single_node.pushLink(single_link);
-                        }
-                        else if (val1 == "connection")
-                        {
-                            const char *connectionId = e3->Attribute("id");
-                            const char *from_link = e3->Attribute("from_link");
-                            const char *from_lane = e3->Attribute("from_lane");
-                            const char *to_link = e3->Attribute("to_link");
-                            const char *to_lane = e3->Attribute("to_lane");
-                            const char *priority = e3->Attribute("priority");
-                            const char *turning = e3->Attribute("turning");
-                            const char *length = e3->Attribute("length");
-                            const char *width = e3->Attribute("width");
-                            const char *ffspeed = e3->Attribute("ff_spd");
-
-                            if (!connectionId)   throw std::runtime_error ("Element should have 'id' attribute");
-                            if (!from_link)   throw std::runtime_error ("Element should have 'from_link' attribute");
-                            if (!from_lane)   throw std::runtime_error ("Element should have 'from_lane' attribute");
-                            if (!to_link)   throw std::runtime_error ("Element should have 'to_link' attribute");
-                            if (!to_lane)   throw std::runtime_error ("Element should have 'to_lane' attribute");
-                            if (!turning)   throw std::runtime_error ("Element should have 'turning' attribute");
-                            if (!priority)   priority = "1";
-                            if (!length)   throw std::runtime_error ("Element should have 'length' attribute");
-                            if (!width)   width = "3.5";
-                            if (!ffspeed)   throw std::runtime_error ("Element should have 'ff_spd' attribute");
-
-                            connection single_connection(
-                                atol(connectionId),
-                                atol(from_link),
-                                atol(from_lane),
-                                atol(to_link),
-                                atol(to_lane),
-                                turning,
-                                atof(priority),
-                                atof(length),
-                                atof(width),
-                                atof(ffspeed));
-                                
-                            single_node.pushConnection(single_connection);
-                        }
-                    }
+                    parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_intersectionNodes.push_back(single_node);
 
@@ -228,218 +171,50 @@ NodeArr::NodeArr()
                 
                 else if (!strcmp (nodeType, "merging"))
                 {
-                    // create single InputNode instance here
                     InputNode single_node(
                         2, 
                         atol(nodeId),
                         atoi(numConnection),
                         atoi(numPort),
-                        strcmp(v2x, "on") == 0 ? true : false);
+                        v2xEnabled);
 
-                    for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
-                         e3 = e3->NextSiblingElement())
-                    {
-                        std::string val1 = e3->Value();
-                        // port should be the same for normal
-                        if (val1 == "port")
-                        {
-                            // create port instance + pushLink to
-                            // InputNode
-                            int temp = -1;
-
-                            const char *link_id = e3->Attribute("link_id");
-                            const char *direction = e3->Attribute("direction");
-                            const char *portType = e3->Attribute("type");
-
-                            if (!link_id)   throw std::runtime_error ("Element should have 'link_id' attribute");
-                            if (!direction)   throw std::runtime_error ("Element should have 'direction' attribute");
-                            if (!portType)   throw std::runtime_error ("Element should have 'type' attribute");
-
-                            if (!strcmp (portType, "in"))
-                            {
-                                temp = 1;
-                            }
-                            port single_link(
-                                atol(link_id),
-                                atoi(direction),
-                                temp);
-                            single_node.pushLink(single_link);
-                        }
-                        else if (val1 == "connection")
-                        {
-                            const char *connectionId = e3->Attribute("id");
-                            const char *from_link = e3->Attribute("from_link");
-                            const char *from_lane = e3->Attribute("from_lane");
-                            const char *to_link = e3->Attribute("to_link");
-                            const char *to_lane = e3->Attribute("to_lane");
-                            const char *priority = e3->Attribute("priority");
-                            const char *turning = e3->Attribute("turning");
-                            const char *length = e3->Attribute("length");
-                            const char *width = e3->Attribute("width");
-                            const char *ffspeed = e3->Attribute("ff_spd");
-
-                            if (!connectionId)   throw std::runtime_error ("Element should have 'id' attribute");
-                            if (!from_link)   throw std::runtime_error ("Element should have 'from_link' attribute");
-                            if (!from_lane)   throw std::runtime_error ("Element should have 'from_lane' attribute");
-                            if (!to_link)   throw std::runtime_error ("Element should have 'to_link' attribute");
-                            if (!to_lane)   throw std::runtime_error ("Element should have 'to_lane' attribute");
-                            if (!turning)   throw std::runtime_error ("Element should have 'turning' attribute");
-                            if (!priority)   priority = "1";
-                            if (!length)   throw std::runtime_error ("Element should have 'length' attribute");
-                            if (!width)   width = "3.5";
-                            if (!ffspeed)   throw std::runtime_error ("Element should have 'ff_spd' attribute");
-
-                            connection single_connection(
-                                atol(connectionId),
-                                atol(from_link),
-                                atol(from_lane),
-                                atol(to_link),
-                                atol(to_lane),
-                                turning,
-                                atof(priority),
-                                atof(length),
-                                atof(width),
-                                atof(ffspeed));
-                                
-                            single_node.pushConnection(single_connection);
-                        }
-                    }
+                    parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_intersectionNodes.push_back(single_node);
                     m_mergingNodes.push_back(single_node);
 
                     single_node.FreeConnectedLinks();
                     single_node.FreeConnectedTable();
-                    single_node.FreePhaseTable();
                 }
 
                 else if (!strcmp (nodeType, "diverging"))
                 {
-                    // create single InputNode instance here
                     InputNode single_node(
                         3,
                         atol(nodeId),
                         atoi(numConnection),
                         atoi(numPort),
-                        strcmp(v2x, "on") == 0 ? true : false);
+                        v2xEnabled);
 
-                    for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
-                         e3 = e3->NextSiblingElement())
-                    {
-                        std::string val1 = e3->Value();
-                        // port should be the same for normal
-                        if (val1 == "port")
-                        {
-                            // create port instance + pushLink to
-                            // InputNode
-                            int temp = -1;
-
-                            const char *link_id = e3->Attribute("link_id");
-                            const char *direction = e3->Attribute("direction");
-                            const char *portType = e3->Attribute("type");
-
-                            if (!link_id)   throw std::runtime_error ("Element should have 'link_id' attribute");
-                            if (!direction)   throw std::runtime_error ("Element should have 'direction' attribute");
-                            if (!portType)   throw std::runtime_error ("Element should have 'type' attribute");
-
-                            if (!strcmp (portType, "in"))
-                            {
-                                temp = 1;
-                            }
-                            port single_link(
-                                atol(link_id),
-                                atoi(direction),
-                                temp);
-                            single_node.pushLink(single_link);
-                        }
-                        else if (val1 == "connection")
-                        {
-                            const char *connectionId = e3->Attribute("id");
-                            const char *from_link = e3->Attribute("from_link");
-                            const char *from_lane = e3->Attribute("from_lane");
-                            const char *to_link = e3->Attribute("to_link");
-                            const char *to_lane = e3->Attribute("to_lane");
-                            const char *priority = e3->Attribute("priority");
-                            const char *turning = e3->Attribute("turning");
-                            const char *length = e3->Attribute("length");
-                            const char *width = e3->Attribute("width");
-                            const char *ffspeed = e3->Attribute("ff_spd");
-
-                            if (!connectionId)   throw std::runtime_error ("Element should have 'id' attribute");
-                            if (!from_link)   throw std::runtime_error ("Element should have 'from_link' attribute");
-                            if (!from_lane)   throw std::runtime_error ("Element should have 'from_lane' attribute");
-                            if (!to_link)   throw std::runtime_error ("Element should have 'to_link' attribute");
-                            if (!to_lane)   throw std::runtime_error ("Element should have 'to_lane' attribute");
-                            if (!turning)   throw std::runtime_error ("Element should have 'turning' attribute");
-                            if (!priority)   priority = "1";
-                            if (!length)   throw std::runtime_error ("Element should have 'length' attribute");
-                            if (!width)   width = "3.5";
-                            if (!ffspeed)   throw std::runtime_error ("Element should have 'ff_spd' attribute");
-
-                            connection single_connection(
-                                atol(connectionId),
-                                atol(from_link),
-                                atol(from_lane),
-                                atol(to_link),
-                                atol(to_lane),
-                                turning,
-                                atof(priority),
-                                atof(length),
-                                atof(width),
-                                atof(ffspeed));
-                                
-                            single_node.pushConnection(single_connection);
-                        }
-                    }
+                    parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_intersectionNodes.push_back(single_node);
                     m_divergingNodes.push_back(single_node);
 
                     single_node.FreeConnectedLinks();
                     single_node.FreeConnectedTable();
-                    single_node.FreePhaseTable();
                 }
 
                 else if (!strcmp (nodeType, "terminal"))
                 {
-                    // create single InputNode instance here
                     InputNode single_node(
                         4, 
                         atol(nodeId), 
                         -1,
                         atoi(numPort),
-                        strcmp(v2x, "on") == 0 ? true : false);
+                        v2xEnabled);
 
-                    for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
-                         e3 = e3->NextSiblingElement())
-                    {
-                        std::string val1 = e3->Value();
-                        // port should be the same for terminal
-                        if (val1 == "port")
-                        {
-                            // create port instance + pushLink to
-                            // InputNode
-                            int temp = -1;
-
-                            const char *link_id = e3->Attribute("link_id");
-                            const char *direction = e3->Attribute("direction");
-                            const char *portType = e3->Attribute("type");
-
-                            if (!link_id)   throw std::runtime_error ("Element should have 'link_id' attribute");
-                            if (!direction)   throw std::runtime_error ("Element should have 'direction' attribute");
-                            if (!portType)   throw std::runtime_error ("Element should have 'type' attribute");
-
-                            if (!strcmp(portType, "in"))
-                            {
-                                temp = 1;
-                            }
-                            port single_link(
-                                atol(link_id),
-                                atoi(direction),
-                                temp);
-                            single_node.pushLink(single_link);
-                        }
-                    }
+                    parseNodeChildren(e2, single_node, false);
                     m_nodes.push_back(single_node);
                     m_terminalNodes.push_back(single_node);
                     
@@ -448,82 +223,14 @@ NodeArr::NodeArr()
 
                 else if (!strcmp (nodeType, "garage"))
                 {
-                    // create single InputNode instance here
                     InputNode single_node(
                         5, 
                         atol(nodeId), 
                         -1,
                         atoi(numPort),
-                        strcmp(v2x, "on") == 0 ? true : false);
+                        v2xEnabled);
 
-                    for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
-                         e3 = e3->NextSiblingElement())
-                    {
-                        std::string val1 = e3->Value();
-                        // port should be the same for normal
-                        if (val1 == "port")
-                        {
-                            // create port instance + pushLink to
-                            // InputNode
-                            int temp = -1;
-
-                            const char *link_id = e3->Attribute("link_id");
-                            const char *direction = e3->Attribute("direction");
-                            const char *portType = e3->Attribute("type");
-
-                            if (!link_id)   throw std::runtime_error ("Element should have 'link_id' attribute");
-                            if (!direction)   throw std::runtime_error ("Element should have 'direction' attribute");
-                            if (!portType)   throw std::runtime_error ("Element should have 'type' attribute");
-
-                            if (!strcmp (portType, "in"))
-                            {
-                                temp = 1;
-                            }
-                            port single_link(
-                                atol(link_id),
-                                atoi(direction),
-                                temp);
-                            single_node.pushLink(single_link);
-                        }
-                        else if (val1 == "connection")
-                        {
-                            const char *connectionId = e3->Attribute("id");
-                            const char *from_link = e3->Attribute("from_link");
-                            const char *from_lane = e3->Attribute("from_lane");
-                            const char *to_link = e3->Attribute("to_link");
-                            const char *to_lane = e3->Attribute("to_lane");
-                            const char *priority = e3->Attribute("priority");
-                            const char *turning = e3->Attribute("turning");
-                            const char *length = e3->Attribute("length");
-                            const char *width = e3->Attribute("width");
-                            const char *ffspeed = e3->Attribute("ff_spd");
-
-                            if (!connectionId)   throw std::runtime_error ("Element should have 'id' attribute");
-                            if (!from_link)   throw std::runtime_error ("Element should have 'from_link' attribute");
-                            if (!from_lane)   throw std::runtime_error ("Element should have 'from_lane' attribute");
-                            if (!to_link)   throw std::runtime_error ("Element should have 'to_link' attribute");
-                            if (!to_lane)   throw std::runtime_error ("Element should have 'to_lane' attribute");
-                            if (!turning)   throw std::runtime_error ("Element should have 'turning' attribute");
-                            if (!priority)   priority = "1";
-                            if (!length)   throw std::runtime_error ("Element should have 'length' attribute");
-                            if (!width)   width = "3.5";
-                            if (!ffspeed)   throw std::runtime_error ("Element should have 'ff_spd' attribute");
-
-                            connection single_connection(
-                                atol(connectionId),
-                                atol(from_link),
-                                atol(from_lane),
-                                atol(to_link),
-                                atol(to_lane),
-                                turning,
-                                atof(priority),
-                                atof(length),
-                                atof(width),
-                                atof(ffspeed));
-                                
-                            single_node.pushConnection(single_connection);
-                        }
-                    }
+                    parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_garageNodes.push_back(single_node);
 

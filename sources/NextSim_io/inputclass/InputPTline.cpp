@@ -2,7 +2,7 @@
  * NextSim Captain
  * @file : InputPTline.cpp
  * @version : 1.1
- * @author : Sujae Jeon
+ * @author : Sujae Jeon, Dongheon Lee
  */
 
 #include <sstream>
@@ -11,27 +11,28 @@
 
 namespace NextSimIO
 {
+//class InputPTlink
+InputPTlink::InputPTlink(int id, int sequence, bool usePTlane)
+    : m_id(id), m_sequence(sequence), m_usePTlane(usePTlane) {}
+
+
+//class InputPTline
 InputPTline::InputPTline(std::string id, double fee, double interval) 
     : m_id(std::move(id)), m_fee(fee), m_interval(interval) {}
 
-void InputPTline::SetLinkSeq(std::string linkSeq)
+/**
+ * @details Push a PTlink to the PTlink sequence
+ * @param ptlink InputPTlink object to be added
+ */
+void InputPTline::PushPTlink(InputPTlink ptlink)
 {
-    std::stringstream ss(linkSeq);
-    int linkid;
-
-    while (ss >> linkid)
-        m_linkSeq.push_back(linkid);
+    m_PTlinkSeq.push_back(ptlink);
 }
 
-void InputPTline::SetNodeSeq(std::string nodeSeq)
-{
-    std::stringstream ss(nodeSeq);
-    int nodeid;
-
-    while (ss >> nodeid)
-       m_nodeSeq.push_back(nodeid);
-}
-
+/**
+ * @details Set sequence of links
+ * @param stationSeq Space-separated sequence of station IDs
+ */
 void InputPTline::SetStationSeq(std::string stationSeq)
 {
     std::stringstream ss(stationSeq);
@@ -41,13 +42,9 @@ void InputPTline::SetStationSeq(std::string stationSeq)
         m_stationSeq.push_back(stationid);
 }
 
-void InputPTline::SetStationDistanceSeq(std::string stationDistanceSeq)
+void InputPTline::PushStationSeq(int stationID)
 {
-    std::stringstream ss(stationDistanceSeq);
-    double stationDistance;
-
-    while (ss >> stationDistance)
-        m_stationDistanceSeq.push_back(stationDistance);
+    m_stationSeq.push_back(stationID);
 }
 
 void InputPTline::SetGarageSeq(std::string garageSeq)
@@ -57,4 +54,9 @@ void InputPTline::SetGarageSeq(std::string garageSeq)
     while (ss >> garageID)
         m_garageSeq.push_back(garageID);
 }
-} // namespace NextSimIO
+
+void InputPTline::PushGarageSeq(int garageID)
+{
+    m_garageSeq.push_back(garageID);
+} 
+}// namespace NextSimIO

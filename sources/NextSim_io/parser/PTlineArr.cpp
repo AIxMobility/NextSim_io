@@ -10,6 +10,7 @@
 #include <string>
 #include <filesystem>
 #include <vector>
+#include <algorithm>
 
 #include <NextSim_io/parser/PTlineArr.hpp>
 #include <NextSim_io/tinyapi/tinystr.h>
@@ -49,49 +50,49 @@ PTlineArr::PTlineArr()
             if (lineElem->Attribute("interval"))
                 interval = std::stoi(lineElem->Attribute("interval"));
 
-        InputPTline tPTline(id, fee, interval);
+            InputPTline tPTline(id, fee, interval);
 
-        TiXmlElement* e = lineElem->FirstChildElement("link");
-        if (e && e->Attribute("seq"))
-        {
-            tPTline.SetLinkSeq(e->Attribute("seq"));
-        }
-
-        e = lineElem->FirstChildElement("node");
-        if (e && e->Attribute("seq"))
-        {
-            tPTline.SetNodeSeq(e->Attribute("seq"));
-        }
-
-        e = lineElem->FirstChildElement("station");
-        if (e && e->Attribute("seq"))
-        {
-            tPTline.SetStationSeq(e->Attribute("seq"));
-        }
-
-        e = lineElem->FirstChildElement("garage");
-        if (e)
-        {
-            if (e->Attribute("id"))
+            TiXmlElement* linksElem = lineElem->FirstChildElement("links");
+            if (linksElem)
             {
-                tPTline.SetGarageSeq(e->Attribute("id"));
-            }
-            else if (e->Attribute("seq"))
-            {
-                tPTline.SetGarageSeq(e->Attribute("seq"));
-            }
-        }
+                for (TiXmlElement* linkElem = linksElem->FirstChildElement("link");
+                    linkElem != nullptr;
+                    linkElem = linkElem->NextSiblingElement("link"))
+                {
+                    int link_id = 0;
+                    int seq = 0;
+                    bool use_ptlane = false;
 
-        if (mode == "Bus")
-            m_busLines.push_back(tPTline);
-        else if (mode == "TRT")
-            m_trtLines.push_back(tPTline);
-        else
-            std::cerr << "Unknown mode: " << mode << " for line id: " << id << std::endl;
+                    const char* attr = nullptr;
+
+                    if ((attr = linkElem->Attribute("id")))
+                        link_id = std::stoi(attr);
+                    if ((attr = linkElem->Attribute("seq")))
+                        seq = std::stoi(attr);
+                    if ((attr = linkElem->Attribute("use_ptlane")))
+                        use_ptlane = (std::string(attr) == "True");
+                    if ((attr = linkElem->Attribute("station")))
+                    {
+                        tPTline.PushStationSeq(std::stoi(attr));
+                    }
+                    if ((attr = linkElem->Attribute("garage")))
+                    {
+                        tPTline.PushGarageSeq(std::stoi(attr));
+                    }
+
+                    InputPTlink ptlink(link_id, seq, use_ptlane);
+                    tPTline.PushPTlink(ptlink);
+                }
+            }
+
+            if (mode == "Bus")
+                m_busLines.push_back(tPTline);
+            else if (mode == "TRT")
+                m_trtLines.push_back(tPTline);
+            else
+                std::cerr << "Unknown mode: " << mode << " for line id: " << id << std::endl;
+        }
     }
-    
 }
-}
-
 } // namespace NextSimIO
  
