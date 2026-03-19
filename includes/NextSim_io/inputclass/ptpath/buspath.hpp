@@ -17,6 +17,7 @@
 #include <NextSim_io/parser/PTlineArr.hpp>
 #include <NextSim_io/parser/StationArr.hpp>
 #include <NextSim_io/parser/LinkArr.hpp>
+#include <NextSim_io/inputclass/InputPTline.hpp>
 
 using namespace NextSimIO;
 namespace Captain

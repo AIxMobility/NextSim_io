@@ -13,6 +13,7 @@
 #include <iomanip>
 
 #include <NextSim_io/inputclass/ptpath/buspath.hpp>
+#include <NextSim_io/inputclass/InputPTline.hpp>
 
 namespace Captain
 {
@@ -29,17 +30,15 @@ buspath::buspath(const PTlineArr& ptlinesArr, const StationArr& stationsArr, con
 
 void buspath::BuildODMap(const InputPTline& ptline, const StationArr& stationsArr, const LinkArr& linksArr)
 {
-    // std::cout << "--------------------------------------------------------" << std::endl;
-    // std::cout << "[OD] Processing line: " << line.GetID() << std::endl;
-
     std::vector<LinkInfo> roadLinks;
     std::vector<StationInfo> roadStations;
 
     // 1. Link info processing 
-    for (int linkId : ptline.GetLinkSeq()) {
+    for (auto ptlink : ptline.GetLinkSeq()) {
         const NextSimIO::InputLink* l = nullptr;
+        std::size_t linkId = ptlink.GetID();
         for (const auto& link : linksArr.GetLinks()) {
-            if (link.GetID() == static_cast<std::size_t>(linkId)) {
+            if (link.GetID() == linkId) {
                 l = &link;
                 break;
             }
@@ -48,7 +47,7 @@ void buspath::BuildODMap(const InputPTline& ptline, const StationArr& stationsAr
             std::cerr << "Warning: Invalid link ID: " << linkId << " in line " << ptline.GetID() << ". Skipping." << std::endl;
             continue;
         }
-        roadLinks.push_back({linkId, l->length});
+        roadLinks.push_back({static_cast<int>(linkId), l->length});
     }
 
     // 2. Station info processing
