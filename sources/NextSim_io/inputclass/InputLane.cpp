@@ -14,37 +14,26 @@
 namespace NextSimIO
 {
 InputLane::InputLane(std::size_t idVal, std::size_t leftLaneIdVal,
-                     std::size_t rightLaneIdVal, std::string laneAccessType, int numCellVal, std::string shape)
+                     std::size_t rightLaneIdVal, std::string laneAccessType, 
+                     int numCellVal, std::vector<std::pair<double, double>> shapePoints)
     : m_id(idVal),
       m_leftLaneId(leftLaneIdVal),
       m_rightLaneId(rightLaneIdVal),
       m_accessibleTypes(laneAccessType),
-      m_numCell(numCellVal)
+      m_numCell(numCellVal),
+      m_shapePoints(std::move(shapePoints))
 {
     m_id = idVal;
     m_numCell = numCellVal;
     m_leftLaneId = leftLaneIdVal;
     m_rightLaneId = rightLaneIdVal;
     m_accessibleTypes = laneAccessType;
-    std::replace(shape.begin(), shape.end(), ',', ' ');
-    std::istringstream iss(shape);
-    double x, y;
-    while (iss >> x >> y) {
-        m_shape.emplace_back(x, y);
-    }
 }
 
 InputLane::InputLane(std::size_t idVal, std::size_t leftLaneIdVal,
                      std::size_t rightLaneIdVal, int numCellVal,
-                     bool LeftEmpty, bool RightEmpty, std::string shape)
+                     bool LeftEmpty, bool RightEmpty)
 {
-    std::replace(shape.begin(), shape.end(), ',', ' ');
-    std::istringstream iss(shape);
-    double x, y;
-    while (iss >> x >> y) {
-        m_shape.emplace_back(x, y);
-    }
-
     m_id = idVal;
     m_numCell = numCellVal;
     if (RightEmpty)

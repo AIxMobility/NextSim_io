@@ -9,7 +9,9 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
-
+#include <sstream>
+#include <vector>
+#include <utility>
 
 #include <NextSim_io/parser/LinkArr.hpp>
 
@@ -22,6 +24,7 @@ namespace NextSimIO
 // tool functions
 void SetCellAttrs(const InputLink& parentLink, InputCell& cell);
 bool a_to_bool(const char* val);
+std::vector<std::pair<double, double>> ParseShapePoints(const char* val);
 
 // Note: All IDs of all objects should be more than 0, if ID is 0 the object is
 // not valid
@@ -67,6 +70,17 @@ LinkArr::LinkArr()
                     if (!width)   throw std::runtime_error ("Element should have 'width' attribute");
                     if (!stop_line)   throw std::runtime_error ("Element should have 'stop_line' attribute");
 
+                    InputLink demoLink(
+                        static_cast<std::size_t>(
+                            atoll(linkId)),
+                            atoi(num_lane),
+                            atof(linkLength),
+                            atof(width),
+                            atof(stop_line));
+
+                    // set the Link 2d, 1d values here.
+                    // TODO: add set min max speed
+
                     const char *ffspeed = e->Attribute("ff_spd");  // km/h
                     const char *qmax = e->Attribute("qmax");  // veh/hr
                     const char *waveSpd = e->Attribute("wave_spd");  // km/h
@@ -86,25 +100,6 @@ LinkArr::LinkArr()
                     if (!maxSpd)   throw std::runtime_error ("Element should have 'max_spd' attribute");
                     if (!minSpd)   throw std::runtime_error ("Element should have 'min_spd' attribute");
                     if (!type)   throw std::runtime_error ("Element should have 'type' attribute");
-
-                    const char *shape = e->Attribute("shape");
-                    std::string shapeStr;
-                    if (shape) {
-                        shapeStr = std::string(shape);
-                    }
-                    else
-                    {
-                        throw std::runtime_error ("Element should have 'shape' attribute");
-                    }
-
-                    InputLink demoLink(
-                        static_cast<std::size_t>(
-                            atoll(linkId)),
-                            atoi(num_lane),
-                            atof(linkLength),
-                            atof(width),
-                            atof(stop_line),
-                            shapeStr);
 
                     demoLink.freeFlowSpeed = std::atof(ffspeed);
                     demoLink.qMax = std::atof(qmax);
@@ -131,6 +126,7 @@ LinkArr::LinkArr()
                             const char *laneId = ele->Attribute("id");
                             const char *num_cell = ele->Attribute("num_cell");
                             const char *laneAccessType = ele->Attribute("laneAccessType");
+                            const char *laneShape = ele->Attribute("shape");
                             
                             if (!left_lane_id)   throw std::runtime_error ("Element should have 'left_lane_id' attribute");
                             if (!right_lane_id)   throw std::runtime_error ("Element should have 'right_lane_id' attribute");
@@ -138,15 +134,7 @@ LinkArr::LinkArr()
                             if (!num_cell)   throw std::runtime_error ("Element should have 'num_cell' attribute");
                             if (!laneAccessType)   laneAccessType = "All";  // default value
                             
-                            const char *laneShape = ele->Attribute("shape");
-                            std::string laneShapeStr;
-                            if (laneShape) {
-                                laneShapeStr = std::string(laneShape);
-                            }
-                            else
-                            {
-                                throw std::runtime_error ("Element should have 'shape' attribute");
-                            }
+                            auto shapePoints = ParseShapePoints(laneShape);
 
                             InputLane demoLane(
                                 (std::size_t)atoll(laneId),
@@ -154,7 +142,7 @@ LinkArr::LinkArr()
                                 (std::size_t)atoll(right_lane_id),
                                 laneAccessType,
                                 atoi(num_cell),
-                                laneShapeStr);
+                                shapePoints);
 
                             for (TiXmlElement* e_lane =
                                      ele->FirstChildElement();
@@ -234,6 +222,31 @@ bool a_to_bool(const char* val)
     //     assert(false);
     // }
     return temp;
+}
+
+std::vector<std::pair<double, double>> ParseShapePoints(const char* val)
+{
+    std::vector<std::pair<double, double>> shapePoints;
+    if (val == nullptr)
+        return shapePoints;
+
+    std::stringstream ss(val);
+    std::string token;
+    while (ss >> token)
+    {
+        const auto commaPos = token.find(',');
+        if (commaPos == std::string::npos)
+            continue;
+
+        const std::string xStr = token.substr(0, commaPos);
+        const std::string yStr = token.substr(commaPos + 1);
+        if (xStr.empty() || yStr.empty())
+            continue;
+
+        shapePoints.emplace_back(std::stod(xStr), std::stod(yStr));
+    }
+
+    return shapePoints;
 }
 
 void SetCellAttrs(const InputLink& parentLink, InputCell& cell)

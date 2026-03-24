@@ -12,16 +12,9 @@
 namespace NextSimIO
 {
 InputLink::InputLink(std::size_t id, int lane, 
-                     double length, double width, 
-                     double stopLine, std::string shape)
+                     double length, double width, double stopLine)
     : MetaData(id, length, width, stopLine), m_numLane(lane)
 {
-    std::replace(shape.begin(), shape.end(), ',', ' ');
-    std::istringstream iss(shape);
-    double x, y;
-    while (iss >> x >> y) {
-        m_shape.emplace_back(x, y);
-    }
 }
 
 void InputLink::PushLaneId(InputLane lane)

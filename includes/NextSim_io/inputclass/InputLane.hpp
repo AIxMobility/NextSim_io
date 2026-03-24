@@ -11,6 +11,7 @@
 
 #include <vector>
 #include <string> 
+#include <utility>
 
 #include "InputCell.hpp"
 #include "InputSegment.hpp"
@@ -39,10 +40,11 @@ public:
      * @param rightLaneIdVal Right lane ID
      * @param laneAccessType Lane access type
      * @param numCellVal Number of cells
-     * @param shape Shape of lane as string
+     * @param shapePoints Lane shape points
     */
     InputLane(std::size_t idVal, std::size_t leftLaneIdVal,
-              std::size_t rightLaneIdVal, std::string laneAccessType, int numCellVal, std::string shape);
+              std::size_t rightLaneIdVal, std::string laneAccessType, int numCellVal,
+              std::vector<std::pair<double, double>> shapePoints);
 
     /**
      * @details Constructor
@@ -52,11 +54,10 @@ public:
      * @param numCellVal Number of cells
      * @param LeftEmpty Whether left lane is empty or not\
      * @param RightEmpty Whether right lane is empty or not
-     * @param shape Shape of lane as string
      */
     InputLane(std::size_t idVal, std::size_t leftLaneIdVal,
               std::size_t rightLaneIdVal, int numCellVal, 
-              bool LeftEmpty, bool RightEmpty, std::string shape);
+              bool LeftEmpty, bool RightEmpty);
 
     /**
      * @details Set lane ID
@@ -142,16 +143,32 @@ public:
     const std::vector<InputSegment>& GetSegmentVector() const { return m_segmentVector; }
 
     /**
-     * @details Set shape of the lane
-     * @param shape Vector of pairs representing the shape
-     */
-    void SetShape(std::vector<std::pair<double, double>> shape) { m_shape = shape; }
+     * @details Replace lane shape points parsed from XML shape attribute.
+     * @param shapePoints Vector of (x, y) points in lane centerline order.
+    */
+    void SetShapePoints(std::vector<std::pair<double, double>> shapePoints)
+    {
+        m_shapePoints = std::move(shapePoints);
+    }
 
     /**
-     * @details Get shape of the lane
-     * @return Vector of pairs representing the shape
-     */
-    std::vector<std::pair<double, double>> GetShape() const { return m_shape; }
+     * @details Add one lane shape point.
+     * @param x X coordinate
+     * @param y Y coordinate
+    */
+    void PushShapePoint(double x, double y)
+    {
+        m_shapePoints.emplace_back(x, y);
+    }
+
+    /**
+     * @details Get lane shape points parsed from XML.
+     * @return Vector of (x, y) shape points.
+    */
+    const std::vector<std::pair<double, double>>& GetShapePoints() const
+    {
+        return m_shapePoints;
+    }
 
 private:
 
@@ -181,6 +198,11 @@ private:
     int m_numCell;
 
     /**
+     * @details Shape points parsed from lane's shape attribute in network.xml
+    */
+    std::vector<std::pair<double, double>> m_shapePoints;
+    
+    /**
      * @details Vector of cells in lane
     */
     std::vector<InputCell> m_cellVector;
@@ -189,11 +211,6 @@ private:
      * @details Vector of segments in lane
     */
     std::vector<InputSegment> m_segmentVector;
-
-    /**
-     * @details Shape of the lane (Global Coordinates)
-    */
-    std::vector<std::pair<double, double>> m_shape;
 };
 } // namespace NextSimIO
 

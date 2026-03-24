@@ -18,6 +18,34 @@
 
 namespace NextSimIO
 {
+namespace
+{
+std::vector<std::pair<double, double>> ParseShapePoints(const char* val)
+{
+    std::vector<std::pair<double, double>> shapePoints;
+    if (val == nullptr)
+        return shapePoints;
+
+    std::stringstream ss(val);
+    std::string token;
+    while (ss >> token)
+    {
+        const auto commaPos = token.find(',');
+        if (commaPos == std::string::npos)
+            continue;
+
+        const std::string xStr = token.substr(0, commaPos);
+        const std::string yStr = token.substr(commaPos + 1);
+        if (xStr.empty() || yStr.empty())
+            continue;
+
+        shapePoints.emplace_back(std::stod(xStr), std::stod(yStr));
+    }
+
+    return shapePoints;
+}
+}
+
 NodeArr::NodeArr()
 {
     TiXmlDocument doc;
@@ -46,19 +74,7 @@ NodeArr::NodeArr()
                 const char *numConnection = e2->Attribute("num_connection");
                 const char *numPort = e2->Attribute("num_port");
                 const char *v2x = e2->Attribute("v2x");
-                const char *center = e2->Attribute("center");
-                std::pair<double, double> globalPos = {0.0, 0.0};
-                if (center)
-                {
-                    std::string centerStr(center);
-                    std::stringstream iss(centerStr);
-                    iss >> globalPos.first >> globalPos.second;
-                }
-                else
-                {
-                    throw std::runtime_error("Element should have 'center' or 'position' attribute");
-                }
-
+                
                 if (!nodeId)   throw std::runtime_error ("Element should have 'id' attribute");
                 if (!nodeType)   throw std::runtime_error ("Element should have 'type' attribute");
                 if (!numConnection)   throw std::runtime_error ("Element should have 'num_connection' attribute");
@@ -102,6 +118,7 @@ NodeArr::NodeArr()
                     const char *length = element->Attribute("length");
                     const char *width = element->Attribute("width");
                     const char *ffspeed = element->Attribute("ff_spd");
+                    const char *shape = element->Attribute("shape");
 
                     if (!connectionId)   throw std::runtime_error ("Element should have 'id' attribute");
                     if (!from_link)   throw std::runtime_error ("Element should have 'from_link' attribute");
@@ -135,7 +152,7 @@ NodeArr::NodeArr()
                         atof(length),
                         atof(width),
                         atof(ffspeed),
-                        shapeStr);
+                        ParseShapePoints(shape));
 
                     targetNode.pushConnection(single_connection);
                 };
@@ -165,7 +182,6 @@ NodeArr::NodeArr()
                         atoi(numPort),
                         v2xEnabled);
 
-                    single_node.SetGlobalPos(globalPos);
                     parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_normalNodes.push_back(single_node);
@@ -184,7 +200,6 @@ NodeArr::NodeArr()
                         atoi(numPort),
                         v2xEnabled);
 
-                    single_node.SetGlobalPos(globalPos);
                     parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_intersectionNodes.push_back(single_node);
@@ -203,7 +218,6 @@ NodeArr::NodeArr()
                         atoi(numPort),
                         v2xEnabled);
 
-                    single_node.SetGlobalPos(globalPos);
                     parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_intersectionNodes.push_back(single_node);
@@ -222,7 +236,6 @@ NodeArr::NodeArr()
                         atoi(numPort),
                         v2xEnabled);
 
-                    single_node.SetGlobalPos(globalPos);
                     parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_intersectionNodes.push_back(single_node);
@@ -239,39 +252,10 @@ NodeArr::NodeArr()
                         atol(nodeId), 
                         -1,
                         atoi(numPort),
-                        strcmp(v2x, "on") == 0 ? true : false);
+                        v2xEnabled);
 
-                    single_node.SetGlobalPos(globalPos);
-                    for (TiXmlElement *e3 = e2->FirstChildElement(); e3 != NULL;
-                         e3 = e3->NextSiblingElement())
-                    {
-                        std::string val1 = e3->Value();
-                        // port should be the same for terminal
-                        if (val1 == "port")
-                        {
-                            // create port instance + pushLink to
-                            // InputNode
-                            int temp = -1;
+                    parseNodeChildren(e2, single_node, false);
 
-                            const char *link_id = e3->Attribute("link_id");
-                            const char *direction = e3->Attribute("direction");
-                            const char *portType = e3->Attribute("type");
-
-                            if (!link_id)   throw std::runtime_error ("Element should have 'link_id' attribute");
-                            if (!direction)   throw std::runtime_error ("Element should have 'direction' attribute");
-                            if (!portType)   throw std::runtime_error ("Element should have 'type' attribute");
-
-                            if (!strcmp(portType, "in"))
-                            {
-                                temp = 1;
-                            }
-                            port single_link(
-                                atol(link_id),
-                                atoi(direction),
-                                temp);
-                            single_node.pushLink(single_link);
-                        }
-                    }
                     m_nodes.push_back(single_node);
                     m_terminalNodes.push_back(single_node);
                     
@@ -287,7 +271,6 @@ NodeArr::NodeArr()
                         atoi(numPort),
                         v2xEnabled);
 
-                    single_node.SetGlobalPos(globalPos);
                     parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_garageNodes.push_back(single_node);
