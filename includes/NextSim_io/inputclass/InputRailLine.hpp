@@ -1,8 +1,8 @@
 /**
  * NextSim Captain
  * @file : InputrailLine.hpp
- * @version : 1.0
- * @author : Yuseock Hwang
+ * @version : 2.0
+ * @author : Yuseock Hwang, Dongheon Lee
  */
 
  
@@ -16,6 +16,53 @@
 namespace NextSimIO
 {
 /**
+ * @class stationSeq
+ * @brief Class for station sequence information in a rail line
+ */
+class stationSeq
+{
+public:
+    /**
+     * @details Constructor
+     * @param id Station ID
+     * @param seq Sequence of station 
+     * @param timeOffset Time offset from the first station
+    */
+    stationSeq(int id, int seq, int timeOffset) : m_stationId(id), m_seq(seq), m_timeOffset(timeOffset) {};
+
+    /**
+     * @details Gets the station ID
+     */
+    int GetId() { return m_stationId; }
+
+    /**
+     * @details Gets the sequence of the station in the line
+     */
+    int GetSeq() { return m_seq; }
+
+    /**
+     * @details Gets the time offset from the first station
+     */
+    int GetTimeOffset() { return m_timeOffset; }
+
+private:
+    /**
+     * @details Station ID
+     */
+    int m_stationId;
+
+    /**
+     * @details Sequence of the station in the line
+     */
+    int m_seq;
+
+    /**
+     * @details Time offset from the first station
+     */
+    int m_timeOffset;
+}; // class stationSeq
+
+/**
  * @class InputrailLine
  * @brief Class for rail line information
  */
@@ -25,9 +72,11 @@ public:
     /**
      * @details Constructor
      * @param id Station ID
-     * @param seq Sequence of station 
+     * @param fee Line fee
+     * @param departureTime Departure time of the line
+     * @param stationSeq Sequence of stations in the line
     */
-    InputRailLine(std::string id, double fee, std::vector<int> seq);
+    InputRailLine(std::string id, double fee, std::vector<std::string> departureTime, std::vector<stationSeq> stationSeqList);
 
     /**
      * @details Get the Line ID
@@ -42,11 +91,16 @@ public:
     double GetFee() { return m_fee; }
 
     /**
-     * @details Get the Line sequence of stations
-     * @return Line sequence of stations
+     * @details Get the departure time of the line
+     * @return departure time of the line
      */
-    std::vector<int> GetRailStationSeq() { return m_seq; }
-    
+    std::vector<std::string> GetDepartureTime() { return m_departureTime; }
+
+    /**
+     * @details Get the station sequence of the line
+     * @return station sequence of the line
+     */
+    std::vector<stationSeq> GetStationSeq() { return m_stationSeq; }
 
 private:
     /**
@@ -60,9 +114,14 @@ private:
     double m_fee;
 
     /**
-     * @details Line sequence of station
+     * @details departure time of the line
     */
-    std::vector<int> m_seq;
+    std::vector<std::string> m_departureTime;
+
+    /**
+     * @details Sequence of stations in the line
+     */
+    std::vector<stationSeq> m_stationSeq;
 };
 }
 

@@ -1,8 +1,8 @@
 /**
  * NextSim Captain
  * @file : InputrailStation.hpp
- * @version : 1.0
- * @author : Yuseock Hwang
+ * @version : 2.0
+ * @author : Yuseock Hwang, Dongheon Lee
  */
 
 #pragma once
@@ -26,22 +26,17 @@ public:
     /**
      * @details Constructor
      * @param id Station ID
+     * @param name Station name
      * @param transitMode Type of transit
      * @param lineList List of lines serving the station
-     * @param address Station name
     */
-    InputRailStation(int id, std::string transitMode, 
-                     std::vector<std::string> lineList, std::string address);
+    InputRailStation(int id, std::string name, std::string transitMode, 
+                    std::vector<std::string> lineList);
     
     /**
      * @details Adds an exit to the station
      */
     void PushExit(exit exit) { m_exit.push_back(exit); }
-
-    /**
-     * @details Adds a timetable to the station
-     */
-    void Pushtimetable(timetable timetable) { m_timetable.push_back(timetable); }
     
     /**
      * @details Gets the station ID
@@ -54,30 +49,30 @@ public:
     std::string GetTransitMode() { return m_transitMode; }
 
     /**
+    * @details Gets the station name
+    */
+    std::string GetName() { return m_name; }
+
+    /**
      * @details Gets the list of lines serving the station
      */
     std::vector<std::string> GetLineList() { return m_lineList; }
-
-    /**
-     * @details Gets the station address
-     */
-    std::string GetAddress() { return m_address; }
 
     /**
      * @details Gets the exits of the station
      */
     std::vector<exit> GetExits() const { return m_exit; }
 
-    /**
-     * @details Gets the timetables of the station
-     */
-    std::vector<timetable> GetTimetables() const { return m_timetable; }
-
 private:
     /**
      * @details Station ID
      */
     int m_id;
+
+    /**
+     * @details  Station name
+     */
+    std::string m_name;
 
     /**
      * @details  Type of transit
@@ -90,19 +85,9 @@ private:
     std::vector<std::string> m_lineList;
 
     /**
-     * @details  Station address
-     */
-    std::string m_address;
-
-    /**
      * @details Exits of railstation.
      */
     std::vector<exit> m_exit;
-
-    /**
-     * @details Timetable of railstation.
-    */
-    std::vector<timetable> m_timetable;
 
 };
 }

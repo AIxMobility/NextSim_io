@@ -11,6 +11,6 @@
  
  namespace NextSimIO
  {
-    exit::exit(int id, int link, int offset, double accesstime) 
+    exit::exit(int id, int link, int offset, int accesstime) 
     : m_id(id), m_link(link), m_offset(offset), m_accesstime(accesstime) {};
  } // namespace NextSimIO

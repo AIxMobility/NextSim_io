@@ -1,13 +1,12 @@
 /**
  * NextSim Captain
  * @file : RailStation.cpp
- * @version : 1.0
- * @author : Yuseock Hwang
+ * @version : 2.0
+ * @author : Yuseock Hwang, Dongheon Lee
  */
 #include <iostream>
 #include <sstream>
 #include <string>
-#include <algorithm>
 
 #include <NextSim_io/parser/RailStationArr.hpp>
 
@@ -20,7 +19,7 @@ namespace NextSimIO
 RailStationArr::RailStationArr()
 {
     TiXmlDocument doc;
-    bool loadSuccess = doc.LoadFile(NextSimIO::RailStationXMLPath.string().c_str());
+    const bool loadSuccess = doc.LoadFile(NextSimIO::RailStationXMLPath.string().c_str());
 
     if (!loadSuccess)
     {
@@ -29,29 +28,41 @@ RailStationArr::RailStationArr()
     }
 
     TiXmlElement *root = doc.FirstChildElement("RailPublicTransit");
+    if (root == nullptr)
+    {
+        std::cout << "Missing root element RailPublicTransit (RailStationArr)" << std::endl;
+        return;
+    }
 
     TiXmlElement *railStations = root->FirstChildElement("railStations");
+    if (railStations == nullptr)
+    {
+        std::cout << "Missing railStations element (RailStationArr)" << std::endl;
+        return;
+    }
 
     for (TiXmlElement *stationElem = railStations->FirstChildElement("railStation");
-    stationElem != NULL;
-    stationElem = stationElem->NextSiblingElement("railStation"))
+        stationElem != nullptr;
+        stationElem = stationElem->NextSiblingElement("railStation"))
     {
         const int id = std::stoi(stationElem->Attribute("id"));
+        const std::string name = stationElem->Attribute("name");
 
         const std::string transitMode = stationElem->Attribute("transitMode");
 
-        const std::string lineLisStr = stationElem->Attribute("lineList");
+        const std::string lineListStr = stationElem->Attribute("lineList");
         std::vector<std::string> lineList;
-        std::istringstream lineStream(lineLisStr);
+        std::istringstream lineStream(lineListStr);
         std::string line;
-        while (std::getline(lineStream, line, ' ')) {
-            lineList.push_back(line);
+        while (std::getline(lineStream, line, ' '))
+        {
+            if (!line.empty())
+            {
+                lineList.push_back(line);
+            }
         }
 
-        const std::string address = stationElem->Attribute("address");
-
-        InputRailStation station(id, transitMode, lineList, address);
-
+        InputRailStation station(id, name, transitMode, lineList);
 
         TiXmlElement *exitList = stationElem->FirstChildElement("exit");
         for (TiXmlElement *exitElem = exitList; exitElem != nullptr;
@@ -59,29 +70,11 @@ RailStationArr::RailStationArr()
         {
             int exitId = std::stoi(exitElem->Attribute("id"));
             int linkRef = std::stoi(exitElem->Attribute("linkRef"));
-            int offset = std::stod(exitElem->Attribute("offset"));
-            double accessTime = std::stoi(exitElem->Attribute("accessTime"));
+            int offset = std::stoi(exitElem->Attribute("offset"));
+            int accessTime = std::stoi(exitElem->Attribute("accessTime"));
 
-            exit exit(exitId, linkRef, offset, accessTime);
-            station.PushExit(exit);
-        }
-
-        TiXmlElement *timetableList = stationElem->FirstChildElement("timetable");
-        for (TiXmlElement *timetableElem = timetableList; timetableElem != nullptr;
-        timetableElem = timetableElem->NextSiblingElement("timetable"))
-        {
-            std::string dayOfWeek = timetableElem->Attribute("dayOfWeek");
-            std::string lineId = timetableElem->Attribute("lineId");
-            std::vector<std::string> times;
-            std::istringstream timeStream(timetableElem->Attribute("time"));
-            std::string time;
-            while (timeStream >> time)
-            {
-                times.push_back(time);
-            }
-            timetable timetable(dayOfWeek, lineId, times);
-
-            station.Pushtimetable(timetable);
+            exit stationExit(exitId, linkRef, offset, accessTime);
+            station.PushExit(stationExit);
         }
 
         m_railstation.push_back(station);
