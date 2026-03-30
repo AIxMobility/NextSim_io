@@ -12,27 +12,10 @@
 
 #include <vector>
 #include <string>
+#include <NextSim_io/inputclass/InputV2X.hpp>
 
 namespace NextSimIO
 {
-struct V2XModeData
-{
-    bool v2i = true;
-    bool v2v = true;
-};
-
-struct V2XMsgData
-{
-    bool congestion = true;
-    bool danger = true;
-};
-
-struct V2XData
-{
-    V2XModeData mode;
-    V2XMsgData msg;
-};
-
 /**
  * @class InputScenario
  * @brief Class for each simulation mode information
@@ -49,9 +32,9 @@ public:
      * @param odID OD matrix ID
      * @param todID TOD matrix ID
      * @param signalControl Whether signal control is active
-     * @param v2xData V2X data
+     * @param v2xActive Whether V2X is active or not
     */
-    InputScenario(int id, std::string startTime, int duration, int BGTduration, int odID, int todID, bool signalControl = false, V2XData v2xData = V2XData());
+    InputScenario(int id, std::string startTime, int duration, int BGTduration, int odID, int todID, bool signalControl = false, bool v2xActive = false);
 
     /** @cond EXCLUDE */
     ~InputScenario() = default;
@@ -102,10 +85,10 @@ public:
     bool IsSignalControl() const { return m_signalControl; }
 
     /**
-     * @brief Get V2X data
-     * @return V2X data
+     * @brief Check if V2X is active
+     * @return True if V2X is active, false otherwise
     */
-    V2XData GetV2XData() const { return m_v2xData; }
+    bool IsV2XActive() const { return m_v2xActive; }
 
 
 private:
@@ -145,9 +128,9 @@ private:
     bool m_signalControl = false;
 
     /**
-     * @details V2X data
+     * @details Whether V2X is active or not
     */
-    V2XData m_v2xData;
+    bool m_v2xActive = false;
 };
 } // namespace NextSimIO
 

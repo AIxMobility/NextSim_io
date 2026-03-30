@@ -56,25 +56,11 @@ ScenarioArr::ScenarioArr()
             int todID = scenario["todID"].GetInt();
             bool signalControl = scenario["signalControl"].GetBool();
 
-            V2XData v2xData;
-            if (scenario.HasMember("v2x") && scenario["v2x"].IsObject())
-            {
-                const rapidjson::Value& v2x = scenario["v2x"];
-                if (v2x.HasMember("mode") && v2x["mode"].IsObject())
-                {
-                    const rapidjson::Value& mode = v2x["mode"];
-                    if (mode.HasMember("v2i")) v2xData.mode.v2i = mode["v2i"].GetBool();
-                    if (mode.HasMember("v2v")) v2xData.mode.v2v = mode["v2v"].GetBool();
-                }
-                if (v2x.HasMember("msg") && v2x["msg"].IsObject())
-                {
-                    const rapidjson::Value& msg = v2x["msg"];
-                    if (msg.HasMember("congestion")) v2xData.msg.congestion = msg["congestion"].GetBool();
-                    if (msg.HasMember("danger")) v2xData.msg.danger = msg["danger"].GetBool();
-                }
-            }
+            bool v2xActive = false;
+            if (scenario.HasMember("v2x") && scenario["v2x"].IsBool())
+                v2xActive = scenario["v2x"].GetBool();
 
-            InputScenario singleScenario(id, startTime, duration, BGTduration, odID, todID, signalControl, std::move(v2xData));
+            InputScenario singleScenario(id, startTime, duration, BGTduration, odID, todID, signalControl, v2xActive);
             m_scenarios.emplace_back(singleScenario);
         }
     }

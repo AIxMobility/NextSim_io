@@ -69,6 +69,10 @@ static std::filesystem::path ScenarioJSONPath = NetworkXmlFilePath / "config_sce
 
 static std::filesystem::path NetworkXMLPath = NetworkXmlFilePath / "network.xml";
 
+static std::filesystem::path V2XConfigJSONPath = NetworkXmlFilePath / "config_v2x.json";
+
+static std::filesystem::path V2XEventJSONPath = NetworkXmlFilePath / "event_v2x.json";
+
 static std::filesystem::path SignalTODXMLPath = NetworkXmlFilePath / "signalTOD.xml";
 
 static std::filesystem::path SignalXMLPath = NetworkXmlFilePath / "signal.xml";
@@ -96,8 +100,6 @@ static std::filesystem::path RouteJSONPath = NetworkXmlFilePath / "Route.json";
 static std::filesystem::path PTRouteJSONPath = NetworkXmlFilePath / "PaxRoute.json";
 
 static std::filesystem::path EventXMLPath = NetworkXmlFilePath / "eventdata.xml";
-
-static std::filesystem::path V2XXMLPath = NetworkXmlFilePath / "v2xdata.xml";
 
 static std::filesystem::path BackgroundTrafficXMLPath = NetworkXmlFilePath / "backgroundTraffic.xml";
 

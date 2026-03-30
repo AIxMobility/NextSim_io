@@ -74,6 +74,7 @@ NodeArr::NodeArr()
                 const char *numConnection = e2->Attribute("num_connection");
                 const char *numPort = e2->Attribute("num_port");
                 const char *v2x = e2->Attribute("v2x");
+                const char *center = e2->Attribute("center");
                 
                 if (!nodeId)   throw std::runtime_error ("Element should have 'id' attribute");
                 if (!nodeType)   throw std::runtime_error ("Element should have 'type' attribute");
@@ -82,6 +83,13 @@ NodeArr::NodeArr()
                 if (!v2x)   v2x = "off";
 
                 const bool v2xEnabled = (strcmp(v2x, "on") == 0);
+
+                double x = 0, y = 0;
+                if (center)
+                {
+                    std::stringstream ss(center);
+                    ss >> x >> y;
+                }
 
                 auto parsePort = [](TiXmlElement *element, InputNode& targetNode) {
                     int temp = -1;
@@ -182,6 +190,7 @@ NodeArr::NodeArr()
                         atoi(numPort),
                         v2xEnabled);
 
+                    single_node.SetGlobalPos({x, y});
                     parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_normalNodes.push_back(single_node);
@@ -200,6 +209,7 @@ NodeArr::NodeArr()
                         atoi(numPort),
                         v2xEnabled);
 
+                    single_node.SetGlobalPos({x, y});
                     parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_intersectionNodes.push_back(single_node);
@@ -218,6 +228,7 @@ NodeArr::NodeArr()
                         atoi(numPort),
                         v2xEnabled);
 
+                    single_node.SetGlobalPos({x, y});
                     parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_intersectionNodes.push_back(single_node);
@@ -236,6 +247,7 @@ NodeArr::NodeArr()
                         atoi(numPort),
                         v2xEnabled);
 
+                    single_node.SetGlobalPos({x, y});
                     parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_intersectionNodes.push_back(single_node);
@@ -254,6 +266,7 @@ NodeArr::NodeArr()
                         atoi(numPort),
                         v2xEnabled);
 
+                    single_node.SetGlobalPos({x, y});
                     parseNodeChildren(e2, single_node, false);
 
                     m_nodes.push_back(single_node);
@@ -271,6 +284,7 @@ NodeArr::NodeArr()
                         atoi(numPort),
                         v2xEnabled);
 
+                    single_node.SetGlobalPos({x, y});
                     parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_garageNodes.push_back(single_node);
