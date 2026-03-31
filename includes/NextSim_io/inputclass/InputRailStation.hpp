@@ -12,7 +12,6 @@
 #include <vector>
 #include <string>
 #include <NextSim_io/inputclass/Railstation/exit.hpp>
-#include <NextSim_io/inputclass/Railstation/timetable.hpp>
 
 namespace NextSimIO
 {

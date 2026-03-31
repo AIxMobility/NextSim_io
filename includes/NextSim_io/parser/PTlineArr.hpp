@@ -43,6 +43,15 @@ public:
         return m_trtLines;
     }
 
+    /**
+     * @details Get vector of public transit lines for Tram
+     * @return Vector of public transit lines for Tram
+    */
+    std::vector<InputPTline> GetTramLines()
+    {
+        return m_tramLines;
+    }
+
 private:
     /**
      * @details Vector of public transit lines
@@ -53,6 +62,11 @@ private:
      * @details Vector of public transit lines for TRT
     */
     std::vector<InputPTline> m_trtLines;
+
+    /**
+     * @details Vector of public transit lines for Tram
+    */
+    std::vector<InputPTline> m_tramLines;
 };
 } // namespace NextSimIO
 

@@ -89,6 +89,8 @@ PTlineArr::PTlineArr()
                 m_busLines.push_back(tPTline);
             else if (mode == "TRT")
                 m_trtLines.push_back(tPTline);
+            else if (mode == "Tram")
+                m_tramLines.push_back(tPTline);
             else
                 std::cerr << "Unknown mode: " << mode << " for line id: " << id << std::endl;
         }
