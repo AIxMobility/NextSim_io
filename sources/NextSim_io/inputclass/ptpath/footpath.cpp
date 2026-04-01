@@ -31,9 +31,7 @@ void footpath::LoadFootpathNetwork() {
     bool loadSuccess = doc.LoadFile(NextSimIO::FootpathNetworkXMLPath.string().c_str());
 
     if (!loadSuccess) {
-        std::cerr << "Error: Loading failed (Footpath). Could not open or parse file: "
-                  << NextSimIO::FootpathNetworkXMLPath.string() << std::endl;
-        std::cerr << "TinyXML Error: " << doc.ErrorDesc() << std::endl;
+        std::cerr << "Loading failed (Footpath)\n";
         m_isNetworkLoaded = false;
         return;
     }
