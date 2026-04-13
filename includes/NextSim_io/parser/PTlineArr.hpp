@@ -35,6 +35,15 @@ public:
     }
 
     /**
+     * @details Get vector of public transit lines for autonomous bus
+     * @return Vector of public transit lines for autonomous bus
+    */
+    std::vector<InputPTline> GetAutonomousBusLines() const
+    {
+        return m_autonomousBusLines;
+    }
+
+    /**
      * @details Get vector of public transit lines for TRT
      * @return Vector of public transit lines for TRT
     */
@@ -45,9 +54,14 @@ public:
 
 private:
     /**
-     * @details Vector of public transit lines
+     * @details Vector of public transit lines for normal bus
     */
     std::vector<InputPTline> m_busLines;
+
+    /**
+     * @details Vector of public transit lines for autonomous bus
+     */
+    std::vector<InputPTline> m_autonomousBusLines;
 
     /**
      * @details Vector of public transit lines for TRT
