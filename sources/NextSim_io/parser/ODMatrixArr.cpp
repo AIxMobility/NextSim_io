@@ -172,6 +172,47 @@ ODMatrixArr::ODMatrixArr()
                         }
                     }
                 }
+                else if (childName == "cavodMatrix")
+                {
+                    for (TiXmlElement *demand = child->FirstChildElement();
+                         demand != NULL; demand = demand->NextSiblingElement())
+                    {
+                        std::string demandName = demand->Value();
+
+                        if (demandName == "demand")
+                        {
+                            const char *flow = demand->Attribute("flow");
+                            const char *sink = demand->Attribute("sink");
+                            const char *source = demand->Attribute("source");
+                            const char *dist = demand->Attribute("dist");
+
+                            if (!flow)
+                                throw std::runtime_error(
+                                    "Element should have 'flow' attribute");
+                            if (!sink)
+                                throw std::runtime_error(
+                                    "Element should have 'sink' attribute");
+                            if (!source)
+                                throw std::runtime_error(
+                                    "Element should have 'source' attribute");
+                            if (!dist)
+                                dist = "Exponential";
+
+                            if (!strcmp(dist, "Normal")) dist = "0";
+                            else if (!strcmp(dist, "Exponential")) dist = "1";
+                            else dist = "2"; 
+
+                            InputFlow single_flow(
+                                6,
+                                atoi(flow), 
+                                atoi(sink),
+                                atoi(source), 
+                                atoi(dist));
+
+                            odmatrix.push_back(single_flow);
+                        }
+                    }
+                }
             }
 
             InputODMatrix InputODMatrix(

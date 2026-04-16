@@ -28,7 +28,7 @@ static std::filesystem::path get_simulation_input_path() {
     }
     
     // Fallback to direct path if relative path doesn't work
-    return "/home/elena0210/NextSim/SimulationInput";
+    return "/home/chaemin/NextSim/SimulationInput";
 }
 
 static std::pair<std::string, std::string> load_network_name() {
@@ -71,7 +71,7 @@ static std::filesystem::path NetworkXMLPath = NetworkXmlFilePath / "network.xml"
 
 static std::filesystem::path V2XConfigJSONPath = NetworkXmlFilePath / "config_v2x.json";
 
-static std::filesystem::path V2XEventJSONPath = NetworkXmlFilePath / "event_v2x.json";
+static std::filesystem::path V2XEventXMLPath = NetworkXmlFilePath / "event_v2x.xml";
 
 static std::filesystem::path SignalTODXMLPath = NetworkXmlFilePath / "signalTOD.xml";
 

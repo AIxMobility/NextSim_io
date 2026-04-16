@@ -1,7 +1,7 @@
 /**
  * NextSim Captain
  * @file : V2XArr.cpp
- * @version : 1.5
+ * @version : 2.0
  * @author : Elena
  */
 
@@ -9,6 +9,8 @@
 #include <NextSim_io/FilePath.hpp>
 #include <rapidjson/document.h>
 #include <rapidjson/istreamwrapper.h>
+#include <NextSim_io/tinyapi/tinystr.h>
+#include <NextSim_io/tinyapi/tinyxml.h>
 #include <fstream>
 #include <iostream>
 
@@ -34,7 +36,7 @@ V2XArr::V2XArr()
                 if (range.HasMember("V2VRange")) m_v2xData.range.v2vRange = range["V2VRange"].GetDouble();
             }
 
-            // 1.2 Load V2XMessage (replaces old V2XConfig)
+            // 1.2 Load V2XMessage
             if (doc.HasMember("V2XMessage") && doc["V2XMessage"].IsObject())
             {
                 const rapidjson::Value& msg = doc["V2XMessage"];
@@ -47,8 +49,6 @@ V2XArr::V2XArr()
                 if (msg.HasMember("SpeedLimit")) m_v2xData.message.speedLimit = msg["SpeedLimit"].GetBool();
                 if (msg.HasMember("CollisionWarn")) m_v2xData.message.collisionWarn = msg["CollisionWarn"].GetBool();
 
-                // Compute activeMsgTypes using int values matching Captain::V2XMsgType enum
-                // (Position=1, TrafficInfo=2, SignalPhase=3, RoadEvent=4, SchoolZone=5, SpeedLimit=6, CollisionWarn=7)
                 if (m_v2xData.message.position)      m_v2xData.activeMsgTypes.push_back(1);
                 if (m_v2xData.message.trafficInfo)   m_v2xData.activeMsgTypes.push_back(2);
                 if (m_v2xData.message.signalPhase)   m_v2xData.activeMsgTypes.push_back(3);
@@ -70,67 +70,69 @@ V2XArr::V2XArr()
         std::cout << "Loading failed (V2X Config JSON): " << NextSimIO::V2XConfigJSONPath << std::endl;
     }
 
-    // 2. Load event_v2x.json
-    std::ifstream eventIfs(NextSimIO::V2XEventJSONPath.string());
-    if (eventIfs.is_open())
+    // 2. Load event_v2x.xml
+    TiXmlDocument doc;
+    bool loadSuccess = doc.LoadFile(NextSimIO::V2XEventXMLPath.string().c_str());
+
+    if (loadSuccess)
     {
-        rapidjson::IStreamWrapper isw(eventIfs);
-        rapidjson::Document doc;
-        doc.ParseStream(isw);
-
-        if (!doc.HasParseError() && doc.HasMember("V2XEvents") && doc["V2XEvents"].IsArray())
+        TiXmlElement *root = doc.FirstChildElement();
+        if (root)
         {
-            const rapidjson::Value& events = doc["V2XEvents"];
             int eventCounter = 0;
-            for (rapidjson::SizeType i = 0; i < events.Size(); i++)
+            for (TiXmlElement *elem = root->FirstChildElement(); elem != nullptr;
+                 elem = elem->NextSiblingElement())
             {
-                const rapidjson::Value& event = events[i];
-                V2XEventData eventData;
-                if (event.HasMember("linkId")) eventData.linkId = event["linkId"].GetInt();
-                
-                // Multi-lane support
-                if (event.HasMember("laneIds") && event["laneIds"].IsArray())
+                std::string elemName = elem->Value();
+                if (elemName == "event")
                 {
-                    const rapidjson::Value& lanes = event["laneIds"];
-                    for (rapidjson::SizeType j = 0; j < lanes.Size(); j++)
+                    V2XEventData eventData;
+
+                    const char* linkId = elem->Attribute("linkId");
+                    const char* link_id = elem->Attribute("link_id");
+                    const char* lane = elem->Attribute("lane");
+                    const char* startPos = elem->Attribute("startPos");
+                    const char* endPos = elem->Attribute("endPos");
+                    const char* pos = elem->Attribute("pos");
+                    const char* stime = elem->Attribute("stime");
+                    const char* etime = elem->Attribute("etime");
+                    const char* type = elem->Attribute("type");
+
+                    if (linkId) eventData.linkId = atoi(linkId);
+                    else if (link_id) eventData.linkId = atoi(link_id);
+                    if (lane) eventData.laneIds.push_back(atoi(lane));
+                    else eventData.laneIds.push_back(-1);
+                    if (startPos) eventData.startPos = atof(startPos);
+                    else if (pos) { eventData.startPos = atof(pos); eventData.endPos = atof(pos); }
+                    if (endPos) eventData.endPos = atof(endPos);
+                    if (stime) eventData.startTime = atof(stime);
+                    if (etime) eventData.endTime = atof(etime);
+
+                    if (type)
                     {
-                        eventData.laneIds.push_back(lanes[j].GetInt());
+                        std::string typeStr(type);
+                        if (typeStr == "Position") eventData.msgType = 1;
+                        else if (typeStr == "TrafficInfo") eventData.msgType = 2;
+                        else if (typeStr == "SignalPhase") eventData.msgType = 3;
+                        else if (typeStr == "RoadEvent") eventData.msgType = 4;
+                        else if (typeStr == "SchoolZone") eventData.msgType = 5;
+                        else if (typeStr == "SpeedLimit") eventData.msgType = 6;
+                        else if (typeStr == "CollisionWarn") eventData.msgType = 7;
+                        else eventData.msgType = atoi(type);
                     }
-                }
-                else if (event.HasMember("laneId")) // Legacy support
-                {
-                    eventData.laneIds.push_back(event["laneId"].GetInt());
-                }
-                
-                if (eventData.laneIds.empty()) eventData.laneIds.push_back(-1); // Default to all lanes
 
-                if (event.HasMember("startPos")) eventData.startPos = event["startPos"].GetDouble();
-                if (event.HasMember("endPos")) eventData.endPos = event["endPos"].GetDouble();
-                if (event.HasMember("startTime")) eventData.startTime = event["startTime"].GetDouble();
-                if (event.HasMember("endTime")) eventData.endTime = event["endTime"].GetDouble();
-                if (event.HasMember("msgType")) eventData.msgType = event["msgType"].GetInt();
-
-                if (event.HasMember("content") && event["content"].IsObject())
-                {
-                    const rapidjson::Value& content = event["content"];
-                    if (content.HasMember("speedLimit")) eventData.content.speedLimit = content["speedLimit"].GetDouble();
-                    if (content.HasMember("eventDetail")) eventData.content.eventDetail = content["eventDetail"].GetString();
-                    if (content.HasMember("collisionWarning")) eventData.content.collisionWarning = content["collisionWarning"].GetBool();
+                    int currentEventID = eventCounter++;
+                    m_v2xData.events.push_back(eventData);
+                    m_v2xData.idEventMap[currentEventID] = eventData;
                 }
-
-                int currentEventID = eventCounter++;
-                m_v2xData.events.push_back(eventData);
-                m_v2xData.idEventMap[currentEventID] = eventData;
             }
-        }
-        else
-        {
-            std::cout << "Parse error (V2X Events JSON)" << std::endl;
         }
     }
     else
     {
-        std::cout << "Loading failed (V2X Events JSON): " << NextSimIO::V2XEventJSONPath << std::endl;
+        std::cout << "Loading failed (V2X Events XML): " << NextSimIO::V2XEventXMLPath << std::endl;
     }
+
+    doc.Clear();
 }
 } // namespace NextSimIO
