@@ -94,6 +94,12 @@ public:
     double GetWidth() { return m_width; }
 
     /**
+     * @details Get free flow speed of the connection
+     * @return Free flow speed [km/h]
+     */
+    double GetFreeFlowSpeed() { return m_ffSpeed; }
+
+    /**
      * @details Get connection shape points.
      * @return Ordered shape points of the connection centerline.
      */

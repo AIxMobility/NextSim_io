@@ -16,8 +16,8 @@ InputGraphVertex::InputGraphVertex()
 InputGraphVertex::InputGraphVertex(int id, int type, float heuristic, int rank)
     : m_id(id), m_type(type), m_heuristic(heuristic), m_rank(rank) {};
 
-ConnectionInfo::ConnectionInfo(int fromLink, int toLink, int fromLane, int toLane, double length)
-    : m_fromLink(fromLink), m_toLink(toLink), m_fromLane(fromLane), m_toLane(toLane), m_length(length) {};
+ConnectionInfo::ConnectionInfo(int fromLink, int toLink, int fromLane, int toLane, double length, double ffSpeed)
+    : m_fromLink(fromLink), m_toLink(toLink), m_fromLane(fromLane), m_toLane(toLane), m_length(length), m_ffSpeed(ffSpeed) {};
 
 VertexCoord::VertexCoord(float x, float y)
     : m_x(x), m_y(y) {};
@@ -44,7 +44,7 @@ float InputGraphVertex::CalHeuristic(InputGraphVertex departVertex, InputGraphVe
     return heuristic;
 }
 
-double InputGraphVertex::GetVertexLength(int fromLink, int toLink)
+std::pair<double, double> InputGraphVertex::GetVertexParams(int fromLink, int toLink)
 {
     std::vector<ConnectionInfo> connections = GetConnectionInfo();
 
@@ -52,11 +52,11 @@ double InputGraphVertex::GetVertexLength(int fromLink, int toLink)
     {
         if (connection.GetFromLink() == fromLink && connection.GetToLink() == toLink)
         {
-            return connection.GetLength();
+            return {connection.GetLength(), connection.GetFreeFlowSpeed()};
         }
     }
 
-    return 0;
+    return {0, 0};
 }
 
 } // namespace NextSimIO
