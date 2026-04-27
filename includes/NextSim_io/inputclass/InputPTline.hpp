@@ -6,8 +6,8 @@
  */
 
 #pragma once
-#ifndef INPUTPTROUTE_H
-#define INPUTPTROUTE_H
+#ifndef INPUTPTLINE_H
+#define INPUTPTLINE_H
 
 #include <string>
 #include <vector>
@@ -62,7 +62,7 @@ private:
 
 /**
  * @class InputPTline
- * @brief Class for each public transit line information
+ * @brief Class for public transit line
  */
 class InputPTline
 {
@@ -105,37 +105,37 @@ public:
      * @details Get public transit line ID
      * @return Public transit line ID
      */
-    std::string GetID() { return m_id; }
+    std::string GetID() const { return m_id; }
 
     /**
      * @details Get fare for using the public transit line
      * @return Fare for using the public transit line
      */
-    double GetFee() { return m_fee; }
+    double GetFee() const { return m_fee; }
 
     /**
      * @details Get dispatch interval
      * @return Dispatch interval [min]
      */
-    double GetInterval() { return m_interval; }
+    double GetInterval() const { return m_interval; }
 
     /**
      * @details Get sequence of links that line passes
      * @return Sequence of links that line passes
      */
-    std::vector<InputPTlink> GetLinkSeq() { return m_PTlinkSeq; }
+    std::vector<InputPTlink> GetLinkSeq() const { return m_PTlinkSeq; }
 
     /**
      * @details Get sequence of stations
      * @return Sequence of stations that line passes
      */
-    std::vector<int> GetStationSeq() { return m_stationSeq; }
+    std::vector<int> GetStationSeq() const { return m_stationSeq; }
 
     /**
      * @details Get sequence of garages for rail transit
      * @return Sequence of garage IDs
      */
-    std::vector<int> GetGarageSeq() { return m_garageSeq; }
+    std::vector<int> GetGarageSeq() const { return m_garageSeq; }
 
 private:
     /**
@@ -170,4 +170,4 @@ private:
 };
 } // namespace NextSimIO
 
-#endif
+#endif // INPUTPTLINE_H

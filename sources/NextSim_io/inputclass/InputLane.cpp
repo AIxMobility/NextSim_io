@@ -11,12 +11,14 @@
 namespace NextSimIO
 {
 InputLane::InputLane(std::size_t idVal, std::size_t leftLaneIdVal,
-                     std::size_t rightLaneIdVal, std::string laneAccessType, int numCellVal)
+                     std::size_t rightLaneIdVal, std::string laneAccessType, 
+                     int numCellVal, std::vector<std::pair<double, double>> shapePoints)
     : m_id(idVal),
       m_leftLaneId(leftLaneIdVal),
       m_rightLaneId(rightLaneIdVal),
       m_accessibleTypes(laneAccessType),
-      m_numCell(numCellVal)
+      m_numCell(numCellVal),
+      m_shapePoints(std::move(shapePoints))
 {
     m_id = idVal;
     m_numCell = numCellVal;

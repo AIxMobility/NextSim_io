@@ -2,7 +2,7 @@
  * NextSim Captain
  * @file : RailLineArr.cpp
  * @version : 2.0
- * @author : Yuseock Hwang, Dongheon Lee
+ * @author : Yuseock Hwang, Yeonwoo Yu, Sujae Jeon, Dongheon Lee
  */
 #include <iostream>
 #include <sstream>
@@ -29,79 +29,37 @@ RailLineArr::RailLineArr()
         return;
     }
 
-    TiXmlElement *modeElem = doc.FirstChildElement("Mode");
-    if (modeElem == nullptr)
-    {
-        std::cout << "Missing Mode element (RailLineArr)" << std::endl;
-        return;
-    }
+    TiXmlElement* modeElem = doc.FirstChildElement("Mode");
 
-    TiXmlElement *linesElem = modeElem->FirstChildElement("Lines");
-    if (linesElem == nullptr)
-    {
-        std::cout << "Missing Lines element (RailLineArr)" << std::endl;
-        return;
-    }
+    TiXmlElement* linesElem = modeElem->FirstChildElement("Lines");
 
-    for (TiXmlElement *lineElem = linesElem->FirstChildElement("Line");
-         lineElem != nullptr;
-         lineElem = lineElem->NextSiblingElement("Line"))
+    for (TiXmlElement* lineElem = linesElem->FirstChildElement("Line");
+        lineElem != nullptr;
+        lineElem = lineElem->NextSiblingElement("Line"))
     {
-        const char *idAttr = lineElem->Attribute("id");
-        if (idAttr == nullptr)
-        {
+        const char* idAttr = lineElem->Attribute("id");
+        const char* seqAttr = lineElem->Attribute("railStationSeq");
+
+        if (!idAttr || !seqAttr) {
+            std::cerr << "[WARN] Skipping Line: missing 'id' or 'railStationSeq'\n";
             continue;
         }
 
-        const char *feeAttr = lineElem->Attribute("fee");
-        const double fee = (feeAttr != nullptr) ? std::stod(feeAttr) : 0.0;
+        std::string id = idAttr;
+        std::string stationSeqStr = seqAttr;
 
-        std::vector<std::string> departureTimes;
-        const char *departureAttr = lineElem->Attribute("departureTime");
-        if (departureAttr != nullptr)
-        {
-            std::stringstream departureStream(departureAttr);
-            std::string departure;
-            while (departureStream >> departure)
-            {
-                departureTimes.push_back(departure);
-            }
-        }
+        const char* feeAttr = lineElem->Attribute("fee");
+        double fee = (feeAttr != nullptr) ? std::stod(feeAttr) : 0;
 
-        std::vector<stationSeq> stationSeqList;
-        std::vector<std::pair<int, stationSeq>> orderedStations;
-        for (TiXmlElement *seqElem = lineElem->FirstChildElement("stationSeq");
-             seqElem != nullptr;
-             seqElem = seqElem->NextSiblingElement("stationSeq"))
-        {
-            const char *stationIdAttr = seqElem->Attribute("id");
-            const char *seqAttr = seqElem->Attribute("seq");
-            if (stationIdAttr == nullptr || seqAttr == nullptr)
-            {
-                continue;
-            }
-
-            const int stationId = std::stoi(stationIdAttr);
-            const int seq = std::stoi(seqAttr);
-            const char *timeOffsetAttr = seqElem->Attribute("timeOffset");
-            const int timeOffset = (timeOffsetAttr != nullptr) ? std::stoi(timeOffsetAttr) : 0;
-
-            orderedStations.emplace_back(seq, stationSeq(stationId, seq, timeOffset));
-        }
-
-        std::sort(orderedStations.begin(), orderedStations.end(),
-                  [](const std::pair<int, stationSeq> &lhs, const std::pair<int, stationSeq> &rhs)
-                  {
-                      return lhs.first < rhs.first;
-                  });
-        stationSeqList.reserve(orderedStations.size());
-        for (const auto &entry : orderedStations)
+        std::vector<int> stationSeq;
+        std::istringstream stationStream(stationSeqStr);
+        int station;
+        while (stationStream >> station)
         {
             stationSeqList.push_back(entry.second);
         }
 
-        InputRailLine line(idAttr, fee, departureTimes, stationSeqList);
-        m_railline.push_back(line);
+        m_railLines.emplace_back(id, fee, stationSeq);
     }
     doc.Clear();
 }

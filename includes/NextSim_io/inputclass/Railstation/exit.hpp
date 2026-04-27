@@ -2,7 +2,7 @@
  * NextSim Captain
  * @file : exit.hpp
  * @version : 1.0
- * @author : YuseockHwang
+ * @author : Yuseock Hwang
  */
 
 #pragma once

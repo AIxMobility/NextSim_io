@@ -33,10 +33,12 @@ public:
      * @param length Length
      * @param width Width
      * @param ffSpeed Free flow speed
+     * @param shapePoints Ordered connection shape points
      */
     connection(int id, int fromLink, int fromLane, int toLink, int toLane,
                std::string turning, double priority, 
-               double length, double width, double ffSpeed);
+               double length, double width, double ffSpeed,
+               std::vector<std::pair<double, double>> shapePoints = {});
 
     /**
      * @details Get connection ID
@@ -71,13 +73,40 @@ public:
      * @details Get turning information
      * @return Turning information (L(left turn), R(right turn), S(straight))
      */
-    double GetPriority() { return m_priority; }
+    std::string GetTurning() { return m_turning; }
 
     /**
      * @details Get priority of the connection
      * @return Priority (0.1: R, 0.5: L, 1: S)
      */
+    double GetPriority() { return m_priority; }
+
+    /**
+     * @details Get length of the connection
+     * @return Length [m]
+     */
     double GetLength() { return m_length; }
+
+    /**
+     * @details Get width of the connection
+     * @return Width [m]
+     */
+    double GetWidth() { return m_width; }
+
+    /**
+     * @details Get free flow speed of the connection
+     * @return Free flow speed [km/h]
+     */
+    double GetFreeFlowSpeed() { return m_ffSpeed; }
+
+    /**
+     * @details Get connection shape points.
+     * @return Ordered shape points of the connection centerline.
+     */
+    const std::vector<std::pair<double, double>>& GetShapePoints() const
+    {
+        return m_shapePoints;
+    }
 
     /** @cond EXCLUDE */
     bool operator< (const connection& other) const
@@ -136,6 +165,11 @@ private:
      * @details Free flow speed [km/h]
     */
     double m_ffSpeed;
+
+    /**
+     * @details Ordered connection shape points.
+    */
+    std::vector<std::pair<double, double>> m_shapePoints;
 };
 }  // namespace NextSimIO
 

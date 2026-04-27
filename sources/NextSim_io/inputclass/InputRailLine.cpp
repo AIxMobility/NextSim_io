@@ -1,8 +1,8 @@
 /**
  * NextSim Captain
  * @file : InputrailLine.cpp
- * @version : 1.0
- * @author : Yuseock Hwang
+ * @version : 1.2
+ * @author : Yuseock Hwang, Yeonwoo Yu, Sujae Jeon
  */
 
 #include <NextSim_io/inputclass/InputRailLine.hpp>

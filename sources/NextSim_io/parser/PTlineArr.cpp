@@ -1,8 +1,8 @@
 /**
  * NextSim Captain
  * @file : PTLineArr.cpp
- * @version : 1.0
- * @author : Sujae Jeon
+ * @version : 1.1
+ * @author : Sujae Jeon, Yeonwoo Yu
  */
 
 #include <iostream>
@@ -96,6 +96,5 @@ PTlineArr::PTlineArr()
         }
     }
 }
-
 } // namespace NextSimIO
  

@@ -5,6 +5,8 @@
  * @author : Jae Hwan Jung, Justin Kim
 */
 
+#include <cmath>
+
 #include <NextSim_io/inputclass/InputLink.hpp>
 
 namespace NextSimIO

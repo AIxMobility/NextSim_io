@@ -2,7 +2,7 @@
  * NextSim Captain
  * @file : RailStation.cpp
  * @version : 2.0
- * @author : Yuseock Hwang, Dongheon Lee
+ * @author : Yuseock Hwang, Yeonwoo Yu, Dongheon Lee
  */
 #include <iostream>
 #include <sstream>
@@ -16,69 +16,104 @@
 
 namespace NextSimIO
 {
-RailStationArr::RailStationArr()
-{
+RailStationArr::RailStationArr() {
+    LoadRailStations();
+}
+
+RailStationArr::RailStationArr(const std::string& dayOfWeek) {
+    LoadRailStations(dayOfWeek);
+}
+
+void RailStationArr::LoadRailStations(const std::optional<std::string>& dayOfWeekFilter) {
     TiXmlDocument doc;
-    const bool loadSuccess = doc.LoadFile(NextSimIO::RailStationXMLPath.string().c_str());
-
-    if (!loadSuccess)
-    {
-        std::cout << "Loading failed (RailStationArr)" << std::endl;
+    if (!doc.LoadFile(RailStationNewXMLPath.string().c_str())) {
+        std::cerr << "Loading failed (RailStationArr)\n";
         return;
     }
 
-    TiXmlElement *root = doc.FirstChildElement("RailPublicTransit");
-    if (root == nullptr)
+    TiXmlElement* root = doc.FirstChildElement("RailPublicTransit");
+    TiXmlElement* railStations = root ? root->FirstChildElement("railStations") : nullptr;
+
+    for (TiXmlElement* stationElem = railStations ? railStations->FirstChildElement("railStation") : nullptr;
+         stationElem != nullptr;
+         stationElem = stationElem->NextSiblingElement("railStation"))
     {
-        std::cout << "Missing root element RailPublicTransit (RailStationArr)" << std::endl;
-        return;
-    }
+        int id = std::stoi(stationElem->Attribute("id"));
 
-    TiXmlElement *railStations = root->FirstChildElement("railStations");
-    if (railStations == nullptr)
-    {
-        std::cout << "Missing railStations element (RailStationArr)" << std::endl;
-        return;
-    }
+        std::string transitMode = stationElem->Attribute("transitMode") ?: "";
 
-    for (TiXmlElement *stationElem = railStations->FirstChildElement("railStation");
-        stationElem != nullptr;
-        stationElem = stationElem->NextSiblingElement("railStation"))
-    {
-        const int id = std::stoi(stationElem->Attribute("id"));
-        const std::string name = stationElem->Attribute("name");
-
-        const std::string transitMode = stationElem->Attribute("transitMode");
-
-        const std::string lineListStr = stationElem->Attribute("lineList");
-        std::vector<std::string> lineList;
+        std::string lineListStr = stationElem->Attribute("lineList") ?: "";
         std::istringstream lineStream(lineListStr);
+        std::vector<std::string> lineList;
         std::string line;
-        while (std::getline(lineStream, line, ' '))
-        {
-            if (!line.empty())
-            {
-                lineList.push_back(line);
-            }
-        }
+        while (lineStream >> line) lineList.push_back(line);
+        
+        std::string address = stationElem->Attribute("address") ?: "";
 
-        InputRailStation station(id, name, transitMode, lineList);
+        std::string centerStr = stationElem->Attribute("center") ?: "";
+        double x = 0, y = 0;
+        std::stringstream(centerStr) >> x >> y;
+        std::pair<double, double> center(x, y);
 
-        TiXmlElement *exitList = stationElem->FirstChildElement("exit");
-        for (TiXmlElement *exitElem = exitList; exitElem != nullptr;
-            exitElem = exitElem->NextSiblingElement("exit"))
+        InputRailStation station(id, transitMode, lineList, address, center);
+
+        // Parse exits
+        for (TiXmlElement* exitElem = stationElem->FirstChildElement("exit");
+             exitElem != nullptr;
+             exitElem = exitElem->NextSiblingElement("exit"))
         {
             int exitId = std::stoi(exitElem->Attribute("id"));
             int linkRef = std::stoi(exitElem->Attribute("linkRef"));
-            int offset = std::stoi(exitElem->Attribute("offset"));
-            int accessTime = std::stoi(exitElem->Attribute("accessTime"));
-
-            exit stationExit(exitId, linkRef, offset, accessTime);
-            station.PushExit(stationExit);
+            double offset = std::stod(exitElem->Attribute("offset"));
+            double accessTime = std::stod(exitElem->Attribute("accessTime"));
+            station.PushExit(exit(exitId, linkRef, offset, accessTime));
         }
 
-        m_railstation.push_back(station);
+        // Parse timetables
+        for (TiXmlElement* timetableElem = stationElem->FirstChildElement("timetable");
+             timetableElem != nullptr;
+             timetableElem = timetableElem->NextSiblingElement("timetable"))
+        {
+            std::string dayOfWeek = timetableElem->Attribute("dayOfWeek") ?: "";
+
+            if (dayOfWeekFilter && *dayOfWeekFilter != dayOfWeek) {
+                continue;
+            }
+
+            std::string lineId    = timetableElem->Attribute("lineId")    ?: "";
+            std::string type = timetableElem->Attribute("type") ?: "";
+            const char* rawTime   = timetableElem->Attribute("time");
+
+            std::vector<std::string> times;
+            if (rawTime) {
+                std::istringstream timeStream(rawTime);
+                std::string time;
+                while (timeStream >> time) {
+                    times.push_back(std::move(time));
+                }
+            }
+
+            timetable timetable(dayOfWeek, lineId, type, std::move(times));
+            station.Pushtimetable(std::move(timetable));
+        }
+
+        m_railstations.push_back(std::move(station));
+        m_stopMap.emplace(id, Stop(id, m_railstations.back().GetStopType()));
     }
+
     doc.Clear();
-};
+}
+
+bool RailStationArr::HasStop(int stopId) const {
+    return m_stopMap.find(stopId) != m_stopMap.end();
+}
+
+const Stop& RailStationArr::GetStopById(int stopId) const {
+    auto it = m_stopMap.find(stopId);
+    if (it == m_stopMap.end()) {
+        throw std::out_of_range("Stop ID " + std::to_string(stopId) + " not found.");
+    }
+    return it->second;
+}
+
 } // namespace NextSimIO

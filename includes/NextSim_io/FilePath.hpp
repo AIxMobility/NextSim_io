@@ -67,6 +67,8 @@ static std::filesystem::path ScenarioXMLPath = NetworkXmlFilePath / "scenario.xm
 
 static std::filesystem::path NetworkXMLPath = NetworkXmlFilePath / "network.xml";
 
+static std::filesystem::path FootpathNetworkXMLPath = NetworkXmlFilePath / "footpathNetwork.xml";
+
 static std::filesystem::path SignalTODXMLPath = NetworkXmlFilePath / "signalTOD.xml";
 
 static std::filesystem::path SignalXMLPath = NetworkXmlFilePath / "signal.xml";
@@ -87,11 +89,13 @@ static std::filesystem::path RailStationXMLPath = NetworkXmlFilePath / "railStat
 
 static std::filesystem::path RoadPTlineXMLPath = NetworkXmlFilePath / "roadPTline.xml";
 
-static std::filesystem::path RailPTlineXMLPath = NetworkXmlFilePath / "railPTline.xml";
+static std::filesystem::path RailPTlineXMLPath = NetworkXmlFilePath / "railPTLine.xml";
 
 static std::filesystem::path RouteJSONPath = NetworkXmlFilePath / "Route.json";
 
-static std::filesystem::path PTRouteJSONPath = NetworkXmlFilePath / "PaxRoute.json";
+static std::filesystem::path PTRouteJSONPath = NetworkXmlFilePath / "PTRoute.json";
+
+static std::filesystem::path PaxRouteJSONPath = NetworkXmlFilePath / "PaxRoute.json";
 
 static std::filesystem::path EventXMLPath = NetworkXmlFilePath / "eventdata.xml";
 
@@ -99,7 +103,10 @@ static std::filesystem::path V2XXMLPath = NetworkXmlFilePath / "v2xdata.xml";
 
 static std::filesystem::path BackgroundTrafficXMLPath = NetworkXmlFilePath / "backgroundTraffic.xml";
 
-// Parameter xml file path
+static std::filesystem::path RailStationNewXMLPath = NetworkXmlFilePath / "railStation.xml";
+
+static std::filesystem::path RailLineNewXMLPath = NetworkXmlFilePath / "railLine.xml";
+
 static std::filesystem::path VehicleTypeXMLPath = ParameterXmlFilePath / "vehicletypes.xml";
 
 static std::filesystem::path RecordModeXMLPath = ParameterXmlFilePath / "recordMode.xml";
