@@ -38,28 +38,41 @@ RailLineArr::RailLineArr()
         lineElem = lineElem->NextSiblingElement("Line"))
     {
         const char* idAttr = lineElem->Attribute("id");
-        const char* seqAttr = lineElem->Attribute("railStationSeq");
-
-        if (!idAttr || !seqAttr) {
-            std::cerr << "[WARN] Skipping Line: missing 'id' or 'railStationSeq'\n";
+        if (!idAttr) {
+            std::cerr << "[WARN] Skipping Line: missing 'id'\n";
             continue;
         }
-
         std::string id = idAttr;
-        std::string stationSeqStr = seqAttr;
 
         const char* feeAttr = lineElem->Attribute("fee");
-        double fee = (feeAttr != nullptr) ? std::stod(feeAttr) : 0;
+        double fee = (feeAttr != nullptr) ? std::stod(feeAttr) : 0.0;
 
-        std::vector<int> stationSeq;
-        std::istringstream stationStream(stationSeqStr);
-        int station;
-        while (stationStream >> station)
-        {
-            stationSeqList.push_back(entry.second);
+        // parse departureTime attribute (space-separated times)
+        std::vector<std::string> departureTimes;
+        const char* depAttr = lineElem->Attribute("departureTime");
+        if (depAttr) {
+            std::istringstream ds(depAttr);
+            std::string t;
+            while (ds >> t) departureTimes.push_back(t);
         }
 
-        m_railLines.emplace_back(id, fee, stationSeq);
+        // parse stationSeq child elements with id, seq, timeOffset
+        std::vector<stationSeq> stationSeqs;
+        for (TiXmlElement* sElem = lineElem->FirstChildElement("stationSeq"); sElem != nullptr; sElem = sElem->NextSiblingElement("stationSeq")) {
+            const char* sid = sElem->Attribute("id");
+            const char* seq = sElem->Attribute("seq");
+            const char* toff = sElem->Attribute("timeOffset");
+            if (!sid || !seq || !toff) {
+                std::cerr << "[WARN] Skipping stationSeq in line " << id << ": missing attributes\n";
+                continue;
+            }
+            int stationId = std::stoi(sid);
+            int seqInt = std::stoi(seq);
+            int timeOffset = std::stoi(toff);
+            stationSeqs.emplace_back(stationId, seqInt, timeOffset);
+        }
+
+        m_railLines.emplace_back(id, fee, departureTimes, stationSeqs);
     }
     doc.Clear();
 }

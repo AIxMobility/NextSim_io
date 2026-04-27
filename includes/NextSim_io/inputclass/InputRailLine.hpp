@@ -32,17 +32,17 @@ public:
     /**
      * @details Gets the station ID
      */
-    int GetId() { return m_stationId; }
+    int GetId() const { return m_stationId; }
 
     /**
      * @details Gets the sequence of the station in the line
      */
-    int GetSeq() { return m_seq; }
+    int GetSeq() const { return m_seq; }
 
     /**
      * @details Gets the time offset from the first station
      */
-    int GetTimeOffset() { return m_timeOffset; }
+    int GetTimeOffset() const { return m_timeOffset; }
 
 private:
     /**
@@ -74,31 +74,37 @@ public:
    * @param fee Fare for using the rail line
    * @param seq Sequence of station 
   */
-   InputRailLine(std::string id, double fee, std::vector<int> seq);
-
-    /**
-    * @details Get ID of rail public transit lines
-    * @return ID of rail public transit lines
-    */
-   std::string GetID() const { return m_id; }
-
-    /**
-     * @details Get the Line fee
-     * @return Line fee
-     */
-    double GetFee() const { return m_fee; }
+  InputRailLine(std::string id, double fee, std::vector<std::string> departureTime, std::vector<stationSeq> stationSeqList);
 
   /**
-  * @details Get station sequence of rail public transit lines
-  * @return Station sequence of rail public transit lines
+  * @details Get ID of rail public transit lines
+  * @return ID of rail public transit lines
   */
-   std::vector<int> GetRailStationSeq() const { return m_seq; }
+  std::string GetID() const { return m_id; }
+
+  /**
+   * @details Get the Line fee
+   * @return Line fee
+   */
+  double GetFee() const { return m_fee; }
+
+  /**
+   * @details Get departure time of rail public transit lines
+   * @return Departure time of rail public transit lines
+   */
+  std::vector<std::string> GetDepartureTime() const { return m_departureTime; }
+
+  /**
+   * @details Get station sequence of rail public transit lines
+   * @return Station sequence of rail public transit lines
+  */
+  std::vector<stationSeq> GetRailStationSeq() const { return m_stationSeq; }
 
 private:
   /**
    * @details Line ID
   */
-   std::string m_id;   
+  std::string m_id;   
 
   /**
    * @details Line fee
@@ -106,9 +112,14 @@ private:
   double m_fee;
 
   /**
+   * @details Vector of departure time for each line
+  */
+  std::vector<std::string> m_departureTime;
+
+  /**
    * @details Vector of sequence of stations for each line
   */
-   std::vector<int> m_seq;
+  std::vector<stationSeq> m_stationSeq;
 };
 }
 

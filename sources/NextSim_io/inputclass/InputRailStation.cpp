@@ -9,7 +9,7 @@
 
  namespace NextSimIO
 {
-InputRailStation::InputRailStation(int id, const std::string transitMode, 
-    std::vector<std::string> lineList, const std::string address, std::pair<double, double> center) : 
-    m_id(id), m_transitMode(transitMode),  m_lineList(std::move(lineList)), m_address(address), m_center(center), m_type(StopType::Rail) {};
+InputRailStation::InputRailStation(int id, const std::string transitMode,
+    std::vector<std::string> lineList, const std::string name, std::pair<double, double> center) :
+    m_id(id), m_transitMode(transitMode), m_lineList(std::move(lineList)), m_name(name), m_center(center), m_type(StopType::Rail) {};
 }
