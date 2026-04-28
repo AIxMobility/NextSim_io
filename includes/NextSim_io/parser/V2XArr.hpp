@@ -1,7 +1,7 @@
 /**
  * NextSim Captain
  * @file : V2XArr.hpp
- * @version : 1.1
+ * @version : 1.2
  * @author : Elena
  */
 
@@ -26,16 +26,16 @@ public:
     V2XArr();
 
     /**
-     * @details Get V2X data
-     * @return V2X data object
+     * @details Get V2X data vector (usually contains 1 consolidated InputV2X)
+     * @return Vector of V2X data objects
     */
-    V2XData GetV2XData() const { return m_v2xData; }
+    std::vector<InputV2X> GetV2Xs() const { return m_v2xs; }
 
 private:
     /**
      * @details V2X data storage
      */
-    V2XData m_v2xData;
+    std::vector<InputV2X> m_v2xs;
 };
 } // namespace NextSimIO
 

@@ -1,7 +1,7 @@
 /**
  * NextSim Captain
  * @file : V2XArr.cpp
- * @version : 2.0
+ * @version : 2.1
  * @author : Elena
  */
 
@@ -18,6 +18,9 @@ namespace NextSimIO
 {
 V2XArr::V2XArr()
 {
+    InputV2X consolidatedV2X;
+    InputV2XConfig config;
+
     // 1. Load config_v2x.json
     std::ifstream configIfs(NextSimIO::V2XConfigJSONPath.string());
     if (configIfs.is_open())
@@ -32,42 +35,24 @@ V2XArr::V2XArr()
             if (doc.HasMember("V2XRange") && doc["V2XRange"].IsObject())
             {
                 const rapidjson::Value& range = doc["V2XRange"];
-                if (range.HasMember("V2IRange")) m_v2xData.range.v2iRange = range["V2IRange"].GetDouble();
-                if (range.HasMember("V2VRange")) m_v2xData.range.v2vRange = range["V2VRange"].GetDouble();
+                if (range.HasMember("V2IRange")) config.v2iRange = range["V2IRange"].GetDouble();
+                if (range.HasMember("V2VRange")) config.v2vRange = range["V2VRange"].GetDouble();
             }
 
             // 1.2 Load V2XMessage
             if (doc.HasMember("V2XMessage") && doc["V2XMessage"].IsObject())
             {
                 const rapidjson::Value& msg = doc["V2XMessage"];
-                
-                if (msg.HasMember("Position")) m_v2xData.message.position = msg["Position"].GetBool();
-                if (msg.HasMember("TrafficInfo")) m_v2xData.message.trafficInfo = msg["TrafficInfo"].GetBool();
-                if (msg.HasMember("SignalPhase")) m_v2xData.message.signalPhase = msg["SignalPhase"].GetBool();
-                if (msg.HasMember("RoadEvent")) m_v2xData.message.roadEvent = msg["RoadEvent"].GetBool();
-                if (msg.HasMember("SchoolZone")) m_v2xData.message.schoolZone = msg["SchoolZone"].GetBool();
-                if (msg.HasMember("SpeedLimit")) m_v2xData.message.speedLimit = msg["SpeedLimit"].GetBool();
-                if (msg.HasMember("CollisionWarn")) m_v2xData.message.collisionWarn = msg["CollisionWarn"].GetBool();
-
-                if (m_v2xData.message.position)      m_v2xData.activeMsgTypes.push_back(1);
-                if (m_v2xData.message.trafficInfo)   m_v2xData.activeMsgTypes.push_back(2);
-                if (m_v2xData.message.signalPhase)   m_v2xData.activeMsgTypes.push_back(3);
-                if (m_v2xData.message.roadEvent)     m_v2xData.activeMsgTypes.push_back(4);
-                if (m_v2xData.message.schoolZone)    m_v2xData.activeMsgTypes.push_back(5);
-                if (m_v2xData.message.speedLimit)    m_v2xData.activeMsgTypes.push_back(6);
-                if (m_v2xData.message.collisionWarn) m_v2xData.activeMsgTypes.push_back(7);
-
-                m_v2xData.active = !m_v2xData.activeMsgTypes.empty();
+                if (msg.HasMember("Position")) config.position = msg["Position"].GetBool();
+                if (msg.HasMember("TrafficInfo")) config.trafficInfo = msg["TrafficInfo"].GetBool();
+                if (msg.HasMember("SignalPhase")) config.signalPhase = msg["SignalPhase"].GetBool();
+                if (msg.HasMember("RoadEvent")) config.roadEvent = msg["RoadEvent"].GetBool();
+                if (msg.HasMember("SchoolZone")) config.schoolZone = msg["SchoolZone"].GetBool();
+                if (msg.HasMember("SpeedLimit")) config.speedLimit = msg["SpeedLimit"].GetBool();
+                if (msg.HasMember("CollisionWarn")) config.collisionWarn = msg["CollisionWarn"].GetBool();
             }
         }
-        else
-        {
-            std::cout << "Parse error (V2X Config JSON)" << std::endl;
-        }
-    }
-    else
-    {
-        std::cout << "Loading failed (V2X Config JSON): " << NextSimIO::V2XConfigJSONPath << std::endl;
+        consolidatedV2X.SetConfig(config);
     }
 
     // 2. Load event_v2x.xml
@@ -79,14 +64,13 @@ V2XArr::V2XArr()
         TiXmlElement *root = doc.FirstChildElement();
         if (root)
         {
-            int eventCounter = 0;
             for (TiXmlElement *elem = root->FirstChildElement(); elem != nullptr;
                  elem = elem->NextSiblingElement())
             {
                 std::string elemName = elem->Value();
                 if (elemName == "event")
                 {
-                    V2XEventData eventData;
+                    InputV2XEvent eventData;
 
                     const char* linkId = elem->Attribute("linkId");
                     const char* link_id = elem->Attribute("link_id");
@@ -97,6 +81,9 @@ V2XArr::V2XArr()
                     const char* stime = elem->Attribute("stime");
                     const char* etime = elem->Attribute("etime");
                     const char* type = elem->Attribute("type");
+                    const char* speedLimit = elem->Attribute("speedLimit");
+                    const char* detail = elem->Attribute("detail");
+                    const char* collision = elem->Attribute("collision");
 
                     if (linkId) eventData.linkId = atoi(linkId);
                     else if (link_id) eventData.linkId = atoi(link_id);
@@ -121,18 +108,16 @@ V2XArr::V2XArr()
                         else eventData.msgType = atoi(type);
                     }
 
-                    int currentEventID = eventCounter++;
-                    m_v2xData.events.push_back(eventData);
-                    m_v2xData.idEventMap[currentEventID] = eventData;
+                    if (speedLimit) eventData.speedLimit = atof(speedLimit);
+                    if (detail) eventData.eventDetail = detail;
+                    if (collision) eventData.collisionWarning = (std::string(collision) == "true");
+
+                    consolidatedV2X.AddEvent(eventData);
                 }
             }
         }
     }
-    else
-    {
-        std::cout << "Loading failed (V2X Events XML): " << NextSimIO::V2XEventXMLPath << std::endl;
-    }
-
-    doc.Clear();
+    
+    m_v2xs.push_back(consolidatedV2X);
 }
 } // namespace NextSimIO

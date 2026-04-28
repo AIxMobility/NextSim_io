@@ -12,7 +12,7 @@
 
 #include <vector>
 #include <string>
-#include <NextSim_io/inputclass/InputV2X.hpp>
+#include <NextSim_io/inputclass/InputTMC.hpp>
 
 namespace NextSimIO
 {
@@ -31,10 +31,9 @@ public:
      * @param BGTduration Background traffic duration [min]
      * @param odID OD matrix ID
      * @param todID TOD matrix ID
-     * @param signalControl Whether signal control is active
-     * @param v2xActive Whether V2X is active or not
+     * @param tmc TMC configuration info
     */
-    InputScenario(int id, std::string startTime, int duration, int BGTduration, int odID, int todID, bool signalControl = false, bool v2xActive = false);
+    InputScenario(int id, std::string startTime, int duration, int BGTduration, int odID, int todID, InputTMC tmc);
 
     /** @cond EXCLUDE */
     ~InputScenario() = default;
@@ -79,16 +78,10 @@ public:
     int GetTODID() { return m_todID; }
 
     /**
-     * @brief Check if signal control is active
-     * @return True if signal control is active, false otherwise
+     * @brief Get TMC configuration
+     * @return TMC configuration
     */
-    bool IsSignalControl() const { return m_signalControl; }
-
-    /**
-     * @brief Check if V2X is active
-     * @return True if V2X is active, false otherwise
-    */
-    bool IsV2XActive() const { return m_v2xActive; }
+    InputTMC GetTMC() const { return m_tmc; }
 
 
 private:
@@ -123,14 +116,9 @@ private:
     int m_todID;
 
     /**
-     * @details Whether signal control is active or not
+     * @details TMC configuration info
     */
-    bool m_signalControl = false;
-
-    /**
-     * @details Whether V2X is active or not
-    */
-    bool m_v2xActive = false;
+    InputTMC m_tmc;
 };
 } // namespace NextSimIO
 

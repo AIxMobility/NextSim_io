@@ -1,7 +1,7 @@
 /**
  * NextSim Captain
  * @file InputV2X.hpp
- * @version : 1.1
+ * @version : 1.2
  * @author : Elena
  */
 
@@ -17,27 +17,16 @@
 namespace NextSimIO
 {
 /**
- * @struct V2XMsgType
- * @brief V2X Message Type Mapping (Numeric IDs like Node Types)
+ * @struct InputV2XConfig
+ * @brief Consolidated configuration for V2X (Range + Message switches)
  */
-// V2XMsgType is now managed in Captain::Enumerations as enum class V2XMsgType
-
-struct V2XMsgContent
+struct InputV2XConfig
 {
-    double speedLimit = 0.0;
-    std::string eventDetail = "";
-    bool collisionWarning = false;
-    // Add other dynamic fields as needed
-};
-
-struct V2XRange
-{
+    // Ranges
     double v2iRange = 500.0;
     double v2vRange = 300.0;
-};
-
-struct V2XMessageConfig
-{
+    
+    // Message Activation Switches
     bool position = false;
     bool trafficInfo = false;
     bool signalPhase = false;
@@ -47,7 +36,11 @@ struct V2XMessageConfig
     bool collisionWarn = false;
 };
 
-struct V2XEventData
+/**
+ * @struct InputV2XEvent
+ * @brief V2X Event information from event_v2x.xml
+ */
+struct InputV2XEvent
 {
     int linkId = 0;
     std::vector<int> laneIds; // -1 for all lanes, or list of lane IDs
@@ -55,19 +48,32 @@ struct V2XEventData
     double endPos = 0.0;
     double startTime = 0.0;
     double endTime = 0.0;
-    int msgType = 0; // Numeric ID from V2XMsgType
-    V2XMsgContent content;
+    int msgType = 0; 
+
+    // Integrated content fields (simplified from former MsgContent)
+    double speedLimit = 0.0;
+    std::string eventDetail = "";
+    bool collisionWarning = false;
 };
 
-struct V2XData
+/**
+ * @class InputV2X
+ * @brief Class for V2X input data management
+ */
+class InputV2X
 {
-    bool active = false;
-    V2XRange range;
-    V2XMessageConfig message;
-    std::vector<int> activeMsgTypes; // Computed from message config for engine use
-    std::vector<V2XEventData> events;
-    
-    std::map<int, V2XEventData> idEventMap; // [EventID, EventData]
+public:
+    InputV2X() = default;
+
+    void SetConfig(InputV2XConfig config) { m_config = config; }
+    InputV2XConfig GetConfig() const { return m_config; }
+
+    void AddEvent(InputV2XEvent event) { m_events.push_back(event); }
+    const std::vector<InputV2XEvent>& GetEvents() const { return m_events; }
+
+private:
+    InputV2XConfig m_config;
+    std::vector<InputV2XEvent> m_events;
 };
 } // namespace NextSimIO
 

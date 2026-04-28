@@ -54,13 +54,35 @@ ScenarioArr::ScenarioArr()
             int BGTduration = scenario["BGTduration"].GetInt();
             int odID = scenario["odMatrixID"].GetInt();
             int todID = scenario["todID"].GetInt();
-            bool signalControl = scenario["signalControl"].GetBool();
-
-            bool v2xActive = false;
-            if (scenario.HasMember("v2x") && scenario["v2x"].IsBool())
-                v2xActive = scenario["v2x"].GetBool();
-
-            InputScenario singleScenario(id, startTime, duration, BGTduration, odID, todID, signalControl, v2xActive);
+            InputTMC tmc;
+            if (scenario.HasMember("trafficCenter") && scenario["trafficCenter"].IsObject())
+            {
+                const rapidjson::Value& tc = scenario["trafficCenter"];
+                if (tc.HasMember("signalControl") && tc["signalControl"].IsObject())
+                {
+                    const rapidjson::Value& sc = tc["signalControl"];
+                    bool active = false;
+                    double timeStep = 1.0;
+                    if (sc.HasMember("active") && sc["active"].IsBool()) 
+                        active = sc["active"].GetBool();
+                    if (sc.HasMember("timeStep") && sc["timeStep"].IsNumber()) 
+                        timeStep = sc["timeStep"].GetDouble();
+                    tmc.SetSignalTMCInfo(active, timeStep);
+                }
+                if (tc.HasMember("v2x") && tc["v2x"].IsObject())
+                {
+                    const rapidjson::Value& v2x = tc["v2x"];
+                    bool active = false;
+                    double timeStep = 1.0;
+                    if (v2x.HasMember("active") && v2x["active"].IsBool()) 
+                        active = v2x["active"].GetBool();
+                    if (v2x.HasMember("timeStep") && v2x["timeStep"].IsNumber()) 
+                        timeStep = v2x["timeStep"].GetDouble();
+                    tmc.SetV2XTMCInfo(active, timeStep);
+                }
+            }
+            // Fallback for older formats if needed, or just use defaults
+            InputScenario singleScenario(id, startTime, duration, BGTduration, odID, todID, tmc);
             m_scenarios.emplace_back(singleScenario);
         }
     }
