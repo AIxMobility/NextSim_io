@@ -26,15 +26,16 @@ public:
      * @details Constructor
      * @param id Event ID
      * @param linkID Link ID
-     * @param pos Offset
-     * @param lane Lane ID
+     * @param startPos Start offset
+     * @param endPos End offset
+     * @param laneVector Lane IDs
      * @param sTime Start time
      * @param eTime End time
      * @param type Event type
      * @param sern Event seriousness (severity)
     */
-    InputEvent(int id, std::size_t linkID, double pos, 
-               int lane, double sTime, double eTime, 
+    InputEvent(int id, std::size_t linkID, double startPos, double endPos,
+               std::vector<int> laneVector, double sTime, double eTime, 
                int type, int sern);
 
     /**
@@ -50,16 +51,34 @@ public:
     std::size_t GetLinkId() { return m_linkID; }
 
     /**
-     * @details Get position 
-     * @return Position of event occurrence (from link start point)
+     * @details Get start position
+     * @return Start position of event occurrence (from link start point)
     */
-    double GetPos() { return m_pos; }
+    double GetStartPos() { return m_startPos; }
+
+    /**
+     * @details Get end position
+     * @return End position of event occurrence (from link start point)
+    */
+    double GetEndPos() { return m_endPos; }
+
+    /**
+     * @details Get position
+     * @return Start position of event occurrence (from link start point)
+    */
+    double GetPos() { return m_startPos; }
 
     /**
      * @details Get lane ID
      * @return Lane ID of event occurrence
     */
     int GetLane() { return m_lane; }
+
+    /**
+     * @details Get lane IDs
+     * @return Lane IDs of event occurrence
+    */
+    const std::vector<int>& GetLaneVector() const { return m_laneVector; }
 
     /**
      * @details Get start time
@@ -98,14 +117,24 @@ private:
     std::size_t m_linkID;
 
     /**
-     * @details Position of event occurrence (from link start point)
+     * @details Start position of event occurrence (from link start point)
     */
-    double m_pos;
+    double m_startPos;
+
+    /**
+     * @details End position of event occurrence (from link start point)
+    */
+    double m_endPos;
 
     /**
      * @details Lane ID of event occurrence
     */
     int m_lane;
+
+    /**
+     * @details Lane IDs of event occurrence
+    */
+    std::vector<int> m_laneVector;
 
     /**
      * @details Start time of event occurrence
