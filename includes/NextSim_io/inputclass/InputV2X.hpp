@@ -25,15 +25,32 @@ struct InputV2XConfig
     // Ranges
     double v2iRange = 500.0;
     double v2vRange = 300.0;
+    int trafficInfoInterval = 5; // seconds
+    int signalPhaseInterval = 1; // seconds
     
-    // Message Activation Switches
+    // Message Activation Switches and Timing
     bool position = false;
     bool trafficInfo = false;
     bool signalPhase = false;
     bool roadEvent = false;
-    bool schoolZone = false;
-    bool speedLimit = false;
+    
+    struct {
+        bool active = false;
+        std::string startTime = "00:00:00";
+        int duration = -1; // duration in seconds, -1 for simulation end
+    } schoolZone, speedLimit;
+
     bool collisionWarn = false;
+};
+
+/**
+ * @struct InputRSU
+ * @brief RSU placement information
+ */
+struct InputRSU
+{
+    int id;
+    int nodeId;
 };
 
 /**
@@ -71,9 +88,13 @@ public:
     void AddEvent(InputV2XEvent event) { m_events.push_back(event); }
     const std::vector<InputV2XEvent>& GetEvents() const { return m_events; }
 
+    void AddRSU(InputRSU rsu) { m_rsus.push_back(rsu); }
+    const std::vector<InputRSU>& GetRSUs() const { return m_rsus; }
+
 private:
     InputV2XConfig m_config;
     std::vector<InputV2XEvent> m_events;
+    std::vector<InputRSU> m_rsus;
 };
 } // namespace NextSimIO
 

@@ -5,6 +5,9 @@
  * @author : Elena
  */
 
+#include <vector>
+#include <algorithm>
+#include <NextSim_io/inputclass/InputV2X.hpp>
 #include <NextSim_io/parser/V2XArr.hpp>
 #include <NextSim_io/FilePath.hpp>
 #include <rapidjson/document.h>
@@ -47,9 +50,33 @@ V2XArr::V2XArr()
                 if (msg.HasMember("TrafficInfo")) config.trafficInfo = msg["TrafficInfo"].GetBool();
                 if (msg.HasMember("SignalPhase")) config.signalPhase = msg["SignalPhase"].GetBool();
                 if (msg.HasMember("RoadEvent")) config.roadEvent = msg["RoadEvent"].GetBool();
-                if (msg.HasMember("SchoolZone")) config.schoolZone = msg["SchoolZone"].GetBool();
-                if (msg.HasMember("SpeedLimit")) config.speedLimit = msg["SpeedLimit"].GetBool();
+                if (msg.HasMember("SchoolZone")) {
+                    if (msg["SchoolZone"].IsBool()) config.schoolZone.active = msg["SchoolZone"].GetBool();
+                    else if (msg["SchoolZone"].IsObject()) {
+                        const auto& sz = msg["SchoolZone"];
+                        if (sz.HasMember("active")) config.schoolZone.active = sz["active"].GetBool();
+                        if (sz.HasMember("startTime")) config.schoolZone.startTime = sz["startTime"].GetString();
+                        if (sz.HasMember("duration")) config.schoolZone.duration = sz["duration"].GetInt();
+                    }
+                }
+                if (msg.HasMember("SpeedLimit")) {
+                    if (msg["SpeedLimit"].IsBool()) config.speedLimit.active = msg["SpeedLimit"].GetBool();
+                    else if (msg["SpeedLimit"].IsObject()) {
+                        const auto& sl = msg["SpeedLimit"];
+                        if (sl.HasMember("active")) config.speedLimit.active = sl["active"].GetBool();
+                        if (sl.HasMember("startTime")) config.speedLimit.startTime = sl["startTime"].GetString();
+                        if (sl.HasMember("duration")) config.speedLimit.duration = sl["duration"].GetInt();
+                    }
+                }
                 if (msg.HasMember("CollisionWarn")) config.collisionWarn = msg["CollisionWarn"].GetBool();
+            }
+
+            // 1.3 Load V2XInterval
+            if (doc.HasMember("V2XInterval") && doc["V2XInterval"].IsObject())
+            {
+                const rapidjson::Value& interval = doc["V2XInterval"];
+                if (interval.HasMember("TrafficInfoInterval")) config.trafficInfoInterval = interval["TrafficInfoInterval"].GetInt();
+                if (interval.HasMember("SignalPhaseInterval")) config.signalPhaseInterval = interval["SignalPhaseInterval"].GetInt();
             }
         }
         consolidatedV2X.SetConfig(config);
@@ -117,7 +144,67 @@ V2XArr::V2XArr()
             }
         }
     }
-    
+
+    // 3. Load network_v2x.xml
+    TiXmlDocument netDoc;
+    bool netLoadSuccess = netDoc.LoadFile(NextSimIO::V2XNetworkXMLPath.string().c_str());
+    if (netLoadSuccess)
+    {
+        TiXmlElement *root = netDoc.FirstChildElement();
+        if (root)
+        {
+            for (TiXmlElement *category = root->FirstChildElement(); category != nullptr;
+                 category = category->NextSiblingElement())
+            {
+                std::string catName = category->Value();
+                std::string lowCatName = catName;
+                std::transform(lowCatName.begin(), lowCatName.end(), lowCatName.begin(), ::tolower);
+
+                if (lowCatName == "schoolzones" || lowCatName == "schoolzone" || 
+                    lowCatName == "speedlimits" || lowCatName == "speedlimit")
+                {
+                    int defaultType = (lowCatName.find("school") != std::string::npos) ? 5 : 6;
+                    for (TiXmlElement *elem = category->FirstChildElement(); elem != nullptr;
+                         elem = elem->NextSiblingElement())
+                    {
+                        InputV2XEvent zoneData;
+                        zoneData.msgType = defaultType;
+                        const char* linkId = elem->Attribute("linkId");
+                        const char* lanes = elem->Attribute("laneIds");
+                        const char* startPos = elem->Attribute("startPos");
+                        const char* endPos = elem->Attribute("endPos");
+                        const char* limit = elem->Attribute("speedLimit");
+
+                        if (linkId) zoneData.linkId = atoi(linkId);
+                        if (lanes) {
+                            std::stringstream ss(lanes);
+                            std::string segment;
+                            while(std::getline(ss, segment, ',')) zoneData.laneIds.push_back(atoi(segment.c_str()));
+                        } else zoneData.laneIds.push_back(-1);
+
+                        if (startPos) zoneData.startPos = atof(startPos);
+                        if (endPos) zoneData.endPos = atof(endPos);
+                        if (limit) zoneData.speedLimit = atof(limit);
+                        
+                        consolidatedV2X.AddEvent(zoneData);
+                    }
+                }
+                else if (lowCatName == "rsus" || lowCatName == "rsu")
+                {
+                    for (TiXmlElement *elem = category->FirstChildElement(); elem != nullptr;
+                         elem = elem->NextSiblingElement())
+                    {
+                        InputRSU rsu;
+                        const char* id = elem->Attribute("id");
+                        const char* nodeId = elem->Attribute("nodeId");
+                        if (id) rsu.id = atoi(id);
+                        if (nodeId) rsu.nodeId = atoi(nodeId);
+                        consolidatedV2X.AddRSU(rsu);
+                    }
+                }
+            }
+        }
+    }
     m_v2xs.push_back(consolidatedV2X);
 }
 } // namespace NextSimIO
