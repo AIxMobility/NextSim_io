@@ -47,8 +47,22 @@ V2XArr::V2XArr()
             {
                 const rapidjson::Value& msg = doc["V2XMessage"];
                 if (msg.HasMember("Position")) config.position = msg["Position"].GetBool();
-                if (msg.HasMember("TrafficInfo")) config.trafficInfo = msg["TrafficInfo"].GetBool();
-                if (msg.HasMember("SignalPhase")) config.signalPhase = msg["SignalPhase"].GetBool();
+                if (msg.HasMember("TrafficInfo")) {
+                    if (msg["TrafficInfo"].IsBool()) config.trafficInfo.active = msg["TrafficInfo"].GetBool();
+                    else if (msg["TrafficInfo"].IsObject()) {
+                        const auto& trafficInfo = msg["TrafficInfo"];
+                        if (trafficInfo.HasMember("active")) config.trafficInfo.active = trafficInfo["active"].GetBool();
+                        if (trafficInfo.HasMember("interval")) config.trafficInfo.interval = trafficInfo["interval"].GetInt();
+                    }
+                }
+                if (msg.HasMember("SignalPhase")) {
+                    if (msg["SignalPhase"].IsBool()) config.signalPhase.active = msg["SignalPhase"].GetBool();
+                    else if (msg["SignalPhase"].IsObject()) {
+                        const auto& signalPhase = msg["SignalPhase"];
+                        if (signalPhase.HasMember("active")) config.signalPhase.active = signalPhase["active"].GetBool();
+                        if (signalPhase.HasMember("interval")) config.signalPhase.interval = signalPhase["interval"].GetInt();
+                    }
+                }
                 if (msg.HasMember("RoadEvent")) config.roadEvent = msg["RoadEvent"].GetBool();
                 if (msg.HasMember("SchoolZone")) {
                     if (msg["SchoolZone"].IsBool()) config.schoolZone.active = msg["SchoolZone"].GetBool();
@@ -75,8 +89,8 @@ V2XArr::V2XArr()
             if (doc.HasMember("V2XInterval") && doc["V2XInterval"].IsObject())
             {
                 const rapidjson::Value& interval = doc["V2XInterval"];
-                if (interval.HasMember("TrafficInfoInterval")) config.trafficInfoInterval = interval["TrafficInfoInterval"].GetInt();
-                if (interval.HasMember("SignalPhaseInterval")) config.signalPhaseInterval = interval["SignalPhaseInterval"].GetInt();
+                if (interval.HasMember("TrafficInfoInterval")) config.trafficInfo.interval = interval["TrafficInfoInterval"].GetInt();
+                if (interval.HasMember("SignalPhaseInterval")) config.signalPhase.interval = interval["SignalPhaseInterval"].GetInt();
             }
         }
         consolidatedV2X.SetConfig(config);

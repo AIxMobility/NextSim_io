@@ -25,14 +25,15 @@ struct InputV2XConfig
     // Ranges
     double v2iRange = 500.0;
     double v2vRange = 300.0;
-    int trafficInfoInterval = 5; // seconds
-    int signalPhaseInterval = 1; // seconds
     
     // Message Activation Switches and Timing
     bool position = false;
-    bool trafficInfo = false;
-    bool signalPhase = false;
     bool roadEvent = false;
+
+    struct {
+        bool active = false;
+        int interval = 1; // seconds
+    } trafficInfo, signalPhase;
     
     struct {
         bool active = false;
