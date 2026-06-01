@@ -21,7 +21,7 @@ static std::filesystem::path get_simulation_input_path() {
     std::filesystem::path currentPath = std::filesystem::current_path();
     
     // Go up from build/bin to project root, then to SimulationInput
-    std::filesystem::path simulationInput = currentPath / ".." / ".." / "SimulationInput";
+    std::filesystem::path simulationInput = currentPath / ".." / ".."  / ".." / ".." / "SimulationInput";
     
     if (std::filesystem::exists(simulationInput)) {
         return std::filesystem::canonical(simulationInput);
@@ -89,7 +89,7 @@ static std::filesystem::path RailStationXMLPath = NetworkXmlFilePath / "railStat
 
 static std::filesystem::path RoadPTlineXMLPath = NetworkXmlFilePath / "roadPTline.xml";
 
-static std::filesystem::path RailPTlineXMLPath = NetworkXmlFilePath / "railPTLine.xml";
+static std::filesystem::path RailPTlineXMLPath = NetworkXmlFilePath / "railPTline.xml";
 
 static std::filesystem::path RouteJSONPath = NetworkXmlFilePath / "Route.json";
 
