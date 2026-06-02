@@ -95,6 +95,12 @@ public:
     void PushCell(InputCell cell);
 
     /**
+     * @details Merge the last residual cell into the previous cell when its
+     * storage capacity would be one vehicle or less.
+     */
+    void MergeShortResidualCell();
+
+    /**
      * @details Add segment into sequence
      * @param segment Segment vector
     */
