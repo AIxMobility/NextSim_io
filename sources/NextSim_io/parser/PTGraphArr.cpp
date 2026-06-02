@@ -200,169 +200,65 @@ PTVertexArr::PTVertexArr(const StationArr& roadStations, const RailStationArr& r
         }
     }
 
-    // rail station
+    // rail station: use departureTime + stationSeq.timeOffset to generate arrivals
     for (const auto& railLine : railPTLines.GetRailLines()) {
         std::string lineId = railLine.GetID();
-        std::vector<int> stationSeq = railLine.GetRailStationSeq(); 
+        const auto stationSeqObjs = railLine.GetRailStationSeq();
 
-        // std::cerr << "[LINE] Processing line: " << lineId << ", stations count: " << stationSeq.size() << "\n";
+        // build station id vector
+        std::vector<int> stationSeqIds;
+        for (const auto& s : stationSeqObjs) stationSeqIds.push_back(s.GetId());
 
-        std::map<int, std::vector<double>> arrivalsPerStop;  // stopId → 도착 시각 목록
-        bool isValidLine = true;
-
-        for (int stopId : stationSeq) {
-            // std::cerr << "  [STOP] Checking stopId: " << stopId << "\n";
-
-            const InputRailStation* station = nullptr;
-            for (const auto& s : railStations.GetRailStations()) {
-                if (s.GetId() == stopId) {
-                    station = &s;
-                    break;
-                }
-            }
-
-            if (!station) {
-                std::cerr << "  [ERROR] Stop " << stopId << " not found for line " << lineId << ". Skipping line.\n";
-                isValidLine = false;
-                break;
-            }
-
-            bool found = false;
-            for (const auto& tt : station->GetTimetables()) {
-                // std::cerr << "      [CHECK] timetable.routeId = " << tt.GetLineId()
-                //         << ", type = " << tt.GetType()
-                //         << ", times = " << tt.GetTime().size() << " entries\n";
-
-                if (tt.GetLineId() == lineId) {
-                    const auto& times = tt.GetTime();
-                    for (const auto& t : times) {
-                        // std::cerr << "        [TIME] Raw: '" << t << "'\n";
-                        double min = convertToMinutes(t);
-                        if (min != -1) {
-                            arrivalsPerStop[stopId].push_back(min);
-                            // std::cerr << "        [TIME] Converted to min: " << min << "\n";
-                        } else {
-                            std::cerr << "        [WARN] Invalid time string: '" << t << "'\n";
-                        }
-                    }
-                    found = true;
-                    break;
-                }
-            }
-
-            if (!found) {
-                std::cerr << "    [WARN] No timetable found for stop " << stopId << " and line " << lineId << "\n";
-                isValidLine = false;
-                break;
+        // build arrivals per stop from departures and offsets
+        std::map<int, std::vector<double>> arrivalsPerStop;
+        const auto departures = railLine.GetDepartureTime();
+        for (const auto& dep : departures) {
+            double base = convertToMinutes(dep);
+            if (base < 0) continue;
+            for (const auto& s : stationSeqObjs) {
+                double arr = base + static_cast<double>(s.GetTimeOffset());
+                if (arr >= 24*60) arr -= 24*60;
+                arrivalsPerStop[s.GetId()].push_back(arr);
             }
         }
 
-        if (!isValidLine) {
-            std::cerr << "  [SKIP] Line " << lineId << " skipped due to missing data.\n";
-            continue;
+        if (stationSeqIds.empty()) continue;
+
+        // determine number of runs (min available per stop)
+        size_t numRuns = SIZE_MAX;
+        for (int sid : stationSeqIds) {
+            if (!arrivalsPerStop.count(sid)) { numRuns = 0; break; }
+            numRuns = std::min(numRuns, arrivalsPerStop[sid].size());
         }
-
-        size_t numRuns;
-
-        if (stationSeq.empty()) {
-            numRuns = 0;
-        } else {
-            numRuns = std::numeric_limits<size_t>::max();
-            for (int stopId : stationSeq) {
-                if (!arrivalsPerStop.count(stopId)) {
-                    std::cerr << "  [WARN] No arrivals recorded for stopId=" << stopId << "\n";
-                    numRuns = 0;
-                    break;  // 정류장 하나라도 없으면 0으로 처리
-                }
-
-                size_t stopRuns = arrivalsPerStop[stopId].size();
-                // std::cerr << "  [INFO] stopId=" << stopId << ", arrivals count=" << stopRuns << "\n";
-
-                if (stopRuns == 0) {
-                    std::cerr << "  [WARN] Stop " << stopId << " has zero arrivals.\n";
-                    numRuns = 0;
-                    break;
-                }
-
-                numRuns = std::min(numRuns, stopRuns);
-            }
-        }
-
-        // std::cerr << "  [RUNS] Number of runs for line " << lineId << ": " << numRuns << "\n";
-
-        if (numRuns == 0) {
+        if (numRuns == 0 || numRuns == SIZE_MAX) {
             std::cerr << "  [SKIP] No runs found for line " << lineId << ".\n";
             continue;
         }
 
+        // create Line object and vertices
         std::vector<double> arrivalTimes, departureTimes;
-        bool isConsistent = true;
-
-        for (size_t i = 0; i < numRuns; ++i) {
-            // std::cerr << "  [RUN] Processing run #" << i << "\n";
-            for (int stopId : stationSeq) {
-                if (!arrivalsPerStop.count(stopId)) {
-                    std::cerr << "    [ERR] No arrivals for stop " << stopId << " in run " << i << "\n";
-                    isConsistent = false;
-                    break;
-                }
-
-                if (arrivalsPerStop[stopId].size() <= i) {
-                    std::cerr << "    [ERR] arrivalsPerStop[" << stopId << "].size() = "
-                            << arrivalsPerStop[stopId].size() << " <= " << i << "\n";
-                    isConsistent = false;
-                    break;
-                }
-
-                double arr = arrivalsPerStop[stopId][i];
+        for (size_t run = 0; run < numRuns; ++run) {
+            for (int sid : stationSeqIds) {
+                double arr = arrivalsPerStop[sid][run];
                 arrivalTimes.push_back(arr);
-                departureTimes.push_back(arr + 1);
-                // std::cerr << "    [TIME] stopId=" << stopId << " arr=" << arr << " dep=" << (arr + 1) << "\n";
+                departureTimes.push_back(arr + 1.0);
             }
-
-            if (!isConsistent) break;
         }
 
-        if (!isConsistent) {
-            std::cerr << "  [SKIP] Inconsistent timetable for line " << lineId << "\n";
-            continue;
-        }
+        std::shared_ptr<Line> currentLine = std::make_shared<Line>(lineId, stationSeqIds, arrivalTimes, departureTimes);
 
-        std::shared_ptr<Line> currentLine = 
-            std::make_shared<Line>(lineId, stationSeq, arrivalTimes, departureTimes);
-
-        // std::cerr << "  [LINE OBJECT] Created Line object: lineId=" << lineId
-        //         << ", arrivalTimes.size=" << arrivalTimes.size()
-        //         << ", departureTimes.size=" << departureTimes.size() << "\n";
-
-        size_t arrivals = stationSeq.size();
+        size_t arrivals = stationSeqIds.size();
         size_t runCount = numRuns;
-
-        // std::cerr << "  [VERTEX] Creating vertices: runs=" << runCount << ", stops per run=" << arrivals << "\n";
-
         for (size_t run = 0; run < runCount; ++run) {
             for (size_t stopIdx = 0; stopIdx < arrivals; ++stopIdx) {
-                int stopId = stationSeq[stopIdx];
-                const Stop* realStop = nullptr;
-
+                int stopId = stationSeqIds[stopIdx];
                 if (railStations.HasStop(stopId)) {
-                    realStop = &railStations.GetStopById(stopId);
-                    // std::cerr << "    [FOUND] Stop " << stopId << " found in railStations\n";
-                } else {
-                    std::cerr << "    [WARN] Stop " << stopId << " not found in railStations\n";
-                }
-
-                if (realStop) {
+                    const Stop* realStop = &railStations.GetStopById(stopId);
                     InputPTGraphVertex vertex(*realStop, currentLine);
                     m_ptVertices.push_back(vertex);
-                    // std::cerr << "    [VERTEX CREATED] stopId=" << stopId << " run=" << run << "\n";
-                } else {
-                    std::cerr << "    [SKIP] Could not create vertex for stopId=" << stopId << "\n";
                 }
             }
         }
-
-        // std::cerr << "[DONE] Line " << lineId << " processed with " << m_ptVertices.size() << " total vertices.\n";
     }
 }
 
@@ -466,105 +362,47 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
     // 1.2. Rail Line (철도) InVehicle 아크 생성
     for (const auto& railLine : railPTLines.GetRailLines()) {
         std::string lineId = railLine.GetID();
-        std::vector<int> stationSeq = railLine.GetRailStationSeq();
+        const auto stationSeqObjs = railLine.GetRailStationSeq();
         double fee = railLine.GetFee();
 
-        std::map<int, std::vector<double>> startTimes;
-        std::map<int, std::vector<double>> terminalTimes;
+        if (stationSeqObjs.size() < 2) continue;
 
-        // std::cerr << "[DEBUG] Processing rail line " << lineId << " with " << stationSeq.size() << " stations.\n";
+        // build station ids
+        std::vector<int> stationSeqIds;
+        for (const auto& s : stationSeqObjs) stationSeqIds.push_back(s.GetId());
 
-        if (stationSeq.size() < 2) {
-            std::cerr << "Warning: rail line " << lineId << " has less than 2 stations.\n";
-            continue;
-        }
-
-        int startStationId = stationSeq.front();
-        int terminalStationId = stationSeq.back();
-
-        const InputRailStation* startStation = nullptr;
-        const InputRailStation* terminalStation = nullptr;
-
-        for (const auto& s : railStations.GetRailStations()) {
-            if (s.GetId() == startStationId) startStation = &s;
-            if (s.GetId() == terminalStationId) terminalStation = &s;
-        }
-
-        if (!startStation || !terminalStation) {
-            std::cerr << "Error: Start or terminal station not found for line " << lineId << "\n";
-            continue;
-        }
-        
-        bool hasStart = false, hasTerminal = false;
-        
-        for (const auto& tt : startStation->GetTimetables()) {
-            if (tt.GetLineId() != railLine.GetID()) continue;
-            if (tt.GetType() == "start") {
-                for (const auto& t : tt.GetTime()) {
-                    double min = convertToMinutes(t);
-                    if (min != -1) startTimes[startStationId].push_back(min);
-                }
-                hasStart = true;
+        // build arrivals per stop from departures and offsets
+        std::map<int, std::vector<double>> arrivalsPerStop;
+        const auto departures = railLine.GetDepartureTime();
+        for (const auto& dep : departures) {
+            double base = convertToMinutes(dep);
+            if (base < 0) continue;
+            for (const auto& s : stationSeqObjs) {
+                double arr = base + static_cast<double>(s.GetTimeOffset());
+                if (arr >= 24*60) arr -= 24*60;
+                arrivalsPerStop[s.GetId()].push_back(arr);
             }
         }
 
-        for (const auto& tt : terminalStation->GetTimetables()) {
-            if (tt.GetLineId() != railLine.GetID()) continue;
-            if (tt.GetType() == "terminal") {
-                for (const auto& t : tt.GetTime()) {
-                    double min = convertToMinutes(t);
-                    if (min != -1) terminalTimes[terminalStationId].push_back(min);
-                }
-                hasTerminal = true;
-            }
+        // determine number of runs
+        size_t numRuns = SIZE_MAX;
+        for (int sid : stationSeqIds) {
+            if (!arrivalsPerStop.count(sid)) { numRuns = 0; break; }
+            numRuns = std::min(numRuns, arrivalsPerStop[sid].size());
         }
+        if (numRuns == 0 || numRuns == SIZE_MAX) continue;
 
-        if (!hasStart || !hasTerminal) {
-            std::cerr << "Warning: Missing start or terminal timetable for line " << lineId << "\n";
-            continue;
-        }
-
-        size_t startCount = startTimes[startStationId].size();
-        size_t terminalCount = terminalTimes[terminalStationId].size();
-        size_t numRuns = std::min(startCount, terminalCount);
-
-        // std::cerr << "[DEBUG] startStationId=" << startStationId << ", startTimes=" << startCount
-        //          << ", terminalStationId=" << terminalStationId << ", terminalTimes=" << terminalCount << "\n";
-
-        if (numRuns == 0) {
-            std::cerr << "[DEBUG] No valid runs found for line " << lineId << ". numRuns=0\n";
-            continue;
-        }
-
-        // std::cerr << "[DEBUG] Number of runs for line " << lineId << ": " << numRuns << "\n";
-
-        for (size_t runIdx = 0; runIdx < numRuns; ++runIdx) {
-            // std::cerr << "[DEBUG] Processing run index " << runIdx << "\n";
-            double departure = startTimes[startStationId][runIdx];
-            double arrival = terminalTimes[terminalStationId][runIdx];
-            double timeCostTotal = arrival - departure;
-            if (timeCostTotal < 0) timeCostTotal += 24 * 60;
-            
-            // 인접한 정류장 간 아크만 생성하도록 복원
-            for (size_t i = 0; i < stationSeq.size() - 1; ++i) {
-                int fromStop = stationSeq[i];
-                int toStop = stationSeq[i + 1];
-
-                // Note: The original code's time calculation for rail was flawed. 
-                // It was using startTimes and terminalTimes which are for the start/end of the line.
-                // The correct logic would be to calculate segment travel time based on the total run time.
-                // For now, I'll restore your original logic, but be aware of this potential bug.
-                double timeCost = 0.0;
-                // Simplified time cost calculation for adjacent segments
-                if (stationSeq.size() > 1) {
-                    timeCost = timeCostTotal / (stationSeq.size() - 1);
-                } else {
-                    timeCost = timeCostTotal;
-                }
-
+        // for each run, create segment arcs
+        for (size_t run = 0; run < numRuns; ++run) {
+            for (size_t i = 0; i < stationSeqIds.size() - 1; ++i) {
+                int fromStop = stationSeqIds[i];
+                int toStop = stationSeqIds[i+1];
+                double t1 = arrivalsPerStop[fromStop][run];
+                double t2 = arrivalsPerStop[toStop][run];
+                double timeCost = t2 - t1;
+                if (timeCost < 0) timeCost += 24*60;
                 PTCost inVehicleCost(timeCost, 0, 0, fee);
-                AddPTArc(InputPTGraphArc(
-                    arcIdCounter++, fromStop, lineId, toStop, lineId, departure, ArcType::InVehicle, inVehicleCost));
+                AddPTArc(InputPTGraphArc(arcIdCounter++, fromStop, lineId, toStop, lineId, t1, ArcType::InVehicle, inVehicleCost));
             }
         }
     }
@@ -614,9 +452,8 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
     // std::cout << "[DEBUG_TRANSFER_ARC_GENERATION] Processing Rail Stations for Transfers..." << std::endl;
     for (const auto& railInputStation : railStations.GetRailStations()) {
         std::set<std::string> railLines;
-        for (const auto& tt : railInputStation.GetTimetables()) {
-            railLines.insert(tt.GetLineId());
-        }
+        const auto& lines = railInputStation.GetLineList();
+        for (const auto& lid : lines) if (!lid.empty()) railLines.insert(lid);
         long long arcsForCurrentStation = 0; // 현재 정류장의 아크 카운터
 
         if (railLines.size() > 1) {

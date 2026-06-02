@@ -27,7 +27,7 @@ public:
      * @param offset Offset in the link
      * @param accesstime Access time
      */
-    exit(int id, int link, int offset, double accesstime);
+    exit(int id, int link, int offset, int accesstime);
 
     /**
      * @details Get exit ID
@@ -51,7 +51,7 @@ public:
      * @details Get access time
      * @return Access time
      */
-    double GetAccesstime() { return m_accesstime; }
+    int GetAccesstime() { return m_accesstime; }
 
 private:
     /**
@@ -65,14 +65,14 @@ private:
     int m_link;
 
     /**
-     * @details Offset in the link
+     * @details Offset in the link (in meters)
      */
     int m_offset;
 
     /**
-     * @details Access time
+     * @details Access time (in seconds)
      */
-    double m_accesstime;
+    int m_accesstime;
 
 };
 } // namespace NextSimIO

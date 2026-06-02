@@ -1,13 +1,12 @@
 /**
  * NextSim Captain
  * @file : RailStation.cpp
- * @version : 1.2
- * @author : Yuseock Hwang, Yeonwoo Yu
+ * @version : 2.0
+ * @author : Yuseock Hwang, Yeonwoo Yu, Dongheon Lee
  */
 #include <iostream>
 #include <sstream>
 #include <string>
-#include <algorithm>
 
 #include <NextSim_io/parser/RailStationArr.hpp>
 
@@ -39,63 +38,48 @@ void RailStationArr::LoadRailStations(const std::optional<std::string>& dayOfWee
          stationElem != nullptr;
          stationElem = stationElem->NextSiblingElement("railStation"))
     {
-        int id = std::stoi(stationElem->Attribute("id"));
+        const char* idAttr = stationElem->Attribute("id");
+        if (!idAttr) {
+            std::cerr << "[WARN] Skipping railStation: missing id attribute\n";
+            continue;
+        }
+        int id = std::stoi(idAttr);
 
-        std::string transitMode = stationElem->Attribute("transitMode") ?: "";
+        std::string transitMode = stationElem->Attribute("transitMode") ? stationElem->Attribute("transitMode") : "";
 
-        std::string lineListStr = stationElem->Attribute("lineList") ?: "";
+        std::string lineListStr = stationElem->Attribute("lineList") ? stationElem->Attribute("lineList") : "";
         std::istringstream lineStream(lineListStr);
         std::vector<std::string> lineList;
         std::string line;
         while (lineStream >> line) lineList.push_back(line);
-        
-        std::string address = stationElem->Attribute("address") ?: "";
 
-        std::string centerStr = stationElem->Attribute("center") ?: "";
-        double x = 0, y = 0;
-        std::stringstream(centerStr) >> x >> y;
+        // prefer 'name' attribute; fall back to 'address' for older files
+        std::string name = stationElem->Attribute("name") ? stationElem->Attribute("name") : "";
+        if (name.empty() && stationElem->Attribute("address")) name = stationElem->Attribute("address");
+
+        std::string centerStr = stationElem->Attribute("center") ? stationElem->Attribute("center") : "";
+        double x = 0.0, y = 0.0;
+        if (!centerStr.empty()) {
+            std::istringstream ss(centerStr);
+            ss >> x >> y;
+        }
         std::pair<double, double> center(x, y);
 
-        InputRailStation station(id, transitMode, lineList, address, center);
+        InputRailStation station(id, transitMode, lineList, name, center);
 
         // Parse exits
         for (TiXmlElement* exitElem = stationElem->FirstChildElement("exit");
              exitElem != nullptr;
              exitElem = exitElem->NextSiblingElement("exit"))
         {
-            int exitId = std::stoi(exitElem->Attribute("id"));
-            int linkRef = std::stoi(exitElem->Attribute("linkRef"));
-            double offset = std::stod(exitElem->Attribute("offset"));
-            double accessTime = std::stod(exitElem->Attribute("accessTime"));
+            const char* exitIdAttr = exitElem->Attribute("id");
+            const char* linkRefAttr = exitElem->Attribute("linkRef");
+            if (!exitIdAttr || !linkRefAttr) continue;
+            int exitId = std::stoi(exitIdAttr);
+            int linkRef = std::stoi(linkRefAttr);
+            int offset = exitElem->Attribute("offset") ? std::stoi(exitElem->Attribute("offset")) : 0;
+            int accessTime = exitElem->Attribute("accessTime") ? std::stoi(exitElem->Attribute("accessTime")) : 0;
             station.PushExit(exit(exitId, linkRef, offset, accessTime));
-        }
-
-        // Parse timetables
-        for (TiXmlElement* timetableElem = stationElem->FirstChildElement("timetable");
-             timetableElem != nullptr;
-             timetableElem = timetableElem->NextSiblingElement("timetable"))
-        {
-            std::string dayOfWeek = timetableElem->Attribute("dayOfWeek") ?: "";
-
-            if (dayOfWeekFilter && *dayOfWeekFilter != dayOfWeek) {
-                continue;
-            }
-
-            std::string lineId    = timetableElem->Attribute("lineId")    ?: "";
-            std::string type = timetableElem->Attribute("type") ?: "";
-            const char* rawTime   = timetableElem->Attribute("time");
-
-            std::vector<std::string> times;
-            if (rawTime) {
-                std::istringstream timeStream(rawTime);
-                std::string time;
-                while (timeStream >> time) {
-                    times.push_back(std::move(time));
-                }
-            }
-
-            timetable timetable(dayOfWeek, lineId, type, std::move(times));
-            station.Pushtimetable(std::move(timetable));
         }
 
         m_railstations.push_back(std::move(station));
