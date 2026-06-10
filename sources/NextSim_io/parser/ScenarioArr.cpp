@@ -62,23 +62,27 @@ ScenarioArr::ScenarioArr()
                 {
                     const rapidjson::Value& sc = tc["signalControl"];
                     bool active = false;
-                    double timeStep = 1.0;
+                    double interval = 1.0;
                     if (sc.HasMember("active") && sc["active"].IsBool()) 
                         active = sc["active"].GetBool();
-                    if (sc.HasMember("timeStep") && sc["timeStep"].IsNumber()) 
-                        timeStep = sc["timeStep"].GetDouble();
-                    tmc.SetSignalTMCInfo(active, timeStep);
+                    if (sc.HasMember("interval") && sc["interval"].IsNumber())
+                        interval = sc["interval"].GetDouble();
+                    else if (sc.HasMember("timeStep") && sc["timeStep"].IsNumber())
+                        interval = sc["timeStep"].GetDouble();
+                    tmc.SetSignalTMCInfo(active, interval);
                 }
                 if (tc.HasMember("v2x") && tc["v2x"].IsObject())
                 {
                     const rapidjson::Value& v2x = tc["v2x"];
                     bool active = false;
-                    double timeStep = 1.0;
+                    double interval = 1.0;
                     if (v2x.HasMember("active") && v2x["active"].IsBool()) 
                         active = v2x["active"].GetBool();
-                    if (v2x.HasMember("timeStep") && v2x["timeStep"].IsNumber()) 
-                        timeStep = v2x["timeStep"].GetDouble();
-                    tmc.SetV2XTMCInfo(active, timeStep);
+                    if (v2x.HasMember("interval") && v2x["interval"].IsNumber())
+                        interval = v2x["interval"].GetDouble();
+                    else if (v2x.HasMember("timeStep") && v2x["timeStep"].IsNumber())
+                        interval = v2x["timeStep"].GetDouble();
+                    tmc.SetV2XTMCInfo(active, interval);
                 }
             }
             // Fallback for older formats if needed, or just use defaults

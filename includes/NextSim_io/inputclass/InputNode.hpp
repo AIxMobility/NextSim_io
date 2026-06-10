@@ -91,37 +91,37 @@ public:
      * @details Get node type
      * @return Node type (0: Normal, 1: Intersection, 2: Merging, 3: Diverging, 4: Terminal, 5: Garage)
     */
-    int GetType() { return m_type; }
+    int GetType() const { return m_type; }
 
     /**
      * @details Get number of connections between links
      * @return Number of connections between links
     */
-    int GetNumConn() { return m_numConnections; }
+    int GetNumConn() const { return m_numConnections; }
 
     /**
      * @details Get number of connected links
      * @return Number of connected links
     */
-    int GetNumLink() { return m_numLinks; }
+    int GetNumLink() const { return m_numLinks; }
 
     /**
      * @details Get whether V2X is active or not
      * @return True(V2X is active) or False(not)
     */
-    bool GetV2XActive() { return m_v2xActive; }
+    bool GetV2XActive() const { return m_v2xActive; }
 
     /**
      * @details Get signal cycle
      * @return Signal cycle [s]
     */
-    int GetCycle() { return m_cycle; }
+    int GetCycle() const { return m_cycle; }
 
     /**
      * @details Get signal offset
      * @return Signal offset [s]
     */
-    int GetOffset() { return m_offset; }
+    int GetOffset() const { return m_offset; }
 
     
     /**
@@ -140,13 +140,13 @@ public:
      * @details Get connected links
      * @return Vector of connected links
     */
-    std::vector<port> GetLinks() { return m_connectedLinks; }
+    const std::vector<port>& GetLinks() const { return m_connectedLinks; }
 
     /**
      * @details Get connections between links
      * @return Vector of connections between links
     */
-    std::vector<connection> GetConnections() { return m_connectionTable; }
+    const std::vector<connection>& GetConnections() const { return m_connectionTable; }
 
     /**
      * @details Get signal phases

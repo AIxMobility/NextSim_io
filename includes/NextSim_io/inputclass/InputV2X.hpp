@@ -16,32 +16,63 @@
 
 namespace NextSimIO
 {
+enum class InputV2XMsgType
+{
+    Undefined = 0,
+    Position = 1,
+    TrafficInfo = 2,
+    Signal = 3,
+    RoadEvent = 4,
+    SchoolZone = 5,
+    SpeedLimit = 6,
+    CollisionWarn = 7
+};
+
+constexpr int ToInt(InputV2XMsgType msgType)
+{
+    return static_cast<int>(msgType);
+}
+
+struct MsgConfig
+{
+    bool active = false;
+    int interval = 1; // seconds
+};
+
+struct MsgConfigTime
+{
+    bool active = false;
+    int interval = 1; // seconds
+    std::string startTime = "00:00:00";
+    int duration = -1; // duration in seconds, -1 for simulation end
+};
+
 /**
  * @struct InputV2XConfig
  * @brief Consolidated configuration for V2X (Range + Message switches)
  */
 struct InputV2XConfig
 {
-    // Ranges
+    // General V2X configuration
     double v2iRange = 500.0;
-    double v2vRange = 300.0;
+    MsgConfig debugLog;
     
     // Message Activation Switches and Timing
-    bool position = false;
-    bool roadEvent = false;
-
-    struct {
-        bool active = false;
-        int interval = 1; // seconds
-    } trafficInfo, signalPhase;
+    MsgConfig position;
+    MsgConfig trafficInfo;
+    MsgConfig signal;
+    MsgConfig roadEvent;
     
+    MsgConfigTime schoolZone;
+    MsgConfigTime speedLimit;
+
     struct {
         bool active = false;
-        std::string startTime = "00:00:00";
-        int duration = -1; // duration in seconds, -1 for simulation end
-    } schoolZone, speedLimit;
-
-    bool collisionWarn = false;
+        double straightRange = 100.0; // m
+        double rtorRange = 50.0;      // m
+        double DRACThreshold = 3.4;   // m/s^2
+        int interval = 1;             // seconds
+    } collisionWarn;
 };
 
 /**
@@ -71,7 +102,6 @@ struct InputV2XEvent
     // Integrated content fields (simplified from former MsgContent)
     double speedLimit = 0.0;
     std::string eventDetail = "";
-    bool collisionWarning = false;
 };
 
 /**
@@ -84,7 +114,7 @@ public:
     InputV2X() = default;
 
     void SetConfig(InputV2XConfig config) { m_config = config; }
-    InputV2XConfig GetConfig() const { return m_config; }
+    const InputV2XConfig& GetConfig() const { return m_config; }
 
     void AddEvent(InputV2XEvent event) { m_events.push_back(event); }
     const std::vector<InputV2XEvent>& GetEvents() const { return m_events; }

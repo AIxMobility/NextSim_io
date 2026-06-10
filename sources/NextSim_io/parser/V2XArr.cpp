@@ -23,74 +23,80 @@ V2XArr::V2XArr()
 {
     InputV2X consolidatedV2X;
     InputV2XConfig config;
+    bool hasV2XInput = false;
 
     // 1. Load config_v2x.json
     std::ifstream configIfs(NextSimIO::V2XConfigJSONPath.string());
     if (configIfs.is_open())
     {
+        hasV2XInput = true;
         rapidjson::IStreamWrapper isw(configIfs);
         rapidjson::Document doc;
         doc.ParseStream(isw);
 
         if (!doc.HasParseError())
         {
-            // 1.1 Load V2XRange
-            if (doc.HasMember("V2XRange") && doc["V2XRange"].IsObject())
+            auto readMsgConfig = [](const rapidjson::Value& parent,
+                                     const char* key,
+                                     MsgConfig& target) {
+                if (!parent.HasMember(key)) return;
+                const auto& value = parent[key];
+                if (!value.IsObject()) return;
+                if (value.HasMember("active")) target.active = value["active"].GetBool();
+                if (value.HasMember("interval")) target.interval = value["interval"].GetInt();
+            };
+
+            auto readMsgConfigTime = [](const rapidjson::Value& parent,
+                                         const char* key,
+                                         MsgConfigTime& target) {
+                if (!parent.HasMember(key)) return;
+                const auto& value = parent[key];
+                if (!value.IsObject()) return;
+                if (value.HasMember("active")) target.active = value["active"].GetBool();
+                if (value.HasMember("interval")) target.interval = value["interval"].GetInt();
+                if (value.HasMember("startTime")) target.startTime = value["startTime"].GetString();
+                if (value.HasMember("duration")) target.duration = value["duration"].GetInt();
+            };
+
+            // 1.1 Load V2XConfig
+            if (doc.HasMember("V2XConfig") && doc["V2XConfig"].IsObject())
             {
-                const rapidjson::Value& range = doc["V2XRange"];
-                if (range.HasMember("V2IRange")) config.v2iRange = range["V2IRange"].GetDouble();
-                if (range.HasMember("V2VRange")) config.v2vRange = range["V2VRange"].GetDouble();
+                const rapidjson::Value& v2xConfig = doc["V2XConfig"];
+                if (v2xConfig.HasMember("V2IRange")) config.v2iRange = v2xConfig["V2IRange"].GetDouble();
+                readMsgConfig(v2xConfig, "V2XDebugLog", config.debugLog);
             }
 
             // 1.2 Load V2XMessage
             if (doc.HasMember("V2XMessage") && doc["V2XMessage"].IsObject())
             {
                 const rapidjson::Value& msg = doc["V2XMessage"];
-                if (msg.HasMember("Position")) config.position = msg["Position"].GetBool();
-                if (msg.HasMember("TrafficInfo")) {
-                    if (msg["TrafficInfo"].IsBool()) config.trafficInfo.active = msg["TrafficInfo"].GetBool();
-                    else if (msg["TrafficInfo"].IsObject()) {
-                        const auto& trafficInfo = msg["TrafficInfo"];
-                        if (trafficInfo.HasMember("active")) config.trafficInfo.active = trafficInfo["active"].GetBool();
-                        if (trafficInfo.HasMember("interval")) config.trafficInfo.interval = trafficInfo["interval"].GetInt();
+                readMsgConfig(msg, "Position", config.position);
+                readMsgConfig(msg, "TrafficInfo", config.trafficInfo);
+                readMsgConfig(msg, "Signal", config.signal);
+                readMsgConfig(msg, "RoadEvent", config.roadEvent);
+                readMsgConfigTime(msg, "SchoolZone", config.schoolZone);
+                readMsgConfigTime(msg, "SpeedLimit", config.speedLimit);
+                if (msg.HasMember("CollisionWarn")) {
+                    if (msg["CollisionWarn"].IsObject()) {
+                        const auto& collisionWarn = msg["CollisionWarn"];
+                        if (collisionWarn.HasMember("active")) config.collisionWarn.active = collisionWarn["active"].GetBool();
+                        if (collisionWarn.HasMember("range") && collisionWarn["range"].IsObject()) {
+                            const auto& range = collisionWarn["range"];
+                            if (range.HasMember("straight")) {
+                                config.collisionWarn.straightRange = range["straight"].GetDouble();
+                            }
+                            if (range.HasMember("rtor")) {
+                                config.collisionWarn.rtorRange = range["rtor"].GetDouble();
+                            }
+                        }
+                        if (collisionWarn.HasMember("DRACThreshold")) {
+                            config.collisionWarn.DRACThreshold = collisionWarn["DRACThreshold"].GetDouble();
+                        }
+                        if (collisionWarn.HasMember("interval")) {
+                            config.collisionWarn.interval = collisionWarn["interval"].GetInt();
+                        }
                     }
                 }
-                if (msg.HasMember("SignalPhase")) {
-                    if (msg["SignalPhase"].IsBool()) config.signalPhase.active = msg["SignalPhase"].GetBool();
-                    else if (msg["SignalPhase"].IsObject()) {
-                        const auto& signalPhase = msg["SignalPhase"];
-                        if (signalPhase.HasMember("active")) config.signalPhase.active = signalPhase["active"].GetBool();
-                        if (signalPhase.HasMember("interval")) config.signalPhase.interval = signalPhase["interval"].GetInt();
-                    }
-                }
-                if (msg.HasMember("RoadEvent")) config.roadEvent = msg["RoadEvent"].GetBool();
-                if (msg.HasMember("SchoolZone")) {
-                    if (msg["SchoolZone"].IsBool()) config.schoolZone.active = msg["SchoolZone"].GetBool();
-                    else if (msg["SchoolZone"].IsObject()) {
-                        const auto& sz = msg["SchoolZone"];
-                        if (sz.HasMember("active")) config.schoolZone.active = sz["active"].GetBool();
-                        if (sz.HasMember("startTime")) config.schoolZone.startTime = sz["startTime"].GetString();
-                        if (sz.HasMember("duration")) config.schoolZone.duration = sz["duration"].GetInt();
-                    }
-                }
-                if (msg.HasMember("SpeedLimit")) {
-                    if (msg["SpeedLimit"].IsBool()) config.speedLimit.active = msg["SpeedLimit"].GetBool();
-                    else if (msg["SpeedLimit"].IsObject()) {
-                        const auto& sl = msg["SpeedLimit"];
-                        if (sl.HasMember("active")) config.speedLimit.active = sl["active"].GetBool();
-                        if (sl.HasMember("startTime")) config.speedLimit.startTime = sl["startTime"].GetString();
-                        if (sl.HasMember("duration")) config.speedLimit.duration = sl["duration"].GetInt();
-                    }
-                }
-                if (msg.HasMember("CollisionWarn")) config.collisionWarn = msg["CollisionWarn"].GetBool();
-            }
-
-            // 1.3 Load V2XInterval
-            if (doc.HasMember("V2XInterval") && doc["V2XInterval"].IsObject())
-            {
-                const rapidjson::Value& interval = doc["V2XInterval"];
-                if (interval.HasMember("TrafficInfoInterval")) config.trafficInfo.interval = interval["TrafficInfoInterval"].GetInt();
-                if (interval.HasMember("SignalPhaseInterval")) config.signalPhase.interval = interval["SignalPhaseInterval"].GetInt();
             }
         }
         consolidatedV2X.SetConfig(config);
@@ -102,6 +108,7 @@ V2XArr::V2XArr()
 
     if (loadSuccess)
     {
+        hasV2XInput = true;
         TiXmlElement *root = doc.FirstChildElement();
         if (root)
         {
@@ -114,24 +121,19 @@ V2XArr::V2XArr()
                     InputV2XEvent eventData;
 
                     const char* linkId = elem->Attribute("linkId");
-                    const char* link_id = elem->Attribute("link_id");
                     const char* lane = elem->Attribute("lane");
                     const char* startPos = elem->Attribute("startPos");
                     const char* endPos = elem->Attribute("endPos");
-                    const char* pos = elem->Attribute("pos");
                     const char* stime = elem->Attribute("stime");
                     const char* etime = elem->Attribute("etime");
                     const char* type = elem->Attribute("type");
                     const char* speedLimit = elem->Attribute("speedLimit");
                     const char* detail = elem->Attribute("detail");
-                    const char* collision = elem->Attribute("collision");
 
                     if (linkId) eventData.linkId = atoi(linkId);
-                    else if (link_id) eventData.linkId = atoi(link_id);
                     if (lane) eventData.laneIds.push_back(atoi(lane));
                     else eventData.laneIds.push_back(-1);
                     if (startPos) eventData.startPos = atof(startPos);
-                    else if (pos) { eventData.startPos = atof(pos); eventData.endPos = atof(pos); }
                     if (endPos) eventData.endPos = atof(endPos);
                     if (stime) eventData.startTime = atof(stime);
                     if (etime) eventData.endTime = atof(etime);
@@ -139,19 +141,18 @@ V2XArr::V2XArr()
                     if (type)
                     {
                         std::string typeStr(type);
-                        if (typeStr == "Position") eventData.msgType = 1;
-                        else if (typeStr == "TrafficInfo") eventData.msgType = 2;
-                        else if (typeStr == "SignalPhase") eventData.msgType = 3;
-                        else if (typeStr == "RoadEvent") eventData.msgType = 4;
-                        else if (typeStr == "SchoolZone") eventData.msgType = 5;
-                        else if (typeStr == "SpeedLimit") eventData.msgType = 6;
-                        else if (typeStr == "CollisionWarn") eventData.msgType = 7;
+                        if (typeStr == "Position") eventData.msgType = ToInt(InputV2XMsgType::Position);
+                        else if (typeStr == "TrafficInfo") eventData.msgType = ToInt(InputV2XMsgType::TrafficInfo);
+                        else if (typeStr == "Signal") eventData.msgType = ToInt(InputV2XMsgType::Signal);
+                        else if (typeStr == "RoadEvent") eventData.msgType = ToInt(InputV2XMsgType::RoadEvent);
+                        else if (typeStr == "SchoolZone") eventData.msgType = ToInt(InputV2XMsgType::SchoolZone);
+                        else if (typeStr == "SpeedLimit") eventData.msgType = ToInt(InputV2XMsgType::SpeedLimit);
+                        else if (typeStr == "CollisionWarn") eventData.msgType = ToInt(InputV2XMsgType::CollisionWarn);
                         else eventData.msgType = atoi(type);
                     }
 
                     if (speedLimit) eventData.speedLimit = atof(speedLimit);
                     if (detail) eventData.eventDetail = detail;
-                    if (collision) eventData.collisionWarning = (std::string(collision) == "true");
 
                     consolidatedV2X.AddEvent(eventData);
                 }
@@ -164,6 +165,7 @@ V2XArr::V2XArr()
     bool netLoadSuccess = netDoc.LoadFile(NextSimIO::V2XNetworkXMLPath.string().c_str());
     if (netLoadSuccess)
     {
+        hasV2XInput = true;
         TiXmlElement *root = netDoc.FirstChildElement();
         if (root)
         {
@@ -219,6 +221,7 @@ V2XArr::V2XArr()
             }
         }
     }
-    m_v2xs.push_back(consolidatedV2X);
+    if (hasV2XInput)
+        m_v2xs.push_back(consolidatedV2X);
 }
 } // namespace NextSimIO

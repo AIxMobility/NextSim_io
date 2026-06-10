@@ -20,13 +20,13 @@ struct InputTMCFeature
     /**
      * @details default constructor
      */
-    InputTMCFeature(bool active = false, double timeStep = 1.0)
-        : m_active(active), m_timeStep(timeStep)
+    InputTMCFeature(bool active = false, double interval = 1.0)
+        : m_active(active), m_interval(interval)
     {
     }
 
     bool m_active = false;
-    double m_timeStep = 1.0;
+    double m_interval = 1.0;
 };
 /**
  * @class InputTMC
@@ -47,9 +47,9 @@ public:
 
     const InputTMCFeature& GetV2XTMCInfo() const { return m_v2xTMCInfo; }
 
-    void SetSignalTMCInfo(bool active, double timestep) { if (timestep < 1e-6) timestep = 1.0; m_signalTMCInfo = InputTMCFeature(active, timestep); }
+    void SetSignalTMCInfo(bool active, double interval) { if (interval < 1e-6) interval = 1.0; m_signalTMCInfo = InputTMCFeature(active, interval); }
 
-    void SetV2XTMCInfo(bool active, double timestep) { if (timestep < 1e-6) timestep = 1.0; m_v2xTMCInfo = InputTMCFeature(active, timestep); }
+    void SetV2XTMCInfo(bool active, double interval) { if (interval < 1e-6) interval = 1.0; m_v2xTMCInfo = InputTMCFeature(active, interval); }
 
 private:
 

@@ -44,54 +44,54 @@ public:
      * @details Get connection ID
      * @return Connection ID
      */
-    int GetConnId() { return m_connectionId; }
+    int GetConnId() const { return m_connectionId; }
     /**
      * @details Get link ID that the connection is from
      * @return Link ID
      */
-    int GetFromLink() { return m_fromLink; }
+    int GetFromLink() const { return m_fromLink; }
     
     /**
      * @details Get lane ID that the connection is from
      * @return Lane ID
      */
-    int GetFromLane() { return m_fromLane; }
+    int GetFromLane() const { return m_fromLane; }
     
     /**
      * @details Get link ID that the connection is to
      * @return Link ID
      */
-    int GetToLink() { return m_toLink; }
+    int GetToLink() const { return m_toLink; }
     
     /**
      * @details Get lane ID that the connection is to
      * @return Lane ID
      */
-    int GetToLane() { return m_toLane; }
+    int GetToLane() const { return m_toLane; }
 
     /**
      * @details Get turning information
      * @return Turning information (L(left turn), R(right turn), S(straight))
      */
-    std::string GetTurning() { return m_turning; }
+    const std::string& GetTurning() const { return m_turning; }
 
     /**
      * @details Get priority of the connection
      * @return Priority (0.1: R, 0.5: L, 1: S)
      */
-    double GetPriority() { return m_priority; }
+    double GetPriority() const { return m_priority; }
 
     /**
      * @details Get length of the connection
      * @return Length [m]
      */
-    double GetLength() { return m_length; }
+    double GetLength() const { return m_length; }
 
     /**
      * @details Get width of the connection
      * @return Width [m]
      */
-    double GetWidth() { return m_width; }
+    double GetWidth() const { return m_width; }
 
     /**
      * @details Get connection shape points.
