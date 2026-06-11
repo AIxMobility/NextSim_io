@@ -153,6 +153,11 @@ private:
      * @details Sequence of garage IDs linked to this station (for rail transit)
     */
     std::vector<int> m_garageList;
+
+    /**
+     * @details Global Coordinates of station
+    */
+    std::pair<double, double> m_globalPos;
 };
 
 /**

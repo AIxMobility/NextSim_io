@@ -5,6 +5,8 @@
  * @author : ???
  */
 
+#include <sstream>
+#include <algorithm>
 #include <NextSim_io/inputclass/intersection/connection.hpp>
 
 namespace NextSimIO

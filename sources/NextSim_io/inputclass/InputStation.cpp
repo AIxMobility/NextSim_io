@@ -7,6 +7,7 @@
 
 #include <sstream>
 
+#include <algorithm>
 #include <NextSim_io/inputclass/InputStation.hpp>
 
 namespace NextSimIO

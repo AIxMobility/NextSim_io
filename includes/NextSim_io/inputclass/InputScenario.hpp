@@ -12,6 +12,7 @@
 
 #include <vector>
 #include <string>
+#include <NextSim_io/inputclass/InputTMC.hpp>
 
 namespace NextSimIO
 {
@@ -30,8 +31,9 @@ public:
      * @param BGTduration Background traffic duration [min]
      * @param odID OD matrix ID
      * @param todID TOD matrix ID
+     * @param tmc TMC configuration info
     */
-    InputScenario(int id, std::string startTime, int duration, int BGTduration, int odID, int todID, bool signalControl = false);
+    InputScenario(int id, std::string startTime, int duration, int BGTduration, int odID, int todID, InputTMC tmc);
 
     /** @cond EXCLUDE */
     ~InputScenario() = default;
@@ -76,10 +78,10 @@ public:
     int GetTODID() { return m_todID; }
 
     /**
-     * @brief Check if signal control is active
-     * @return True if signal control is active, false otherwise
+     * @brief Get TMC configuration
+     * @return TMC configuration
     */
-    bool IsSignalControl() const { return m_signalControl; }
+    InputTMC GetTMC() const { return m_tmc; }
 
 
 private:
@@ -114,9 +116,9 @@ private:
     int m_todID;
 
     /**
-     * @details Whether signal control is active or not
+     * @details TMC configuration info
     */
-    bool m_signalControl = false;
+    InputTMC m_tmc;
 };
 } // namespace NextSimIO
 

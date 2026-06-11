@@ -12,65 +12,83 @@
 
 #include <NextSim_io/parser/ScenarioArr.hpp>
 
-#include <NextSim_io/tinyapi/tinystr.h>
-#include <NextSim_io/tinyapi/tinyxml.h>
+#define RAPIDJSON_HAS_STDSTRING 1
+#include <rapidjson/document.h>
+#include <rapidjson/istreamwrapper.h>
+#include <fstream>
+
+#include <NextSim_io/parser/ScenarioArr.hpp>
 #include <NextSim_io/FilePath.hpp>
 
 namespace NextSimIO
 {
 ScenarioArr::ScenarioArr()
 {
-    TiXmlDocument doc;
-    bool loadSuccess = doc.LoadFile(NextSimIO::ScenarioXMLPath.string().c_str());
-
-    if (!loadSuccess)
+    std::ifstream ifs(NextSimIO::ScenarioJSONPath.string());
+    if (!ifs.is_open())
     {
-        std::cout << "Loading failed (Scenario)" << std::endl;
+        std::cout << "Loading failed (Scenario JSON): " << NextSimIO::ScenarioJSONPath << std::endl;
         return;
     }
 
-    TiXmlElement *root = doc.FirstChildElement();
+    rapidjson::IStreamWrapper isw(ifs);
+    rapidjson::Document doc;
+    doc.ParseStream(isw);
 
-    for (TiXmlElement *elem = root->FirstChildElement(); elem != NULL;
-         elem = elem->NextSiblingElement())
+    if (doc.HasParseError())
     {
-        std::string elemName = elem->Value();
+        std::cout << "Parse error (Scenario JSON)" << std::endl;
+        return;
+    }
 
-        if (elemName == "Scenario")
+    if (doc.HasMember("Scenarios") && doc["Scenarios"].IsArray())
+    {
+        const rapidjson::Value& scenarios = doc["Scenarios"];
+        for (rapidjson::SizeType i = 0; i < scenarios.Size(); i++)
         {
-            const char *id = elem->Attribute("id");
-            const char *startTime = elem->Attribute("startTime");
-            const char *duration = elem->Attribute("duration");
-            const char *BGTduration = elem->Attribute("BGTduration");
-            const char *odID = elem->Attribute("odMatrixID");
-            const char *todID = elem->Attribute("todID");
-            const char *signalControl = elem->Attribute("signalControl");
-
-            if (!id)
-                throw std::runtime_error("Element should have 'id' attribute");
-            if (!startTime)
-                throw std::runtime_error("Element should have 'startTime' attribute");
-            if (!duration)
-                throw std::runtime_error("Element should have 'duration' attribute");
-            if (!BGTduration)
-                throw std::runtime_error("Element should have 'BGTduration' attribute");
-            if (!odID)
-                throw std::runtime_error("Element should have 'odMatrixID' attribute");
-            if (!todID)
-                throw std::runtime_error("Element should have 'todID' attribute");
-            if (!signalControl)
-                throw std::runtime_error("Element should have 'signalControl' attribute");
-
-            bool signalBool = (std::strcmp(signalControl, "1") == 0 ||
-                                strcasecmp(signalControl, "true") == 0);
+            const rapidjson::Value& scenario = scenarios[i];
             
-            InputScenario singleScenario(
-                atoi(id), startTime, atoi(duration), atoi(BGTduration), atoi(odID), atoi(todID), signalBool);
-
+            int id = scenario["id"].GetInt();
+            std::string startTime = scenario["startTime"].GetString();
+            int duration = scenario["duration"].GetInt();
+            int BGTduration = scenario["BGTduration"].GetInt();
+            int odID = scenario["odMatrixID"].GetInt();
+            int todID = scenario["todID"].GetInt();
+            InputTMC tmc;
+            if (scenario.HasMember("trafficCenter") && scenario["trafficCenter"].IsObject())
+            {
+                const rapidjson::Value& tc = scenario["trafficCenter"];
+                if (tc.HasMember("signalControl") && tc["signalControl"].IsObject())
+                {
+                    const rapidjson::Value& sc = tc["signalControl"];
+                    bool active = false;
+                    double interval = 1.0;
+                    if (sc.HasMember("active") && sc["active"].IsBool()) 
+                        active = sc["active"].GetBool();
+                    if (sc.HasMember("interval") && sc["interval"].IsNumber())
+                        interval = sc["interval"].GetDouble();
+                    else if (sc.HasMember("timeStep") && sc["timeStep"].IsNumber())
+                        interval = sc["timeStep"].GetDouble();
+                    tmc.SetSignalTMCInfo(active, interval);
+                }
+                if (tc.HasMember("v2x") && tc["v2x"].IsObject())
+                {
+                    const rapidjson::Value& v2x = tc["v2x"];
+                    bool active = false;
+                    double interval = 1.0;
+                    if (v2x.HasMember("active") && v2x["active"].IsBool()) 
+                        active = v2x["active"].GetBool();
+                    if (v2x.HasMember("interval") && v2x["interval"].IsNumber())
+                        interval = v2x["interval"].GetDouble();
+                    else if (v2x.HasMember("timeStep") && v2x["timeStep"].IsNumber())
+                        interval = v2x["timeStep"].GetDouble();
+                    tmc.SetV2XTMCInfo(active, interval);
+                }
+            }
+            // Fallback for older formats if needed, or just use defaults
+            InputScenario singleScenario(id, startTime, duration, BGTduration, odID, todID, tmc);
             m_scenarios.emplace_back(singleScenario);
         }
     }
-
-    doc.Clear();
 }
 } // namespace NextSimIO

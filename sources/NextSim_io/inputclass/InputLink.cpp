@@ -6,14 +6,14 @@
 */
 
 #include <cmath>
-
+#include <sstream>
+#include <algorithm>
 #include <NextSim_io/inputclass/InputLink.hpp>
 
 namespace NextSimIO
 {
 InputLink::InputLink(std::size_t id, int lane, 
-                     double length, double width, 
-                     double stopLine)
+                     double length, double width, double stopLine)
     : MetaData(id, length, width, stopLine), m_numLane(lane)
 {
 }

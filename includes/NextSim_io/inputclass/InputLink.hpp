@@ -89,6 +89,8 @@ public:
     */
     [[nodiscard]] const std::vector<InputLane>& GetLaneVector() const { return m_laneVector; }
 
+    void SetLaneNumCellVector(std::vector<int> laneNumCellVector) { m_laneNumCellVector = laneNumCellVector; }
+
     /**
      * @details Get link ID
      * @return Link ID

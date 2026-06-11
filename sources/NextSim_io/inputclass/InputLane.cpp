@@ -8,6 +8,9 @@
 #include <NextSim_io/inputclass/InputLane.hpp>
 
 // InputLane methods
+#include <sstream>
+#include <algorithm>
+
 namespace NextSimIO
 {
 namespace
