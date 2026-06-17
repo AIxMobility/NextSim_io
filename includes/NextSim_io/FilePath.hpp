@@ -75,6 +75,8 @@ static std::filesystem::path V2XEventXMLPath = NetworkXmlFilePath / "event_v2x.x
 
 static std::filesystem::path V2XNetworkXMLPath = NetworkXmlFilePath / "network_v2x.xml";
 
+static std::filesystem::path LinkRangeJSONPath = NetworkXmlFilePath / "LinkRangeMap.json";
+
 static std::filesystem::path SignalTODXMLPath = NetworkXmlFilePath / "signalTOD.xml";
 
 static std::filesystem::path SignalXMLPath = NetworkXmlFilePath / "signal.xml";

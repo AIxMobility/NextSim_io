@@ -70,7 +70,7 @@ public:
      * @details Get whether V2X is active or not
      * @return True(active) or False(not active)
     */
-    bool GetV2xActive() { return m_v2xActive; }
+    bool GetV2XActive() { return m_v2xActive; }
 
     /**
      * @details Generate vehicle length
