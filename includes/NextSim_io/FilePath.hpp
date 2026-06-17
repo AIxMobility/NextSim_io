@@ -100,6 +100,8 @@ static std::filesystem::path V2XXMLPath = NetworkXmlFilePath / "v2xdata.xml";
 
 static std::filesystem::path BackgroundTrafficXMLPath = NetworkXmlFilePath / "backgroundTraffic.xml";
 
+static std::filesystem::path DetectorXMLPath = NetworkXmlFilePath / "detector.xml";
+
 // Parameter xml file path
 static std::filesystem::path VehicleTypeXMLPath = ParameterXmlFilePath / "vehicletypes.xml";
 
