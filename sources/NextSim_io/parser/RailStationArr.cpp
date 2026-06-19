@@ -1,13 +1,12 @@
 /**
  * NextSim Captain
  * @file : RailStation.cpp
- * @version : 1.0
- * @author : Yuseock Hwang
+ * @version : 2.0
+ * @author : Yuseock Hwang, Yeonwoo Yu, Dongheon Lee
  */
 #include <iostream>
 #include <sstream>
 #include <string>
-#include <algorithm>
 
 #include <NextSim_io/parser/RailStationArr.hpp>
 
@@ -17,75 +16,89 @@
 
 namespace NextSimIO
 {
-RailStationArr::RailStationArr()
-{
-    TiXmlDocument doc;
-    bool loadSuccess = doc.LoadFile(NextSimIO::RailStationXMLPath.string().c_str());
+RailStationArr::RailStationArr() {
+    LoadRailStations();
+}
 
-    if (!loadSuccess)
-    {
-        std::cout << "Loading failed (RailStationArr)" << std::endl;
+RailStationArr::RailStationArr(const std::string& dayOfWeek) {
+    LoadRailStations(dayOfWeek);
+}
+
+void RailStationArr::LoadRailStations(const std::optional<std::string>& dayOfWeekFilter) {
+    TiXmlDocument doc;
+    if (!doc.LoadFile(RailStationNewXMLPath.string().c_str())) {
+        std::cerr << "Loading failed (RailStationArr)\n";
         return;
     }
 
-    TiXmlElement *root = doc.FirstChildElement("RailPublicTransit");
+    TiXmlElement* root = doc.FirstChildElement("RailPublicTransit");
+    TiXmlElement* railStations = root ? root->FirstChildElement("railStations") : nullptr;
 
-    TiXmlElement *railStations = root->FirstChildElement("railStations");
-
-    for (TiXmlElement *stationElem = railStations->FirstChildElement("railStation");
-    stationElem != NULL;
-    stationElem = stationElem->NextSiblingElement("railStation"))
+    for (TiXmlElement* stationElem = railStations ? railStations->FirstChildElement("railStation") : nullptr;
+         stationElem != nullptr;
+         stationElem = stationElem->NextSiblingElement("railStation"))
     {
-        const int id = std::stoi(stationElem->Attribute("id"));
+        const char* idAttr = stationElem->Attribute("id");
+        if (!idAttr) {
+            std::cerr << "[WARN] Skipping railStation: missing id attribute\n";
+            continue;
+        }
+        int id = std::stoi(idAttr);
 
-        const std::string transitMode = stationElem->Attribute("transitMode");
+        std::string transitMode = stationElem->Attribute("transitMode") ? stationElem->Attribute("transitMode") : "";
 
-        const std::string lineLisStr = stationElem->Attribute("lineList");
+        std::string lineListStr = stationElem->Attribute("lineList") ? stationElem->Attribute("lineList") : "";
+        std::istringstream lineStream(lineListStr);
         std::vector<std::string> lineList;
-        std::istringstream lineStream(lineLisStr);
         std::string line;
-        while (std::getline(lineStream, line, ' ')) {
-            lineList.push_back(line);
+        while (lineStream >> line) lineList.push_back(line);
+
+        // prefer 'name' attribute; fall back to 'address' for older files
+        std::string name = stationElem->Attribute("name") ? stationElem->Attribute("name") : "";
+        if (name.empty() && stationElem->Attribute("address")) name = stationElem->Attribute("address");
+
+        std::string centerStr = stationElem->Attribute("center") ? stationElem->Attribute("center") : "";
+        double x = 0.0, y = 0.0;
+        if (!centerStr.empty()) {
+            std::istringstream ss(centerStr);
+            ss >> x >> y;
         }
+        std::pair<double, double> center(x, y);
 
-        const std::string address = stationElem->Attribute("address");
+        InputRailStation station(id, transitMode, lineList, name, center);
 
-        InputRailStation station(id, transitMode, lineList, address);
-
-
-        TiXmlElement *exitList = stationElem->FirstChildElement("exit");
-        for (TiXmlElement *exitElem = exitList; exitElem != nullptr;
-            exitElem = exitElem->NextSiblingElement("exit"))
+        // Parse exits
+        for (TiXmlElement* exitElem = stationElem->FirstChildElement("exit");
+             exitElem != nullptr;
+             exitElem = exitElem->NextSiblingElement("exit"))
         {
-            int exitId = std::stoi(exitElem->Attribute("id"));
-            int linkRef = std::stoi(exitElem->Attribute("linkRef"));
-            int offset = std::stod(exitElem->Attribute("offset"));
-            double accessTime = std::stoi(exitElem->Attribute("accessTime"));
-
-            exit exit(exitId, linkRef, offset, accessTime);
-            station.PushExit(exit);
+            const char* exitIdAttr = exitElem->Attribute("id");
+            const char* linkRefAttr = exitElem->Attribute("linkRef");
+            if (!exitIdAttr || !linkRefAttr) continue;
+            int exitId = std::stoi(exitIdAttr);
+            int linkRef = std::stoi(linkRefAttr);
+            int offset = exitElem->Attribute("offset") ? std::stoi(exitElem->Attribute("offset")) : 0;
+            int accessTime = exitElem->Attribute("accessTime") ? std::stoi(exitElem->Attribute("accessTime")) : 0;
+            station.PushExit(exit(exitId, linkRef, offset, accessTime));
         }
 
-        TiXmlElement *timetableList = stationElem->FirstChildElement("timetable");
-        for (TiXmlElement *timetableElem = timetableList; timetableElem != nullptr;
-        timetableElem = timetableElem->NextSiblingElement("timetable"))
-        {
-            std::string dayOfWeek = timetableElem->Attribute("dayOfWeek");
-            std::string lineId = timetableElem->Attribute("lineId");
-            std::vector<std::string> times;
-            std::istringstream timeStream(timetableElem->Attribute("time"));
-            std::string time;
-            while (timeStream >> time)
-            {
-                times.push_back(time);
-            }
-            timetable timetable(dayOfWeek, lineId, times);
-
-            station.Pushtimetable(timetable);
-        }
-
-        m_railstation.push_back(station);
+        m_railstations.push_back(std::move(station));
+        m_stopMap.emplace(id, Stop(id, m_railstations.back().GetStopType()));
     }
+
     doc.Clear();
-};
+}
+
+bool RailStationArr::HasStop(int stopId) const {
+    return m_stopMap.find(stopId) != m_stopMap.end();
+}
+
+const Stop& RailStationArr::GetStopById(int stopId) const {
+    auto it = m_stopMap.find(stopId);
+    if (it == m_stopMap.end()) {
+        throw std::out_of_range("Stop ID " + std::to_string(stopId) + " not found.");
+    }
+    return it->second;
+}
+
 } // namespace NextSimIO

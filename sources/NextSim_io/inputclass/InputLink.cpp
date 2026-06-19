@@ -5,6 +5,7 @@
  * @author : Jae Hwan Jung, Justin Kim
 */
 
+#include <cmath>
 #include <sstream>
 #include <algorithm>
 #include <NextSim_io/inputclass/InputLink.hpp>
@@ -100,7 +101,7 @@ std::vector<std::vector<size_t>> InputLink::Get2DMaxVehicle()  // veh/lane
     matrix.resize(m_numLane);
     for (int i = 0; i < m_numLane; i++)
     {
-        matrix[i].resize(m_laneNumCellVector[i]);
+        matrix[i].resize(m_laneNumCellVector[i]); 
         for (int j = 0; j < m_laneNumCellVector[i]; j++)
         {
             // temporary calculation basaed on ceiling(length / 5)

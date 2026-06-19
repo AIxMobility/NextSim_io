@@ -1,8 +1,8 @@
 /**
  * NextSim Captain
  * @file : timetable.hpp
- * @version : 1.0
- * @author : YuseockHwang
+ * @version : 1.2
+ * @author : Yuseock Hwang, Yeonwoo Yu, Sujae Jeon
  */
 
 #pragma once
@@ -25,9 +25,10 @@ public:
      * @details Constructor
      * @param dayOfWeek Day of the week for the timetable
      * @param lineId line ID for the timetable
+     * @param type Direction type of the timetable (e.g., terminal, start)
      * @param time Time schedule for the timetable
      */
-    timetable(std::string dayOfWeek, std::string lineId, std::vector<std::string> time);
+    timetable(std::string dayOfWeek, std::string lineId, std::string type, std::vector<std::string> time);
 
     /**
      * @details Gets the day of the week for the timetable.
@@ -42,8 +43,14 @@ public:
     std::string GetLineId() const { return m_lineId; }
 
     /**
-     * @details Gets the time schedule for the timetable.
-     * @return The time schedule for the timetable as a vector of strings.
+      * @details Get direction type of the line
+      * @return Direction of the line. (e.g., terminal / start)
+      */
+    std::string GetType() const { return m_type; }
+
+    /**
+     * @details Gets the time schedule for the timetable. (HH:MM)
+     * @return The time schedule for the timetable as a vector of strings. (HH:MM)
      */
     std::vector<std::string> GetTime() const { return m_time; }
 
@@ -57,6 +64,11 @@ private:
      * @details The unique ID of the transit line
      */
     std::string m_lineId;
+
+    /**
+      * @details Direction type of the line
+     */
+    std::string m_type;
 
     /**
      * @details The time schedule for the timetable

@@ -11,6 +11,7 @@
 
 #include <vector>
 #include <string>
+#include <utility>
 
 #include "InputLane.hpp"
 
@@ -168,6 +169,34 @@ public:
     */
     const std::string& GetType() const { return m_type; }
 
+    /**
+     * @details Replace link shape points parsed from XML shape attribute.
+     * @param shapePoints Vector of (x, y) points in link centerline order.
+    */
+    void SetShapePoints(std::vector<std::pair<double, double>> shapePoints)
+    {
+        m_shapePoints = std::move(shapePoints);
+    }
+
+    /**
+     * @details Add one link shape point.
+     * @param x X coordinate
+     * @param y Y coordinate
+    */
+    void PushShapePoint(double x, double y)
+    {
+        m_shapePoints.emplace_back(x, y);
+    }
+
+    /**
+     * @details Get link shape points parsed from XML.
+     * @return Vector of (x, y) shape points.
+    */
+    const std::vector<std::pair<double, double>>& GetShapePoints() const
+    {
+        return m_shapePoints;
+    }
+
 private:
 
     /**
@@ -199,6 +228,11 @@ private:
      * @details Vector of lanes in order
     */
     std::vector<InputLane> m_laneVector;
+
+    /**
+     * @details Shape points parsed from link's shape attribute in network.xml
+    */
+    std::vector<std::pair<double, double>> m_shapePoints;
 
     /**
      * @details Vector of lane IDs in order

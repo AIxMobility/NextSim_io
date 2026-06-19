@@ -1,16 +1,16 @@
 /**
  * NextSim Captain
- * @file : exit.cpp
+ * @file : Exit.cpp
  * @version : 1.0
  * @author : Yuseock Hwang
  */
 
  #include <sstream>
 
- #include <NextSim_io/inputclass/Railstation/exit.hpp>
+ #include <NextSim_io/inputclass/Railstation/Exit.hpp>
  
  namespace NextSimIO
  {
-    exit::exit(int id, int link, int offset, int accesstime) 
+    Exit::Exit(int id, int link, int offset, double accesstime) 
     : m_id(id), m_link(link), m_offset(offset), m_accesstime(accesstime) {};
  } // namespace NextSimIO

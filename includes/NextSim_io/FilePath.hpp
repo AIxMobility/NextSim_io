@@ -21,7 +21,7 @@ static std::filesystem::path get_simulation_input_path() {
     std::filesystem::path currentPath = std::filesystem::current_path();
     
     // Go up from build/bin to project root, then to SimulationInput
-    std::filesystem::path simulationInput = currentPath / ".." / ".." / "SimulationInput";
+    std::filesystem::path simulationInput = currentPath / ".." / ".." / ".." / ".." / "SimulationInput";
     
     if (std::filesystem::exists(simulationInput)) {
         return std::filesystem::canonical(simulationInput);
@@ -69,11 +69,10 @@ static std::filesystem::path ScenarioJSONPath = NetworkXmlFilePath / "config_sce
 
 static std::filesystem::path NetworkXMLPath = NetworkXmlFilePath / "network.xml";
 
-static std::filesystem::path V2XConfigJSONPath = NetworkXmlFilePath / "config_v2x.json";
+static std::filesystem::path FootpathNetworkXMLPath = NetworkXmlFilePath / "footpathNetwork.xml";
 
-static std::filesystem::path V2XEventXMLPath = NetworkXmlFilePath / "event_v2x.xml";
+static std::filesystem::path V2XConfigJSONPath = ParameterXmlFilePath / "config_v2x.json";
 
-static std::filesystem::path V2XNetworkXMLPath = NetworkXmlFilePath / "network_v2x.xml";
 
 static std::filesystem::path LinkRangeJSONPath = NetworkXmlFilePath / "LinkRangeMap.json";
 
@@ -101,13 +100,18 @@ static std::filesystem::path RailPTlineXMLPath = NetworkXmlFilePath / "railPTlin
 
 static std::filesystem::path RouteJSONPath = NetworkXmlFilePath / "Route.json";
 
-static std::filesystem::path PTRouteJSONPath = NetworkXmlFilePath / "PaxRoute.json";
+static std::filesystem::path PTRouteJSONPath = NetworkXmlFilePath / "PTRoute.json";
 
-static std::filesystem::path EventXMLPath = NetworkXmlFilePath / "eventdata.xml";
+static std::filesystem::path PaxRouteJSONPath = NetworkXmlFilePath / "PaxRoute.json";
+
+static std::filesystem::path EventXMLPath = NetworkXmlFilePath / "events.xml";
 
 static std::filesystem::path BackgroundTrafficXMLPath = NetworkXmlFilePath / "backgroundTraffic.xml";
 
-// Parameter xml file path
+static std::filesystem::path RailStationNewXMLPath = NetworkXmlFilePath / "railStation.xml";
+
+static std::filesystem::path RailLineNewXMLPath = NetworkXmlFilePath / "railLine.xml";
+
 static std::filesystem::path VehicleTypeXMLPath = ParameterXmlFilePath / "vehicletypes.xml";
 
 static std::filesystem::path RecordModeXMLPath = ParameterXmlFilePath / "recordMode.xml";

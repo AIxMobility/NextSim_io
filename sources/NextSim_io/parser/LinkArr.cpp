@@ -63,6 +63,7 @@ LinkArr::LinkArr()
                     const char *linkLength = e->Attribute("length");
                     const char *width = e->Attribute("width");
                     const char *stop_line = e->Attribute("stop_line");
+                    const char *linkShape = e->Attribute("shape");
 
                     if (!linkId)   throw std::runtime_error ("Element should have 'id' attribute");
                     if (!num_lane)   throw std::runtime_error ("Element should have 'num_lane' attribute");
@@ -77,6 +78,8 @@ LinkArr::LinkArr()
                             atof(linkLength),
                             atof(width),
                             atof(stop_line));
+
+                    demoLink.SetShapePoints(ParseShapePoints(linkShape));
 
                     // set the Link 2d, 1d values here.
                     // TODO: add set min max speed
@@ -191,6 +194,7 @@ LinkArr::LinkArr()
                                 }
                             }
 
+                            demoLane.MergeShortResidualCell();
                             demoLink.PushLaneId(demoLane);
                         }
                     }

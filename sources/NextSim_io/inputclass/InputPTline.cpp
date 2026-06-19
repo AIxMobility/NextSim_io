@@ -47,10 +47,6 @@ void InputPTline::PushStationSeq(int stationID)
     m_stationSeq.push_back(stationID);
 }
 
-/**
- * @details Set sequence of garages for rail transit
- * @param garageSeq Space-separated sequence of garage IDs
- */
 void InputPTline::SetGarageSeq(std::string garageSeq)
 {
     std::stringstream ss(garageSeq);

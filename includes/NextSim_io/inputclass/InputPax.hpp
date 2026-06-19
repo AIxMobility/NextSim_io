@@ -89,9 +89,10 @@ public:
      * @param origin Origin ID
      * @param dest Destination ID
      * @param mode Transportation mode
+     * @param time Trip time
     */
-    InputAgentPaxTrip(int origin, int dest, std::string mode)
-        : m_origin(origin), m_dest(dest), m_mode(mode) {}
+    InputAgentPaxTrip(int origin, int dest, std::string mode, std::string lineID, double time)
+        : m_origin(origin), m_dest(dest), m_mode(mode), m_lineID(lineID), m_time(time) {}
 
     /**
      * @details Get origin ID
@@ -111,6 +112,18 @@ public:
     */
     std::string GetMode() const { return m_mode; }
 
+    /**
+     * @details Get line ID
+     * @return Line ID
+    */
+    std::string GetLineID() const { return m_lineID; }
+
+    /**
+     * @details Get trip time
+     * @return Trip time
+    */
+    double GetTime() const { return m_time; }
+
 private:
     /**
      * @details Origin ID
@@ -126,6 +139,16 @@ private:
      * @details Transportation mode
      */
     std::string m_mode;
+
+    /**
+     * @details Line ID
+     */
+    std::string m_lineID;
+
+    /**
+     * @details Trip time
+     */
+    double m_time;
 };
 
 /**
@@ -188,8 +211,10 @@ class InputAgentPax
      * @param origin Origin ID
      * @param dest Destination ID
      * @param mode Transportation mode
+     * @param lineID Line ID
+     * @param time Trip time
     */
-    void AddTrip(int origin, int dest, std::string mode);
+    void AddTrip(int origin, int dest, std::string mode, std::string lineID, double time);
 
     /**
      * @details Get all trips

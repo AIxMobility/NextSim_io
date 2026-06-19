@@ -5,12 +5,14 @@ file(GLOB_RECURSE headers
         ${includes_dir}/parser/*.hpp
         ${includes_dir}/inputclass/*.hpp
         ${includes_dir}/inputclass/intersection/*.hpp
+        ${includes_dir}/inputclass/ptpath/*.hpp
         ${includes_dir}/tinyapi/*.h)
 
 file(GLOB_RECURSE sources
         ${CMAKE_CURRENT_SOURCE_DIR}/parser/*.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/inputclass/*.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/inputclass/intersection/*.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/inputclass/ptpath/*.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/tinyapi/*.cpp)
 
 

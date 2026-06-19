@@ -1,7 +1,7 @@
 /**
  * NextSim Captain
  * @file : V2XArr.hpp
- * @version : 1.2
+ * @version : 1.3
  * @author : Elena
  */
 
@@ -15,13 +15,13 @@ namespace NextSimIO
 {
 /**
  * @class V2XArr
- * @brief Class for V2X configuration and event information
+ * @brief Class for V2X configuration
  */
 class V2XArr
 {
 public:
     /**
-     * @details Constructor (Parse V2X data from config_v2x.json and event_v2x.json)
+     * @details Constructor (Parse V2X data from parameter_xml/config_v2x.json)
     */
     V2XArr();
 

@@ -79,8 +79,9 @@ public:
      * @param fromLane Lane ID
      * @param toLane Lane ID
      * @param length Length of the subArc
+     * @param ffSpeed Free flow speed of the connection [km/h]
      */
-    ConnectionInfo(int fromLink, int toLink, int fromLane, int toLane, double length);
+    ConnectionInfo(int fromLink, int toLink, int fromLane, int toLane, double length, double ffSpeed);
 
     /**
      * @details Get link ID that the connection is from
@@ -112,6 +113,12 @@ public:
      */
     double GetLength() const { return m_length; }
 
+    /**
+     * @details Get free flow speed of the connection
+     * @return Free flow speed [km/h]
+     */
+    double GetFreeFlowSpeed() const { return m_ffSpeed; }
+
 private:
     /**
      * @details Link ID that the connection is from
@@ -137,6 +144,11 @@ private:
      * @details length of the subArc [m]
      */
     double m_length;
+
+    /**
+    * @details free flow speed of the connection [km/h]
+    */
+    double m_ffSpeed;
 }; // class ConnectionInfo
 
 /**
@@ -255,9 +267,9 @@ public:
      * @details Get vertex Length with connectionInfo
      * @param fromLink Link ID that the connection is from
      * @param toLink Link ID that the connection is to
-     * @return Length of the subArc
+     * @return Length of the subArc and free flow speed of the connection
      */
-    double GetVertexLength(int fromLink, int toLink);
+    std::pair<double, double> GetVertexParams(int fromLink, int toLink);
 
 
 private:

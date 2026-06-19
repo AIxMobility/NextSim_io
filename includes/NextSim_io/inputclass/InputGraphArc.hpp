@@ -124,8 +124,9 @@ public:
      * @param toNode To node ID (connected with arc end point)
      * @param numLane Number of lanes in the arc
      * @param length Length of the arc
+     * @param ffSpeed Free flow speed of the arc
      */
-    InputGraphArc(std::size_t id, std::size_t fromNode, std::size_t toNode, std::size_t numLane, double length);
+    InputGraphArc(std::size_t id, std::size_t fromNode, std::size_t toNode, std::size_t numLane, double length, double ffSpeed);
 
     /**
      * @details Set arc ID
@@ -156,6 +157,12 @@ public:
      * @param length Length of the arc
      */
     void SetLength(double length) { m_length = length; }
+
+    /**
+    * @details Set free flow speed of the arc
+    * @param ffSpeed Free flow speed of the arc
+    */
+    void SetFreeFlowSpeed(double ffSpeed) { m_ffspeed = ffSpeed; }
 
     /**
      * @details Set available lanes in the arc when it is connected to a sink node
@@ -204,6 +211,12 @@ public:
      * @return Length of the arc
      */
     double GetLength() { return m_length; }
+
+    /**
+     * @details Get free flow speed of the arc
+     * @return Free flow speed of the arc
+     */
+    double GetFreeFlowSpeed() { return m_ffspeed; }
 
     /**
      * @details Get available lanes in the arc when it is connected to a sink node
@@ -260,6 +273,11 @@ private:
      * @details Length of the arc
      */
     double m_length;
+
+    /**
+    * @details Free flow speed of the arc
+    */
+    double m_ffspeed;
 
     /**
      * @details Available lanes in the arc when it is connected to a sink node
