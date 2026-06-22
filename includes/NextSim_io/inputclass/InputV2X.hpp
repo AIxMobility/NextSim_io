@@ -12,6 +12,10 @@
 
 namespace NextSimIO
 {
+/**
+ * @struct MsgConfig
+ * @brief Common on/off and interval settings for one V2X message category
+ */
 struct MsgConfig
 {
     bool active = false;
@@ -32,6 +36,9 @@ struct InputV2XConfig
     MsgConfig roadEvent;
     MsgConfig speedLimit;
 
+    /**
+     * @brief Collision warning configuration shared by RTOR / straight conflict checks
+     */
     struct {
         bool active = false;
         double straightRange = 100.0; // m
@@ -50,7 +57,16 @@ class InputV2X
 public:
     InputV2X() = default;
 
+    /**
+     * @brief Store the parsed V2X configuration
+     * @param config V2X configuration loaded from the input parser
+     */
     void SetConfig(InputV2XConfig config) { m_config = config; }
+
+    /**
+     * @brief Return the parsed V2X configuration
+     * @return Stored V2X configuration
+     */
     const InputV2XConfig& GetConfig() const { return m_config; }
 
 private:

@@ -64,7 +64,10 @@ public:
     */
     std::size_t GetLinkId() const { return m_linkID; }
 
-
+    /**
+     * @details Check whether the event uses a partial link position range
+     * @return true if both start and end position were specified in events.xml
+    */
     bool HasPosRange() const { return m_hasPosRange; }
 
     /**
@@ -97,6 +100,10 @@ public:
     */
     const std::vector<int>& GetLaneVector() const { return m_laneVector; }
 
+    /**
+     * @details Check whether the event start time was explicitly specified
+     * @return true if stime was provided in events.xml
+    */
     bool HasStartTime() const { return m_hasStartTime; }
 
     /**
@@ -106,8 +113,8 @@ public:
     double GetStartTime() const { return m_startTime; }
 
     /**
-     * @details Get end time
-     * @return End time of event occurrence
+     * @details Get event duration
+     * @return Event duration in seconds, negative value means until scenario end
     */
     double GetDuration() const { return m_duration; }
 
@@ -129,7 +136,16 @@ public:
     */
     int GetSern() const { return m_sern; }
 
+    /**
+     * @details Get speed limit
+     * @return Speed limit of event in m/s
+    */
     double GetSpeedLimit() const { return m_speedLimit; }
+
+    /**
+     * @details Get detail text
+     * @return Detail text of event
+    */
     const std::string& GetDetail() const { return m_detail; }
 
 private:
@@ -143,6 +159,11 @@ private:
      * @details Link ID of event occurrence
     */
     std::size_t m_linkID;
+
+    /**
+     * @details Whether start/end position was explicitly specified
+    */
+    bool m_hasPosRange;
 
     /**
      * @details Start position of event occurrence (from link start point)
@@ -163,6 +184,10 @@ private:
      * @details Lane IDs of event occurrence
     */
     std::vector<int> m_laneVector;
+
+    /**
+     * @details Whether start time was explicitly specified
+    */
     bool m_hasStartTime;
 
     /**
