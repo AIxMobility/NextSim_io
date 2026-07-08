@@ -80,9 +80,12 @@ NodeArr::NodeArr()
                 if (!nodeType)   throw std::runtime_error ("Element should have 'type' attribute");
                 if (!numConnection)   throw std::runtime_error ("Element should have 'num_connection' attribute");
                 if (!numPort)   throw std::runtime_error ("Element should have 'num_port' attribute");
-                if (!v2x)   v2x = "off";
+                if (!v2x)   v2x = "";
 
-                const bool v2xEnabled = (strcmp(v2x, "on") == 0);
+                std::string v2xText = v2x;
+                std::transform(v2xText.begin(), v2xText.end(), v2xText.begin(),
+                               [](unsigned char ch) { return static_cast<char>(std::tolower(ch)); });
+                const bool v2xEnabled = (v2xText == "on" || v2xText == "true" || v2xText == "1");
 
                 double x = 0, y = 0;
                 if (center)
