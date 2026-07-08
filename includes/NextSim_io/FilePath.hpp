@@ -13,22 +13,33 @@
 #include <sstream>
 #include <filesystem>
 #include <iostream>
+#include <cstdlib>
 
 namespace NextSimIO
 {
 static std::filesystem::path get_simulation_input_path() {
-    // Try to find SimulationInput directory relative to executable location
-    std::filesystem::path currentPath = std::filesystem::current_path();
-    
-    // Go up from build/bin to project root, then to SimulationInput
-    std::filesystem::path simulationInput = currentPath / ".." / ".." / ".." / ".." / "SimulationInput";
-    
-    if (std::filesystem::exists(simulationInput)) {
-        return std::filesystem::canonical(simulationInput);
+    if (const char* projectRoot = std::getenv("NEXTSIM_PROJECT_ROOT")) {
+        std::filesystem::path simulationInput = std::filesystem::path(projectRoot) / "SimulationInput";
+        if (std::filesystem::exists(simulationInput / "config.txt")) {
+            return std::filesystem::canonical(simulationInput);
+        }
     }
-    
-    // Fallback to direct path if relative path doesn't work
-    return "/home/chaemin/NextSim/SimulationInput";
+
+    std::filesystem::path currentPath = std::filesystem::current_path();
+    while (!currentPath.empty()) {
+        std::filesystem::path simulationInput = currentPath / "SimulationInput";
+        if (std::filesystem::exists(simulationInput / "config.txt")) {
+            return std::filesystem::canonical(simulationInput);
+        }
+
+        const auto parent = currentPath.parent_path();
+        if (parent == currentPath) {
+            break;
+        }
+        currentPath = parent;
+    }
+
+    return std::filesystem::current_path() / "SimulationInput";
 }
 
 static std::pair<std::string, std::string> load_network_name() {

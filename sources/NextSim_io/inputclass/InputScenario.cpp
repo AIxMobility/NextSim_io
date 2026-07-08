@@ -6,11 +6,28 @@
 */
 
 #include <sstream>
+#include <utility>
 
 #include <NextSim_io/inputclass/InputScenario.hpp>
 
 namespace NextSimIO
 {
-InputScenario::InputScenario(int id, std::string startTime, int duration, int BGTduration, int odID, int todID, InputTMC tmc)
-    : m_id(id), m_startTime(std::move(startTime)), m_duration(duration), m_BGTduration(BGTduration), m_odID(odID), m_todID(todID), m_tmc(tmc) {};
+InputScenario::InputScenario(int id,
+                             std::string startTime,
+                             int duration,
+                             int BGTduration,
+                             int odID,
+                             int todID,
+                             InputTMC tmc,
+                             bool dtaActive,
+                             std::string dtaPath)
+    : m_id(id),
+      m_startTime(std::move(startTime)),
+      m_duration(duration),
+      m_BGTduration(BGTduration),
+      m_odID(odID),
+      m_todID(todID),
+      m_tmc(tmc),
+      m_dtaActive(dtaActive),
+      m_dtaPath(std::move(dtaPath)) {};
 } // namespace NextSimIO

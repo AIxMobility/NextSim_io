@@ -54,6 +54,8 @@ ScenarioArr::ScenarioArr()
             int BGTduration = scenario["BGTduration"].GetInt();
             int odID = scenario["odMatrixID"].GetInt();
             int todID = scenario["todID"].GetInt();
+            bool dtaActive = false;
+            std::string dtaPath;
             InputTMC tmc;
             if (scenario.HasMember("trafficCenter") && scenario["trafficCenter"].IsObject())
             {
@@ -85,8 +87,25 @@ ScenarioArr::ScenarioArr()
                     tmc.SetV2XTMCInfo(active, interval);
                 }
             }
+            if (scenario.HasMember("dta") && scenario["dta"].IsObject())
+            {
+                const rapidjson::Value& dta = scenario["dta"];
+                if (dta.HasMember("active") && dta["active"].IsBool())
+                    dtaActive = dta["active"].GetBool();
+                if (dta.HasMember("path") && dta["path"].IsString())
+                    dtaPath = dta["path"].GetString();
+            }
             // Fallback for older formats if needed, or just use defaults
-            InputScenario singleScenario(id, startTime, duration, BGTduration, odID, todID, tmc);
+            InputScenario singleScenario(
+                id,
+                startTime,
+                duration,
+                BGTduration,
+                odID,
+                todID,
+                tmc,
+                dtaActive,
+                dtaPath);
             m_scenarios.emplace_back(singleScenario);
         }
     }
