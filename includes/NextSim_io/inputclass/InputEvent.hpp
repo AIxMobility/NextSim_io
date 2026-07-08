@@ -107,12 +107,6 @@ public:
     bool HasStartTime() const { return m_hasStartTime; }
 
     /**
-     * @details Get lane IDs
-     * @return Lane IDs of event occurrence
-    */
-    const std::vector<int>& GetLaneVector() const { return m_laneVector; }
-
-    /**
      * @details Get start time
      * @return Start time of event occurrence
     */
