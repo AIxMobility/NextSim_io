@@ -80,8 +80,10 @@ public:
      * @param toLane Lane ID
      * @param length Length of the subArc
      * @param ffSpeed Free flow speed of the connection [km/h]
+     * @param turning Turning information (L, R, S)
      */
-    ConnectionInfo(int fromLink, int toLink, int fromLane, int toLane, double length, double ffSpeed);
+    ConnectionInfo(int fromLink, int toLink, int fromLane, int toLane,
+                   double length, double ffSpeed, std::string turning = "");
 
     /**
      * @details Get link ID that the connection is from
@@ -119,6 +121,12 @@ public:
      */
     double GetFreeFlowSpeed() const { return m_ffSpeed; }
 
+    /**
+     * @details Get turning information
+     * @return Turning information (L(left), R(right), S(straight))
+     */
+    const std::string& GetTurning() const { return m_turning; }
+
 private:
     /**
      * @details Link ID that the connection is from
@@ -149,6 +157,11 @@ private:
     * @details free flow speed of the connection [km/h]
     */
     double m_ffSpeed;
+
+    /**
+     * @details Turning information (L(left), R(right), S(straight))
+     */
+    std::string m_turning;
 }; // class ConnectionInfo
 
 /**
@@ -248,7 +261,7 @@ public:
      * @details Get connection information
      * @return Vector of connection information
      */
-    std::vector<ConnectionInfo> GetConnectionInfo() const { return m_connectionInfo; }
+    const std::vector<ConnectionInfo>& GetConnectionInfo() const { return m_connectionInfo; }
 
     /**
      * @details Free connected links vector

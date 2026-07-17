@@ -78,6 +78,8 @@ static std::filesystem::path ScenarioXMLPath = NetworkXmlFilePath / "scenario.xm
 
 static std::filesystem::path ScenarioJSONPath = NetworkXmlFilePath / "config_scenario.json";
 
+static std::filesystem::path DTAConfigJSONPath = NetworkXmlFilePath / "config_dta.json";
+
 static std::filesystem::path NetworkXMLPath = NetworkXmlFilePath / "network.xml";
 
 static std::filesystem::path FootpathNetworkXMLPath = NetworkXmlFilePath / "footpathNetwork.xml";

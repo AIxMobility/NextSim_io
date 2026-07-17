@@ -144,6 +144,7 @@ VertexArr::VertexArr()
                         const char *toLink = e3->Attribute("to_link");
                         const char *fromLane = e3->Attribute("from_lane");
                         const char *toLane = e3->Attribute("to_lane");
+                        const char *turning = e3->Attribute("turning");
                         const char *arc_length = e3->Attribute("length");
                         const char *ff_speed = e3->Attribute("ff_spd");
 
@@ -160,7 +161,8 @@ VertexArr::VertexArr()
                             atol(fromLane),
                             atol(toLane),
                             atof(arc_length),
-                            atof(ff_speed));
+                            atof(ff_speed),
+                            turning == nullptr ? "" : turning);
                         
                         single_vertex.pushConnectionInfo(NewconnectionInfo);
                     }

@@ -6,6 +6,7 @@
  */
 
 #include <math.h>
+#include <utility>
 #include <NextSim_io/inputclass/InputGraphVertex.hpp>
 
 namespace NextSimIO
@@ -16,8 +17,18 @@ InputGraphVertex::InputGraphVertex()
 InputGraphVertex::InputGraphVertex(int id, int type, float heuristic, int rank)
     : m_id(id), m_type(type), m_heuristic(heuristic), m_rank(rank) {};
 
-ConnectionInfo::ConnectionInfo(int fromLink, int toLink, int fromLane, int toLane, double length, double ffSpeed)
-    : m_fromLink(fromLink), m_toLink(toLink), m_fromLane(fromLane), m_toLane(toLane), m_length(length), m_ffSpeed(ffSpeed) {};
+ConnectionInfo::ConnectionInfo(int fromLink, int toLink, int fromLane,
+                               int toLane, double length, double ffSpeed,
+                               std::string turning)
+    : m_fromLink(fromLink),
+      m_toLink(toLink),
+      m_fromLane(fromLane),
+      m_toLane(toLane),
+      m_length(length),
+      m_ffSpeed(ffSpeed),
+      m_turning(std::move(turning))
+{
+}
 
 VertexCoord::VertexCoord(float x, float y)
     : m_x(x), m_y(y) {};
