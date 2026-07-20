@@ -47,7 +47,7 @@ public:
      * @details Get vector of public transit lines for TRT
      * @return Vector of public transit lines for TRT
     */
-    std::vector<InputPTline> GetTRTLines()
+    std::vector<InputPTline> GetTRTLines() const
     {
         return m_trtLines;
     }
@@ -56,7 +56,7 @@ public:
      * @details Get vector of public transit lines for Tram
      * @return Vector of public transit lines for Tram
     */
-    std::vector<InputPTline> GetTramLines()
+    std::vector<InputPTline> GetTramLines() const
     {
         return m_tramLines;
     }
