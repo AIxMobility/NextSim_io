@@ -83,6 +83,15 @@ public:
     */
     InputTMC GetTMC() const { return m_tmc; }
 
+    void SetDTAInfo(bool active, std::string path)
+    {
+        m_dtaActive = active;
+        m_dtaPath = std::move(path);
+    }
+
+    bool GetDTAActive() const { return m_dtaActive; }
+
+    const std::string& GetDTAPath() const { return m_dtaPath; }
 
 private:
     /**
@@ -119,6 +128,10 @@ private:
      * @details TMC configuration info
     */
     InputTMC m_tmc;
+
+    bool m_dtaActive = false;
+
+    std::string m_dtaPath;
 };
 } // namespace NextSimIO
 

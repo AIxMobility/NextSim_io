@@ -10,6 +10,8 @@
 #ifndef INPUTV2X_HPP
 #define INPUTV2X_HPP
 
+#include <string>
+
 namespace NextSimIO
 {
 /**
@@ -20,6 +22,30 @@ struct MsgConfig
 {
     bool active = false;
     int interval = 1; // seconds
+};
+
+struct InputGuideResponseTimeInfo
+{
+    std::string dist = "Normal";
+    double max = 0.0;
+    double mean = 0.0;
+    double min = 0.0;
+    double sd = 0.0;
+};
+
+struct InputGuideInfo
+{
+    bool active = false;
+    MsgConfig debugLog;
+    std::string type = "Advisory";
+    double targetSpeed = 0.0;
+    double complianceRate = 1.0;
+    unsigned int randomSeed = 42;
+    InputGuideResponseTimeInfo advisoryResponseTime{"Normal", 2.5, 1.5, 0.8, 0.4};
+    InputGuideResponseTimeInfo mandatoryResponseTime{"Normal", 0.8, 0.5, 0.2, 0.15};
+    double responseGain = 0.6;
+    double maxAcceleration = 1.5;
+    double maxDeceleration = 2.5;
 };
 
 /**
@@ -35,6 +61,7 @@ struct InputV2XConfig
     MsgConfig signal;
     MsgConfig roadEvent;
     MsgConfig speedLimit;
+    InputGuideInfo guide;
 
     /**
      * @brief Collision warning configuration shared by RTOR / straight conflict checks

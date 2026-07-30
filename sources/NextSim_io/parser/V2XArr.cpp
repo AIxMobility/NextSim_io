@@ -11,15 +11,26 @@
 #include <rapidjson/document.h>
 #include <rapidjson/istreamwrapper.h>
 #include <fstream>
+#include <iostream>
 
 namespace NextSimIO
 {
 V2XArr::V2XArr()
+    : V2XArr(NextSimIO::V2XConfigJSONPath, NextSimIO::GuideConfigJSONPath)
+{
+}
+
+V2XArr::V2XArr(const std::filesystem::path& configPath)
+    : V2XArr(configPath, std::filesystem::path())
+{
+}
+
+V2XArr::V2XArr(const std::filesystem::path& configPath, const std::filesystem::path& guideConfigPath)
 {
     InputV2X consolidatedV2X;
     InputV2XConfig config;
 
-    std::ifstream configIfs(NextSimIO::V2XConfigJSONPath.string());
+    std::ifstream configIfs(configPath.string());
     if (!configIfs.is_open())
     {
         return;
@@ -39,6 +50,60 @@ V2XArr::V2XArr()
         if (!value.IsObject()) return;
         if (value.HasMember("active")) target.active = value["active"].GetBool();
         if (value.HasMember("interval")) target.interval = value["interval"].GetInt();
+    };
+
+    auto readResponseTime = [](const rapidjson::Value& parent,
+                               const char* key,
+                               InputGuideResponseTimeInfo& target) {
+        if (!parent.HasMember(key) || !parent[key].IsObject()) return;
+        const auto& value = parent[key];
+        if (value.HasMember("dist") && value["dist"].IsString()) target.dist = value["dist"].GetString();
+        if (value.HasMember("max") && value["max"].IsNumber()) target.max = value["max"].GetDouble();
+        if (value.HasMember("mean") && value["mean"].IsNumber()) target.mean = value["mean"].GetDouble();
+        if (value.HasMember("min") && value["min"].IsNumber()) target.min = value["min"].GetDouble();
+        if (value.HasMember("sd") && value["sd"].IsNumber()) target.sd = value["sd"].GetDouble();
+    };
+
+    auto validResponseTime = [](const InputGuideResponseTimeInfo& info) {
+        const bool validDist = info.dist == "Normal" || info.dist == "LogNormal";
+        return validDist && info.min >= 0.0 && info.min <= info.mean &&
+               info.mean <= info.max && info.sd >= 0.0;
+    };
+
+    auto readGuideConfig = [&](const rapidjson::Value& parent) {
+        if (parent.HasMember("GuideDebugLog") && parent["GuideDebugLog"].IsObject())
+            readMsgConfig(parent, "GuideDebugLog", config.guide.debugLog);
+    };
+
+    auto readGuide = [&](const rapidjson::Value& guide) {
+        if (guide.HasMember("active") && guide["active"].IsBool()) config.guide.active = guide["active"].GetBool();
+        if (guide.HasMember("type") && guide["type"].IsString()) config.guide.type = guide["type"].GetString();
+        if (guide.HasMember("targetSpeed") && guide["targetSpeed"].IsNumber()) config.guide.targetSpeed = guide["targetSpeed"].GetDouble();
+        if (guide.HasMember("complianceRate") && guide["complianceRate"].IsNumber()) config.guide.complianceRate = guide["complianceRate"].GetDouble();
+        if (guide.HasMember("randomSeed") && guide["randomSeed"].IsUint()) config.guide.randomSeed = guide["randomSeed"].GetUint();
+        if (guide.HasMember("responseGain") && guide["responseGain"].IsNumber()) config.guide.responseGain = guide["responseGain"].GetDouble();
+        if (guide.HasMember("maxAcceleration") && guide["maxAcceleration"].IsNumber()) config.guide.maxAcceleration = guide["maxAcceleration"].GetDouble();
+        if (guide.HasMember("maxDeceleration") && guide["maxDeceleration"].IsNumber()) config.guide.maxDeceleration = guide["maxDeceleration"].GetDouble();
+        if (guide.HasMember("responseTime") && guide["responseTime"].IsObject())
+        {
+            const auto& responseTime = guide["responseTime"];
+            readResponseTime(responseTime, "Advisory", config.guide.advisoryResponseTime);
+            readResponseTime(responseTime, "Mandatory", config.guide.mandatoryResponseTime);
+        }
+
+        const bool validType = config.guide.type == "Advisory" || config.guide.type == "Mandatory";
+        const bool validValues = config.guide.targetSpeed >= 0.0 &&
+                                 config.guide.complianceRate >= 0.0 && config.guide.complianceRate <= 1.0 &&
+                                 config.guide.responseGain >= 0.0 &&
+                                 config.guide.maxAcceleration > 0.0 && config.guide.maxDeceleration > 0.0;
+        const bool validResponse = validResponseTime(config.guide.advisoryResponseTime) &&
+                                   validResponseTime(config.guide.mandatoryResponseTime) &&
+                                   config.guide.advisoryResponseTime.min >= config.guide.mandatoryResponseTime.max;
+        if (!validType || !validValues || !validResponse)
+        {
+            std::cerr << "[Guide Log][Config] Invalid Guide configuration; Guide is disabled." << std::endl;
+            config.guide.active = false;
+        }
     };
 
     if (doc.HasMember("V2XConfig") && doc["V2XConfig"].IsObject())
@@ -68,6 +133,27 @@ V2XArr::V2XArr()
             }
             if (collisionWarn.HasMember("DRACThreshold")) config.collisionWarn.DRACThreshold = collisionWarn["DRACThreshold"].GetDouble();
             if (collisionWarn.HasMember("interval")) config.collisionWarn.interval = collisionWarn["interval"].GetInt();
+        }
+
+        if (msg.HasMember("Guide") && msg["Guide"].IsObject())
+            readGuide(msg["Guide"]);
+    }
+
+    if (!guideConfigPath.empty())
+    {
+        std::ifstream guideIfs(guideConfigPath.string());
+        if (guideIfs.is_open())
+        {
+            rapidjson::IStreamWrapper guideIsw(guideIfs);
+            rapidjson::Document guideDoc;
+            guideDoc.ParseStream(guideIsw);
+            if (!guideDoc.HasParseError())
+            {
+                if (guideDoc.HasMember("GuideConfig") && guideDoc["GuideConfig"].IsObject())
+                    readGuideConfig(guideDoc["GuideConfig"]);
+                if (guideDoc.HasMember("Guide") && guideDoc["Guide"].IsObject())
+                    readGuide(guideDoc["Guide"]);
+            }
         }
     }
 

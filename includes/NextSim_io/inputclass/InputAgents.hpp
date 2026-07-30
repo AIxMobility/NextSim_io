@@ -58,42 +58,51 @@ public:
      * @return Agent ID
      */
     int GetId() { return m_id; }
+    int GetId() const { return m_id; }
 
     /**
      * @details Get agent type ID
      * @return Agent type ID
      */
     int GetTypeId() { return m_typeID; }
+    int GetTypeId() const { return m_typeID; }
 
     /**
      * @details Get Departure time
      * @return Departure time [s]
      */
     double GetDepartureTime() { return m_dptTime; }
+    double GetDepartureTime() const { return m_dptTime; }
 
     /**
      * @details Get sequence of links
      * @return Sequence of links that agent passes
      */
     std::vector<int> GetLinkSeq() { return m_linkSeq; }
+    std::vector<int> GetLinkSeq() const { return m_linkSeq; }
+    const std::vector<int>& GetLinkSeqRef() const { return m_linkSeq; }
 
     /**
      * @details Get sequence of nodes
      * @return Sequence of nodes that agent passes
      */
     std::vector<int> GetNodeSeq() { return m_nodeSeq; }
+    std::vector<int> GetNodeSeq() const { return m_nodeSeq; }
+    const std::vector<int>& GetNodeSeqRef() const { return m_nodeSeq; }
 
     /**
      * @details Get sequence of stations
      * @return Sequence of stations that agent passes
      */
     std::vector<int> GetStationSeq() { return m_stationSeq; }
+    std::vector<int> GetStationSeq() const { return m_stationSeq; }
 
     /**
      * @details Get sequence of distance between stations
      * @return Sequence of distance between stations
      */
     std::vector<double> GetStationDistanceSeq() { return m_stationDistanceSeq; }
+    std::vector<double> GetStationDistanceSeq() const { return m_stationDistanceSeq; }
 
 private:
 

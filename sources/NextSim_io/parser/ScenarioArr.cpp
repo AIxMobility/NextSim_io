@@ -87,6 +87,17 @@ ScenarioArr::ScenarioArr()
             }
             // Fallback for older formats if needed, or just use defaults
             InputScenario singleScenario(id, startTime, duration, BGTduration, odID, todID, tmc);
+            if (scenario.HasMember("dta") && scenario["dta"].IsObject())
+            {
+                const rapidjson::Value& dta = scenario["dta"];
+                bool active = false;
+                std::string path;
+                if (dta.HasMember("active") && dta["active"].IsBool())
+                    active = dta["active"].GetBool();
+                if (dta.HasMember("path") && dta["path"].IsString())
+                    path = dta["path"].GetString();
+                singleScenario.SetDTAInfo(active, path);
+            }
             m_scenarios.emplace_back(singleScenario);
         }
     }
