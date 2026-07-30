@@ -70,6 +70,41 @@ V2XArr::V2XArr(const std::filesystem::path& configPath, const std::filesystem::p
                info.mean <= info.max && info.sd >= 0.0;
     };
 
+    auto readResponseInfo = [&](const rapidjson::Value& parent,
+                                const char* key,
+                                InputGuideResponseInfo& target) {
+        if (!parent.HasMember(key) || !parent[key].IsObject()) return;
+        const auto& value = parent[key];
+        if (value.HasMember("complianceRate") && value["complianceRate"].IsNumber())
+            target.complianceRate = value["complianceRate"].GetDouble();
+        if (value.HasMember("responseTime") && value["responseTime"].IsObject())
+        {
+            const auto& responseTime = value["responseTime"];
+            readResponseTime(responseTime, "Advisory", target.advisoryResponseTime);
+            readResponseTime(responseTime, "Mandatory", target.mandatoryResponseTime);
+        }
+    };
+
+    auto validResponseInfo = [&](const InputGuideResponseInfo& info) {
+        return info.complianceRate >= 0.0 && info.complianceRate <= 1.0 &&
+               validResponseTime(info.advisoryResponseTime) &&
+               validResponseTime(info.mandatoryResponseTime) &&
+               info.advisoryResponseTime.min >= info.mandatoryResponseTime.max;
+    };
+
+    auto readGuideResponses = [&](const rapidjson::Value& parent) {
+        if (!parent.HasMember("GuideResponse") || !parent["GuideResponse"].IsObject()) return;
+        const auto& response = parent["GuideResponse"];
+        readResponseInfo(response, "HDV", config.guide.hdvResponse);
+        readResponseInfo(response, "Auto", config.guide.autoResponse);
+        if (!validResponseInfo(config.guide.hdvResponse) ||
+            !validResponseInfo(config.guide.autoResponse))
+        {
+            std::cerr << "[Guide Log][Config] Invalid Guide configuration; Guide is disabled." << std::endl;
+            config.guide.active = false;
+        }
+    };
+
     auto readGuideConfig = [&](const rapidjson::Value& parent) {
         if (parent.HasMember("GuideDebugLog") && parent["GuideDebugLog"].IsObject())
             readMsgConfig(parent, "GuideDebugLog", config.guide.debugLog);
@@ -90,6 +125,10 @@ V2XArr::V2XArr(const std::filesystem::path& configPath, const std::filesystem::p
             readResponseTime(responseTime, "Advisory", config.guide.advisoryResponseTime);
             readResponseTime(responseTime, "Mandatory", config.guide.mandatoryResponseTime);
         }
+        config.guide.hdvResponse.complianceRate = config.guide.complianceRate;
+        config.guide.hdvResponse.advisoryResponseTime = config.guide.advisoryResponseTime;
+        config.guide.hdvResponse.mandatoryResponseTime = config.guide.mandatoryResponseTime;
+        readGuideResponses(guide);
 
         const bool validType = config.guide.type == "Advisory" || config.guide.type == "Mandatory";
         const bool validValues = config.guide.targetSpeed >= 0.0 &&
@@ -98,7 +137,9 @@ V2XArr::V2XArr(const std::filesystem::path& configPath, const std::filesystem::p
                                  config.guide.maxAcceleration > 0.0 && config.guide.maxDeceleration > 0.0;
         const bool validResponse = validResponseTime(config.guide.advisoryResponseTime) &&
                                    validResponseTime(config.guide.mandatoryResponseTime) &&
-                                   config.guide.advisoryResponseTime.min >= config.guide.mandatoryResponseTime.max;
+                                   config.guide.advisoryResponseTime.min >= config.guide.mandatoryResponseTime.max &&
+                                   validResponseInfo(config.guide.hdvResponse) &&
+                                   validResponseInfo(config.guide.autoResponse);
         if (!validType || !validValues || !validResponse)
         {
             std::cerr << "[Guide Log][Config] Invalid Guide configuration; Guide is disabled." << std::endl;
@@ -137,6 +178,7 @@ V2XArr::V2XArr(const std::filesystem::path& configPath, const std::filesystem::p
 
         if (msg.HasMember("Guide") && msg["Guide"].IsObject())
             readGuide(msg["Guide"]);
+        readGuideResponses(msg);
     }
 
     if (!guideConfigPath.empty())
@@ -153,6 +195,7 @@ V2XArr::V2XArr(const std::filesystem::path& configPath, const std::filesystem::p
                     readGuideConfig(guideDoc["GuideConfig"]);
                 if (guideDoc.HasMember("Guide") && guideDoc["Guide"].IsObject())
                     readGuide(guideDoc["Guide"]);
+                readGuideResponses(guideDoc);
             }
         }
     }

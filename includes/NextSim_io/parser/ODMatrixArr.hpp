@@ -8,8 +8,9 @@
 #ifndef ODMATRIXARR_H
 #define ODMATRIXARR_H
 
-#include <vector>
 #include <NextSim_io/inputclass/InputODMatrix.hpp>
+#include <filesystem>
+#include <vector>
 
 namespace NextSimIO
 {
@@ -24,6 +25,8 @@ public:
      * @details Constructor (Parse OD matrix from odmatrix.xml)
     */
     ODMatrixArr();
+
+    explicit ODMatrixArr(const std::filesystem::path& odMatrixPath);
     
     /**
      * @details Get vector of OD matrix
@@ -32,6 +35,8 @@ public:
     std::vector<InputODMatrix> GetODMatrix() { return m_odMatrix; }
 
 private:
+    void parseODMatrix(const std::filesystem::path& odMatrixPath);
+
     /**
      * @details Vector of OD matrix
     */

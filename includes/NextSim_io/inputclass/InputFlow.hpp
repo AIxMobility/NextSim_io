@@ -30,7 +30,7 @@ public:
      * @param source Source node ID
      * @param dist Estimated distribution ID of departure time
     */
-    InputFlow(int type, int flow, int sink, int source, int dist);
+    InputFlow(int type, int flow, int sink, int source, int dist, bool v2xActive = false);
 
     /**
      * @details Get vehicle type
@@ -61,6 +61,12 @@ public:
      * @return Estimated distribution ID of departure time
     */
     int GetDist() { return m_dist; }
+
+    /**
+     * @details Get whether V2X is active for this demand
+     * @return True(active) or False(not active)
+    */
+    bool GetV2XActive() { return m_v2xActive; }
     
 private:
 
@@ -88,6 +94,11 @@ private:
      * @details Estimated distribution ID of departure time
     */
     int m_dist;
+
+    /**
+     * @details Whether V2X is active for this demand
+    */
+    bool m_v2xActive = false;
 };
 } // namespace NextSimIO
 

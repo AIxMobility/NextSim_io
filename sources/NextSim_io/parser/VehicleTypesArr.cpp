@@ -268,17 +268,14 @@ VehicleTypesArr::VehicleTypesArr()
 
             const char* id = elem->Attribute("id");
             const char* name = elem->Attribute("name");
-            const char* v2x = elem->Attribute("v2x");
             const char* max_pax = elem->Attribute("max_pax");
 
             if (!id)   throw std::runtime_error ("Element should have 'id' attribute");
             if (!name)   throw std::runtime_error ("Element should have 'name' attribute");
-            if (!v2x)   v2x = "off";
             if (!max_pax)   max_pax = "1";
 
-            // TODO: implement v2x on/off
             InputVehicleTypes demoVehicleTypes(
-                name, std::atoi(max_pax), strcmp(v2x, "on") == 0 ? true : false,
+                name, std::atoi(max_pax),
                 veh_lenDist, veh_widthDist, jamgapDist, vfDist, reaction_timeDist, 
                 max_accDist, max_decDist, lc_param1Dist, lc_param2Dist, lc_senseDist);
 

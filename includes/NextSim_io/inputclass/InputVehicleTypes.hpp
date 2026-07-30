@@ -27,7 +27,6 @@ public:
      * @details Constructor
      * @param vehType Vehicle type
      * @param maxPax Maximum number of passengers
-     * @param v2xActive Whether V2X is active or not
      * @param vehLen Vehicle length
      * @param vehWidth Vehicle width
      * @param jamgap Jam gap
@@ -42,7 +41,6 @@ public:
     InputVehicleTypes(
         std::string vehType, 
         int maxPax, 
-        bool v2xActive, 
         InputDistribution vehLen, 
         InputDistribution vehWidth,
         InputDistribution jamgap, 
@@ -65,12 +63,6 @@ public:
      * @return Maximum number of passengers
     */
     int GetMaxPax() { return m_maxPax; }
-
-    /**
-     * @details Get whether V2X is active or not
-     * @return True(active) or False(not active)
-    */
-    bool GetV2XActive() { return m_v2xActive; }
 
     /**
      * @details Generate vehicle length
@@ -165,11 +157,6 @@ private:
      * @details Maximum number of passengers
     */
     int m_maxPax;
-
-    /**
-     * @details Whether V2X is active or not
-    */
-    bool m_v2xActive;
 
     /**
      * @details Vehicle length [m]

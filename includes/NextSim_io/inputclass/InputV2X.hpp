@@ -33,6 +33,13 @@ struct InputGuideResponseTimeInfo
     double sd = 0.0;
 };
 
+struct InputGuideResponseInfo
+{
+    double complianceRate = 1.0;
+    InputGuideResponseTimeInfo advisoryResponseTime{"Normal", 2.5, 1.5, 0.8, 0.4};
+    InputGuideResponseTimeInfo mandatoryResponseTime{"Normal", 0.8, 0.5, 0.2, 0.15};
+};
+
 struct InputGuideInfo
 {
     bool active = false;
@@ -43,6 +50,12 @@ struct InputGuideInfo
     unsigned int randomSeed = 42;
     InputGuideResponseTimeInfo advisoryResponseTime{"Normal", 2.5, 1.5, 0.8, 0.4};
     InputGuideResponseTimeInfo mandatoryResponseTime{"Normal", 0.8, 0.5, 0.2, 0.15};
+    InputGuideResponseInfo hdvResponse{0.7,
+        {"Normal", 2.5, 1.5, 0.8, 0.4},
+        {"Normal", 0.8, 0.5, 0.2, 0.15}};
+    InputGuideResponseInfo autoResponse{1.0,
+        {"Normal", 0.8, 0.5, 0.2, 0.15},
+        {"Normal", 0.2, 0.1, 0.05, 0.04}};
     double responseGain = 0.6;
     double maxAcceleration = 1.5;
     double maxDeceleration = 2.5;
