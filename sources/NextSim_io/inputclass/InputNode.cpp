@@ -9,8 +9,7 @@
 
 namespace NextSimIO
 {
-InputNode::InputNode(int type, int id, int numConnection, 
-                     int numPort, bool v2xActive)
+InputNode::InputNode(int type, int id, int numConnection, int numPort)
     : m_type(type), m_id(id), m_numConnections(numConnection), 
-      m_numLinks(numPort), m_v2xActive(v2xActive) {};
+      m_numLinks(numPort) {};
 } // namespace NextSimIO

@@ -18,16 +18,12 @@ InputScenario::InputScenario(int id,
                              int BGTduration,
                              int odID,
                              int todID,
-                             InputTMC tmc,
-                             bool dtaActive,
-                             std::string dtaPath)
+                             InputTMC tmc)
     : m_id(id),
       m_startTime(std::move(startTime)),
       m_duration(duration),
       m_BGTduration(BGTduration),
       m_odID(odID),
       m_todID(todID),
-      m_tmc(tmc),
-      m_dtaActive(dtaActive),
-      m_dtaPath(std::move(dtaPath)) {};
+      m_tmc(tmc) {};
 } // namespace NextSimIO

@@ -39,9 +39,7 @@ public:
                   int BGTduration,
                   int odID,
                   int todID,
-                  InputTMC tmc,
-                  bool dtaActive = false,
-                  std::string dtaPath = "");
+                  InputTMC tmc);
 
     /** @cond EXCLUDE */
     ~InputScenario() = default;
@@ -91,18 +89,6 @@ public:
     */
     InputTMC GetTMC() const { return m_tmc; }
 
-    /**
-     * @brief Check whether DTA route choice ratio should be applied
-     * @return True if DTA route choice ratio is active
-    */
-    bool GetDTAActive() const { return m_dtaActive; }
-
-    /**
-     * @brief Get DTA route choice ratio file path
-     * @return DTA route choice ratio file path
-    */
-    std::string GetDTAPath() const { return m_dtaPath; }
-
 private:
     /**
      * @details Scenario ID
@@ -139,15 +125,6 @@ private:
     */
     InputTMC m_tmc;
 
-    /**
-     * @details Whether DTA route choice ratio is active
-    */
-    bool m_dtaActive = false;
-
-    /**
-     * @details DTA route choice ratio file path
-    */
-    std::string m_dtaPath;
 };
 } // namespace NextSimIO
 

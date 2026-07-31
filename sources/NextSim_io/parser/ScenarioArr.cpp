@@ -54,8 +54,6 @@ ScenarioArr::ScenarioArr()
             int BGTduration = scenario["BGTduration"].GetInt();
             int odID = scenario["odMatrixID"].GetInt();
             int todID = scenario["todID"].GetInt();
-            bool dtaActive = false;
-            std::string dtaPath;
             InputTMC tmc;
             if (scenario.HasMember("trafficCenter") && scenario["trafficCenter"].IsObject())
             {
@@ -73,27 +71,6 @@ ScenarioArr::ScenarioArr()
                         interval = sc["timeStep"].GetDouble();
                     tmc.SetSignalTMCInfo(active, interval);
                 }
-                if (tc.HasMember("v2x") && tc["v2x"].IsObject())
-                {
-                    const rapidjson::Value& v2x = tc["v2x"];
-                    bool active = false;
-                    double interval = 1.0;
-                    if (v2x.HasMember("active") && v2x["active"].IsBool()) 
-                        active = v2x["active"].GetBool();
-                    if (v2x.HasMember("interval") && v2x["interval"].IsNumber())
-                        interval = v2x["interval"].GetDouble();
-                    else if (v2x.HasMember("timeStep") && v2x["timeStep"].IsNumber())
-                        interval = v2x["timeStep"].GetDouble();
-                    tmc.SetV2XTMCInfo(active, interval);
-                }
-            }
-            if (scenario.HasMember("dta") && scenario["dta"].IsObject())
-            {
-                const rapidjson::Value& dta = scenario["dta"];
-                if (dta.HasMember("active") && dta["active"].IsBool())
-                    dtaActive = dta["active"].GetBool();
-                if (dta.HasMember("path") && dta["path"].IsString())
-                    dtaPath = dta["path"].GetString();
             }
             // Fallback for older formats if needed, or just use defaults
             InputScenario singleScenario(
@@ -103,9 +80,7 @@ ScenarioArr::ScenarioArr()
                 BGTduration,
                 odID,
                 todID,
-                tmc,
-                dtaActive,
-                dtaPath);
+                tmc);
             m_scenarios.emplace_back(singleScenario);
         }
     }

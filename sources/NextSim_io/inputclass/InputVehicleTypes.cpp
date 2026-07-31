@@ -11,8 +11,7 @@ namespace NextSimIO
 {
 InputVehicleTypes::InputVehicleTypes(
     std::string vehType, 
-    int maxPax, 
-    bool v2xActive, 
+    int maxPax,
     InputDistribution vehLen, 
     InputDistribution vehWidth,
     InputDistribution jamgap, 
@@ -25,7 +24,6 @@ InputVehicleTypes::InputVehicleTypes(
     InputDistribution lcSensitivity)
     : m_vehType(vehType),
       m_maxPax(maxPax),
-      m_v2xActive(v2xActive),
       m_vehLen(vehLen),
       m_vehWidth(vehWidth),
       m_jamgap(jamgap),

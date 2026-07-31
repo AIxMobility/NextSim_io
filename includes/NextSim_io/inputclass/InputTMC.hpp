@@ -45,16 +45,11 @@ public:
 
     const InputTMCFeature& GetSignalTMCInfo() const { return m_signalTMCInfo; }
 
-    const InputTMCFeature& GetV2XTMCInfo() const { return m_v2xTMCInfo; }
-
     void SetSignalTMCInfo(bool active, double interval) { if (interval < 1e-6) interval = 1.0; m_signalTMCInfo = InputTMCFeature(active, interval); }
-
-    void SetV2XTMCInfo(bool active, double interval) { if (interval < 1e-6) interval = 1.0; m_v2xTMCInfo = InputTMCFeature(active, interval); }
 
 private:
 
     InputTMCFeature m_signalTMCInfo;
-    InputTMCFeature m_v2xTMCInfo;
 };
 } // namespace NextSimIO
 

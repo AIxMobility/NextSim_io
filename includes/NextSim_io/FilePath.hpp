@@ -84,7 +84,6 @@ static std::filesystem::path NetworkXMLPath = NetworkXmlFilePath / "network.xml"
 
 static std::filesystem::path FootpathNetworkXMLPath = NetworkXmlFilePath / "footpathNetwork.xml";
 
-static std::filesystem::path V2XConfigJSONPath = ParameterXmlFilePath / "config_v2x.json";
 
 static std::filesystem::path LinkRangeJSONPath = NetworkXmlFilePath / "LinkRangeMap.json";
 
@@ -116,7 +115,6 @@ static std::filesystem::path PTRouteJSONPath = NetworkXmlFilePath / "PTRoute.jso
 
 static std::filesystem::path PaxRouteJSONPath = NetworkXmlFilePath / "PaxRoute.json";
 
-static std::filesystem::path EventXMLPath = NetworkXmlFilePath / "events.xml";
 
 static std::filesystem::path BackgroundTrafficXMLPath = NetworkXmlFilePath / "backgroundTraffic.xml";
 

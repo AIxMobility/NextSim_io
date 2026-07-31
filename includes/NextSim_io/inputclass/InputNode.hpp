@@ -28,10 +28,8 @@ public:
      * @param id Node ID
      * @param numConnection Number of connections between links
      * @param numPort Number of connected links
-     * @param v2xActive Whether V2X is active or not
     */
-    InputNode(int type, int id, int numConnection, 
-              int numPort, bool v2xActive);
+    InputNode(int type, int id, int numConnection, int numPort);
 
     /**
      * @details Set node type
@@ -104,12 +102,6 @@ public:
      * @return Number of connected links
     */
     int GetNumLink() const { return m_numLinks; }
-
-    /**
-     * @details Get whether V2X is active or not
-     * @return True(V2X is active) or False(not)
-    */
-    bool GetV2XActive() const { return m_v2xActive; }
 
     /**
      * @details Get signal cycle
@@ -226,11 +218,6 @@ private:
      * @details Number of connected links
     */
     int m_numLinks;
-
-    /**
-     * @details Whether V2X is active or not
-    */
-    bool m_v2xActive;
 
     /**
      * @details Vector of connected links
