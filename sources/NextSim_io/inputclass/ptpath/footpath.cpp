@@ -138,52 +138,96 @@ void footpath::LoadFootpathNetwork() {
 
     // ### Creating links between nodes ###
     int createdEdgeCount = 0;
-    double tolerance = 100.0;  
-    //threshold should be adjusted based on the scale of the map
-    double vertical_threshold = 2000.0; 
-    double horizontal_threshold = 2000.0; 
+    TiXmlElement* pLinksElem = pRoot->FirstChildElement("links");
 
-    for (const auto& [id1, node1] : m_footpathNodes) {
-        for (const auto& [id2, node2] : m_footpathNodes) {
-            if (id1 == id2) continue;
+    auto addEdgeIfMissing = [&](const std::string& fromNodeId,
+                                const std::string& toNodeId,
+                                double length) {
+        auto& edges = m_footpathEdges[fromNodeId];
+        auto edgeIt = std::find_if(
+            edges.begin(), edges.end(),
+            [&](const FootpathEdge& edge) {
+                return edge.to_node_id == toNodeId;
+            });
+        if (edgeIt == edges.end()) {
+            edges.push_back({fromNodeId, toNodeId, length, length});
+            ++createdEdgeCount;
+        } else if (length < edgeIt->length) {
+            edgeIt->length = length;
+            edgeIt->travel_time = length;
+        }
+    };
 
-            double dx = std::abs(node1.x_coord - node2.x_coord);
-            double dy = std::abs(node1.y_coord - node2.y_coord);
+    if (pLinksElem) {
+        for (TiXmlElement* pLinkElem = pLinksElem->FirstChildElement("link");
+             pLinkElem != nullptr;
+             pLinkElem = pLinkElem->NextSiblingElement("link")) {
+            const char* fromNodeAttr = pLinkElem->Attribute("from_node");
+            const char* toNodeAttr = pLinkElem->Attribute("to_node");
+            if (!fromNodeAttr || !toNodeAttr) {
+                std::cerr << "Warning: Footpath link is missing from_node or to_node. Skipping."
+                          << std::endl;
+                continue;
+            }
 
-            bool isVerticalLink = (dx < tolerance && dy > 0 && dy <= vertical_threshold);
-            bool isHorizontalLink = (dy < tolerance && dx > 0 && dx <= horizontal_threshold);
+            const std::string fromNodeId(fromNodeAttr);
+            const std::string toNodeId(toNodeAttr);
+            const auto fromNodeIt = m_footpathNodes.find(fromNodeId);
+            const auto toNodeIt = m_footpathNodes.find(toNodeId);
+            if (fromNodeIt == m_footpathNodes.end() ||
+                toNodeIt == m_footpathNodes.end()) {
+                std::cerr << "Warning: Footpath link references an unknown node ("
+                          << fromNodeId << " -> " << toNodeId << "). Skipping."
+                          << std::endl;
+                continue;
+            }
 
-            if (isVerticalLink || isHorizontalLink) {
-
-                double length = std::sqrt(dx * dx + dy * dy);
-
-                FootpathEdge edge1 = {id1, id2, length, length};
-                FootpathEdge edge2 = {id2, id1, length, length};
-
-                bool edge1Exists = false;
-                for (const auto& existingEdge : m_footpathEdges[id1]) {
-                    if (existingEdge.from_node_id == edge1.from_node_id && existingEdge.to_node_id == edge1.to_node_id) {
-                        edge1Exists = true;
-                        break;
-                    }
+            double length = 0.0;
+            if (const char* lengthAttr = pLinkElem->Attribute("length")) {
+                try {
+                    length = std::stod(lengthAttr);
+                } catch (const std::exception&) {
+                    length = 0.0;
                 }
-                if (!edge1Exists) {
-                    m_footpathEdges[id1].push_back(edge1);
+            }
+            if (length <= 0.0) {
+                length = calculateDistance(fromNodeIt->second, toNodeIt->second);
+            }
+            if (length <= 0.0) {
+                continue;
+            }
+
+            // Road links are directional for vehicles, but the generated
+            // pedestrian graph permits walking in both directions.
+            addEdgeIfMissing(fromNodeId, toNodeId, length);
+            addEdgeIfMissing(toNodeId, fromNodeId, length);
+        }
+    }
+
+    // Legacy footpath files contain only nodes. Preserve their coordinate-
+    // based inference, but never mix inferred shortcuts into an explicit road
+    // topology.
+    if (!pLinksElem) {
+        constexpr double tolerance = 100.0;
+        constexpr double verticalThreshold = 2000.0;
+        constexpr double horizontalThreshold = 2000.0;
+
+        for (const auto& [id1, node1] : m_footpathNodes) {
+            for (const auto& [id2, node2] : m_footpathNodes) {
+                if (id1 == id2) {
+                    continue;
                 }
 
-                bool edge2Exists = false;
-                for (const auto& existingEdge : m_footpathEdges[id2]) {
-                    if (existingEdge.from_node_id == edge2.from_node_id && existingEdge.to_node_id == edge2.to_node_id) {
-                        edge2Exists = true;
-                        break;
-                    }
-                }
-                if (!edge2Exists) {
-                    m_footpathEdges[id2].push_back(edge2);
-                }
-                
-                if (!edge1Exists || !edge2Exists) { 
-                    createdEdgeCount++; 
+                const double dx = std::abs(node1.x_coord - node2.x_coord);
+                const double dy = std::abs(node1.y_coord - node2.y_coord);
+                const bool isVerticalLink =
+                    dx < tolerance && dy > 0 && dy <= verticalThreshold;
+                const bool isHorizontalLink =
+                    dy < tolerance && dx > 0 && dx <= horizontalThreshold;
+
+                if (isVerticalLink || isHorizontalLink) {
+                    const double length = std::sqrt(dx * dx + dy * dy);
+                    addEdgeIfMissing(id1, id2, length);
                 }
             }
         }
@@ -211,6 +255,15 @@ NearestLinkPoint footpath::FindNearestFootpathLinkPoint(double x, double y) cons
 
     for (const auto& pair : m_footpathEdges) {
         for (const auto& edge : pair.second) {
+            // Temporary routing edges must never become candidates for a later
+            // nearest-link query.  Otherwise every GetDistance() call expands
+            // the search space and subsequent queries become progressively
+            // slower.
+            if (edge.from_node_id.rfind("TEMP_NODE_", 0) == 0 ||
+                edge.to_node_id.rfind("TEMP_NODE_", 0) == 0) {
+                continue;
+            }
+
             const FootpathNode& p1 = m_footpathNodes.at(edge.from_node_id);
             const FootpathNode& p2 = m_footpathNodes.at(edge.to_node_id);
 
@@ -229,7 +282,6 @@ NearestLinkPoint footpath::FindNearestFootpathLinkPoint(double x, double y) cons
                     result.from_node_id = p1.id; 
                     result.to_node_id = p2.id;   
                     result.found = true;
-                    result.tempNodeId = p1.id; 
                 }
                 continue;
             }
@@ -257,11 +309,16 @@ NearestLinkPoint footpath::FindNearestFootpathLinkPoint(double x, double y) cons
                 result.from_node_id = edge.from_node_id; 
                 result.to_node_id = edge.to_node_id;    
                 result.found = true;
-                
-                result.tempNodeId = "TEMP_NODE_" + std::to_string(s_tempNodeCounter++); 
             }
         }
     }
+
+    // Allocate exactly one ID per query.  Previously an ID was consumed each
+    // time a closer candidate edge was encountered during the scan.
+    if (result.found) {
+        result.tempNodeId = "TEMP_NODE_" + std::to_string(s_tempNodeCounter++);
+    }
+
     return result;
 }
 
@@ -431,7 +488,16 @@ double footpath::GetDistance(const std::pair<double, double>& origin_coords, con
     double dest_offset = std::sqrt(std::pow(dest_coords.first - destLinkPoint.x_coord, 2) +
                                    std::pow(dest_coords.second - destLinkPoint.y_coord, 2));
 
-    double total_distance = origin_offset + network_distance + dest_offset;
+    double total_distance = -1.0;
+    if (network_distance >= 0.0) {
+        total_distance = origin_offset + network_distance + dest_offset;
+    }
+
+    // GetDistance() is invoked for every station pair.  Keeping these nodes
+    // and edges would make both nearest-link search and Dijkstra operate on a
+    // graph that grows with every pair (quadratic station pairs compounded by
+    // a linearly growing graph).
+    RemoveTempNodesAndEdges();
 
     // std::cout << "Origin offset distance: " << origin_offset << std::endl;
     // std::cout << "Footpath network distance (Dijkstra): " << network_distance << std::endl;

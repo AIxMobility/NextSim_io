@@ -501,7 +501,7 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
             const auto& toInputStation = roadStations.GetStations()[j];
             
             double distance = footpathGenerator.GetDistance(fromInputStation.GetCenter(), toInputStation.GetCenter());
-            if (distance <= THRESHOLD_FOR_FOOTPATH) {
+            if (distance >= 0.0 && distance <= THRESHOLD_FOR_FOOTPATH) {
                 double timeCost = distance / FOOTPATH_SPEED_MPS / 60.0; // 초 -> 분
                 PTCost footpathCost(timeCost, distance, 0, 0);
 
@@ -524,7 +524,7 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
             const auto& toInputRailStation = railStations.GetRailStations()[j];
 
             double distance = footpathGenerator.GetDistance(fromInputRailStation.GetCenter(), toInputRailStation.GetCenter());
-            if (distance <= THRESHOLD_FOR_FOOTPATH) {
+            if (distance >= 0.0 && distance <= THRESHOLD_FOR_FOOTPATH) {
                 double timeCost = distance / FOOTPATH_SPEED_MPS / 60.0;
                 PTCost footpathCost(timeCost, distance, 0, 0);
 
@@ -545,7 +545,7 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
         for (const auto& railInputStation : railStations.GetRailStations()) {
 
             double distance = footpathGenerator.GetDistance(roadInputStation.GetCenter(), railInputStation.GetCenter());
-            if (distance) {
+            if (distance >= 0.0 && distance <= THRESHOLD_FOR_FOOTPATH) {
                 double timeCost = distance / FOOTPATH_SPEED_MPS / 60.0;
                 PTCost footpathCost(timeCost, distance, 0, 0);
 

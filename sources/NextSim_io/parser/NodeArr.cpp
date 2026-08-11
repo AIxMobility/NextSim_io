@@ -98,11 +98,12 @@ NodeArr::NodeArr()
                     int temp = -1;
 
                     const char *link_id = element->Attribute("link_id");
-                    const char *direction = element->Attribute("direction");
+                    // const char *direction = element->Attribute("direction");
+                    const char *direction = "";
                     const char *portType = element->Attribute("type");
 
                     if (!link_id)   throw std::runtime_error ("Element should have 'link_id' attribute");
-                    if (!direction)   throw std::runtime_error ("Element should have 'direction' attribute");
+                    // if (!direction)   throw std::runtime_error ("Element should have 'direction' attribute");
                     if (!portType)   throw std::runtime_error ("Element should have 'type' attribute");
 
                     if (!strcmp (portType, "in"))
