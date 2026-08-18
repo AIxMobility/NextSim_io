@@ -9,6 +9,7 @@
 #ifndef INPUTVEHICLETYPES_H
 #define INPUTVEHICLETYPES_H
 
+#include <array>
 #include <string>
 #include <vector>
 
@@ -38,6 +39,7 @@ public:
      * @param lcParam1 Lane change parameter 1
      * @param lcParam2 Lane change parameter 2
      * @param lcSensitivity Lane change sensitivity
+     * @param powertrainRatios ICE, PHEV, and BEV ratios in that order
     */
     InputVehicleTypes(
         std::string vehType, 
@@ -52,7 +54,8 @@ public:
         InputDistribution maxDec,
         InputDistribution lcParam1,
         InputDistribution lcParam2,
-        InputDistribution lcSensitivity);
+        InputDistribution lcSensitivity,
+        std::array<double, 3> powertrainRatios = {1.0, 0.0, 0.0});
 
     /**
      * @details Get vehicle type
@@ -71,6 +74,15 @@ public:
      * @return True(active) or False(not active)
     */
     bool GetV2XActive() { return m_v2xActive; }
+
+    /**
+     * @details Get ICE, PHEV, and BEV ratios in that order
+     * @return Powertrain ratios
+    */
+    const std::array<double, 3>& GetPowertrainRatios() const
+    {
+        return m_powertrainRatios;
+    }
 
     /**
      * @details Generate vehicle length
@@ -170,6 +182,11 @@ private:
      * @details Whether V2X is active or not
     */
     bool m_v2xActive;
+
+    /**
+     * @details ICE, PHEV, and BEV ratios in that order
+    */
+    std::array<double, 3> m_powertrainRatios;
 
     /**
      * @details Vehicle length [m]

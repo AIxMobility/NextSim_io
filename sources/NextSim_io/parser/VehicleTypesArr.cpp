@@ -5,9 +5,13 @@
  * @author : Jeyun Kim
  */
 
+#include <array>
+#include <cmath>
 #include <cstdlib>
 #include <filesystem>
 #include <iostream>
+#include <numeric>
+#include <stdexcept>
 #include <string>
 
 #include <NextSim_io/parser/VehicleTypesArr.hpp>
@@ -49,6 +53,7 @@ VehicleTypesArr::VehicleTypesArr()
             InputDistribution lc_param1Dist(std::string("Normal"), 0.08, 0.055, 0.04, 0.02);
             InputDistribution lc_param2Dist(std::string("Normal"), 0.04, 0.025, 0.01, 0.02);
             InputDistribution lc_senseDist(std::string("LogNormal"), 0.1, 0.0033, 0.001, 2.5);
+            std::array<double, 3> powertrainRatios {1.0, 0.0, 0.0};
 
             for (TiXmlElement *e = elem->FirstChildElement(); e != nullptr;
                  e = e->NextSiblingElement())
@@ -264,6 +269,24 @@ VehicleTypesArr::VehicleTypesArr()
                     lc_senseDist.SetMin(atof(min));
                     lc_senseDist.SetSD(atof(sd));
                 }
+                else if (elemName2 == "powertrain")
+                {
+                    constexpr std::array<const char*, 3> ratioAttributeNames {
+                        "ice_ratio", "phev_ratio", "bev_ratio"
+                    };
+
+                    for (std::size_t i = 0; i < ratioAttributeNames.size(); ++i)
+                    {
+                        if (e->QueryDoubleAttribute(
+                                ratioAttributeNames.at(i),
+                                &powertrainRatios.at(i)) != TIXML_SUCCESS)
+                        {
+                            throw std::runtime_error(
+                                std::string("Element 'powertrain' should have numeric '") +
+                                ratioAttributeNames.at(i) + "' attribute");
+                        }
+                    }
+                }
             }
 
             const char* id = elem->Attribute("id");
@@ -276,11 +299,31 @@ VehicleTypesArr::VehicleTypesArr()
             if (!v2x)   v2x = "off";
             if (!max_pax)   max_pax = "1";
 
+            for (const double ratio : powertrainRatios)
+            {
+                if (!std::isfinite(ratio) || ratio < 0.0 || ratio > 1.0)
+                {
+                    throw std::runtime_error(
+                        std::string("Powertrain ratios for vehicle type '") +
+                        name + "' must be between 0 and 1");
+                }
+            }
+
+            const double powertrainRatioSum = std::accumulate(
+                powertrainRatios.begin(), powertrainRatios.end(), 0.0);
+            if (std::fabs(powertrainRatioSum - 1.0) > 1e-9)
+            {
+                throw std::runtime_error(
+                    std::string("Powertrain ratios for vehicle type '") + name +
+                    "' must sum to 1.0");
+            }
+
             // TODO: implement v2x on/off
             InputVehicleTypes demoVehicleTypes(
                 name, std::atoi(max_pax), strcmp(v2x, "on") == 0 ? true : false,
                 veh_lenDist, veh_widthDist, jamgapDist, vfDist, reaction_timeDist, 
-                max_accDist, max_decDist, lc_param1Dist, lc_param2Dist, lc_senseDist);
+                max_accDist, max_decDist, lc_param1Dist, lc_param2Dist, lc_senseDist,
+                powertrainRatios);
 
             m_vehTypes.insert({ std::atoi(id), demoVehicleTypes });
         }
