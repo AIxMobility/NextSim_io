@@ -61,8 +61,13 @@ void buspath::BuildODMap(const InputPTline& ptline, const StationArr& stationsAr
     }
 
     // 3. Compute OD maps
-    if (roadLinks.empty() || roadStations.empty()) {
-        std::cerr << "Error: Cannot build OD map for line " << ptline.GetID() << ". RoadLinks or RoadStations is empty." << std::endl;
+    if (roadLinks.empty()) {
+        std::cerr << "Error: Cannot build OD map for line " << ptline.GetID() << ". RoadLinks is empty." << std::endl;
+        return;
+    }
+    if (roadStations.empty()) {
+        // Station-less line: nothing to compute, register an empty OD map
+        busODMaps[ptline.GetID()] = {};
         return;
     }
 

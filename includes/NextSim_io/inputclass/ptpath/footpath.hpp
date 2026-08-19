@@ -22,6 +22,15 @@
 namespace Captain
 {
 
+constexpr double DefaultWalkingSpeedKph = 4.0;
+constexpr double DefaultWalkingSpeedMps =
+    DefaultWalkingSpeedKph * 1000.0 / 3600.0;
+
+inline double CalculateWalkingTimeMinutes(double distanceMeters)
+{
+    return distanceMeters / DefaultWalkingSpeedMps / 60.0;
+}
+
 /** 
  * @struct FootpathNode
  * @brief A node in the pedestrian footpath network.

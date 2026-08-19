@@ -74,11 +74,13 @@ PaxArr::PaxArr()
                      for (TiXmlElement* tripElem = e->FirstChildElement("trip"); tripElem != NULL;
                      tripElem = tripElem->NextSiblingElement("trip"))
                      {
+                         const char* lineID = tripElem->Attribute("lineID");
+                         const char* tripTime = tripElem->Attribute("time");
                          demoPax.AddTrip(atol(tripElem->Attribute("origin")),
                                      atol(tripElem->Attribute("dest")),
                                      tripElem->Attribute("mode"),
-                                     tripElem->Attribute("lineID"),
-                                     atof(tripElem->Attribute("time")));
+                                     lineID == nullptr ? "" : lineID,
+                                     tripTime == nullptr ? 0.0 : atof(tripTime));
                      }
  
                      m_agentPax.push_back(demoPax);

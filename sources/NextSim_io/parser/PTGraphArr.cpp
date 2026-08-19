@@ -128,8 +128,6 @@ const double THRESHOLD_FOR_INTERMODAL_TRANSFER = 10000.0; // meters for intermod
 const double TRANSFER_TURNAROUND_TIME = 1.0; // Fixed transfer time in minutes, to 1 min.
 
 inline double KMPtoMPS(double kph) { return kph * 1000.0 / 3600.0; }
-const double FOOTPATH_SPEED = 4;      // 4 km/h (approximately 1.11 m/s)
-const double FOOTPATH_SPEED_MPS = KMPtoMPS(FOOTPATH_SPEED); // 11.1111 mps
 const double BUS_SPEED = 20;       // 20 km/h (approximately 5.56 m/s)
 const double BUS_SPEED_MPS = KMPtoMPS(BUS_SPEED); // 5.5556 mps
 
@@ -147,7 +145,9 @@ PTVertexArr::PTVertexArr(const StationArr& roadStations, const RailStationArr& r
         std::vector<double> arrivalTimes;
         std::vector<double> departureTimes;
         std::string lineId = roadLine.GetID();
-        std::vector<int> stationSeq = roadLine.GetStationSeq(); 
+        std::vector<int> stationSeq = roadLine.GetStationSeq();
+        if (stationSeq.empty()) continue; // station-less line: no vertices to create
+
         double interval = roadLine.GetInterval();
 
         const double startMinuteOfDay = 6 * 60;   // 06:00
@@ -285,6 +285,8 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
         }
 
         std::vector<int> stationSeq = roadLine.GetStationSeq();
+        if (stationSeq.empty()) continue; // station-less line: no arcs to create
+
         double interval = roadLine.GetInterval();
         double fee = roadLine.GetFee();
         
@@ -318,7 +320,7 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
                 }
             }
 
-            for (size_t i = 0; i < stationSeq.size() - 1; ++i) {
+            for (size_t i = 0; i + 1 < stationSeq.size(); ++i) {
                 int fromStopId = stationSeq[i];
                 int toStopId = stationSeq[i+1];
                 double timeCost = 0.0;
@@ -502,7 +504,7 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
             
             double distance = footpathGenerator.GetDistance(fromInputStation.GetCenter(), toInputStation.GetCenter());
             if (distance >= 0.0 && distance <= THRESHOLD_FOR_FOOTPATH) {
-                double timeCost = distance / FOOTPATH_SPEED_MPS / 60.0; // 초 -> 분
+                double timeCost = Captain::CalculateWalkingTimeMinutes(distance);
                 PTCost footpathCost(timeCost, distance, 0, 0);
 
                 AddPTArc(InputPTGraphArc(arcIdCounter, fromInputStation.GetId(), "", toInputStation.GetId(), "", 0, ArcType::Footpath, footpathCost));
@@ -525,7 +527,7 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
 
             double distance = footpathGenerator.GetDistance(fromInputRailStation.GetCenter(), toInputRailStation.GetCenter());
             if (distance >= 0.0 && distance <= THRESHOLD_FOR_FOOTPATH) {
-                double timeCost = distance / FOOTPATH_SPEED_MPS / 60.0;
+                double timeCost = Captain::CalculateWalkingTimeMinutes(distance);
                 PTCost footpathCost(timeCost, distance, 0, 0);
 
                 AddPTArc(InputPTGraphArc(arcIdCounter, fromInputRailStation.GetId(), "", toInputRailStation.GetId(), "", 0, ArcType::Footpath, footpathCost));
@@ -546,7 +548,7 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
 
             double distance = footpathGenerator.GetDistance(roadInputStation.GetCenter(), railInputStation.GetCenter());
             if (distance >= 0.0 && distance <= THRESHOLD_FOR_FOOTPATH) {
-                double timeCost = distance / FOOTPATH_SPEED_MPS / 60.0;
+                double timeCost = Captain::CalculateWalkingTimeMinutes(distance);
                 PTCost footpathCost(timeCost, distance, 0, 0);
 
                 // Add Road to Rail
