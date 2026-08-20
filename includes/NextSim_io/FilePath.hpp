@@ -124,6 +124,9 @@ static std::filesystem::path RailStationNewXMLPath = NetworkXmlFilePath / "railS
 
 static std::filesystem::path RailLineNewXMLPath = NetworkXmlFilePath / "railLine.xml";
 
+static std::filesystem::path DetectorXMLPath = NetworkXmlFilePath / "detector.xml";
+
+// Parameter xml file path
 static std::filesystem::path VehicleTypeXMLPath = ParameterXmlFilePath / "vehicletypes.xml";
 
 static std::filesystem::path RecordModeXMLPath = ParameterXmlFilePath / "recordMode.xml";
