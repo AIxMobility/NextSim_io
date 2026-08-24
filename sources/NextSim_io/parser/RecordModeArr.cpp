@@ -94,7 +94,9 @@ RecordModeArr::RecordModeArr()
 
     // DetectorEvent (optional)
     TiXmlElement *eDetectorEvent = root->FirstChildElement("DetectorEvent");
-    bool activatedDetectorEvent = false;
+    // An absent element keeps the historical behaviour (detector output on);
+    // only an explicit active="f" turns detector recording off.
+    bool activatedDetectorEvent = true;
     if (eDetectorEvent != nullptr && eDetectorEvent->Attribute("active") != nullptr)
         activatedDetectorEvent = std::string(eDetectorEvent->Attribute("active")) == "t";
     m_recordModes.emplace_back(InputRecordMode(10, activatedDetectorEvent));
