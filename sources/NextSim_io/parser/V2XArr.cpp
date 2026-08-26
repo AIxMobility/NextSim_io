@@ -110,6 +110,61 @@ V2XArr::V2XArr(const std::filesystem::path& configPath, const std::filesystem::p
             readMsgConfig(parent, "GuideDebugLog", config.guide.debugLog);
     };
 
+    auto readIntArray = [](const rapidjson::Value& parent, const char* key) {
+        std::vector<int> values;
+        if (!parent.HasMember(key) || !parent[key].IsArray()) return values;
+        for (const auto& item : parent[key].GetArray())
+        {
+            if (item.IsInt()) values.push_back(item.GetInt());
+        }
+        return values;
+    };
+
+    auto readGuideScenarios = [&](const rapidjson::Value& parent) {
+        if (!parent.HasMember("GuideScenario") || !parent["GuideScenario"].IsArray()) return;
+        config.guideScenarios.clear();
+        for (const auto& scenario : parent["GuideScenario"].GetArray())
+        {
+            if (!scenario.IsObject()) continue;
+
+            InputGuideScenarioInfo info;
+            if (scenario.HasMember("id") && scenario["id"].IsInt()) info.id = scenario["id"].GetInt();
+            if (scenario.HasMember("active") && scenario["active"].IsBool()) info.active = scenario["active"].GetBool();
+            if (scenario.HasMember("type") && scenario["type"].IsString()) info.type = scenario["type"].GetString();
+            if (scenario.HasMember("targetSpeed") && scenario["targetSpeed"].IsNumber()) info.targetSpeed = scenario["targetSpeed"].GetDouble();
+            if (scenario.HasMember("startTime") && scenario["startTime"].IsNumber()) info.startTime = scenario["startTime"].GetDouble();
+            if (scenario.HasMember("endTime") && scenario["endTime"].IsNumber()) info.endTime = scenario["endTime"].GetDouble();
+            if (scenario.HasMember("repeatInterval") && scenario["repeatInterval"].IsNumber()) info.repeatInterval = scenario["repeatInterval"].GetDouble();
+
+            if (scenario.HasMember("target") && scenario["target"].IsObject())
+            {
+                const auto& target = scenario["target"];
+                info.target.link = readIntArray(target, "link");
+                info.target.lane = readIntArray(target, "lane");
+                if (target.HasMember("startPos") && target["startPos"].IsNumber()) info.target.startPos = target["startPos"].GetDouble();
+                if (target.HasMember("endPos") && target["endPos"].IsNumber()) info.target.endPos = target["endPos"].GetDouble();
+                if (target.HasMember("upstreamDistance") && target["upstreamDistance"].IsNumber()) info.target.upstreamDistance = target["upstreamDistance"].GetDouble();
+            }
+
+            const bool validType = info.type == "Advisory" || info.type == "Mandatory";
+            const bool validValues = info.id > 0 &&
+                                     info.targetSpeed >= 0.0 &&
+                                     info.startTime >= 0.0 &&
+                                     info.endTime >= info.startTime &&
+                                     info.repeatInterval >= 0.0 &&
+                                     info.target.startPos >= 0.0 &&
+                                     info.target.endPos >= info.target.startPos &&
+                                     info.target.upstreamDistance >= 0.0;
+            if (!validType || !validValues)
+            {
+                std::cerr << "[Guide Log][Config] Invalid GuideScenario ignored." << std::endl;
+                continue;
+            }
+
+            config.guideScenarios.push_back(info);
+        }
+    };
+
     auto readGuide = [&](const rapidjson::Value& guide) {
         if (guide.HasMember("active") && guide["active"].IsBool()) config.guide.active = guide["active"].GetBool();
         if (guide.HasMember("type") && guide["type"].IsString()) config.guide.type = guide["type"].GetString();
@@ -179,6 +234,7 @@ V2XArr::V2XArr(const std::filesystem::path& configPath, const std::filesystem::p
         if (msg.HasMember("Guide") && msg["Guide"].IsObject())
             readGuide(msg["Guide"]);
         readGuideResponses(msg);
+        readGuideScenarios(msg);
     }
 
     if (!guideConfigPath.empty())
@@ -196,6 +252,7 @@ V2XArr::V2XArr(const std::filesystem::path& configPath, const std::filesystem::p
                 if (guideDoc.HasMember("Guide") && guideDoc["Guide"].IsObject())
                     readGuide(guideDoc["Guide"]);
                 readGuideResponses(guideDoc);
+                readGuideScenarios(guideDoc);
             }
         }
     }

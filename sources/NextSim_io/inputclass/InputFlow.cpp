@@ -7,8 +7,23 @@
 
 #include <NextSim_io/inputclass/InputFlow.hpp>
 
+#include <utility>
+
 namespace NextSimIO
 {
-InputFlow::InputFlow(int type, int flow, int sink, int source, int dist, bool v2xActive) :
-    m_type(type), m_flow(flow), m_sink(sink), m_source(source), m_dist(dist), m_v2xActive(v2xActive) {}
+InputFlow::InputFlow(
+    int type,
+    int flow,
+    int sink,
+    int source,
+    int dist,
+    bool v2xActive,
+    std::string guideResponse) :
+    m_type(type),
+    m_flow(flow),
+    m_sink(sink),
+    m_source(source),
+    m_dist(dist),
+    m_v2xActive(v2xActive),
+    m_guideResponse(std::move(guideResponse)) {}
 } // namespace NextSimIO

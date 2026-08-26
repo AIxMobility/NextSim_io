@@ -11,6 +11,7 @@
 #define INPUTV2X_HPP
 
 #include <string>
+#include <vector>
 
 namespace NextSimIO
 {
@@ -61,6 +62,27 @@ struct InputGuideInfo
     double maxDeceleration = 2.5;
 };
 
+struct InputGuideTargetInfo
+{
+    std::vector<int> link;
+    std::vector<int> lane;
+    double startPos = 0.0;
+    double endPos = 0.0;
+    double upstreamDistance = 0.0;
+};
+
+struct InputGuideScenarioInfo
+{
+    int id = 0;
+    bool active = false;
+    std::string type = "Advisory";
+    double targetSpeed = 0.0;
+    double startTime = 0.0;
+    double endTime = 0.0;
+    double repeatInterval = 0.0;
+    InputGuideTargetInfo target;
+};
+
 /**
  * @struct InputV2XConfig
  * @brief Consolidated configuration for V2X (Range + Message switches)
@@ -75,6 +97,7 @@ struct InputV2XConfig
     MsgConfig roadEvent;
     MsgConfig speedLimit;
     InputGuideInfo guide;
+    std::vector<InputGuideScenarioInfo> guideScenarios;
 
     /**
      * @brief Collision warning configuration shared by RTOR / straight conflict checks

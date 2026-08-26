@@ -81,6 +81,7 @@ void ODMatrixArr::parseODMatrix(const std::filesystem::path& odMatrixPath)
                         const char *source = demand->Attribute("source");
                         const char *dist = demand->Attribute("dist");
                         const char *v2x = demand->Attribute("v2x");
+                        const char *guideResponse = demand->Attribute("guideResponse");
 
                         if (!flow)
                             throw std::runtime_error(
@@ -98,7 +99,8 @@ void ODMatrixArr::parseODMatrix(const std::filesystem::path& odMatrixPath)
                             atoi(sink),
                             atoi(source),
                             distToInt(dist),
-                            v2x ? isV2XActive(v2x) : defaultV2XActive);
+                            v2x ? isV2XActive(v2x) : defaultV2XActive,
+                            guideResponse ? guideResponse : "");
 
                         odmatrix.push_back(single_flow);
                     }
