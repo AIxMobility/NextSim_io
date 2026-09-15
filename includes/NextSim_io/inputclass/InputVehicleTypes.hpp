@@ -10,6 +10,7 @@
 #define INPUTVEHICLETYPES_H
 
 #include <array>
+#include <random>
 #include <string>
 #include <vector>
 
@@ -86,61 +87,71 @@ public:
 
     /**
      * @details Generate vehicle length
+     * @param generator Random generator
      * @return Vehicle length [m]
     */
-    double GenVehLen() { return m_vehLen.GenValue(); }
+    double GenVehLen(std::mt19937& generator) { return m_vehLen.GenValue(generator); }
 
     /**
      * @details Generate vehicle width
+     * @param generator Random generator
      * @return Vehicle width [m]
     */
-    double GenVehWidth() { return m_vehWidth.GenValue(); }
+    double GenVehWidth(std::mt19937& generator) { return m_vehWidth.GenValue(generator); }
 
     /**
      * @details Generate jam gap
+     * @param generator Random generator
      * @return Jam gap [m]
     */
-    double GenJamgap() { return m_jamgap.GenValue(); }
+    double GenJamgap(std::mt19937& generator) { return m_jamgap.GenValue(generator); }
 
     /**
      * @details Generate free flow speed
+     * @param generator Random generator
      * @return Free flow speed [m/s]
     */
-    double GenVf() { return m_vf.GenValue() / 3.6; }
+    double GenVf(std::mt19937& generator) { return m_vf.GenValue(generator) / 3.6; }
     
     /**
      * @details Generate reaction time
+     * @param generator Random generator
      * @return Reaction time [s]
     */
-    double GenReactionTime() { return m_reactionTime.GenValue(); }
+    double GenReactionTime(std::mt19937& generator) { return m_reactionTime.GenValue(generator); }
 
     /**
      * @details Generate maximum acceleration
+     * @param generator Random generator
      * @return Maximum acceleration [m/s^2]
     */
-    double GenMaxAcc() { return m_maxAcc.GenValue(); }
+    double GenMaxAcc(std::mt19937& generator) { return m_maxAcc.GenValue(generator); }
 
     /**
      * @details Generate maximum deceleration
+     * @param generator Random generator
      * @return Maximum deceleration [m/s^2]
     */
-    double GenMaxDec() { return m_maxDec.GenValue(); }
+    double GenMaxDec(std::mt19937& generator) { return m_maxDec.GenValue(generator); }
 
     /**
      * @details Generate lane change parameter 1 and 2
+     * @param generator Random generator
      * @return Pair of lane change parameter 1 and 2 [m/veh, s/m]
     */
-    std::pair<double, double> GenLcParam()
+    std::pair<double, double> GenLcParam(std::mt19937& generator)
     {
-        return std::make_pair(
-            m_lcParam1.GenValue(), m_lcParam2.GenValue());
+        const auto lcParam1 = m_lcParam1.GenValue(generator);
+        const auto lcParam2 = m_lcParam2.GenValue(generator);
+        return std::make_pair(lcParam1, lcParam2);
     }
 
     /**
      * @details Generate lane change sensitivity
+     * @param generator Random generator
      * @return Lane change sensitivity [.]
     */
-    double GenLcSensitivity() { return m_lcSensitivity.GenValue(); }
+    double GenLcSensitivity(std::mt19937& generator) { return m_lcSensitivity.GenValue(generator); }
     
     // double GenDeltaJamgap()
     // {

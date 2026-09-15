@@ -9,6 +9,7 @@
 #ifndef INPUTDISTRIBUTION_H
 #define INPUTDISTRIBUTION_H
 
+#include <random>
 #include <string>
 #include <vector>
 
@@ -40,9 +41,10 @@ public:
 
     /**
      * @details Generate a random value based on the distribution
+     * @param generator Random generator
      * @return Random characteristic value
     */
-    double GenValue();
+    double GenValue(std::mt19937& generator);
 
     /**
      * @details Get distribution type
