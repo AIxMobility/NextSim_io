@@ -60,13 +60,18 @@ SignalControlArr::SignalControlArr()
             const char *phaseId = tPhase->Attribute("id");
             const char *duration = tPhase->Attribute("duration");
             const char *turnList = tPhase->Attribute("turnList");
+            const char *kind = tPhase->Attribute("kind");
+            const char *phaseType = tPhase->Attribute("phaseType");
 
             
             if (!phaseId)   throw std::runtime_error ("Element should have 'id' attribute");
             if (!duration)   throw std::runtime_error ("Element should have 'duration' attribute");
             if (!turnList)   throw std::runtime_error ("Element should have 'turnList' attribute");
 
-            phase singlePhase(std::atoi(phaseId), std::atoi(duration));
+            phase singlePhase(std::atoi(phaseId),
+                              std::atoi(duration),
+                              kind == nullptr ? "UNSPECIFIED" : kind,
+                              phaseType == nullptr ? "VEHICLE" : phaseType);
             singlePhase.SetTurnList(turnList);
 
             phaseSeq.push_back(singlePhase);
