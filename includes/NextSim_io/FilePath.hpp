@@ -17,11 +17,26 @@
 
 namespace NextSimIO
 {
+// Windows: 엔진은 파일을 좁은 문자열(.string() → ANSI 코드페이지)로 연다. 경로에 한글 등
+// 비ASCII 문자가 있으면(사용자 이름, 폴더 이름) 파일을 열지 못하거나 죽는다. 웹 서버/실행기는
+// 엔진을 workspace 를 작업 폴더로 두고 실행하므로, 작업 폴더 아래의 경로는 상대경로
+// ("SimulationInput\\...") 로 바꿔 ASCII 만 남긴다. 다른 플랫폼은 그대로 둔다.
+static std::filesystem::path portable_path(const std::filesystem::path& path) {
+#if defined(_WIN32)
+    std::error_code ec;
+    const auto relative = std::filesystem::relative(path, std::filesystem::current_path(), ec);
+    if (!ec && !relative.empty() && *relative.begin() != "..") {
+        return relative;
+    }
+#endif
+    return path;
+}
+
 static std::filesystem::path get_simulation_input_path() {
     if (const char* projectRoot = std::getenv("NEXTSIM_PROJECT_ROOT")) {
         std::filesystem::path simulationInput = std::filesystem::path(projectRoot) / "SimulationInput";
         if (std::filesystem::exists(simulationInput / "config.txt")) {
-            return std::filesystem::canonical(simulationInput);
+            return portable_path(std::filesystem::canonical(simulationInput));
         }
     }
 
@@ -29,7 +44,7 @@ static std::filesystem::path get_simulation_input_path() {
     while (!currentPath.empty()) {
         std::filesystem::path simulationInput = currentPath / "SimulationInput";
         if (std::filesystem::exists(simulationInput / "config.txt")) {
-            return std::filesystem::canonical(simulationInput);
+            return portable_path(std::filesystem::canonical(simulationInput));
         }
 
         const auto parent = currentPath.parent_path();
