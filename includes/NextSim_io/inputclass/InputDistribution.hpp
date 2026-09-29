@@ -9,11 +9,24 @@
 #ifndef INPUTDISTRIBUTION_H
 #define INPUTDISTRIBUTION_H
 
+#include <cstdint>
+#include <random>
 #include <string>
 #include <vector>
 
 namespace NextSimIO
 {
+/**
+ * @brief Engine every InputDistribution::GenValue draws from (one per thread)
+ * @details Seeding it makes sampled vehicle parameters reproducible.
+ */
+std::mt19937& DistributionEngine();
+
+/**
+ * @brief Restart the calling thread's distribution engine from a seed
+ */
+void SeedDistributionEngine(std::uint32_t seed);
+
 /**
  * @class InputDistribution
  * @brief Class for distribution information for each vehicle characteristic
