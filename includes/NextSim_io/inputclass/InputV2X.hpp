@@ -76,6 +76,8 @@ struct InputGuideScenarioInfo
     int id = 0;
     bool active = false;
     std::string type = "Advisory";
+    std::string action = "Speed";
+    int targetLane = -1;
     double targetSpeed = 0.0;
     double startTime = 0.0;
     double endTime = 0.0;

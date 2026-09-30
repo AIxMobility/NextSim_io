@@ -10,22 +10,32 @@
 #include <NextSim_io/FilePath.hpp>
 #include <rapidjson/document.h>
 #include <rapidjson/istreamwrapper.h>
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 
 namespace NextSimIO
 {
 V2XArr::V2XArr()
-    : V2XArr(NextSimIO::V2XConfigJSONPath, NextSimIO::GuideConfigJSONPath)
+    : V2XArr(NextSimIO::V2XConfigJSONPath,
+             NextSimIO::GuideConfigJSONPath,
+             NextSimIO::GuideScenarioJSONPath)
 {
 }
 
 V2XArr::V2XArr(const std::filesystem::path& configPath)
-    : V2XArr(configPath, std::filesystem::path())
+    : V2XArr(configPath, std::filesystem::path(), std::filesystem::path())
 {
 }
 
 V2XArr::V2XArr(const std::filesystem::path& configPath, const std::filesystem::path& guideConfigPath)
+    : V2XArr(configPath, guideConfigPath, std::filesystem::path())
+{
+}
+
+V2XArr::V2XArr(const std::filesystem::path& configPath,
+               const std::filesystem::path& guideConfigPath,
+               const std::filesystem::path& guideScenarioPath)
 {
     InputV2X consolidatedV2X;
     InputV2XConfig config;
@@ -131,6 +141,8 @@ V2XArr::V2XArr(const std::filesystem::path& configPath, const std::filesystem::p
             if (scenario.HasMember("id") && scenario["id"].IsInt()) info.id = scenario["id"].GetInt();
             if (scenario.HasMember("active") && scenario["active"].IsBool()) info.active = scenario["active"].GetBool();
             if (scenario.HasMember("type") && scenario["type"].IsString()) info.type = scenario["type"].GetString();
+            if (scenario.HasMember("action") && scenario["action"].IsString()) info.action = scenario["action"].GetString();
+            if (scenario.HasMember("targetLane") && scenario["targetLane"].IsInt()) info.targetLane = scenario["targetLane"].GetInt();
             if (scenario.HasMember("targetSpeed") && scenario["targetSpeed"].IsNumber()) info.targetSpeed = scenario["targetSpeed"].GetDouble();
             if (scenario.HasMember("startTime") && scenario["startTime"].IsNumber()) info.startTime = scenario["startTime"].GetDouble();
             if (scenario.HasMember("endTime") && scenario["endTime"].IsNumber()) info.endTime = scenario["endTime"].GetDouble();
@@ -147,7 +159,13 @@ V2XArr::V2XArr(const std::filesystem::path& configPath, const std::filesystem::p
             }
 
             const bool validType = info.type == "Advisory" || info.type == "Mandatory";
+            const bool validAction = info.action == "Speed" || info.action == "LaneChange";
             const bool validValues = info.id > 0 &&
+                                     (info.action != "LaneChange" ||
+                                      (info.targetLane >= 0 && !info.target.link.empty() &&
+                                       !info.target.lane.empty() &&
+                                       std::find(info.target.lane.begin(), info.target.lane.end(),
+                                                 info.targetLane) == info.target.lane.end())) &&
                                      info.targetSpeed >= 0.0 &&
                                      info.startTime >= 0.0 &&
                                      info.endTime >= info.startTime &&
@@ -155,7 +173,7 @@ V2XArr::V2XArr(const std::filesystem::path& configPath, const std::filesystem::p
                                      info.target.startPos >= 0.0 &&
                                      info.target.endPos >= info.target.startPos &&
                                      info.target.upstreamDistance >= 0.0;
-            if (!validType || !validValues)
+            if (!validType || !validAction || !validValues)
             {
                 std::cerr << "[Guide Log][Config] Invalid GuideScenario ignored." << std::endl;
                 continue;
@@ -253,6 +271,29 @@ V2XArr::V2XArr(const std::filesystem::path& configPath, const std::filesystem::p
                     readGuide(guideDoc["Guide"]);
                 readGuideResponses(guideDoc);
                 readGuideScenarios(guideDoc);
+            }
+        }
+    }
+
+    if (!guideScenarioPath.empty())
+    {
+        std::ifstream guideScenarioIfs(guideScenarioPath.string());
+        if (guideScenarioIfs.is_open())
+        {
+            rapidjson::IStreamWrapper guideScenarioIsw(guideScenarioIfs);
+            rapidjson::Document guideScenarioDoc;
+            guideScenarioDoc.ParseStream(guideScenarioIsw);
+            if (guideScenarioDoc.HasParseError() || !guideScenarioDoc.IsObject() ||
+                !guideScenarioDoc.HasMember("GuideScenario") ||
+                !guideScenarioDoc["GuideScenario"].IsArray())
+            {
+                std::cerr << "[Guide Log][Config] Invalid Guide scenario file; Guide is disabled." << std::endl;
+                config.guide.active = false;
+                config.guideScenarios.clear();
+            }
+            else
+            {
+                readGuideScenarios(guideScenarioDoc);
             }
         }
     }

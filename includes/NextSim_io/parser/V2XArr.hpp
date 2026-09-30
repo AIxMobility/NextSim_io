@@ -27,6 +27,9 @@ public:
     V2XArr();
     explicit V2XArr(const std::filesystem::path& configPath);
     V2XArr(const std::filesystem::path& configPath, const std::filesystem::path& guideConfigPath);
+    V2XArr(const std::filesystem::path& configPath,
+           const std::filesystem::path& guideConfigPath,
+           const std::filesystem::path& guideScenarioPath);
 
     /**
      * @details Get V2X data vector (usually contains 1 consolidated InputV2X)

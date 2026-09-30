@@ -75,6 +75,7 @@ static std::filesystem::path V2XConfigJSONPath = ParameterXmlFilePath / "config_
 
 static std::filesystem::path GuideConfigJSONPath = ParameterXmlFilePath / "config_guide.json";
 
+static std::filesystem::path GuideScenarioJSONPath = NetworkXmlFilePath / "guide_scenario.json";
 
 static std::filesystem::path LinkRangeJSONPath = NetworkXmlFilePath / "LinkRangeMap.json";
 
