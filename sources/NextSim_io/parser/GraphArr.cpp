@@ -118,11 +118,12 @@ VertexArr::VertexArr()
                         int temp = -1;
 
                         const char *link_id = e3->Attribute("link_id");
-                        const char *direction = e3->Attribute("direction");
+                        // const char *direction = e3->Attribute("direction");
+                        const char *direction = "";
                         const char *portType = e3->Attribute("type");
 
                         if (!link_id)   throw std::runtime_error ("Element should have 'link_id' attribute");
-                        if (!direction)   throw std::runtime_error ("Element should have 'direction' attribute");
+                        // if (!direction)   throw std::runtime_error ("Element should have 'direction' attribute");
                         if (!portType)   throw std::runtime_error ("Element should have 'type' attribute");
 
                         if (!strcmp (portType, "in"))
@@ -144,6 +145,7 @@ VertexArr::VertexArr()
                         const char *toLink = e3->Attribute("to_link");
                         const char *fromLane = e3->Attribute("from_lane");
                         const char *toLane = e3->Attribute("to_lane");
+                        const char *turning = e3->Attribute("turning");
                         const char *arc_length = e3->Attribute("length");
                         const char *ff_speed = e3->Attribute("ff_spd");
 
@@ -160,7 +162,8 @@ VertexArr::VertexArr()
                             atol(fromLane),
                             atol(toLane),
                             atof(arc_length),
-                            atof(ff_speed));
+                            atof(ff_speed),
+                            turning == nullptr ? "" : turning);
                         
                         single_vertex.pushConnectionInfo(NewconnectionInfo);
                     }

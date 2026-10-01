@@ -29,8 +29,9 @@ public:
     /**
      * @details Get record mode ID
      * @return Record mode ID \
-    *  (0: VehicleDebugging, 1: VehicleVisualizer, 2: VehicleStatistics, 
-    *   3: Passenger, 4: Uniform, 5: Station, 6: Sink)
+    *  (0: VehicleDebugging, 1: VehicleVisualizer, 2: VehicleStatistics,
+    *   3: Passenger, 4: Uniform, 5: Station, 6: Sink, 7: Signal,
+    *   9: SignalControl, 10: Detector)
     */
     int GetID() { return m_id; }
 

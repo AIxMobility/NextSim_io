@@ -12,14 +12,23 @@
 
 namespace NextSimIO
 {
+std::mt19937& DistributionEngine()
+{
+    static thread_local std::mt19937 engine(std::random_device {}());
+    return engine;
+}
+
+void SeedDistributionEngine(std::uint32_t seed)
+{
+    DistributionEngine().seed(seed);
+}
 
 InputDistribution::InputDistribution(std::string vehdist, double vehmax, 
                       double vehmean, double vehmin, double vehsd)
     : m_vehDist(vehdist), m_vehMax(vehmax), m_vehMean(vehmean), m_vehMin(vehmin), m_vehSD(vehsd) {}
 
 double InputDistribution::GenValue(){
-    std::random_device rd;
-    std::mt19937 gen(rd());
+    auto& gen = DistributionEngine();
     double value = -1;
 
     if (m_vehDist == "Normal")

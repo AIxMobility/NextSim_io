@@ -12,6 +12,7 @@
 
 #include <vector>
 #include <string>
+#include <NextSim_io/inputclass/InputTMC.hpp>
 
 namespace NextSimIO
 {
@@ -30,8 +31,17 @@ public:
      * @param BGTduration Background traffic duration [min]
      * @param odID OD matrix ID
      * @param todID TOD matrix ID
+     * @param tmc TMC configuration info
     */
-    InputScenario(int id, std::string startTime, int duration, int BGTduration, int odID, int todID, bool signalControl = false);
+    InputScenario(int id,
+                  std::string startTime,
+                  int duration,
+                  int BGTduration,
+                  int odID,
+                  int todID,
+                  InputTMC tmc,
+                  bool dtaActive = false,
+                  std::string dtaPath = "");
 
     /** @cond EXCLUDE */
     ~InputScenario() = default;
@@ -76,11 +86,22 @@ public:
     int GetTODID() { return m_todID; }
 
     /**
-     * @brief Check if signal control is active
-     * @return True if signal control is active, false otherwise
+     * @brief Get TMC configuration
+     * @return TMC configuration
     */
-    bool IsSignalControl() const { return m_signalControl; }
+    InputTMC GetTMC() const { return m_tmc; }
 
+    /**
+     * @brief Check whether DTA route choice ratio should be applied
+     * @return True if DTA route choice ratio is active
+    */
+    bool GetDTAActive() const { return m_dtaActive; }
+
+    /**
+     * @brief Get DTA route choice ratio file path
+     * @return DTA route choice ratio file path
+    */
+    std::string GetDTAPath() const { return m_dtaPath; }
 
 private:
     /**
@@ -114,9 +135,19 @@ private:
     int m_todID;
 
     /**
-     * @details Whether signal control is active or not
+     * @details TMC configuration info
     */
-    bool m_signalControl = false;
+    InputTMC m_tmc;
+
+    /**
+     * @details Whether DTA route choice ratio is active
+    */
+    bool m_dtaActive = false;
+
+    /**
+     * @details DTA route choice ratio file path
+    */
+    std::string m_dtaPath;
 };
 } // namespace NextSimIO
 

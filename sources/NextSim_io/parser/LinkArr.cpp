@@ -194,6 +194,7 @@ LinkArr::LinkArr()
                                 }
                             }
 
+                            demoLane.MergeShortResidualCell();
                             demoLink.PushLaneId(demoLane);
                         }
                     }

@@ -54,7 +54,7 @@ public:
      * @param numCellVal Number of cells
      * @param LeftEmpty Whether left lane is empty or not\
      * @param RightEmpty Whether right lane is empty or not
-    */
+     */
     InputLane(std::size_t idVal, std::size_t leftLaneIdVal,
               std::size_t rightLaneIdVal, int numCellVal, 
               bool LeftEmpty, bool RightEmpty);
@@ -93,6 +93,12 @@ public:
      * @param cell Cell vector
     */
     void PushCell(InputCell cell);
+
+    /**
+     * @details Merge the last residual cell into the previous cell when its
+     * storage capacity would be one vehicle or less.
+     */
+    void MergeShortResidualCell();
 
     /**
      * @details Add segment into sequence

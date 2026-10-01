@@ -23,10 +23,12 @@ InputVehicleTypes::InputVehicleTypes(
     InputDistribution lcParam1,
     InputDistribution lcParam2,
     InputDistribution lcSensitivity,
+    std::array<double, 3> powertrainRatios,
     std::optional<InputTramParameters> tramParameters)
     : m_vehType(vehType),
       m_maxPax(maxPax),
       m_v2xActive(v2xActive),
+      m_powertrainRatios(powertrainRatios),
       m_vehLen(vehLen),
       m_vehWidth(vehWidth),
       m_jamgap(jamgap),

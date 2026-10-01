@@ -74,24 +74,36 @@ NodeArr::NodeArr()
                 const char *numConnection = e2->Attribute("num_connection");
                 const char *numPort = e2->Attribute("num_port");
                 const char *v2x = e2->Attribute("v2x");
-
+                const char *center = e2->Attribute("center");
+                
                 if (!nodeId)   throw std::runtime_error ("Element should have 'id' attribute");
                 if (!nodeType)   throw std::runtime_error ("Element should have 'type' attribute");
                 if (!numConnection)   throw std::runtime_error ("Element should have 'num_connection' attribute");
                 if (!numPort)   throw std::runtime_error ("Element should have 'num_port' attribute");
-                if (!v2x)   v2x = "off";
+                if (!v2x)   v2x = "";
 
-                const bool v2xEnabled = (strcmp(v2x, "on") == 0);
+                std::string v2xText = v2x;
+                std::transform(v2xText.begin(), v2xText.end(), v2xText.begin(),
+                               [](unsigned char ch) { return static_cast<char>(std::tolower(ch)); });
+                const bool v2xEnabled = (v2xText == "on" || v2xText == "true" || v2xText == "1");
+
+                double x = 0, y = 0;
+                if (center)
+                {
+                    std::stringstream ss(center);
+                    ss >> x >> y;
+                }
 
                 auto parsePort = [](TiXmlElement *element, InputNode& targetNode) {
                     int temp = -1;
 
                     const char *link_id = element->Attribute("link_id");
-                    const char *direction = element->Attribute("direction");
+                    // const char *direction = element->Attribute("direction");
+                    const char *direction = "";
                     const char *portType = element->Attribute("type");
 
                     if (!link_id)   throw std::runtime_error ("Element should have 'link_id' attribute");
-                    if (!direction)   throw std::runtime_error ("Element should have 'direction' attribute");
+                    // if (!direction)   throw std::runtime_error ("Element should have 'direction' attribute");
                     if (!portType)   throw std::runtime_error ("Element should have 'type' attribute");
 
                     if (!strcmp (portType, "in"))
@@ -130,6 +142,16 @@ NodeArr::NodeArr()
                     if (!length)   throw std::runtime_error ("Element should have 'length' attribute");
                     if (!width)   width = "3.5";
                     if (!ffspeed)   throw std::runtime_error ("Element should have 'ff_spd' attribute");
+
+                    const char *connShape = element->Attribute("shape");
+                    std::string shapeStr;
+                    if (connShape) {
+                        shapeStr = std::string(connShape);
+                    }
+                    else
+                    {
+                        throw std::runtime_error ("Element should have 'shape' attribute");
+                    }
 
                     connection single_connection(
                         atol(connectionId),
@@ -172,6 +194,7 @@ NodeArr::NodeArr()
                         atoi(numPort),
                         v2xEnabled);
 
+                    single_node.SetGlobalPos({x, y});
                     parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_normalNodes.push_back(single_node);
@@ -190,6 +213,7 @@ NodeArr::NodeArr()
                         atoi(numPort),
                         v2xEnabled);
 
+                    single_node.SetGlobalPos({x, y});
                     parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_intersectionNodes.push_back(single_node);
@@ -208,6 +232,7 @@ NodeArr::NodeArr()
                         atoi(numPort),
                         v2xEnabled);
 
+                    single_node.SetGlobalPos({x, y});
                     parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_intersectionNodes.push_back(single_node);
@@ -226,6 +251,7 @@ NodeArr::NodeArr()
                         atoi(numPort),
                         v2xEnabled);
 
+                    single_node.SetGlobalPos({x, y});
                     parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_intersectionNodes.push_back(single_node);
@@ -244,7 +270,9 @@ NodeArr::NodeArr()
                         atoi(numPort),
                         v2xEnabled);
 
+                    single_node.SetGlobalPos({x, y});
                     parseNodeChildren(e2, single_node, false);
+
                     m_nodes.push_back(single_node);
                     m_terminalNodes.push_back(single_node);
                     
@@ -260,6 +288,7 @@ NodeArr::NodeArr()
                         atoi(numPort),
                         v2xEnabled);
 
+                    single_node.SetGlobalPos({x, y});
                     parseNodeChildren(e2, single_node, true);
                     m_nodes.push_back(single_node);
                     m_garageNodes.push_back(single_node);
