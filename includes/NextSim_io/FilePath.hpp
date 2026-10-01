@@ -57,36 +57,43 @@ static std::filesystem::path get_simulation_input_path() {
     return std::filesystem::current_path() / "SimulationInput";
 }
 
-static std::pair<std::string, std::string> load_network_name() {
+// SimulationInput/config.txt 의 "network=<이름>" (옛 키 "network_name" 도 읽는다).
+static std::string load_network_name() {
     std::filesystem::path simInputPath = get_simulation_input_path();
     std::ifstream file(simInputPath / "config.txt");
     std::string line, key, value;
-    std::string network_name, branch, version;
-    
+    std::string network, legacyNetworkName;
+
     while (std::getline(file, line)) {
+        if (!line.empty() && line.back() == '\r') line.pop_back();   // CRLF (Windows 에서 만든 파일)
         std::istringstream iss(line);
         if (std::getline(iss, key, '=') && std::getline(iss, value)) {
-            if (key == "network_name") network_name = value;
-            else if (key == "branch") branch = value;
+            if (key == "network") network = value;
+            else if (key == "network_name") legacyNetworkName = value;
         }
     }
 
-    return std::make_pair(branch, network_name);
+    return network.empty() ? legacyNetworkName : network;
 }
 
-static std::pair<std::string, std::string> networkID = load_network_name();
-
-static std::string branch = networkID.first;
-
-static std::string network_name = networkID.second;
+static std::string network_name = load_network_name();
 
 static std::filesystem::path simulationInputPath = get_simulation_input_path();
 
+// 네트워크 하나 = 폴더 하나: SimulationInput/networks/<이름>/
 static std::filesystem::path NetworkXmlFilePath =
-    simulationInputPath / ("datasets/" + branch + "/network_xml_" + network_name);
+    simulationInputPath / "networks" / network_name;
 
-static std::filesystem::path ParameterXmlFilePath =
-    simulationInputPath / ("datasets/" + branch + "/parameter_xml");
+// 파라미터는 네트워크 폴더 안의 parameter_xml/. 없으면 SimulationInput/parameter_xml/ (공용 기본값).
+static std::filesystem::path find_parameter_xml_path() {
+    const auto perNetwork = NetworkXmlFilePath / "parameter_xml";
+    if (std::filesystem::exists(perNetwork)) return perNetwork;
+    const auto shared = simulationInputPath / "parameter_xml";
+    if (std::filesystem::exists(shared)) return shared;
+    return perNetwork;
+}
+
+static std::filesystem::path ParameterXmlFilePath = find_parameter_xml_path();
 
 // Network xml file path
 static std::filesystem::path ScenarioXMLPath = NetworkXmlFilePath / "scenario.xml";
