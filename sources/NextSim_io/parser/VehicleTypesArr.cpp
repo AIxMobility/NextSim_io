@@ -49,6 +49,7 @@ VehicleTypesArr::VehicleTypesArr()
             InputDistribution lc_param1Dist(std::string("Normal"), 0.08, 0.055, 0.04, 0.02);
             InputDistribution lc_param2Dist(std::string("Normal"), 0.04, 0.025, 0.01, 0.02);
             InputDistribution lc_senseDist(std::string("LogNormal"), 0.1, 0.0033, 0.001, 2.5);
+            std::optional<InputTramParameters> tramParameters;
 
             for (TiXmlElement *e = elem->FirstChildElement(); e != nullptr;
                  e = e->NextSiblingElement())
@@ -264,6 +265,42 @@ VehicleTypesArr::VehicleTypesArr()
                     lc_senseDist.SetMin(atof(min));
                     lc_senseDist.SetSD(atof(sd));
                 }
+                else if (elemName2 == "tram_config")
+                {
+                    const char* segmentCount = e->Attribute("segment_count");
+                    const char* segmentGap = e->Attribute("segment_gap");
+                    const char* signalStopBuffer =
+                        e->Attribute("signal_stop_buffer");
+                    const char* stationStopTolerance =
+                        e->Attribute("station_stop_tolerance");
+
+                    if (!segmentCount)
+                        throw std::runtime_error(
+                            "tram_config requires 'segment_count'");
+                    if (!segmentGap)
+                        throw std::runtime_error(
+                            "tram_config requires 'segment_gap'");
+                    if (!signalStopBuffer)
+                        throw std::runtime_error(
+                            "tram_config requires 'signal_stop_buffer'");
+                    if (!stationStopTolerance)
+                        throw std::runtime_error(
+                            "tram_config requires 'station_stop_tolerance'");
+
+                    InputTramParameters parameters;
+                    parameters.SegmentCount = std::atoi(segmentCount);
+                    parameters.SegmentGapM = std::atof(segmentGap);
+                    parameters.SignalStopBufferM = std::atof(signalStopBuffer);
+                    parameters.StationStopToleranceM =
+                        std::atof(stationStopTolerance);
+                    if (parameters.SegmentCount <= 0
+                        || parameters.SegmentGapM < 0.0
+                        || parameters.SignalStopBufferM < 0.0
+                        || parameters.StationStopToleranceM < 0.0)
+                        throw std::runtime_error(
+                            "tram_config values must be non-negative and segment_count must be positive");
+                    tramParameters = parameters;
+                }
             }
 
             const char* id = elem->Attribute("id");
@@ -275,12 +312,17 @@ VehicleTypesArr::VehicleTypesArr()
             if (!name)   throw std::runtime_error ("Element should have 'name' attribute");
             if (!v2x)   v2x = "off";
             if (!max_pax)   max_pax = "1";
+            if (strcmp(name, "Tram") == 0
+                && !tramParameters.has_value())
+                throw std::runtime_error(
+                    "Tram vehicle type requires a tram_config element");
 
             // TODO: implement v2x on/off
             InputVehicleTypes demoVehicleTypes(
                 name, std::atoi(max_pax), strcmp(v2x, "on") == 0 ? true : false,
                 veh_lenDist, veh_widthDist, jamgapDist, vfDist, reaction_timeDist, 
-                max_accDist, max_decDist, lc_param1Dist, lc_param2Dist, lc_senseDist);
+                max_accDist, max_decDist, lc_param1Dist, lc_param2Dist,
+                lc_senseDist, tramParameters);
 
             m_vehTypes.insert({ std::atoi(id), demoVehicleTypes });
         }
