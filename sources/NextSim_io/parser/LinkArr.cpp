@@ -6,6 +6,7 @@
  */
 
 #include <filesystem>
+#include <NextSim_io/RunErrors.hpp>
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -37,7 +38,7 @@ LinkArr::LinkArr()
 
     if (!loadSuccess)
     {
-        std::cout << "Loading failed (LinkArr)" << std::endl;
+        NextSimIO::ReportRunError("Loading failed (LinkArr)");
         // std::cerr << doc.ErrorDesc() << std::endl;
         return;
     }
