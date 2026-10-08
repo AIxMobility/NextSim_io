@@ -11,6 +11,7 @@
 #include <filesystem>
 #include <iostream>
 #include <numeric>
+#include <sstream>
 #include <stdexcept>
 #include <string>
 
@@ -22,10 +23,12 @@
 
 namespace NextSimIO
 {
-VehicleTypesArr::VehicleTypesArr()
+VehicleTypesArr::VehicleTypesArr() : VehicleTypesArr(NextSimIO::VehicleTypeXMLPath) {}
+
+VehicleTypesArr::VehicleTypesArr(const std::filesystem::path& path)
 {
     TiXmlDocument doc;
-    bool loadSuccess = doc.LoadFile(NextSimIO::VehicleTypeXMLPath.string().c_str());
+    bool loadSuccess = doc.LoadFile(path.string().c_str());
 
     if (!loadSuccess)
     {
@@ -304,6 +307,21 @@ VehicleTypesArr::VehicleTypesArr()
                         || parameters.StationStopToleranceM < 0.0)
                         throw std::runtime_error(
                             "tram_config values must be non-negative and segment_count must be positive");
+                    if (const char* lengths = e->Attribute("segment_lengths"))
+                    {
+                        std::istringstream stream(lengths);
+                        std::string token;
+                        while (stream >> token)
+                        {
+                            std::size_t parsed = 0;
+                            const double length = std::stod(token, &parsed);
+                            if (parsed != token.size() || !std::isfinite(length) || length <= 0.0)
+                                throw std::runtime_error("tram_config segment_lengths must contain positive finite lengths in meters");
+                            parameters.SegmentLengthsM.push_back(length);
+                        }
+                        if (parameters.SegmentLengthsM.size() != static_cast<std::size_t>(parameters.SegmentCount))
+                            throw std::runtime_error("tram_config segment_lengths must match segment_count");
+                    }
                     tramParameters = parameters;
                 }
                 else if (elemName2 == "powertrain")

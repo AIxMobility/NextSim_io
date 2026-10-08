@@ -24,6 +24,8 @@ struct InputTramParameters
     double SegmentGapM{2.0};
     double SignalStopBufferM{0.5};
     double StationStopToleranceM{0.5};
+    // Optional front-to-rear body lengths; empty preserves equal-length modules.
+    std::vector<double> SegmentLengthsM;
 };
 
 /**

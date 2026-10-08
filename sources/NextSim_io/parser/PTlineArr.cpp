@@ -19,10 +19,12 @@
 
 namespace NextSimIO
 {
-PTlineArr::PTlineArr()
+PTlineArr::PTlineArr() : PTlineArr(NextSimIO::RoadPTlineXMLPath) {}
+
+PTlineArr::PTlineArr(const std::filesystem::path& filePath)
 {
     TiXmlDocument doc;
-    bool loadSuccess = doc.LoadFile(NextSimIO::RoadPTlineXMLPath.string().c_str());
+    bool loadSuccess = doc.LoadFile(filePath.string().c_str());
 
     if (!loadSuccess)
     {
@@ -35,9 +37,12 @@ PTlineArr::PTlineArr()
     for (TiXmlElement* linesElem = root; linesElem != nullptr; linesElem = linesElem->NextSiblingElement("Lines"))
     {
         const char* modeAttr = linesElem->Attribute("mode");
-        std::string mode = modeAttr ? modeAttr : "";
+        const std::string defaultMode = modeAttr && *modeAttr ? modeAttr : "Bus";
         for (TiXmlElement* lineElem = linesElem->FirstChildElement("Line"); lineElem != nullptr; lineElem = lineElem->NextSiblingElement("Line"))
         {
+            // Same precedence as the editor and viewer; old files inherit mode.
+            const char* typeAttr = lineElem->Attribute("type");
+            const std::string mode = typeAttr && *typeAttr ? typeAttr : defaultMode;
             // Get required attributes: id & interval
             std::string id;
             double fee = 0;
