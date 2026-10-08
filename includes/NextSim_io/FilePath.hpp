@@ -14,6 +14,7 @@
 #include <filesystem>
 #include <iostream>
 #include <cstdlib>
+#include <utility>
 
 namespace NextSimIO
 {
@@ -57,52 +58,53 @@ static std::filesystem::path get_simulation_input_path() {
     return std::filesystem::current_path() / "SimulationInput";
 }
 
+// Prefer network=<name>; continue accepting legacy branch/network_name configs.
 static std::pair<std::string, std::string> load_network_name() {
-    std::filesystem::path simInputPath = get_simulation_input_path();
-    std::ifstream file(simInputPath / "config.txt");
+    std::ifstream file(get_simulation_input_path() / "config.txt");
     std::string line, key, value;
-    std::string network_name, branch, network;
+    std::string network, legacyNetworkName, branch;
     auto trim = [](const std::string& text) {
         const auto first = text.find_first_not_of(" \t\r\n");
         if (first == std::string::npos) return std::string{};
         return text.substr(first, text.find_last_not_of(" \t\r\n") - first + 1);
     };
-    
     while (std::getline(file, line)) {
         std::istringstream iss(line);
         if (std::getline(iss, key, '=') && std::getline(iss, value)) {
             key = trim(key);
             value = trim(value);
             if (key == "network") network = value;
-            else if (key == "network_name") network_name = value;
+            else if (key == "network_name") legacyNetworkName = value;
             else if (key == "branch") branch = value;
         }
     }
-
-    // The current layout takes precedence even if legacy keys remain.
-    if (!network.empty()) return std::make_pair(std::string{}, network);
-    return std::make_pair(branch, network_name);
+    if (!network.empty()) return {std::string{}, network};
+    return {branch, legacyNetworkName};
 }
 
-static std::pair<std::string, std::string> networkID = load_network_name();
-
+static const auto networkID = load_network_name();
 static std::string branch = networkID.first;
-
 static std::string network_name = networkID.second;
-
 static std::filesystem::path simulationInputPath = get_simulation_input_path();
 
-// Accept migrated folders with legacy config keys as well as network=<name>.
+// Prefer migrated network folders, even when the config still uses legacy keys.
 static bool modernNetworkLayout = branch.empty() ||
     std::filesystem::is_directory(simulationInputPath / "networks" / network_name);
-
 static std::filesystem::path NetworkXmlFilePath = modernNetworkLayout
     ? simulationInputPath / "networks" / network_name
     : simulationInputPath / "datasets" / branch / ("network_xml_" + network_name);
 
-static std::filesystem::path ParameterXmlFilePath = modernNetworkLayout
-    ? NetworkXmlFilePath / "parameter_xml"
-    : simulationInputPath / "datasets" / branch / "parameter_xml";
+static std::filesystem::path find_parameter_xml_path() {
+    const auto configured = modernNetworkLayout
+        ? NetworkXmlFilePath / "parameter_xml"
+        : simulationInputPath / "datasets" / branch / "parameter_xml";
+    if (std::filesystem::is_directory(configured)) return configured;
+    const auto shared = simulationInputPath / "parameter_xml";
+    if (std::filesystem::is_directory(shared)) return shared;
+    return configured;
+}
+
+static std::filesystem::path ParameterXmlFilePath = find_parameter_xml_path();
 
 // Network xml file path
 static std::filesystem::path ScenarioXMLPath = NetworkXmlFilePath / "scenario.xml";
