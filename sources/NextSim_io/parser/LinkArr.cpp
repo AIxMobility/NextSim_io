@@ -65,12 +65,16 @@ LinkArr::LinkArr()
                     const char *width = e->Attribute("width");
                     const char *stop_line = e->Attribute("stop_line");
                     const char *linkShape = e->Attribute("shape");
+                    const char *instance = e->Attribute("instance");
+                    if (!instance)
+                        instance = e->Attribute("partition");
 
                     if (!linkId)   throw std::runtime_error ("Element should have 'id' attribute");
                     if (!num_lane)   throw std::runtime_error ("Element should have 'num_lane' attribute");
                     if (!linkLength)   throw std::runtime_error ("Element should have 'length' attribute");
                     if (!width)   throw std::runtime_error ("Element should have 'width' attribute");
                     if (!stop_line)   throw std::runtime_error ("Element should have 'stop_line' attribute");
+                    if (!instance)   instance = "0";
 
                     InputLink demoLink(
                         static_cast<std::size_t>(
@@ -79,6 +83,7 @@ LinkArr::LinkArr()
                             atof(linkLength),
                             atof(width),
                             atof(stop_line));
+                    demoLink.SetInstanceId(atoi(instance));
 
                     demoLink.SetShapePoints(ParseShapePoints(linkShape));
 

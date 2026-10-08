@@ -102,7 +102,92 @@ static std::filesystem::path ScenarioJSONPath = NetworkXmlFilePath / "config_sce
 
 static std::filesystem::path DTAConfigJSONPath = NetworkXmlFilePath / "config_dta.json";
 
-static std::filesystem::path NetworkXMLPath = NetworkXmlFilePath / "network.xml";
+static inline std::string GetEnvString(const char* name)
+{
+    const char* value = std::getenv(name);
+    return value ? std::string(value) : std::string();
+}
+
+static inline bool IsDistributedEnabled()
+{
+    return GetEnvString("CAPTAIN_DISTRIBUTED") == "1";
+}
+
+static inline int GetInstanceIdFromEnv()
+{
+    const char* instanceEnv = std::getenv("CAPTAIN_INSTANCE_ID");
+    if (instanceEnv)
+        return std::atoi(instanceEnv);
+
+    const char* mpiRankEnv = std::getenv("OMPI_COMM_WORLD_RANK");
+    if (mpiRankEnv)
+        return std::atoi(mpiRankEnv);
+
+    const char* mpichRankEnv = std::getenv("PMI_RANK");
+    if (mpichRankEnv)
+        return std::atoi(mpichRankEnv);
+
+    const char* pmixRankEnv = std::getenv("PMIX_RANK");
+    if (pmixRankEnv)
+        return std::atoi(pmixRankEnv);
+
+    const char* slurmRankEnv = std::getenv("SLURM_PROCID");
+    if (slurmRankEnv)
+        return std::atoi(slurmRankEnv);
+    return -1;
+}
+
+static inline std::filesystem::path ResolvePathOverride(
+    const std::string& overrideValue,
+    const std::filesystem::path& base)
+{
+    if (overrideValue.empty())
+        return {};
+    std::filesystem::path overridePath(overrideValue);
+    if (overridePath.is_absolute())
+        return overridePath;
+    return base / overridePath;
+}
+
+static inline std::filesystem::path SelectNetworkXmlPath(
+    const std::filesystem::path& base)
+{
+    auto overrideValue = GetEnvString("CAPTAIN_NETWORK_XML");
+    if (!overrideValue.empty())
+        return ResolvePathOverride(overrideValue, base);
+
+    if (IsDistributedEnabled())
+    {
+        auto candidate = base / "partitioned_network_metis.xml";
+        if (std::filesystem::exists(candidate))
+            return candidate;
+    }
+
+    return base / "network.xml";
+}
+
+static inline std::filesystem::path SelectOdMatrixXmlPath(
+    const std::filesystem::path& base)
+{
+    auto overrideValue = GetEnvString("CAPTAIN_ODMATRIX_XML");
+    if (!overrideValue.empty())
+        return ResolvePathOverride(overrideValue, base);
+
+    if (IsDistributedEnabled())
+    {
+        int instanceId = GetInstanceIdFromEnv();
+        if (instanceId >= 0)
+        {
+            auto candidate = base / ("odmatrix_part" + std::to_string(instanceId) + ".xml");
+            if (std::filesystem::exists(candidate))
+                return candidate;
+        }
+    }
+
+    return base / "odmatrix.xml";
+}
+
+static std::filesystem::path NetworkXMLPath = SelectNetworkXmlPath(NetworkXmlFilePath);
 
 static std::filesystem::path FootpathNetworkXMLPath = NetworkXmlFilePath / "footpathNetwork.xml";
 
@@ -116,7 +201,7 @@ static std::filesystem::path SignalXMLPath = NetworkXmlFilePath / "signal.xml";
 
 static std::filesystem::path SignalControlXMLPath = NetworkXmlFilePath / "signalControl.xml";
 
-static std::filesystem::path OdMatrixXMLPath = NetworkXmlFilePath / "odmatrix.xml";
+static std::filesystem::path OdMatrixXMLPath = SelectOdMatrixXmlPath(NetworkXmlFilePath);
 
 static std::filesystem::path AgentXMLPath = NetworkXmlFilePath / "agents.xml";
 

@@ -124,6 +124,23 @@ public:
      * @details Maximum number of vehicles of the unit [veh]
      */
     std::size_t maxVehicle = 0;
+
+    /**
+     * @details Instance ID for distributed simulation
+     */
+    int instanceId = 0;
+
+    /**
+     * @details Sets instance ID
+     * @param id Instance ID
+     */
+    void SetInstanceId(int id) { instanceId = id; }
+
+    /**
+     * @details Gets instance ID
+     * @return Instance ID
+     */
+    int GetInstanceId() const { return instanceId; }
 };
 } // namespace NextSimIO
 

@@ -31,7 +31,7 @@ public:
      * @param v2xActive Whether V2X is active or not
     */
     InputNode(int type, int id, int numConnection, 
-              int numPort, bool v2xActive);
+              int numPort, bool v2xActive, int instanceId = 0);
 
     /**
      * @details Set node type
@@ -86,6 +86,12 @@ public:
      * @return Node ID
     */
     int GetId() const { return m_id; }
+
+    /**
+     * @details Get instance ID
+     * @return Instance ID
+    */
+    int GetInstanceId() const { return m_instanceId; }
 
     /**
      * @details Get node type
@@ -231,6 +237,11 @@ private:
      * @details Whether V2X is active or not
     */
     bool m_v2xActive;
+
+    /**
+     * @details Instance ID for distributed simulation
+    */
+    int m_instanceId = 0;
 
     /**
      * @details Vector of connected links

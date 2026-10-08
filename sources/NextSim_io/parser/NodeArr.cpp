@@ -76,12 +76,16 @@ NodeArr::NodeArr()
                 const char *numPort = e2->Attribute("num_port");
                 const char *v2x = e2->Attribute("v2x");
                 const char *center = e2->Attribute("center");
-                
+                const char *instance = e2->Attribute("instance");
+                if (!instance)
+                    instance = e2->Attribute("partition");
+
                 if (!nodeId)   throw std::runtime_error ("Element should have 'id' attribute");
                 if (!nodeType)   throw std::runtime_error ("Element should have 'type' attribute");
                 if (!numConnection)   throw std::runtime_error ("Element should have 'num_connection' attribute");
                 if (!numPort)   throw std::runtime_error ("Element should have 'num_port' attribute");
                 if (!v2x)   v2x = "";
+                if (!instance)   instance = "0";
 
                 std::string v2xText = v2x;
                 std::transform(v2xText.begin(), v2xText.end(), v2xText.begin(),
@@ -193,7 +197,8 @@ NodeArr::NodeArr()
                         atol(nodeId),
                         atoi(numConnection),
                         atoi(numPort),
-                        v2xEnabled);
+                        v2xEnabled,
+                        atoi(instance));
 
                     single_node.SetGlobalPos({x, y});
                     parseNodeChildren(e2, single_node, true);
@@ -212,7 +217,8 @@ NodeArr::NodeArr()
                         atol(nodeId),
                         atoi(numConnection),
                         atoi(numPort),
-                        v2xEnabled);
+                        v2xEnabled,
+                        atoi(instance));
 
                     single_node.SetGlobalPos({x, y});
                     parseNodeChildren(e2, single_node, true);
@@ -231,7 +237,8 @@ NodeArr::NodeArr()
                         atol(nodeId),
                         atoi(numConnection),
                         atoi(numPort),
-                        v2xEnabled);
+                        v2xEnabled,
+                        atoi(instance));
 
                     single_node.SetGlobalPos({x, y});
                     parseNodeChildren(e2, single_node, true);
@@ -250,7 +257,8 @@ NodeArr::NodeArr()
                         atol(nodeId),
                         atoi(numConnection),
                         atoi(numPort),
-                        v2xEnabled);
+                        v2xEnabled,
+                        atoi(instance));
 
                     single_node.SetGlobalPos({x, y});
                     parseNodeChildren(e2, single_node, true);
@@ -269,7 +277,8 @@ NodeArr::NodeArr()
                         atol(nodeId), 
                         -1,
                         atoi(numPort),
-                        v2xEnabled);
+                        v2xEnabled,
+                        atoi(instance));
 
                     single_node.SetGlobalPos({x, y});
                     parseNodeChildren(e2, single_node, false);
@@ -287,7 +296,8 @@ NodeArr::NodeArr()
                         atol(nodeId), 
                         -1,
                         atoi(numPort),
-                        v2xEnabled);
+                        v2xEnabled,
+                        atoi(instance));
 
                     single_node.SetGlobalPos({x, y});
                     parseNodeChildren(e2, single_node, true);
