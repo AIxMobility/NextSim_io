@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include <NextSim_io/RunErrors.hpp>
 #include <sstream>
 #include <string>
 #include <algorithm>
@@ -53,7 +54,7 @@ NodeArr::NodeArr()
 
     if (!loadSuccess)
     {
-        std::cout << "Loading failed (NodeArr-Network.xml)" << std::endl;
+        NextSimIO::ReportRunError("Loading failed (NodeArr-Network.xml)");
         return;
     }
     

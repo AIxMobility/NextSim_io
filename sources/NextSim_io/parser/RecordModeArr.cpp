@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include <NextSim_io/RunErrors.hpp>
 #include <sstream>
 #include <string>
 
@@ -23,7 +24,7 @@ RecordModeArr::RecordModeArr()
 
     if (!loadSuccess)
     {
-        std::cout << "Loading failed (RecordModes)" << std::endl;
+        NextSimIO::ReportRunError("Loading failed (RecordModes)");
         // std::cerr << doc.ErrorDesc() << std::endl;
         return;
     }

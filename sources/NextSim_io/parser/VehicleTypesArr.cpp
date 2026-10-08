@@ -6,6 +6,7 @@
  */
 
 #include <array>
+#include <NextSim_io/RunErrors.hpp>
 #include <cmath>
 #include <cstdlib>
 #include <filesystem>
@@ -29,7 +30,7 @@ VehicleTypesArr::VehicleTypesArr()
 
     if (!loadSuccess)
     {
-        std::cout << "Loading failed (VehicleTypesArr)" << std::endl;
+        NextSimIO::ReportRunError("Loading failed (VehicleTypesArr)");
         // std::cerr << doc.ErrorDesc() << std::endl;
         return;
     }
