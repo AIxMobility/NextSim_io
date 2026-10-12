@@ -11,6 +11,7 @@
 #include <filesystem>
 #include <vector>
 #include <algorithm>
+#include <stdexcept>
 
 #include <NextSim_io/parser/PTlineArr.hpp>
 #include <NextSim_io/tinyapi/tinystr.h>
@@ -19,6 +20,24 @@
 
 namespace NextSimIO
 {
+namespace
+{
+// 빈 값이나 숫자가 아닌 값이면 std::stoi/stod 가 이유 없이 "stoi" 예외만 던졌다 — 어느 노선의 어느 값인지 알린다.
+template <typename Parse>
+auto ParseLineNumber(const char* raw, const std::string& lineId, const char* field, Parse parse)
+{
+    try
+    {
+        return parse(std::string(raw));
+    }
+    catch (const std::exception&)
+    {
+        throw std::runtime_error("roadPTline.xml: line " + lineId + " has an invalid " + field + " '" +
+                                 std::string(raw) + "'");
+    }
+}
+}  // namespace
+
 PTlineArr::PTlineArr() : PTlineArr(NextSimIO::RoadPTlineXMLPath) {}
 
 PTlineArr::PTlineArr(const std::filesystem::path& filePath)
@@ -51,9 +70,13 @@ PTlineArr::PTlineArr(const std::filesystem::path& filePath)
             if (lineElem->Attribute("id"))
                 id = lineElem->Attribute("id");
             if (lineElem->Attribute("fee"))
-                fee = std::stod(lineElem->Attribute("fee"));
+                fee = ParseLineNumber(lineElem->Attribute("fee"), id, "fee",
+                                      [](const std::string& value) { return std::stod(value); });
             if (lineElem->Attribute("interval"))
-                interval = std::stoi(lineElem->Attribute("interval"));
+                interval = ParseLineNumber(lineElem->Attribute("interval"), id, "interval",
+                                           [](const std::string& value) { return std::stoi(value); });
+
+            const std::string& lineMode = mode;
 
             InputPTline tPTline(id, fee, interval);
 
@@ -90,14 +113,14 @@ PTlineArr::PTlineArr(const std::filesystem::path& filePath)
                 }
             }
 
-            if (mode == "Bus")
+            if (lineMode == "Bus")
                 m_busLines.push_back(tPTline);
-            else if (mode == "TRT")
+            else if (lineMode == "TRT")
                 m_trtLines.push_back(tPTline);
-            else if (mode == "Tram")
+            else if (lineMode == "Tram")
                 m_tramLines.push_back(tPTline);
             else
-                std::cerr << "Unknown mode: " << mode << " for line id: " << id << std::endl;
+                std::cerr << "Unknown mode: " << lineMode << " for line id: " << id << std::endl;
         }
     }
 }

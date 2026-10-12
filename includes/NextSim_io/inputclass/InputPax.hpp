@@ -27,8 +27,9 @@ public:
      * @param dest Destination station ID
      * @param flow Passenger flow
      * @param dist Estimated distribution of passenger generation
+     * @param matrixId Passenger matrix id (passenger.xml <od_pax id>, 0 when absent)
     */
-    InputODPax(int origin, int dest, int flow, std::string dist);
+    InputODPax(int origin, int dest, int flow, std::string dist, int matrixId = 0);
 
     /**
      * @details Get origin station ID
@@ -54,6 +55,12 @@ public:
     */
     std::string GetDist() { return m_dist; }
 
+    /**
+     * @details Get the passenger matrix this demand belongs to
+     * @return passenger.xml <od_pax id> (0 when the block has no id)
+    */
+    int GetMatrixId() const { return m_matrixId; }
+
 private:
 
     /**
@@ -75,6 +82,11 @@ private:
      * @details Estimated distribution of passenger generation
      */
     std::string m_dist;
+
+    /**
+     * @details Passenger matrix id (passenger.xml <od_pax id>)
+     */
+    int m_matrixId = 0;
 };
 
 /**
