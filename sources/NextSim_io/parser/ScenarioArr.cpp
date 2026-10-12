@@ -106,6 +106,28 @@ ScenarioArr::ScenarioArr()
                 tmc,
                 dtaActive,
                 dtaPath);
+            // 시간 구간별 수요 매트릭스 (선택). 없으면 차량은 odMatrixID, 승객은 매트릭스 0 을 시나리오 전체에 쓴다.
+            auto readSchedule = [&scenario](const char* key) {
+                std::vector<InputDemandSegment> schedule;
+                if (!scenario.HasMember(key) || !scenario[key].IsArray())
+                    return schedule;
+                for (const auto& item : scenario[key].GetArray())
+                {
+                    if (!item.IsObject() || !item.HasMember("startTime") || !item["startTime"].IsString()
+                        || !item.HasMember("endTime") || !item["endTime"].IsString()
+                        || !item.HasMember("matrixId") || !item["matrixId"].IsInt())
+                    {
+                        std::cout << "Warning: config_scenario.json " << key
+                                  << ": a segment needs startTime, endTime and an integer matrixId; skipped" << std::endl;
+                        continue;
+                    }
+                    schedule.push_back(InputDemandSegment{
+                        item["startTime"].GetString(), item["endTime"].GetString(), item["matrixId"].GetInt()});
+                }
+                return schedule;
+            };
+            singleScenario.SetVehicleDemandSchedule(readSchedule("vehicleDemandSchedule"));
+            singleScenario.SetPassengerDemandSchedule(readSchedule("passengerDemandSchedule"));
             m_scenarios.emplace_back(singleScenario);
         }
     }
