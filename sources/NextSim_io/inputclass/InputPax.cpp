@@ -9,8 +9,8 @@
 
 namespace NextSimIO
 {
-InputODPax::InputODPax(int origin, int dest, int flow, std::string dist) 
-    : m_origin(origin), m_dest(dest), m_flow(flow), m_dist(dist) {};
+InputODPax::InputODPax(int origin, int dest, int flow, std::string dist, int matrixId)
+    : m_origin(origin), m_dest(dest), m_flow(flow), m_dist(dist), m_matrixId(matrixId) {};
 
 InputAgentPax::InputAgentPax(int id, int originLink, int originOffset, int destLink, int destOffset, double time)
     : m_id(id), m_originLink(originLink), m_originOffset(originOffset), 
