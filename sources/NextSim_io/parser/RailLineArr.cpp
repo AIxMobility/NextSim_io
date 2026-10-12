@@ -9,6 +9,8 @@
 #include <string>
 #include <algorithm>
 #include <vector>
+#include <filesystem>
+#include <stdexcept>
 
 #include <NextSim_io/parser/RailLineArr.hpp>
 
@@ -20,18 +22,23 @@ namespace NextSimIO
 {
 RailLineArr::RailLineArr()
 {
+    // A tram line in roadPTline.xml does not require a railPTline.xml file.
+    if (!std::filesystem::exists(NextSimIO::RailPTlineXMLPath)) return;
     TiXmlDocument doc;
     bool loadSuccess = doc.LoadFile(NextSimIO::RailPTlineXMLPath.string().c_str());
 
     if (!loadSuccess)
     {
-        std::cout << "Loading failed (RailLineArr)" << std::endl;
-        return;
+        throw std::runtime_error("RailLineArr: cannot load " + RailPTlineXMLPath.string()
+                                 + ": " + doc.ErrorDesc());
     }
 
     TiXmlElement* modeElem = doc.FirstChildElement("Mode");
 
-    TiXmlElement* linesElem = modeElem->FirstChildElement("Lines");
+    TiXmlElement* linesElem = modeElem ? modeElem->FirstChildElement("Lines") : nullptr;
+    if (!linesElem) {
+        throw std::runtime_error("RailLineArr: expected Mode/Lines in " + RailPTlineXMLPath.string());
+    }
 
     for (TiXmlElement* lineElem = linesElem->FirstChildElement("Line");
         lineElem != nullptr;
