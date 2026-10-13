@@ -127,6 +127,13 @@ public:
      */
     const std::vector<InputDemandSegment>& GetPassengerDemandSchedule() const { return m_passengerDemandSchedule; }
 
+    /**
+     * @brief Whether tram signal priority (TSP, tramSignal.xml) applies in this scenario
+     * (config_scenario.json "tram": {"tsp": bool}). Absent means true, as before the option existed.
+     */
+    bool GetTramTSPActive() const { return m_tramTSPActive; }
+    void SetTramTSPActive(bool active) { m_tramTSPActive = active; }
+
     void SetVehicleDemandSchedule(std::vector<InputDemandSegment> schedule) { m_vehicleDemandSchedule = std::move(schedule); }
     void SetPassengerDemandSchedule(std::vector<InputDemandSegment> schedule) { m_passengerDemandSchedule = std::move(schedule); }
 
@@ -175,6 +182,11 @@ private:
      * @details DTA route choice ratio file path
     */
     std::string m_dtaPath;
+
+    /**
+     * @details Whether tram signal priority applies (default true)
+    */
+    bool m_tramTSPActive = true;
 
     /**
      * @details Vehicle demand schedule; empty = odMatrixID for the whole scenario

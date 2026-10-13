@@ -126,6 +126,9 @@ ScenarioArr::ScenarioArr()
                 }
                 return schedule;
             };
+            if (scenario.HasMember("tram") && scenario["tram"].IsObject()
+                && scenario["tram"].HasMember("tsp") && scenario["tram"]["tsp"].IsBool())
+                singleScenario.SetTramTSPActive(scenario["tram"]["tsp"].GetBool());
             singleScenario.SetVehicleDemandSchedule(readSchedule("vehicleDemandSchedule"));
             singleScenario.SetPassengerDemandSchedule(readSchedule("passengerDemandSchedule"));
             m_scenarios.emplace_back(singleScenario);
