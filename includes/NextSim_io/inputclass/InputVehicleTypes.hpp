@@ -9,6 +9,7 @@
 #ifndef INPUTVEHICLETYPES_H
 #define INPUTVEHICLETYPES_H
 
+#include <optional>
 #include <array>
 #include <random>
 #include <string>
@@ -18,6 +19,16 @@
 
 namespace NextSimIO
 {
+struct InputTramParameters
+{
+    int SegmentCount{3};
+    double SegmentGapM{2.0};
+    double SignalStopBufferM{0.5};
+    double StationStopToleranceM{0.5};
+    // Optional front-to-rear body lengths; empty preserves equal-length modules.
+    std::vector<double> SegmentLengthsM;
+};
+
 /**
  * @class InputVehicleTypes
  * @brief Class for agent types information from agenttypes.xml
@@ -56,7 +67,8 @@ public:
         InputDistribution lcParam1,
         InputDistribution lcParam2,
         InputDistribution lcSensitivity,
-        std::array<double, 3> powertrainRatios = {1.0, 0.0, 0.0});
+        std::array<double, 3> powertrainRatios = {1.0, 0.0, 0.0},
+        std::optional<InputTramParameters> tramParameters = std::nullopt);
 
     /**
      * @details Get vehicle type
@@ -152,6 +164,15 @@ public:
      * @return Lane change sensitivity [.]
     */
     double GenLcSensitivity(std::mt19937& generator) { return m_lcSensitivity.GenValue(generator); }
+
+    /**
+     * @details Get Tram-only physical and stopping parameters
+     * @return Tram parameters, or std::nullopt for non-Tram types
+    */
+    const std::optional<InputTramParameters>& GetTramParameters() const
+    {
+        return m_tramParameters;
+    }
     
     // double GenDeltaJamgap()
     // {
@@ -249,6 +270,11 @@ private:
     */
     InputDistribution m_lcSensitivity;
 
+
+    /**
+     * @details Parameters used only by the standalone Tram model
+    */
+    std::optional<InputTramParameters> m_tramParameters;
     // InputDistribution m_deltaJamgap;
     // InputDistribution m_b1;
     // InputDistribution m_b2;

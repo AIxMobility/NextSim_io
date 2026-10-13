@@ -131,6 +131,22 @@ inline double KMPtoMPS(double kph) { return kph * 1000.0 / 3600.0; }
 const double BUS_SPEED = 20;       // 20 km/h (approximately 5.56 m/s)
 const double BUS_SPEED_MPS = KMPtoMPS(BUS_SPEED); // 5.5556 mps
 
+std::vector<InputPTline> GetRoadPTLinesForPassengerGraph(const PTlineArr& roadPTLines)
+{
+    std::vector<InputPTline> roadLines = roadPTLines.GetBusLines();
+
+    const auto autonomousBusLines = roadPTLines.GetAutonomousBusLines();
+    roadLines.insert(roadLines.end(), autonomousBusLines.begin(), autonomousBusLines.end());
+
+    const auto trtLines = roadPTLines.GetTRTLines();
+    roadLines.insert(roadLines.end(), trtLines.begin(), trtLines.end());
+
+    const auto tramLines = roadPTLines.GetTramLines();
+    roadLines.insert(roadLines.end(), tramLines.begin(), tramLines.end());
+
+    return roadLines;
+}
+
 
 PTVertexArr::PTVertexArr(const StationArr& roadStations, const RailStationArr& railStations,
                             const PTlineArr& roadPTLines, const RailLineArr& railPTLines)
@@ -141,7 +157,7 @@ PTVertexArr::PTVertexArr(const StationArr& roadStations, const RailStationArr& r
     LinkArr roadLinks;
     buspath buspathGenerator(roadPTLines, roadStations, roadLinks); 
 
-    for (const auto& roadLine : roadPTLines.GetBusLines()) {
+    for (const auto& roadLine : GetRoadPTLinesForPassengerGraph(roadPTLines)) {
         std::vector<double> arrivalTimes;
         std::vector<double> departureTimes;
         std::string lineId = roadLine.GetID();
@@ -268,7 +284,7 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
     m_ptArcs.clear();
     size_t arcIdCounter = 0;
     
-    // 1.1. Road Line (버스) InVehicle 아크 생성
+    // 1.1. Road Line InVehicle arc generation
     LinkArr roadLinks;
     buspath buspathGenerator(roadPTLines, roadStations, roadLinks);
     //✨ 총 아크 수
@@ -276,7 +292,7 @@ PTArcArr::PTArcArr(const StationArr& roadStations, const RailStationArr& railSta
     // ✨ 각 OD 쌍의 아크 수를 저장할 맵
     std::map<std::string, std::map<std::pair<int, int>, size_t>> lineODPairCounts;
 
-    for (const auto& roadLine : roadPTLines.GetBusLines()) {
+    for (const auto& roadLine : GetRoadPTLinesForPassengerGraph(roadPTLines)) {
         std::string lineId = roadLine.GetID();
 
         if (lineId.empty()) {

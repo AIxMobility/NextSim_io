@@ -9,6 +9,7 @@
 #define PTROUTEARR_H
 
 #include <vector>
+#include <filesystem>
 #include <NextSim_io/inputclass/InputPTline.hpp>
 
 namespace NextSimIO
@@ -24,6 +25,7 @@ public:
      * @details Constructor (Parse public transit line information from roadptline.xml)
     */
     PTlineArr();
+    explicit PTlineArr(const std::filesystem::path& filePath);
     
     /**
      * @details Get vector of public transit lines
@@ -47,7 +49,7 @@ public:
      * @details Get vector of public transit lines for TRT
      * @return Vector of public transit lines for TRT
     */
-    std::vector<InputPTline> GetTRTLines()
+    std::vector<InputPTline> GetTRTLines() const
     {
         return m_trtLines;
     }
@@ -56,7 +58,7 @@ public:
      * @details Get vector of public transit lines for Tram
      * @return Vector of public transit lines for Tram
     */
-    std::vector<InputPTline> GetTramLines()
+    std::vector<InputPTline> GetTramLines() const
     {
         return m_tramLines;
     }

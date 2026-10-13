@@ -7,6 +7,8 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <filesystem>
+#include <stdexcept>
 
 #include <NextSim_io/parser/RailStationArr.hpp>
 
@@ -25,14 +27,20 @@ RailStationArr::RailStationArr(const std::string& dayOfWeek) {
 }
 
 void RailStationArr::LoadRailStations(const std::optional<std::string>& dayOfWeekFilter) {
+    // Rail inputs are optional for road-only networks, including road-based trams.
+    if (!std::filesystem::exists(RailStationNewXMLPath)) return;
     TiXmlDocument doc;
     if (!doc.LoadFile(RailStationNewXMLPath.string().c_str())) {
-        std::cerr << "Loading failed (RailStationArr)\n";
-        return;
+        throw std::runtime_error("RailStationArr: cannot load " + RailStationNewXMLPath.string()
+                                 + ": " + doc.ErrorDesc());
     }
 
     TiXmlElement* root = doc.FirstChildElement("RailPublicTransit");
     TiXmlElement* railStations = root ? root->FirstChildElement("railStations") : nullptr;
+    if (!railStations) {
+        throw std::runtime_error("RailStationArr: expected RailPublicTransit/railStations in "
+                                 + RailStationNewXMLPath.string());
+    }
 
     for (TiXmlElement* stationElem = railStations ? railStations->FirstChildElement("railStation") : nullptr;
          stationElem != nullptr;

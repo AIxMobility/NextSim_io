@@ -38,10 +38,12 @@ auto ParseLineNumber(const char* raw, const std::string& lineId, const char* fie
 }
 }  // namespace
 
-PTlineArr::PTlineArr()
+PTlineArr::PTlineArr() : PTlineArr(NextSimIO::RoadPTlineXMLPath) {}
+
+PTlineArr::PTlineArr(const std::filesystem::path& filePath)
 {
     TiXmlDocument doc;
-    bool loadSuccess = doc.LoadFile(NextSimIO::RoadPTlineXMLPath.string().c_str());
+    bool loadSuccess = doc.LoadFile(filePath.string().c_str());
 
     if (!loadSuccess)
     {
@@ -54,9 +56,12 @@ PTlineArr::PTlineArr()
     for (TiXmlElement* linesElem = root; linesElem != nullptr; linesElem = linesElem->NextSiblingElement("Lines"))
     {
         const char* modeAttr = linesElem->Attribute("mode");
-        std::string mode = modeAttr ? modeAttr : "";
+        const std::string defaultMode = modeAttr && *modeAttr ? modeAttr : "Bus";
         for (TiXmlElement* lineElem = linesElem->FirstChildElement("Line"); lineElem != nullptr; lineElem = lineElem->NextSiblingElement("Line"))
         {
+            // Same precedence as the editor and viewer; old files inherit mode.
+            const char* typeAttr = lineElem->Attribute("type");
+            const std::string mode = typeAttr && *typeAttr ? typeAttr : defaultMode;
             // Get required attributes: id & interval
             std::string id;
             double fee = 0;
@@ -71,9 +76,7 @@ PTlineArr::PTlineArr()
                 interval = ParseLineNumber(lineElem->Attribute("interval"), id, "interval",
                                            [](const std::string& value) { return std::stoi(value); });
 
-            // 노선 종류: 라인의 type 속성(웹 에디터가 쓴다)이 있으면 그것을, 없으면 <Lines mode> 를 따른다
-            const char* typeAttr = lineElem->Attribute("type");
-            const std::string lineMode = (typeAttr && *typeAttr) ? typeAttr : mode;
+            const std::string& lineMode = mode;
 
             InputPTline tPTline(id, fee, interval);
 

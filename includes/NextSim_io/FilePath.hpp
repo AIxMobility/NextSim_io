@@ -14,6 +14,7 @@
 #include <filesystem>
 #include <iostream>
 #include <cstdlib>
+#include <utility>
 
 namespace NextSimIO
 {
@@ -57,40 +58,50 @@ static std::filesystem::path get_simulation_input_path() {
     return std::filesystem::current_path() / "SimulationInput";
 }
 
-// SimulationInput/config.txt 의 "network=<이름>" (옛 키 "network_name" 도 읽는다).
-static std::string load_network_name() {
-    std::filesystem::path simInputPath = get_simulation_input_path();
-    std::ifstream file(simInputPath / "config.txt");
+// Prefer network=<name>; continue accepting legacy branch/network_name configs.
+static std::pair<std::string, std::string> load_network_name() {
+    std::ifstream file(get_simulation_input_path() / "config.txt");
     std::string line, key, value;
-    std::string network, legacyNetworkName;
-
+    std::string network, legacyNetworkName, branch;
+    auto trim = [](const std::string& text) {
+        const auto first = text.find_first_not_of(" \t\r\n");
+        if (first == std::string::npos) return std::string{};
+        return text.substr(first, text.find_last_not_of(" \t\r\n") - first + 1);
+    };
     while (std::getline(file, line)) {
-        if (!line.empty() && line.back() == '\r') line.pop_back();   // CRLF (Windows 에서 만든 파일)
         std::istringstream iss(line);
         if (std::getline(iss, key, '=') && std::getline(iss, value)) {
+            key = trim(key);
+            value = trim(value);
             if (key == "network") network = value;
             else if (key == "network_name") legacyNetworkName = value;
+            else if (key == "branch") branch = value;
         }
     }
-
-    return network.empty() ? legacyNetworkName : network;
+    if (!network.empty()) return {std::string{}, network};
+    return {branch, legacyNetworkName};
 }
 
-static std::string network_name = load_network_name();
-
+static const auto networkID = load_network_name();
+static std::string branch = networkID.first;
+static std::string network_name = networkID.second;
 static std::filesystem::path simulationInputPath = get_simulation_input_path();
 
-// 네트워크 하나 = 폴더 하나: SimulationInput/networks/<이름>/
-static std::filesystem::path NetworkXmlFilePath =
-    simulationInputPath / "networks" / network_name;
+// Prefer migrated network folders, even when the config still uses legacy keys.
+static bool modernNetworkLayout = branch.empty() ||
+    std::filesystem::is_directory(simulationInputPath / "networks" / network_name);
+static std::filesystem::path NetworkXmlFilePath = modernNetworkLayout
+    ? simulationInputPath / "networks" / network_name
+    : simulationInputPath / "datasets" / branch / ("network_xml_" + network_name);
 
-// 파라미터는 네트워크 폴더 안의 parameter_xml/. 없으면 SimulationInput/parameter_xml/ (공용 기본값).
 static std::filesystem::path find_parameter_xml_path() {
-    const auto perNetwork = NetworkXmlFilePath / "parameter_xml";
-    if (std::filesystem::exists(perNetwork)) return perNetwork;
+    const auto configured = modernNetworkLayout
+        ? NetworkXmlFilePath / "parameter_xml"
+        : simulationInputPath / "datasets" / branch / "parameter_xml";
+    if (std::filesystem::is_directory(configured)) return configured;
     const auto shared = simulationInputPath / "parameter_xml";
-    if (std::filesystem::exists(shared)) return shared;
-    return perNetwork;
+    if (std::filesystem::is_directory(shared)) return shared;
+    return configured;
 }
 
 static std::filesystem::path ParameterXmlFilePath = find_parameter_xml_path();

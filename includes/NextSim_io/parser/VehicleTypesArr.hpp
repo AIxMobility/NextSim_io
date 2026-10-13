@@ -9,6 +9,7 @@
 #define VEHICLETYPESARR_H
 
 #include <map>
+#include <filesystem>
 #include <NextSim_io/inputclass/InputVehicleTypes.hpp>
 
 namespace NextSimIO
@@ -24,6 +25,7 @@ public:
      * @details Constructor (Parse vehicle type information from vehicleTypes.xml)
     */
     VehicleTypesArr();
+    explicit VehicleTypesArr(const std::filesystem::path& path);
 
     /**
      * @details Get vehicle type map
