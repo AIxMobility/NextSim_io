@@ -32,14 +32,20 @@ SignalArr::SignalArr()
     TiXmlElement *root = doc.FirstChildElement();
     // int planId = atoi(root->Attribute("id"));
 
-    for (TiXmlElement *e = root->FirstChildElement(); e != NULL;
+    for (TiXmlElement *e = root ? root->FirstChildElement() : NULL; e != NULL;
          e = e->NextSiblingElement())
     {
-        int id = std::stoi(e->Attribute("id"));
+        const char *signalId = e->Attribute("id");
+        if (!signalId)
+            throw std::runtime_error("signal.xml: a <" + std::string(e->Value()) + "> has no id attribute");
+        int id = std::stoi(signalId);
+        const std::string where = "signal.xml: signal " + std::string(signalId) + ": ";
         
         InputSignal singleSignal(id);
 
         TiXmlElement *tTurnList = e->FirstChildElement("turnList");
+        if (!tTurnList)
+            throw std::runtime_error(where + "has no <turnList>");
         for (TiXmlElement *tTurn = tTurnList->FirstChildElement(); tTurn != NULL;
              tTurn = tTurn->NextSiblingElement())
         {
@@ -48,10 +54,10 @@ SignalArr::SignalArr()
             const char *type = tTurn->Attribute("type");
             const char *connList = tTurn->Attribute("connList");
             
-            if (!turnId)   throw std::runtime_error ("Element should have 'id' attribute");
-            if (!turning)   throw std::runtime_error ("Element should have 'turning' attribute");
-            if (!type)   throw std::runtime_error ("Element should have 'type' attribute");
-            if (!connList)   throw std::runtime_error ("Element should have 'connList' attribute");
+            if (!turnId)   throw std::runtime_error (where + "a <turn> has no 'id' attribute");
+            if (!turning)   throw std::runtime_error (where + "a <turn> has no 'turning' attribute");
+            if (!type)   throw std::runtime_error (where + "a <turn> has no 'type' attribute");
+            if (!connList)   throw std::runtime_error (where + "a <turn> has no 'connList' attribute");
 
             turn singleTurn(std::atoi(turnId), std::atoi(turning), type);
             singleTurn.SetConnList(connList);
@@ -60,6 +66,8 @@ SignalArr::SignalArr()
         }
 
         TiXmlElement *tPlanList = e->FirstChildElement("planList");
+        if (!tPlanList)
+            throw std::runtime_error(where + "has no <planList>");
         for (TiXmlElement *tPlan = tPlanList->FirstChildElement(); tPlan != NULL;
              tPlan = tPlan->NextSiblingElement())
         {
@@ -67,9 +75,9 @@ SignalArr::SignalArr()
             const char *cycle = tPlan->Attribute("cycle");
             const char *offset = tPlan->Attribute("offset");
             
-            if (!planId)   throw std::runtime_error ("Element should have 'id' attribute");
-            if (!cycle)   throw std::runtime_error ("Element should have 'cycle' attribute");
-            if (!offset)   throw std::runtime_error ("Element should have 'offset' attribute");
+            if (!planId)   throw std::runtime_error (where + "a <plan> has no 'id' attribute");
+            if (!cycle)   throw std::runtime_error (where + "a <plan> has no 'cycle' attribute");
+            if (!offset)   throw std::runtime_error (where + "a <plan> has no 'offset' attribute");
 
             std::vector<phase> phaseSeq;
             for(TiXmlElement *tPhase = tPlan->FirstChildElement(); tPhase != NULL;
@@ -82,9 +90,9 @@ SignalArr::SignalArr()
                 const char *phaseType = tPhase->Attribute("phaseType");
 
                 
-                if (!phaseId)   throw std::runtime_error ("Element should have 'id' attribute");
-                if (!duration)   throw std::runtime_error ("Element should have 'duration' attribute");
-                if (!turnList)   throw std::runtime_error ("Element should have 'turnList' attribute");
+                if (!phaseId)   throw std::runtime_error (where + "a <phase> has no 'id' attribute");
+                if (!duration)   throw std::runtime_error (where + "a <phase> has no 'duration' attribute");
+                if (!turnList)   throw std::runtime_error (where + "a <phase> has no 'turnList' attribute");
 
                 phase singlePhase(std::atoi(phaseId),
                                   std::atoi(duration),
@@ -115,10 +123,13 @@ SignalArr::SignalArr()
 
     TiXmlElement *root_signal = doc_signal.FirstChildElement();
 
-    for (TiXmlElement *elem = root_signal->FirstChildElement(); elem != NULL;
+    for (TiXmlElement *elem = root_signal ? root_signal->FirstChildElement() : NULL; elem != NULL;
          elem = elem->NextSiblingElement())
     {
-        int nodeId = atoi(elem->Attribute("id"));
+        const char *todNodeId = elem->Attribute("id");
+        if (!todNodeId)
+            throw std::runtime_error("signalTOD.xml: a <node> has no id attribute");
+        int nodeId = atoi(todNodeId);
 
         std::vector<table> todTable;
         for (TiXmlElement *e = elem->FirstChildElement(); e != NULL;
@@ -129,11 +140,11 @@ SignalArr::SignalArr()
             const char *endTime = e->Attribute("endTime");
 
             if (!planId)
-                throw std::runtime_error("Element should have 'planId' attribute");
+                throw std::runtime_error("signalTOD.xml: node " + std::string(todNodeId) + ": a <plan> has no 'id' attribute");
             if (!startTime)
-                throw std::runtime_error("Element should have 'startTime' attribute");
+                throw std::runtime_error("signalTOD.xml: node " + std::string(todNodeId) + ": a <plan> has no 'startTime' attribute");
             if (!endTime)
-                throw std::runtime_error("Element should have 'endTime' attribute");
+                throw std::runtime_error("signalTOD.xml: node " + std::string(todNodeId) + ": a <plan> has no 'endTime' attribute");
 
             table singleTable(atoi(planId), startTime, endTime);
 

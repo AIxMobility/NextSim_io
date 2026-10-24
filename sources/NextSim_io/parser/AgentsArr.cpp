@@ -33,7 +33,32 @@ AgentsArr::AgentsArr()
     
     TiXmlElement *root = doc.FirstChildElement();
 
-    for (TiXmlElement *elem = root->FirstChildElement(); elem != NULL;
+    // A <veh> missing an attribute or its <link>/<node> line used to dereference null.
+    // Missing sequences stay empty and NetInitializer skips that agent with a warning.
+    auto parseVeh = [](TiXmlElement* e) {
+        const char* idAttr = e->Attribute("id");
+        const char* typeAttr = e->Attribute("type");
+        const char* dptAttr = e->Attribute("dptTime");
+        if (!idAttr || !typeAttr || !dptAttr)
+            throw std::runtime_error(std::string("agents.xml: <veh") + (idAttr ? std::string(" id=") + idAttr : "")
+                                     + "> needs id, type and dptTime attributes");
+        InputAgents veh(std::stoi(idAttr), std::stoi(typeAttr), std::stod(dptAttr));
+        auto attr = [&](const char* child, const char* name) {
+            TiXmlElement* c = e->FirstChildElement(child);
+            const char* value = c ? c->Attribute(name) : nullptr;
+            return std::string(value ? value : "");
+        };
+        veh.SetLinkSeq(attr("link", "seq"));
+        veh.SetNodeSeq(attr("node", "seq"));
+        if (e->FirstChildElement("station"))
+        {
+            veh.SetStationSeq(attr("station", "seq"));
+            veh.SetStationDistanceSeq(attr("station", "distance"));
+        }
+        return veh;
+    };
+
+    for (TiXmlElement *elem = root ? root->FirstChildElement() : NULL; elem != NULL;
          elem = elem->NextSiblingElement())
     {
         std::string elemName = elem->Value();
@@ -56,31 +81,7 @@ AgentsArr::AgentsArr()
 
                         if (elemName2 == "veh")
                         {
-                            int id = std::stoi(e->Attribute("id"));
-                            int type = std::stoi(e->Attribute("type"));
-                            double dpt_time = std::stod(e->Attribute("dptTime"));
-
-                            InputAgents single_veh(
-                                id, type, dpt_time);
-
-                            TiXmlElement *ee = e->FirstChildElement();
-
-                            std::string eName = ee->Value();
-                            if (eName == "link")
-                            {
-                                std::string linkSeq = ee->Attribute("seq");
-                                single_veh.SetLinkSeq(linkSeq);
-                            }
-                            
-                            ee = ee->NextSiblingElement();
-                            eName = ee->Value();
-                            if (eName == "node")
-                            {
-                                std::string nodeSeq = ee->Attribute("seq");
-                                single_veh.SetNodeSeq(nodeSeq);
-                            }
-                            
-                            m_agents.push_back(single_veh);
+                            m_agents.push_back(parseVeh(e));
                         }
                     }
                 }
@@ -94,42 +95,7 @@ AgentsArr::AgentsArr()
 
                         if (elemName2 == "veh")
                         {
-                            int id = std::stoi(e->Attribute("id"));
-                            int type = std::stoi(e->Attribute("type"));
-                            double dpt_time = std::stod(e->Attribute("dptTime"));
-
-                            InputAgents single_veh(
-                                id, type, dpt_time);
-                            
-                            TiXmlElement *ee = e->FirstChildElement();
-
-                            std::string eName = ee->Value();
-                            if (eName == "link")
-                            {
-                                std::string linkSeq = ee->Attribute("seq");
-                                single_veh.SetLinkSeq(linkSeq);
-                            }
-                            
-                            ee = ee->NextSiblingElement();
-                            eName = ee->Value();
-                            if (eName == "node")
-                            {
-                                std::string nodeSeq = ee->Attribute("seq");
-                                single_veh.SetNodeSeq(nodeSeq);
-                            }
-                            
-                            ee = ee->NextSiblingElement();
-                            eName = ee->Value();
-                            if (eName == "station")
-                            {
-                                std::string stationSeq = ee->Attribute("seq");
-                                single_veh.SetStationSeq(stationSeq);
-
-                                std::string stationDistanceSeq = ee->Attribute("distance");
-                                single_veh.SetStationDistanceSeq(stationDistanceSeq);
-                            }
-
-                            m_agents.push_back(single_veh);
+                            m_agents.push_back(parseVeh(e));
                         }
                     }
                 }

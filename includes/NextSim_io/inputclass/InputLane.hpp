@@ -134,7 +134,7 @@ public:
      * @details Get number of cells
      * @return Number of cells
     */
-    int GetNumCell() { return m_numCell; }
+    int GetNumCell() const { return m_numCell; }
 
     /**
      * @details Get vector of cells

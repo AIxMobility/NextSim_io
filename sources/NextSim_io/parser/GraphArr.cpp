@@ -7,8 +7,10 @@
 
 #include <iostream>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 #include <algorithm>
+#include <unordered_set>
 
 #include <NextSim_io/parser/GraphArr.hpp>
 
@@ -181,6 +183,9 @@ VertexArr::VertexArr()
 
         if (vertex.GetType() == 4)
         {
+            if (vertex.GetLinks().empty())
+                throw std::runtime_error("Terminal node " + std::to_string(vertex.GetId()) +
+                                         " has no port");
             if (vertex.GetLinks()[0].GetType() == -1)
             {
                 m_sourceTerminals.emplace_back(vertex.GetId());
@@ -303,8 +308,30 @@ Graph::Graph(ArcArr arcArr, VertexArr vertexArr)
 
     m_arcToArc.clear();
 
+    // The route generator looks up both end nodes of every link; a missing one aborted it
+    // with a bare unordered_map::at.
+    std::unordered_set<std::size_t> vertexIds;
+    for (auto &vertex : vertices)
+        vertexIds.insert(static_cast<std::size_t>(vertex.GetId()));
+    for (auto &[linkId, arc] : arcInfo)
+    {
+        for (std::size_t nodeId : {arc.GetFromNode(), arc.GetToNode()})
+        {
+            if (vertexIds.count(nodeId) == 0)
+                throw std::runtime_error("Link " + std::to_string(linkId) + ": node " + std::to_string(nodeId) +
+                                         " is not in network.xml");
+        }
+    }
+
     for (auto &vertex : vertices)
     {
+        for (const auto &port : vertex.GetLinks())
+        {
+            if (arcInfo.count(port.GetLinkId()) == 0)
+                throw std::runtime_error("Node " + std::to_string(vertex.GetId()) +
+                                         ": port link " + std::to_string(port.GetLinkId()) +
+                                         " is not in network.xml");
+        }
         std::vector<ConnectionInfo> linkConnections = vertex.GetConnectionInfo();
         for (auto &conn : linkConnections)
         {
@@ -313,6 +340,13 @@ Graph::Graph(ArcArr arcArr, VertexArr vertexArr)
             int toLink = conn.GetToLink();
             int toLane = conn.GetToLane();
 
+            for (int linkId : {fromLink, toLink})
+            {
+                if (arcInfo.count(linkId) == 0)
+                    throw std::runtime_error("Node " + std::to_string(vertex.GetId()) +
+                                             ": connection link " + std::to_string(linkId) +
+                                             " is not in network.xml");
+            }
             InputGraphArc &fromLinkInfo = arcInfo.at(fromLink);
             InputGraphArc &toLinkInfo = arcInfo.at(toLink);
             std::vector<int> fromLinkAvailableLanes = fromLinkInfo.GetAvailableLanes();

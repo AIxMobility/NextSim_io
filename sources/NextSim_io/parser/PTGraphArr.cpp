@@ -144,6 +144,17 @@ std::vector<InputPTline> GetRoadPTLinesForPassengerGraph(const PTlineArr& roadPT
     const auto tramLines = roadPTLines.GetTramLines();
     roadLines.insert(roadLines.end(), tramLines.begin(), tramLines.end());
 
+    // No headway means no runs (the engine dispatches none either); the
+    // timetable loops below would never advance.
+    roadLines.erase(std::remove_if(roadLines.begin(), roadLines.end(),
+                                   [](const InputPTline& line) {
+                                       if (line.GetInterval() > 0) return false;
+                                       std::cerr << "Warning: Line " << line.GetID()
+                                                 << " has interval " << line.GetInterval()
+                                                 << "; no passenger timetable built" << std::endl;
+                                       return true;
+                                   }),
+                    roadLines.end());
     return roadLines;
 }
 
