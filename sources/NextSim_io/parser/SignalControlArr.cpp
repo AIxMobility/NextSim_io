@@ -32,12 +32,18 @@ SignalControlArr::SignalControlArr()
         return;
     }
 
+    // A declaration-only file (e.g. read mid-write) has no root: treat it like
+    // a missing file.
     TiXmlElement *root = doc.FirstChildElement();
+    if (!root)
+        return;
 
     for (TiXmlElement *e = root->FirstChildElement(); e != NULL;
          e = e->NextSiblingElement())
     {
-        int id = std::stoi(e->Attribute("id"));
+        const char *idStr = e->Attribute("id");
+        if (!idStr)   throw std::runtime_error ("Element should have 'id' attribute");
+        int id = std::stoi(idStr);
         InputSignalControl singleSignalControl(id);
 
         const char *cycle = e->Attribute("cycle");
