@@ -115,11 +115,6 @@ V2XArr::V2XArr(const std::filesystem::path& configPath,
         }
     };
 
-    auto readGuideConfig = [&](const rapidjson::Value& parent) {
-        if (parent.HasMember("GuideDebugLog") && parent["GuideDebugLog"].IsObject())
-            readMsgConfig(parent, "GuideDebugLog", config.guide.debugLog);
-    };
-
     auto readIntArray = [](const rapidjson::Value& parent, const char* key) {
         std::vector<int> values;
         if (!parent.HasMember(key) || !parent[key].IsArray()) return values;
@@ -189,9 +184,6 @@ V2XArr::V2XArr(const std::filesystem::path& configPath,
         if (guide.HasMember("targetSpeed") && guide["targetSpeed"].IsNumber()) config.guide.targetSpeed = guide["targetSpeed"].GetDouble();
         if (guide.HasMember("complianceRate") && guide["complianceRate"].IsNumber()) config.guide.complianceRate = guide["complianceRate"].GetDouble();
         if (guide.HasMember("randomSeed") && guide["randomSeed"].IsUint()) config.guide.randomSeed = guide["randomSeed"].GetUint();
-        if (guide.HasMember("responseGain") && guide["responseGain"].IsNumber()) config.guide.responseGain = guide["responseGain"].GetDouble();
-        if (guide.HasMember("maxAcceleration") && guide["maxAcceleration"].IsNumber()) config.guide.maxAcceleration = guide["maxAcceleration"].GetDouble();
-        if (guide.HasMember("maxDeceleration") && guide["maxDeceleration"].IsNumber()) config.guide.maxDeceleration = guide["maxDeceleration"].GetDouble();
         if (guide.HasMember("responseTime") && guide["responseTime"].IsObject())
         {
             const auto& responseTime = guide["responseTime"];
@@ -205,9 +197,7 @@ V2XArr::V2XArr(const std::filesystem::path& configPath,
 
         const bool validType = config.guide.type == "Advisory" || config.guide.type == "Mandatory";
         const bool validValues = config.guide.targetSpeed >= 0.0 &&
-                                 config.guide.complianceRate >= 0.0 && config.guide.complianceRate <= 1.0 &&
-                                 config.guide.responseGain >= 0.0 &&
-                                 config.guide.maxAcceleration > 0.0 && config.guide.maxDeceleration > 0.0;
+                                 config.guide.complianceRate >= 0.0 && config.guide.complianceRate <= 1.0;
         const bool validResponse = validResponseTime(config.guide.advisoryResponseTime) &&
                                    validResponseTime(config.guide.mandatoryResponseTime) &&
                                    config.guide.advisoryResponseTime.min >= config.guide.mandatoryResponseTime.max &&
@@ -265,8 +255,6 @@ V2XArr::V2XArr(const std::filesystem::path& configPath,
             guideDoc.ParseStream(guideIsw);
             if (!guideDoc.HasParseError())
             {
-                if (guideDoc.HasMember("GuideConfig") && guideDoc["GuideConfig"].IsObject())
-                    readGuideConfig(guideDoc["GuideConfig"]);
                 if (guideDoc.HasMember("Guide") && guideDoc["Guide"].IsObject())
                     readGuide(guideDoc["Guide"]);
                 readGuideResponses(guideDoc);

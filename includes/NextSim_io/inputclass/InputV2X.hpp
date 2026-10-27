@@ -44,7 +44,6 @@ struct InputGuideResponseInfo
 struct InputGuideInfo
 {
     bool active = false;
-    MsgConfig debugLog;
     std::string type = "Advisory";
     double targetSpeed = 0.0;
     double complianceRate = 1.0;
@@ -57,9 +56,6 @@ struct InputGuideInfo
     InputGuideResponseInfo autoResponse{1.0,
         {"Normal", 0.8, 0.5, 0.2, 0.15},
         {"Normal", 0.2, 0.1, 0.05, 0.04}};
-    double responseGain = 0.6;
-    double maxAcceleration = 1.5;
-    double maxDeceleration = 2.5;
 };
 
 struct InputGuideTargetInfo
