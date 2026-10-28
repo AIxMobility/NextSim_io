@@ -124,6 +124,10 @@ void ODMatrixArr::parseODMatrix(const std::filesystem::path& odMatrixPath)
                 {
                     readDemandBlock(child, 2, false);
                 }
+                else if (childName == "cavodMatrix")
+                {
+                    readDemandBlock(child, 6, false);
+                }
             }
 
             InputODMatrix InputODMatrix(
