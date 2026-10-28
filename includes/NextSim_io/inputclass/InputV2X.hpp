@@ -10,6 +10,9 @@
 #ifndef INPUTV2X_HPP
 #define INPUTV2X_HPP
 
+#include <string>
+#include <vector>
+
 namespace NextSimIO
 {
 /**
@@ -20,6 +23,62 @@ struct MsgConfig
 {
     bool active = false;
     int interval = 1; // seconds
+};
+
+struct InputGuideResponseTimeInfo
+{
+    std::string dist = "Normal";
+    double max = 0.0;
+    double mean = 0.0;
+    double min = 0.0;
+    double sd = 0.0;
+};
+
+struct InputGuideResponseInfo
+{
+    double complianceRate = 1.0;
+    InputGuideResponseTimeInfo advisoryResponseTime{"Normal", 2.5, 1.5, 0.8, 0.4};
+    InputGuideResponseTimeInfo mandatoryResponseTime{"Normal", 0.8, 0.5, 0.2, 0.15};
+};
+
+struct InputGuideInfo
+{
+    bool active = false;
+    std::string type = "Advisory";
+    double targetSpeed = 0.0;
+    double complianceRate = 1.0;
+    unsigned int randomSeed = 42;
+    InputGuideResponseTimeInfo advisoryResponseTime{"Normal", 2.5, 1.5, 0.8, 0.4};
+    InputGuideResponseTimeInfo mandatoryResponseTime{"Normal", 0.8, 0.5, 0.2, 0.15};
+    InputGuideResponseInfo hdvResponse{0.7,
+        {"Normal", 2.5, 1.5, 0.8, 0.4},
+        {"Normal", 0.8, 0.5, 0.2, 0.15}};
+    InputGuideResponseInfo autoResponse{1.0,
+        {"Normal", 0.8, 0.5, 0.2, 0.15},
+        {"Normal", 0.2, 0.1, 0.05, 0.04}};
+};
+
+struct InputGuideTargetInfo
+{
+    std::vector<int> link;
+    std::vector<int> lane;
+    double startPos = 0.0;
+    double endPos = 0.0;
+    double upstreamDistance = 0.0;
+};
+
+struct InputGuideScenarioInfo
+{
+    int id = 0;
+    bool active = false;
+    std::string type = "Advisory";
+    std::string action = "Speed";
+    int targetLane = -1;
+    double targetSpeed = 0.0;
+    double startTime = 0.0;
+    double endTime = 0.0;
+    double repeatInterval = 0.0;
+    InputGuideTargetInfo target;
 };
 
 /**
@@ -35,6 +94,8 @@ struct InputV2XConfig
     MsgConfig signal;
     MsgConfig roadEvent;
     MsgConfig speedLimit;
+    InputGuideInfo guide;
+    std::vector<InputGuideScenarioInfo> guideScenarios;
 
     /**
      * @brief Collision warning configuration shared by RTOR / straight conflict checks

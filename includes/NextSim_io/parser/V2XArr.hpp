@@ -8,6 +8,7 @@
 #ifndef V2XARR_HPP
 #define V2XARR_HPP
 
+#include <filesystem>
 #include <vector>
 #include <NextSim_io/inputclass/InputV2X.hpp>
 
@@ -24,6 +25,11 @@ public:
      * @details Constructor (Parse V2X data from parameter_xml/config_v2x.json)
     */
     V2XArr();
+    explicit V2XArr(const std::filesystem::path& configPath);
+    V2XArr(const std::filesystem::path& configPath, const std::filesystem::path& guideConfigPath);
+    V2XArr(const std::filesystem::path& configPath,
+           const std::filesystem::path& guideConfigPath,
+           const std::filesystem::path& guideScenarioPath);
 
     /**
      * @details Get V2X data vector (usually contains 1 consolidated InputV2X)
