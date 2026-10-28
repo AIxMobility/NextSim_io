@@ -52,10 +52,17 @@ public:
                       double vehmean, double vehmin, double vehsd);
 
     /**
-     * @details Generate a random value based on the distribution
+     * @details Generate a random value from the calling thread's DistributionEngine()
      * @return Random characteristic value
     */
     double GenValue();
+
+    /**
+     * @details Generate a random value based on the distribution
+     * @param generator Random generator
+     * @return Random characteristic value
+    */
+    double GenValue(std::mt19937& generator);
 
     /**
      * @details Get distribution type

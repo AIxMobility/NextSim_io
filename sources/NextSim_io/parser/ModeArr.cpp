@@ -8,6 +8,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <stdexcept>
 #include <filesystem>
 
 #include <NextSim_io/parser/ModeArr.hpp>
@@ -31,37 +32,26 @@ ModeArr::ModeArr()
 
     TiXmlElement *root = doc.FirstChildElement();
 
-    for(TiXmlElement *elem = root->FirstChildElement() ; elem != NULL ; elem = elem->NextSiblingElement())
+    for(TiXmlElement *elem = root ? root->FirstChildElement() : NULL ; elem != NULL ; elem = elem->NextSiblingElement())
     {
-        int id = std::stoi(elem->Attribute("id"));
-        int stime = std::stoi(elem->Attribute("stime"));
+        const char* idAttr = elem->Attribute("id");
+        const char* stimeAttr = elem->Attribute("stime");
+        if (!idAttr || !stimeAttr)
+            throw std::runtime_error("mode.xml: every <period> needs id and stime attributes");
+        int id = std::stoi(idAttr);
+        int stime = std::stoi(stimeAttr);
 
-        TiXmlElement *e = elem->FirstChildElement();
         InputMode tMode = InputMode(id, stime);
 
-        bool getMicro = false;
-        bool getMeso = false;
-
-        while(e->Value())
+        // A period may leave out <micro> or <meso>; the engine runs links it does not list as micro.
+        for (TiXmlElement *e = elem->FirstChildElement(); e != NULL; e = e->NextSiblingElement())
         {
             std::string eName = e->Value();
+            const char* linkIds = e->Attribute("linkid");
             if (eName == "micro")
-            {
-                std::string microArr = e->Attribute("linkid");
-                tMode.SetMicroLinkVector(microArr);
-                getMicro = true;
-            }
+                tMode.SetMicroLinkVector(linkIds ? linkIds : "");
             else if (eName == "meso")
-            {
-                std::string mesoArr = e->Attribute("linkid");
-                tMode.SetMesoLinkVector(mesoArr);
-                getMeso = true;
-            }
-
-            if (getMicro && getMeso)
-                break;
-                
-            e = e->NextSiblingElement();
+                tMode.SetMesoLinkVector(linkIds ? linkIds : "");
         }
 
         m_modes.push_back(tMode);

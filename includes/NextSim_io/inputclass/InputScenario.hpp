@@ -17,6 +17,18 @@
 namespace NextSimIO
 {
 /**
+ * @struct InputDemandSegment
+ * @brief One time segment of a scenario's demand schedule: which matrix applies from startTime to endTime.
+ * Times are clock times "HH:MM:SS"; endTime earlier than startTime means the segment crosses midnight.
+ */
+struct InputDemandSegment
+{
+    std::string StartTime;
+    std::string EndTime;
+    int MatrixId = 0;
+};
+
+/**
  * @class InputScenario
  * @brief Class for each simulation mode information
  */
@@ -103,6 +115,28 @@ public:
     */
     std::string GetDTAPath() const { return m_dtaPath; }
 
+    /**
+     * @brief Vehicle demand schedule (config_scenario.json "vehicleDemandSchedule").
+     * Empty means the OD matrix odMatrixID applies to the whole scenario.
+     */
+    const std::vector<InputDemandSegment>& GetVehicleDemandSchedule() const { return m_vehicleDemandSchedule; }
+
+    /**
+     * @brief Passenger demand schedule (config_scenario.json "passengerDemandSchedule").
+     * Empty means passenger matrix 0 applies to the whole scenario.
+     */
+    const std::vector<InputDemandSegment>& GetPassengerDemandSchedule() const { return m_passengerDemandSchedule; }
+
+    /**
+     * @brief Whether tram signal priority (TSP, tramSignal.xml) applies in this scenario
+     * (config_scenario.json "tram": {"tsp": bool}). Absent means true, as before the option existed.
+     */
+    bool GetTramTSPActive() const { return m_tramTSPActive; }
+    void SetTramTSPActive(bool active) { m_tramTSPActive = active; }
+
+    void SetVehicleDemandSchedule(std::vector<InputDemandSegment> schedule) { m_vehicleDemandSchedule = std::move(schedule); }
+    void SetPassengerDemandSchedule(std::vector<InputDemandSegment> schedule) { m_passengerDemandSchedule = std::move(schedule); }
+
 private:
     /**
      * @details Scenario ID
@@ -148,6 +182,21 @@ private:
      * @details DTA route choice ratio file path
     */
     std::string m_dtaPath;
+
+    /**
+     * @details Whether tram signal priority applies (default true)
+    */
+    bool m_tramTSPActive = true;
+
+    /**
+     * @details Vehicle demand schedule; empty = odMatrixID for the whole scenario
+    */
+    std::vector<InputDemandSegment> m_vehicleDemandSchedule;
+
+    /**
+     * @details Passenger demand schedule; empty = passenger matrix 0 for the whole scenario
+    */
+    std::vector<InputDemandSegment> m_passengerDemandSchedule;
 };
 } // namespace NextSimIO
 

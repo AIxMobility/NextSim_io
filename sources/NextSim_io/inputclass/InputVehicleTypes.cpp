@@ -23,7 +23,8 @@ InputVehicleTypes::InputVehicleTypes(
     InputDistribution lcParam1,
     InputDistribution lcParam2,
     InputDistribution lcSensitivity,
-    std::array<double, 3> powertrainRatios)
+    std::array<double, 3> powertrainRatios,
+    std::optional<InputTramParameters> tramParameters)
     : m_vehType(vehType),
       m_maxPax(maxPax),
       m_v2xActive(v2xActive),
@@ -37,5 +38,6 @@ InputVehicleTypes::InputVehicleTypes(
       m_maxDec(maxDec),
       m_lcParam1(lcParam1),
       m_lcParam2(lcParam2),
-      m_lcSensitivity(lcSensitivity) {};
+      m_lcSensitivity(lcSensitivity),
+      m_tramParameters(tramParameters) {};
 } // namespace NextSimIO

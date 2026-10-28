@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include <NextSim_io/RunErrors.hpp>
 #include <sstream>
 #include <string>
 
@@ -23,77 +24,38 @@ RecordModeArr::RecordModeArr()
 
     if (!loadSuccess)
     {
-        std::cout << "Loading failed (RecordModes)" << std::endl;
+        NextSimIO::ReportRunError("Loading failed (RecordModes)");
         // std::cerr << doc.ErrorDesc() << std::endl;
         return;
     }
 
     TiXmlElement *root = doc.FirstChildElement();
-    
+
+    // Older recordMode.xml files lack some elements (e.g. SignalControlEvent); a missing
+    // element or active attribute means that output is off instead of a null dereference.
+    auto isActive = [](TiXmlElement* parent, const char* name) {
+        TiXmlElement* e = parent ? parent->FirstChildElement(name) : nullptr;
+        const char* active = e ? e->Attribute("active") : nullptr;
+        return active != nullptr && std::string(active) == "t";
+    };
+
     // VehicleEvent (Debugging, Visualizer, Statistics)
-    TiXmlElement *eVehicleEvent = root->FirstChildElement("VehicleEvent");
+    TiXmlElement *eVehicleEvent = root ? root->FirstChildElement("VehicleEvent") : nullptr;
+    m_recordModes.emplace_back(InputRecordMode(0, isActive(eVehicleEvent, "Debugging")));
+    m_recordModes.emplace_back(InputRecordMode(1, isActive(eVehicleEvent, "Visualizer")));
+    m_recordModes.emplace_back(InputRecordMode(2, isActive(eVehicleEvent, "Statistics")));
 
-    TiXmlElement *eDebugging = eVehicleEvent->FirstChildElement("Debugging");
-    bool activatedDebugging = std::string(eDebugging->Attribute("active")) == "t";
-    InputRecordMode recordModeDebugging(0, activatedDebugging);
-    m_recordModes.emplace_back(recordModeDebugging);
-
-    TiXmlElement *eVisualizer = eVehicleEvent->FirstChildElement("Visualizer");
-    bool activatedVisualizer = std::string(eVisualizer->Attribute("active")) == "t";
-    InputRecordMode recordModeVisualizer(1, activatedVisualizer);
-    m_recordModes.emplace_back(recordModeVisualizer);
-
-    TiXmlElement *eStatistics = eVehicleEvent->FirstChildElement("Statistics");
-    bool activatedStatistics = std::string(eStatistics->Attribute("active")) == "t";
-    InputRecordMode recordModeStatistics(2, activatedStatistics);
-    m_recordModes.emplace_back(recordModeStatistics);
-
-
-    // PassengerEvent
-    TiXmlElement *ePassengerEvent = root->FirstChildElement("PassengerEvent");
-
-    bool activatedPassengerEvent = std::string(ePassengerEvent->Attribute("active")) == "t";
-    InputRecordMode recordModePassengerEvent(3, activatedPassengerEvent);
-    m_recordModes.emplace_back(recordModePassengerEvent);
-
-
-    // UniformEvent
-    TiXmlElement *eUniformEvent = root->FirstChildElement("UniformEvent");
-
-    bool activatedUniformEvent = std::string(eUniformEvent->Attribute("active")) == "t";
-    InputRecordMode recordModeUniformEvent(4, activatedUniformEvent);
-    m_recordModes.emplace_back(recordModeUniformEvent);
-
-
-    // StationEvent
-    TiXmlElement *eStationEvent = root->FirstChildElement("StationEvent");
-
-    bool activatedStationEvent = std::string(eStationEvent->Attribute("active")) == "t";
-    InputRecordMode recordModeStationEvent(5, activatedStationEvent);
-    m_recordModes.emplace_back(recordModeStationEvent);
-
-
-    // SinkEvent
-    TiXmlElement *eSinkEvent = root->FirstChildElement("SinkEvent");
-
-    bool activatedSinkEvent = std::string(eSinkEvent->Attribute("active")) == "t";
-    InputRecordMode recordModeSinkEvent(6, activatedSinkEvent);
-    m_recordModes.emplace_back(recordModeSinkEvent);
-
+    m_recordModes.emplace_back(InputRecordMode(3, isActive(root, "PassengerEvent")));
+    m_recordModes.emplace_back(InputRecordMode(4, isActive(root, "UniformEvent")));
+    m_recordModes.emplace_back(InputRecordMode(5, isActive(root, "StationEvent")));
+    m_recordModes.emplace_back(InputRecordMode(6, isActive(root, "SinkEvent")));
     // SignalEvent (when visualizer is activated)
-    TiXmlElement *eSignalEvent = root->FirstChildElement("SignalEvent");
-
-    bool activatedSignalEvent = std::string(eSignalEvent->Attribute("active")) == "t";
-    InputRecordMode recordModeSignalEvent(7, activatedSignalEvent);
-    m_recordModes.emplace_back(recordModeSignalEvent);
-
+    m_recordModes.emplace_back(InputRecordMode(7, isActive(root, "SignalEvent")));
     // SignalControlEvent (when signalControl is activated)
-    TiXmlElement *eSignalControlEvent = root->FirstChildElement("SignalControlEvent");
-    bool activatedSignalControlEvent = std::string(eSignalControlEvent->Attribute("active")) == "t";
-    m_recordModes.emplace_back(InputRecordMode(9, activatedSignalControlEvent));
+    m_recordModes.emplace_back(InputRecordMode(9, isActive(root, "SignalControlEvent")));
 
     // DetectorEvent (optional)
-    TiXmlElement *eDetectorEvent = root->FirstChildElement("DetectorEvent");
+    TiXmlElement *eDetectorEvent = root ? root->FirstChildElement("DetectorEvent") : nullptr;
     // An absent element keeps the historical behaviour (detector output on);
     // only an explicit active="f" turns detector recording off.
     bool activatedDetectorEvent = true;
