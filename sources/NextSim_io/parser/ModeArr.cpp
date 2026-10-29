@@ -49,12 +49,16 @@ ModeArr::ModeArr()
             {
                 std::string microArr = e->Attribute("linkid");
                 tMode.SetMicroLinkVector(microArr);
+                if (const char* nodeArr = e->Attribute("nodeid"))
+                    tMode.SetMicroNodeVector(nodeArr);
                 getMicro = true;
             }
             else if (eName == "meso")
             {
                 std::string mesoArr = e->Attribute("linkid");
                 tMode.SetMesoLinkVector(mesoArr);
+                if (const char* nodeArr = e->Attribute("nodeid"))
+                    tMode.SetMesoNodeVector(nodeArr);
                 getMeso = true;
             }
 

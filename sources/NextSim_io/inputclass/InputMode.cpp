@@ -30,4 +30,22 @@ void InputMode::SetMesoLinkVector(std::string linkVector)
     while (ss >> mesoid)
         m_mesoLinkVector.push_back(mesoid);
 }
+
+void InputMode::SetMicroNodeVector(std::string nodeVector)
+{
+    std::stringstream ss(nodeVector);
+    int microid;
+
+    while (ss >> microid)
+        m_microNodeVector.push_back(microid);
+}
+
+void InputMode::SetMesoNodeVector(std::string nodeVector)
+{
+    std::stringstream ss(nodeVector);
+    int mesoid;
+
+    while (ss >> mesoid)
+        m_mesoNodeVector.push_back(mesoid);
+}
 } // namespace NextSimIO

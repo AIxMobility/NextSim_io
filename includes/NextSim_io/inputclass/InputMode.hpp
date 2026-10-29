@@ -48,6 +48,18 @@ public:
     void SetMesoLinkVector(std::string linkVector);
 
     /**
+     * @brief Set vector of micro node IDs
+     * @param nodeVector Vector of microscopic node IDs ("Node1 Node2")
+    */
+    void SetMicroNodeVector(std::string nodeVector);
+
+    /**
+     * @brief Set vector of meso node IDs
+     * @param nodeVector Vector of mesoscopic node IDs ("Node1 Node2")
+    */
+    void SetMesoNodeVector(std::string nodeVector);
+
+    /**
      * @brief Get period ID
      * @return Period ID of mode setting application
     */
@@ -71,6 +83,18 @@ public:
     */
     std::vector<int> GetMesoLinkVector() { return m_mesoLinkVector; }
 
+    /**
+     * @brief Get vector of micro node IDs
+     * @return Vector of microscopic node IDs
+    */
+    std::vector<int> GetMicroNodeVector() { return m_microNodeVector; }
+
+    /**
+     * @brief Get vector of meso node IDs
+     * @return Vector of mesoscopic node IDs
+    */
+    std::vector<int> GetMesoNodeVector() { return m_mesoNodeVector; }
+
 private:
     /**
      * @details Period ID of mode setting application
@@ -91,6 +115,16 @@ private:
      * @details Vector of mesoscopic link IDs
     */
     std::vector<int> m_mesoLinkVector;
+
+    /**
+     * @details Vector of microscopic node IDs
+    */
+    std::vector<int> m_microNodeVector;
+
+    /**
+     * @details Vector of mesoscopic node IDs
+    */
+    std::vector<int> m_mesoNodeVector;
 
 };
 } // namespace NextSimIO
