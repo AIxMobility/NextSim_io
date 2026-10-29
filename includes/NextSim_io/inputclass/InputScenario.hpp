@@ -10,6 +10,7 @@
 #ifndef InputSCENARIO_H
 #define InputSCENARIO_H
 
+#include <map>
 #include <vector>
 #include <string>
 #include <NextSim_io/inputclass/InputTMC.hpp>
@@ -137,6 +138,20 @@ public:
     void SetVehicleDemandSchedule(std::vector<InputDemandSegment> schedule) { m_vehicleDemandSchedule = std::move(schedule); }
     void SetPassengerDemandSchedule(std::vector<InputDemandSegment> schedule) { m_passengerDemandSchedule = std::move(schedule); }
 
+    /**
+     * @brief Demand factor per OD matrix (config_scenario.json "vehicleDemandScale": {"<matrix id>": factor}).
+     * The matrix file stays as it is; a matrix that is not listed uses factor 1.
+     */
+    const std::map<int, double>& GetVehicleDemandScale() const { return m_vehicleDemandScale; }
+
+    /**
+     * @brief Demand factor per passenger matrix (config_scenario.json "passengerDemandScale").
+     */
+    const std::map<int, double>& GetPassengerDemandScale() const { return m_passengerDemandScale; }
+
+    void SetVehicleDemandScale(std::map<int, double> scale) { m_vehicleDemandScale = std::move(scale); }
+    void SetPassengerDemandScale(std::map<int, double> scale) { m_passengerDemandScale = std::move(scale); }
+
 private:
     /**
      * @details Scenario ID
@@ -197,6 +212,16 @@ private:
      * @details Passenger demand schedule; empty = passenger matrix 0 for the whole scenario
     */
     std::vector<InputDemandSegment> m_passengerDemandSchedule;
+
+    /**
+     * @details Demand factor per vehicle OD matrix; missing = 1
+    */
+    std::map<int, double> m_vehicleDemandScale;
+
+    /**
+     * @details Demand factor per passenger matrix; missing = 1
+    */
+    std::map<int, double> m_passengerDemandScale;
 };
 } // namespace NextSimIO
 

@@ -8,6 +8,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <cstdlib>
 #include <cstring>
 
 #include <NextSim_io/parser/ScenarioArr.hpp>
@@ -131,6 +132,28 @@ ScenarioArr::ScenarioArr()
                 singleScenario.SetTramTSPActive(scenario["tram"]["tsp"].GetBool());
             singleScenario.SetVehicleDemandSchedule(readSchedule("vehicleDemandSchedule"));
             singleScenario.SetPassengerDemandSchedule(readSchedule("passengerDemandSchedule"));
+            // 행렬별 수요 배율 (선택): {"<행렬 id>": 배율}. 없는 행렬은 1 이다.
+            auto readScale = [&scenario](const char* key) {
+                std::map<int, double> scale;
+                if (!scenario.HasMember(key) || !scenario[key].IsObject())
+                    return scale;
+                for (auto it = scenario[key].MemberBegin(); it != scenario[key].MemberEnd(); ++it)
+                {
+                    char* end = nullptr;
+                    const long matrixId = std::strtol(it->name.GetString(), &end, 10);
+                    if (end == it->name.GetString() || *end != '\0' || matrixId < 0 || !it->value.IsNumber()
+                        || it->value.GetDouble() < 0)
+                    {
+                        std::cout << "Warning: config_scenario.json " << key << ": entry \"" << it->name.GetString()
+                                  << "\" needs a matrix id and a factor of 0 or more; skipped" << std::endl;
+                        continue;
+                    }
+                    scale[static_cast<int>(matrixId)] = it->value.GetDouble();
+                }
+                return scale;
+            };
+            singleScenario.SetVehicleDemandScale(readScale("vehicleDemandScale"));
+            singleScenario.SetPassengerDemandScale(readScale("passengerDemandScale"));
             m_scenarios.emplace_back(singleScenario);
         }
     }
