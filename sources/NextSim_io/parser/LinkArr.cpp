@@ -5,6 +5,7 @@
  * @author : Jeyun Kim
  */
 
+#include <algorithm>
 #include <filesystem>
 #include <NextSim_io/RunErrors.hpp>
 #include <iostream>
@@ -25,6 +26,9 @@ namespace NextSimIO
 {
 // tool functions
 void SetCellAttrs(const InputLink& parentLink, InputCell& cell);
+InputLaneLine ParseLaneLine(const TiXmlElement* e, const char* linkId, const char* laneId,
+                            const char* rightLaneId, double linkLength);
+void CheckLaneLinesDoNotOverlap(InputLane& lane, const char* linkId, const char* laneId);
 bool a_to_bool(const char* val);
 std::vector<std::pair<double, double>> ParseShapePoints(const char* val);
 
@@ -221,7 +225,14 @@ LinkArr::LinkArr()
                                         atof(end_point));
                                     demoLane.PushSegment(demoSegment);
                                 }
+
+                                else if (elementName == "line")
+                                {
+                                    demoLane.PushRightLine(ParseLaneLine(
+                                        e_lane, linkId, laneId, right_lane_id, atof(linkLength)));
+                                }
                             }
+                            CheckLaneLinesDoNotOverlap(demoLane, linkId, laneId);
 
                             demoLane.MergeShortResidualCell();
                             demoLink.PushLaneId(demoLane);
@@ -295,6 +306,46 @@ std::vector<std::pair<double, double>> ParseShapePoints(const char* val)
     }
 
     return shapePoints;
+}
+
+InputLaneLine ParseLaneLine(const TiXmlElement* e, const char* linkId, const char* laneId,
+                            const char* rightLaneId, double linkLength)
+{
+    const std::string where = std::string("network.xml: link ") + linkId + " lane " + laneId + " <line>: ";
+    const char* side = e->Attribute("side");
+    const char* init = e->Attribute("init_point");
+    const char* end = e->Attribute("end_point");
+    const char* type = e->Attribute("type");
+    if (!side || std::string(side) != "right")
+        throw std::runtime_error(where + "side should be \"right\" (each boundary is written on the lane to its left)");
+    if (std::string(rightLaneId) == "None")
+        throw std::runtime_error(where + "the rightmost lane has no boundary to its right");
+    if (!init || !end)
+        throw std::runtime_error(where + "needs init_point and end_point");
+    if (!type || (std::string(type) != "dashed" && std::string(type) != "solid"
+                  && std::string(type) != "dashed_solid" && std::string(type) != "solid_dashed"))
+        throw std::runtime_error(where + "type should be dashed, solid, dashed_solid or solid_dashed, got '"
+                                 + (type ? type : "") + "'");
+    InputLaneLine line;
+    line.InitPoint = atof(init);
+    line.EndPoint = atof(end);
+    line.Type = type;
+    // Link lengths are rounded in network.xml; allow a few centimetres past the end.
+    if (!(line.InitPoint >= 0.0) || !(line.EndPoint > line.InitPoint) || line.EndPoint > linkLength + 0.05)
+        throw std::runtime_error(where + "needs 0 <= init_point < end_point <= link length ("
+                                 + std::to_string(linkLength) + " m), got " + init + " - " + end);
+    return line;
+}
+
+void CheckLaneLinesDoNotOverlap(InputLane& lane, const char* linkId, const char* laneId)
+{
+    auto lines = lane.GetRightLines();
+    std::sort(lines.begin(), lines.end(),
+              [](const InputLaneLine& a, const InputLaneLine& b) { return a.InitPoint < b.InitPoint; });
+    for (std::size_t i = 1; i < lines.size(); ++i)
+        if (lines[i].InitPoint < lines[i - 1].EndPoint - 1e-6)
+            throw std::runtime_error(std::string("network.xml: link ") + linkId + " lane " + laneId
+                                     + " <line>: stretches overlap at " + std::to_string(lines[i].InitPoint) + " m");
 }
 
 void SetCellAttrs(const InputLink& parentLink, InputCell& cell)

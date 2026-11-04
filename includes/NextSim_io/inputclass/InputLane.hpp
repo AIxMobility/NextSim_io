@@ -15,6 +15,7 @@
 
 #include "InputCell.hpp"
 #include "InputDedicatedLane.hpp"
+#include "InputLaneLine.hpp"
 #include "InputSegment.hpp"
 
 namespace NextSimIO
@@ -96,6 +97,16 @@ public:
      * @details Dedicated-lane rules (Type "All" for a general lane)
      */
     const InputDedicatedLane& GetDedicatedLane() const { return m_dedicated; }
+
+    /**
+     * @details Add a stretch of the marking on this lane's right boundary
+     */
+    void PushRightLine(const InputLaneLine& line) { m_rightLines.push_back(line); }
+
+    /**
+     * @details Marking of the boundary with the right lane, ordered by InitPoint (empty: dashed)
+     */
+    const std::vector<InputLaneLine>& GetRightLines() const { return m_rightLines; }
 
     /**
      * @details Set number of cells
@@ -237,6 +248,11 @@ private:
      * @details Dedicated-lane rules from dedicatedLane.xml
     */
     InputDedicatedLane m_dedicated;
+
+    /**
+     * @details Marking of the boundary with the right lane
+    */
+    std::vector<InputLaneLine> m_rightLines;
 };
 } // namespace NextSimIO
 
