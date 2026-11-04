@@ -166,6 +166,15 @@ LinkArr::LinkArr()
                                     demoLane.SetLaneAccessType("All");
                                 }
                             }
+                            else if (std::string(laneAccessType) != "All")
+                            {
+                                // Without dedicatedLane.xml the attribute alone: tram tracks are strict,
+                                // other dedicated lanes allow mixing (as dedicated_lanes.py converts them)
+                                InputDedicatedLane rule;
+                                rule.Type = laneAccessType;
+                                rule.Strict = rule.Type == "TramOnly";
+                                demoLane.SetDedicatedLane(rule);
+                            }
 
                             for (TiXmlElement* e_lane =
                                      ele->FirstChildElement();

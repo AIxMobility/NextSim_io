@@ -286,6 +286,10 @@ ArcArr::ArcArr()
                             }
                             else {
                                 demoArc.PushPTLaneList(static_cast<int>(atol(laneId)));
+                                if (dedicated.IsStrict(static_cast<std::size_t>(atoll(ArcId)),
+                                                       static_cast<std::size_t>(atoll(laneId)),
+                                                       laneElem->Attribute("laneAccessType")))
+                                    demoArc.PushStrictLane(static_cast<int>(atol(laneId)));
                             }
                         }
                     }
@@ -357,13 +361,15 @@ Graph::Graph(ArcArr arcArr, VertexArr vertexArr)
             std::vector<int> fromLinkAvailableLanes = fromLinkInfo.GetAvailableLanes();
             std::vector<int> toLinkAvailableLanes = toLinkInfo.GetAvailableLanes();
 
+            // A link with dedicated lanes only is not for cars at all (no through traffic).
             if (fromLinkAvailableLanes.empty() || toLinkAvailableLanes.empty())
             {
                 continue;
             }
 
-            if ((std::find(fromLinkAvailableLanes.begin(), fromLinkAvailableLanes.end(), fromLane) == fromLinkAvailableLanes.end()) &&
-                (std::find(toLinkAvailableLanes.begin(), toLinkAvailableLanes.end(), toLane) == toLinkAvailableLanes.end()))
+            // Mixing-allowed dedicated lanes count: a turn made only from or into a
+            // bus lane is still a car movement. Strict lanes (tram tracks) do not.
+            if (!fromLinkInfo.IsCarUsableLane(fromLane) && !toLinkInfo.IsCarUsableLane(toLane))
             {
                 continue;
             }

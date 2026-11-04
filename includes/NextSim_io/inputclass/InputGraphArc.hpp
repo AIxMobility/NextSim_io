@@ -8,6 +8,7 @@
 #ifndef INPUTGRAPHARC_H
 #define INPUTGRAPHARC_H
 
+#include <algorithm>
 #include <vector>
 #include <string>
 
@@ -180,7 +181,12 @@ public:
      * @details Set PT lane list
      * @param ptlane PT lane nmber
      */
-    void PushPTLaneList(int ptlane) {m_ptlanelist.push_back(ptlane);} 
+    void PushPTLaneList(int ptlane) {m_ptlanelist.push_back(ptlane);}
+
+    /**
+     * @details Add a dedicated lane that general vehicles never use (strict)
+     */
+    void PushStrictLane(int lane) { m_strictLaneList.push_back(lane); }
 
     /**
      * @details Get arc ID
@@ -248,6 +254,23 @@ public:
      */
     std::vector<int> GetPTLaneList() { return m_ptlanelist; }
 
+    /**
+     * @details Dedicated lanes general vehicles never use (strict). The other
+     * dedicated lanes allow mixing, so car routes may take them where needed.
+     */
+    std::vector<int> GetStrictLaneList() const { return m_strictLaneList; }
+
+    /**
+     * @details Whether a general vehicle may use the lane at all (general or mixing-allowed dedicated)
+     */
+    bool IsCarUsableLane(int lane) const
+    {
+        const auto has = [lane](const std::vector<int>& lanes) {
+            return std::find(lanes.begin(), lanes.end(), lane) != lanes.end();
+        };
+        return has(m_availableLanes) || (has(m_ptlanelist) && !has(m_strictLaneList));
+    }
+
 private:
     /**
      * @details Arc ID 
@@ -298,6 +321,11 @@ private:
      * @details Vector of PT lane list
      */
     std::vector<int> m_ptlanelist = {};
+
+    /**
+     * @details Dedicated lanes general vehicles never use
+     */
+    std::vector<int> m_strictLaneList = {};
 }; // class InputGraphArc
 } // namespace NextSimIO
 

@@ -113,4 +113,12 @@ std::string DedicatedLaneArr::AccessType(std::size_t linkId, std::size_t laneId,
     const auto* lane = Find(linkId, laneId);
     return lane ? lane->Type : "All";
 }
+
+bool DedicatedLaneArr::IsStrict(std::size_t linkId, std::size_t laneId, const char* networkXmlType) const
+{
+    if (!m_hasFile)
+        return networkXmlType && std::string(networkXmlType) == "TramOnly";
+    const auto* lane = Find(linkId, laneId);
+    return lane && lane->Strict;
+}
 }  // namespace NextSimIO

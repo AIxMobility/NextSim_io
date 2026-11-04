@@ -32,6 +32,9 @@ public:
     //! Access type of a lane: the file's when the file exists, else the network.xml attribute
     [[nodiscard]] std::string AccessType(std::size_t linkId, std::size_t laneId, const char* networkXmlType) const;
 
+    //! Whether general vehicles never use the lane. Without the file a TramOnly attribute is strict.
+    [[nodiscard]] bool IsStrict(std::size_t linkId, std::size_t laneId, const char* networkXmlType) const;
+
     [[nodiscard]] const std::map<std::pair<std::size_t, std::size_t>, InputDedicatedLane>& GetLanes() const
     {
         return m_lanes;
