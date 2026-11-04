@@ -9,8 +9,11 @@
 #define INPUTGRAPHARC_H
 
 #include <algorithm>
+#include <map>
 #include <vector>
 #include <string>
+
+#include "InputLaneLine.hpp"
 
 namespace NextSimIO
 {
@@ -189,6 +192,21 @@ public:
     void PushStrictLane(int lane) { m_strictLaneList.push_back(lane); }
 
     /**
+     * @details Add a stretch of lane marking on a lane's right boundary
+     */
+    void PushRightLine(int lane, const InputLaneLine& line) { m_rightLines[lane].push_back(line); }
+
+    /**
+     * @details Marking of the boundary between lane and lane + 1 (empty: dashed)
+     */
+    const std::vector<InputLaneLine>& GetRightLines(int lane) const
+    {
+        static const std::vector<InputLaneLine> none;
+        const auto it = m_rightLines.find(lane);
+        return it == m_rightLines.end() ? none : it->second;
+    }
+
+    /**
      * @details Get arc ID
      * @return Arc ID
      */
@@ -326,6 +344,11 @@ private:
      * @details Dedicated lanes general vehicles never use
      */
     std::vector<int> m_strictLaneList = {};
+
+    /**
+     * @details Lane markings by lane (that lane's right boundary)
+     */
+    std::map<int, std::vector<InputLaneLine>> m_rightLines;
 }; // class InputGraphArc
 } // namespace NextSimIO
 

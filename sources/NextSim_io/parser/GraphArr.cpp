@@ -262,7 +262,15 @@ ArcArr::ArcArr()
                              segElem = segElem->NextSiblingElement())
                         {
                             std::string name = segElem->Value();
-                            if (name == "segment")
+                            if (name == "line" && segElem->Attribute("init_point") && segElem->Attribute("end_point"))
+                            {
+                                InputLaneLine line;
+                                line.InitPoint = atof(segElem->Attribute("init_point"));
+                                line.EndPoint = atof(segElem->Attribute("end_point"));
+                                line.Type = segElem->Attribute("type") ? segElem->Attribute("type") : "dashed";
+                                demoArc.PushRightLine(static_cast<int>(atol(laneElem->Attribute("id"))), line);
+                            }
+                            else if (name == "segment")
                             {
                                 const char *end_point = segElem->Attribute("end_point");
                                 const char *block = segElem->Attribute("block");
