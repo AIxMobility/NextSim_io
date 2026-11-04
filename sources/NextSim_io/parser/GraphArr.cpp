@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <unordered_set>
 
+#include <NextSim_io/parser/DedicatedLaneArr.hpp>
 #include <NextSim_io/parser/GraphArr.hpp>
 
 #include <NextSim_io/tinyapi/tinystr.h>
@@ -212,6 +213,7 @@ ArcArr::ArcArr()
     }
 
     TiXmlElement* root = doc.FirstChildElement();
+    const DedicatedLaneArr dedicated;
 
     for (TiXmlElement* elem = root->FirstChildElement(); elem != nullptr;
          elem = elem->NextSiblingElement())
@@ -274,9 +276,12 @@ ArcArr::ArcArr()
                         if (!isBlock)
                         {
                             const char *laneId = laneElem->Attribute("id");
-                            const char *laneAccessType = laneElem->Attribute("laneAccessType");
+                            const std::string laneAccessType = dedicated.AccessType(
+                                static_cast<std::size_t>(atoll(ArcId)),
+                                static_cast<std::size_t>(atoll(laneId)),
+                                laneElem->Attribute("laneAccessType"));
 
-                            if ((laneAccessType == nullptr) || (strcmp(laneAccessType, "All") == 0)) {
+                            if (laneAccessType == "All") {
                                 availableLanes.push_back(static_cast<int>(atol(laneId)));
                             }
                             else {

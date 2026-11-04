@@ -14,6 +14,7 @@
 #include <utility>
 
 #include "InputCell.hpp"
+#include "InputDedicatedLane.hpp"
 #include "InputSegment.hpp"
 
 namespace NextSimIO
@@ -81,6 +82,20 @@ public:
      * @param laneAccessType Lane access type
     */
     void SetLaneAccessType(std::string laneAccessType) { m_accessibleTypes = laneAccessType; }
+
+    /**
+     * @details Set the dedicated-lane rules from dedicatedLane.xml; also sets the access type
+     */
+    void SetDedicatedLane(const InputDedicatedLane& dedicated)
+    {
+        m_dedicated = dedicated;
+        m_accessibleTypes = dedicated.Type;
+    }
+
+    /**
+     * @details Dedicated-lane rules (Type "All" for a general lane)
+     */
+    const InputDedicatedLane& GetDedicatedLane() const { return m_dedicated; }
 
     /**
      * @details Set number of cells
@@ -217,6 +232,11 @@ private:
      * @details Vector of segments in lane
     */
     std::vector<InputSegment> m_segmentVector;
+
+    /**
+     * @details Dedicated-lane rules from dedicatedLane.xml
+    */
+    InputDedicatedLane m_dedicated;
 };
 } // namespace NextSimIO
 

@@ -14,6 +14,7 @@
 #include <vector>
 #include <utility>
 
+#include <NextSim_io/parser/DedicatedLaneArr.hpp>
 #include <NextSim_io/parser/LinkArr.hpp>
 
 #include <NextSim_io/tinyapi/tinystr.h>
@@ -44,6 +45,10 @@ LinkArr::LinkArr()
     }
 
     TiXmlElement* root = doc.FirstChildElement();
+
+    // dedicatedLane.xml, when present, replaces the laneAccessType attributes
+    const DedicatedLaneArr dedicated;
+    std::size_t dedicatedFound = 0;
 
     for (TiXmlElement* elem = root->FirstChildElement(); elem != nullptr;
          elem = elem->NextSiblingElement())
@@ -147,6 +152,20 @@ LinkArr::LinkArr()
                                 laneAccessType,
                                 atoi(num_cell),
                                 shapePoints);
+                            if (dedicated.HasFile())
+                            {
+                                const auto* rule = dedicated.Find(
+                                    (std::size_t)atoll(linkId), (std::size_t)atoll(laneId));
+                                if (rule)
+                                {
+                                    demoLane.SetDedicatedLane(*rule);
+                                    ++dedicatedFound;
+                                }
+                                else
+                                {
+                                    demoLane.SetLaneAccessType("All");
+                                }
+                            }
 
                             for (TiXmlElement* e_lane =
                                      ele->FirstChildElement();
@@ -209,6 +228,21 @@ LinkArr::LinkArr()
         }
     }
     doc.Clear();
+
+    if (dedicatedFound != dedicated.GetLanes().size())
+    {
+        for (const auto& [key, rule] : dedicated.GetLanes())
+        {
+            bool exists = false;
+            for (const auto& link : m_links)
+                if (link.GetID() == key.first)
+                    for (const auto& lane : link.GetLaneVector())
+                        exists = exists || lane.GetID() == key.second;
+            if (!exists)
+                throw std::runtime_error("dedicatedLane.xml: link " + std::to_string(key.first) + " lane "
+                                         + std::to_string(key.second) + " is not in network.xml");
+        }
+    }
 };
 
 bool a_to_bool(const char* val)
