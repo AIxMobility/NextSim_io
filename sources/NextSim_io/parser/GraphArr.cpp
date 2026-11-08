@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <unordered_set>
 
+#include <NextSim_io/parser/DedicatedLaneArr.hpp>
 #include <NextSim_io/parser/GraphArr.hpp>
 
 #include <NextSim_io/tinyapi/tinystr.h>
@@ -212,6 +213,7 @@ ArcArr::ArcArr()
     }
 
     TiXmlElement* root = doc.FirstChildElement();
+    const DedicatedLaneArr dedicated;
 
     for (TiXmlElement* elem = root->FirstChildElement(); elem != nullptr;
          elem = elem->NextSiblingElement())
@@ -260,7 +262,15 @@ ArcArr::ArcArr()
                              segElem = segElem->NextSiblingElement())
                         {
                             std::string name = segElem->Value();
-                            if (name == "segment")
+                            if (name == "line" && segElem->Attribute("init_point") && segElem->Attribute("end_point"))
+                            {
+                                InputLaneLine line;
+                                line.InitPoint = atof(segElem->Attribute("init_point"));
+                                line.EndPoint = atof(segElem->Attribute("end_point"));
+                                line.Type = segElem->Attribute("type") ? segElem->Attribute("type") : "dashed";
+                                demoArc.PushRightLine(static_cast<int>(atol(laneElem->Attribute("id"))), line);
+                            }
+                            else if (name == "segment")
                             {
                                 const char *end_point = segElem->Attribute("end_point");
                                 const char *block = segElem->Attribute("block");
@@ -274,13 +284,20 @@ ArcArr::ArcArr()
                         if (!isBlock)
                         {
                             const char *laneId = laneElem->Attribute("id");
-                            const char *laneAccessType = laneElem->Attribute("laneAccessType");
+                            const std::string laneAccessType = dedicated.AccessType(
+                                static_cast<std::size_t>(atoll(ArcId)),
+                                static_cast<std::size_t>(atoll(laneId)),
+                                laneElem->Attribute("laneAccessType"));
 
-                            if ((laneAccessType == nullptr) || (strcmp(laneAccessType, "All") == 0)) {
+                            if (laneAccessType == "All") {
                                 availableLanes.push_back(static_cast<int>(atol(laneId)));
                             }
                             else {
                                 demoArc.PushPTLaneList(static_cast<int>(atol(laneId)));
+                                if (dedicated.IsStrict(static_cast<std::size_t>(atoll(ArcId)),
+                                                       static_cast<std::size_t>(atoll(laneId)),
+                                                       laneElem->Attribute("laneAccessType")))
+                                    demoArc.PushStrictLane(static_cast<int>(atol(laneId)));
                             }
                         }
                     }
@@ -352,13 +369,15 @@ Graph::Graph(ArcArr arcArr, VertexArr vertexArr)
             std::vector<int> fromLinkAvailableLanes = fromLinkInfo.GetAvailableLanes();
             std::vector<int> toLinkAvailableLanes = toLinkInfo.GetAvailableLanes();
 
+            // A link with dedicated lanes only is not for cars at all (no through traffic).
             if (fromLinkAvailableLanes.empty() || toLinkAvailableLanes.empty())
             {
                 continue;
             }
 
-            if ((std::find(fromLinkAvailableLanes.begin(), fromLinkAvailableLanes.end(), fromLane) == fromLinkAvailableLanes.end()) &&
-                (std::find(toLinkAvailableLanes.begin(), toLinkAvailableLanes.end(), toLane) == toLinkAvailableLanes.end()))
+            // Mixing-allowed dedicated lanes count: a turn made only from or into a
+            // bus lane is still a car movement. Strict lanes (tram tracks) do not.
+            if (!fromLinkInfo.IsCarUsableLane(fromLane) && !toLinkInfo.IsCarUsableLane(toLane))
             {
                 continue;
             }

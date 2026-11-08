@@ -115,6 +115,8 @@ static std::filesystem::path DTAConfigJSONPath = NetworkXmlFilePath / "config_dt
 
 static std::filesystem::path NetworkXMLPath = NetworkXmlFilePath / "network.xml";
 
+static std::filesystem::path DedicatedLaneXMLPath = NetworkXmlFilePath / "dedicatedLane.xml";
+
 static std::filesystem::path FootpathNetworkXMLPath = NetworkXmlFilePath / "footpathNetwork.xml";
 
 static std::filesystem::path V2XConfigJSONPath = ParameterXmlFilePath / "config_v2x.json";
