@@ -151,7 +151,7 @@ public:
      * @details Get from line ID
      * @return From line ID 
      */
-    std::string GetFromLineId() const { return m_fromLineId; }
+    const std::string& GetFromLineId() const { return m_fromLineId; }
 
     /**
      * @details Get to stop ID
@@ -163,7 +163,7 @@ public:
      * @details Get to line ID
      * @return To line ID 
      */
-    std::string GetToLineId() const { return m_toLineId; }
+    const std::string& GetToLineId() const { return m_toLineId; }
     
     /**
      * @details Get departure time from Stop

@@ -54,6 +54,21 @@ public:
     void SetStationDistanceSeq(std::string stationDistanceSeq);
 
     /**
+     * @details Set source and sink terminals of an agent given without a route
+     * @param sourceNode Source terminal node ID
+     * @param sinkNode Sink terminal node ID
+     */
+    void SetEndpoints(int sourceNode, int sinkNode);
+
+    /**
+     * @details Set the demand model's trip key (person, tour and stop of the trip)
+     * @param personId Person ID
+     * @param tourNo Tour number of the person
+     * @param stopNo Stop number in the tour
+     */
+    void SetTripKey(std::string personId, int tourNo, int stopNo);
+
+    /**
      * @details Get agent ID
      * @return Agent ID
      */
@@ -107,6 +122,36 @@ public:
      */
     std::vector<double> GetStationDistanceSeq() const { return m_stationDistanceSeq; }
 
+    /**
+     * @details Get source terminal of an agent given without a route
+     * @return Source node ID, -1 if not given
+     */
+    int GetSourceNode() const { return m_sourceNode; }
+
+    /**
+     * @details Get sink terminal of an agent given without a route
+     * @return Sink node ID, -1 if not given
+     */
+    int GetSinkNode() const { return m_sinkNode; }
+
+    /**
+     * @details Get person ID of the trip key
+     * @return Person ID, empty if not given
+     */
+    const std::string& GetPersonId() const { return m_personId; }
+
+    /**
+     * @details Get tour number of the trip key
+     * @return Tour number, -1 if not given
+     */
+    int GetTourNo() const { return m_tourNo; }
+
+    /**
+     * @details Get stop number of the trip key
+     * @return Stop number, -1 if not given
+     */
+    int GetStopNo() const { return m_stopNo; }
+
 private:
 
     /**
@@ -143,6 +188,31 @@ private:
      * @details Sequence of distance between stations
      */
     std::vector<double> m_stationDistanceSeq;
+
+    /**
+     * @details Source terminal of an agent given without a route
+     */
+    int m_sourceNode = -1;
+
+    /**
+     * @details Sink terminal of an agent given without a route
+     */
+    int m_sinkNode = -1;
+
+    /**
+     * @details Person ID of the trip key
+     */
+    std::string m_personId;
+
+    /**
+     * @details Tour number of the trip key
+     */
+    int m_tourNo = -1;
+
+    /**
+     * @details Stop number of the trip key
+     */
+    int m_stopNo = -1;
 };
 } // namespace NextSimIO
 

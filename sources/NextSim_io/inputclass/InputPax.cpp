@@ -19,4 +19,18 @@ InputAgentPax::InputAgentPax(int id, int originLink, int originOffset, int destL
 
 void InputAgentPax::AddTrip(int origin, int dest, std::string mode, std::string lineID, double time) {
   m_trips.push_back(InputAgentPaxTrip(origin, dest, mode, lineID, time)); }
+
+void InputAgentPax::SetNodeTrip(int originNode, int destNode, std::string mode)
+{
+    m_originNode = originNode;
+    m_destNode = destNode;
+    m_mode = std::move(mode);
+}
+
+void InputAgentPax::SetTripKey(std::string personId, int tourNo, int stopNo)
+{
+    m_personId = std::move(personId);
+    m_tourNo = tourNo;
+    m_stopNo = stopNo;
+}
 } // namespace NextSimIO

@@ -49,4 +49,17 @@ void InputAgents::SetStationDistanceSeq(std::string stationDistanceSeq)
     while (ss >> stationDistance)
         m_stationDistanceSeq.push_back(stationDistance);
 }
+
+void InputAgents::SetEndpoints(int sourceNode, int sinkNode)
+{
+    m_sourceNode = sourceNode;
+    m_sinkNode = sinkNode;
+}
+
+void InputAgents::SetTripKey(std::string personId, int tourNo, int stopNo)
+{
+    m_personId = std::move(personId);
+    m_tourNo = tourNo;
+    m_stopNo = stopNo;
+}
 } // namespace NextSimIO

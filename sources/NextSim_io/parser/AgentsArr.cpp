@@ -34,7 +34,8 @@ AgentsArr::AgentsArr()
     TiXmlElement *root = doc.FirstChildElement();
 
     // A <veh> missing an attribute or its <link>/<node> line used to dereference null.
-    // Missing sequences stay empty and NetInitializer skips that agent with a warning.
+    // Missing sequences stay empty: with source and sink the engine picks the route,
+    // without them NetInitializer skips that agent with a warning.
     auto parseVeh = [](TiXmlElement* e) {
         const char* idAttr = e->Attribute("id");
         const char* typeAttr = e->Attribute("type");
@@ -50,6 +51,16 @@ AgentsArr::AgentsArr()
         };
         veh.SetLinkSeq(attr("link", "seq"));
         veh.SetNodeSeq(attr("node", "seq"));
+        const char* sourceAttr = e->Attribute("source");
+        const char* sinkAttr = e->Attribute("sink");
+        if (sourceAttr && sinkAttr)
+            veh.SetEndpoints(std::stoi(sourceAttr), std::stoi(sinkAttr));
+        if (const char* personAttr = e->Attribute("personId"))
+        {
+            const char* tourAttr = e->Attribute("tourNo");
+            const char* stopAttr = e->Attribute("stopNo");
+            veh.SetTripKey(personAttr, tourAttr ? std::stoi(tourAttr) : -1, stopAttr ? std::stoi(stopAttr) : -1);
+        }
         if (e->FirstChildElement("station"))
         {
             veh.SetStationSeq(attr("station", "seq"));

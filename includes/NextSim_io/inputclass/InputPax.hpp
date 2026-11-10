@@ -234,6 +234,41 @@ class InputAgentPax
     */
     const std::vector<InputAgentPaxTrip>& GetTrips() const { return m_trips; }
 
+    /**
+     * @details Set the origin and destination nodes and the mode of an agent given without <trip>
+     * @param originNode Origin node ID
+     * @param destNode Destination node ID
+     * @param mode Main mode (Bus, Subway) or Walking
+    */
+    void SetNodeTrip(int originNode, int destNode, std::string mode);
+
+    /**
+     * @details Set the demand model's trip key (person, tour, stop)
+    */
+    void SetTripKey(std::string personId, int tourNo, int stopNo);
+
+    /**
+     * @details Origin node ID of an agent given by nodes; -1 otherwise
+    */
+    int GetOriginNode() const { return m_originNode; }
+
+    /**
+     * @details Destination node ID of an agent given by nodes; -1 otherwise
+    */
+    int GetDestNode() const { return m_destNode; }
+
+    /**
+     * @details Mode of an agent given by nodes (Bus, Subway, Walking); empty otherwise
+    */
+    const std::string& GetMode() const { return m_mode; }
+
+    /**
+     * @details Trip key: person ID (empty when not given), tour and stop numbers (-1 when not given)
+    */
+    const std::string& GetPersonId() const { return m_personId; }
+    int GetTourNo() const { return m_tourNo; }
+    int GetStopNo() const { return m_stopNo; }
+
 private:
     /**
      * @details Agent ID
@@ -269,6 +304,20 @@ private:
      * @details Vector of trips
      */
     std::vector<InputAgentPaxTrip> m_trips;
+
+    /**
+     * @details Origin and destination nodes and mode of an agent given without <trip>
+     */
+    int m_originNode = -1;
+    int m_destNode = -1;
+    std::string m_mode;
+
+    /**
+     * @details Demand model's trip key
+     */
+    std::string m_personId;
+    int m_tourNo = -1;
+    int m_stopNo = -1;
 };
 } // namespace NextSimIO
 
