@@ -82,7 +82,6 @@ DedicatedLaneArr::DedicatedLaneArr(const std::filesystem::path& path)
             Fail(where, std::string("strict should be true or false, got '") + strict + "'");
         info.Strict = strict && std::string(strict) == "true";
         info.EntryEnd = ParseLength(e->Attribute("entry_end"), where, "entry_end");
-        info.EntryStart = ParseLength(e->Attribute("entry_start"), where, "entry_start");
 
         for (const TiXmlElement* h = e->FirstChildElement("hours"); h; h = h->NextSiblingElement("hours"))
         {
